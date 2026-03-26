@@ -2,26 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff; /* White bg */
+    --foreground: #0f172a; /* Slate 900 text */
+    
+    --primary: #ea580c; /* Orange 600 - typical roofing accent */
+    --primary-foreground: #ffffff;
+    
+    --secondary: #1e293b; /* Slate 800 - dark section bg */
+    --secondary-foreground: #f8fafc;
+    
+    --accent: #ffedd5; /* Orange 100 */
+    --accent-foreground: #ea580c;
+
+    --muted: #f1f5f9; /* Slate 100 */
+    --muted-foreground: #64748b; /* Slate 500 */
+
+    --border: #e2e8f0; /* Slate 200 */
+    --ring: #ea580c;
+    
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: #0f172a;
+    --foreground: #f8fafc;
+    
+    --primary: #ea580c;
+    --primary-foreground: #ffffff;
+    
+    --secondary: #1e293b;
+    --secondary-foreground: #f8fafc;
+    
+    --accent: #334155;
+    --accent-foreground: #f8fafc;
+
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+
+    --border: #334155;
+    --ring: #ea580c;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
   }
 }
