@@ -4,11 +4,8 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { blogPosts } from "@/lib/data";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { client } from "@/lib/contentful";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-
 
 
 
@@ -23,7 +20,6 @@ export default async function NewsPage() {
 
   // Fetch entries of a specific content type
   const response = await client.getEntries({ content_type: 'blog' });
-  const post = response.items[0].fields;
 
   return (
     <div className="flex flex-col w-full">
@@ -52,6 +48,7 @@ export default async function NewsPage() {
           <SectionHeader title="Latest Articles" subtitle="Blog" align="center" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
             {response.items.map((item) => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const post = item.fields as any;
               // Try various common contentful image field names
               const imageField = post.featuredImage || post.image || post.coverImage || post.heroImage || post.thumbnail || post.picture || post.cover;

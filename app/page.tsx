@@ -5,9 +5,6 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ShieldCheck, Wrench, Home as HomeIcon, CheckCircle2, ArrowRight } from "lucide-react";
-import { client } from "@/lib/contentful";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-
 
 export default async function Home() {
 

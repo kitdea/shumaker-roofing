@@ -16,7 +16,7 @@ async function getPostFromSlug(slug: string) {
     if (response.items.length > 0) {
       post = response.items[0];
     }
-  } catch(e) { 
+  } catch { 
     // Ignore error: This happens if the user doesn't have a "slug" field in their content model (422 Unprocessable Entity)
   }
   
@@ -25,9 +25,10 @@ async function getPostFromSlug(slug: string) {
     try {
       const byId = await client.getEntry(slug);
       if (byId && byId.sys.contentType.sys.id === 'blog') {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         post = byId as any;
       }
-    } catch(e) { 
+    } catch { 
       // Ignore entry not found error 
     }
   }
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!rawPost) {
     return { title: "Post Not Found" };
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const post = rawPost.fields as any;
   return {
     title: `${post.title} | Shumaker Roofing News`,
@@ -54,6 +56,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     notFound();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const postFields = rawPost.fields as any;
 
   const imageField = postFields.featuredImage || postFields.image || postFields.coverImage || postFields.heroImage || postFields.thumbnail || postFields.picture || postFields.cover;
@@ -103,6 +106,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Main Content */}
           <article className="lg:col-span-8 prose prose-lg md:prose-xl dark:prose-invert max-w-none prose-p:text-foreground/90 [&_h2]:text-[1.8rem] [&_h2]:font-extrabold [&_h2]:mt-0 [&_h2]:mb-4 [&_h3]:text-[1.4rem] [&_h3]:font-bold [&_h3]:mt-0 [&_h3]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-6 [&_li]:mb-2 [&_p]:mb-6 [&_p]:leading-relaxed">
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             {documentToReactComponents(postFields.content as any)}
           </article>
           
