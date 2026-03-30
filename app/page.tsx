@@ -5,8 +5,14 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ShieldCheck, Wrench, Home as HomeIcon, CheckCircle2, ArrowRight } from "lucide-react";
+import { client } from "@/lib/contentful";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
-export default function Home() {
+
+export default async function Home() {
+
+
+
   return (
     <div className="flex flex-col w-full">
       {/* Hero Section */}
@@ -21,7 +27,7 @@ export default function Home() {
             priority
           />
         </div>
-        
+
         <Container className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left pt-20">
           <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm p-8 md:p-12 rounded-2xl max-w-2xl border border-border shadow-2xl">
             <span className="text-primary font-bold tracking-wider uppercase text-sm mb-4 block">
@@ -43,12 +49,12 @@ export default function Home() {
       {/* Services Snippet */}
       <section className="py-24 bg-muted/30">
         <Container>
-          <SectionHeader 
+          <SectionHeader
             title="Excellence in Every Project"
             subtitle="Our Services"
             align="center"
           />
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
             {[
               {
@@ -93,16 +99,16 @@ export default function Home() {
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <SectionHeader 
+              <SectionHeader
                 title="Transforming Homes with Quality Roofing Solutions"
                 subtitle="About Us"
                 className="mb-6"
               />
               <p className="text-foreground/70 text-lg leading-relaxed mb-8">
-                From repairs to full roof replacements, we treat each home as our own, providing personalized solutions tailored to meet the unique needs of our clients. 
+                From repairs to full roof replacements, we treat each home as our own, providing personalized solutions tailored to meet the unique needs of our clients.
                 With years of experience in the industry, our team of skilled professionals is dedicated to delivering top-tier services that prioritize durability, quality, and safety.
               </p>
-              
+
               <ul className="flex flex-col gap-4 mb-10">
                 {["Over 20 Years of Experience", "Licensed and Insured Professionals", "High-Quality Materials Warranty", "Free No-Obligation Estimates"].map((item, i) => (
                   <li key={i} className="flex items-center gap-3">
@@ -111,12 +117,12 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              
+
               <Button size="lg" asChild>
                 <Link href="/about">LEARN MORE</Link>
               </Button>
             </div>
-            
+
             <div className="relative h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
                 src="https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?q=80&w=2070&auto=format&fit=crop"
@@ -133,7 +139,9 @@ export default function Home() {
           </div>
         </Container>
       </section>
-      
+
+
+
       {/* CTA Section */}
       <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
         <Container className="relative z-10 text-center max-w-3xl">
