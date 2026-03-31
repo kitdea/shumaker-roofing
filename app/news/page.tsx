@@ -24,7 +24,7 @@ export default async function NewsPage() {
   return (
     <div className="flex flex-col w-full">
       {/* Page Header */}
-      <section className="relative w-full h-[35vh] min-h-[250px] flex items-center bg-secondary">
+      <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
@@ -64,8 +64,16 @@ export default async function NewsPage() {
                 year: "numeric",
               });
 
-              // Safely extract string values in case fields are Contentful References (objects)
-              const categoryName = post.category?.fields?.name || post.category?.fields?.title || (typeof post.category === 'string' ? post.category : "News");
+              // Extract all categories dynamically and remove any static fallback
+              let categories: string[] = [];
+              const categoriesField = post.categories || post.category;
+              if (Array.isArray(categoriesField)) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                categories = categoriesField.map((cat: any) => cat?.fields?.name || cat?.fields?.title || cat?.fields?.category || (typeof cat === 'string' ? cat : "")).filter(Boolean);
+              } else if (categoriesField) {
+                const catName = categoriesField?.fields?.name || categoriesField?.fields?.title || categoriesField?.fields?.category || (typeof categoriesField === 'string' ? categoriesField : "");
+                if (catName) categories.push(catName);
+              }
 
               // Try various common contentful author field names
               const authorField = post.author || post.creator || post.writer || post.publisher;
@@ -81,8 +89,12 @@ export default async function NewsPage() {
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold uppercase py-1 px-3 rounded-md">
-                      {categoryName}
+                    <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
+                      {categories.map((cat, idx) => (
+                        <div key={idx} className="bg-primary text-white text-xs font-bold uppercase py-1 px-3 rounded-md">
+                          {cat}
+                        </div>
+                      ))}
                     </div>
                   </Link>
                   <CardContent className="p-6 flex-1 flex flex-col">

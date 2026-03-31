@@ -16,10 +16,10 @@ async function getPostFromSlug(slug: string) {
     if (response.items.length > 0) {
       post = response.items[0];
     }
-  } catch { 
+  } catch {
     // Ignore error: This happens if the user doesn't have a "slug" field in their content model (422 Unprocessable Entity)
   }
-  
+
   // If not found by slug (or if slug field doesn't exist), check if the URL parameter is actually the sys.id
   if (!post) {
     try {
@@ -28,11 +28,11 @@ async function getPostFromSlug(slug: string) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         post = byId as any;
       }
-    } catch { 
+    } catch {
       // Ignore entry not found error 
     }
   }
-  
+
   return post;
 }
 
@@ -67,16 +67,25 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   const dateObj = postFields.publishedDate ? new Date(postFields.publishedDate) : new Date(rawPost.sys.createdAt);
   const formattedDate = dateObj.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
 
-  const categoryName = postFields.category?.fields?.name || postFields.category?.fields?.title || (typeof postFields.category === 'string' ? postFields.category : "News");
+  let categories: string[] = [];
+  const categoriesField = postFields.categories || postFields.category;
+  if (Array.isArray(categoriesField)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    categories = categoriesField.map((cat: any) => cat?.fields?.name || cat?.fields?.title || cat?.fields?.category || (typeof cat === 'string' ? cat : "")).filter(Boolean);
+  } else if (categoriesField) {
+    const catName = categoriesField?.fields?.name || categoriesField?.fields?.title || categoriesField?.fields?.category || (typeof categoriesField === 'string' ? categoriesField : "");
+    if (catName) categories.push(catName);
+  }
+
   const authorField = postFields.author || postFields.creator || postFields.writer || postFields.publisher;
   const authorName = authorField?.fields?.name || authorField?.fields?.title || (typeof authorField === 'string' ? authorField : "Shumaker Team");
 
   return (
     <div className="flex flex-col w-full pb-24">
       {/* Article Header */}
-      <section className="relative w-full h-[50vh] min-h-[400px] flex flex-col justify-end pb-16 bg-secondary">
+      <section className="relative w-full h-[40vh] min-h-[300px] flex flex-col justify-end pb-16 bg-secondary">
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="w-full h-full bg-slate-900/80 absolute inset-0 z-10" />
+          <div className="w-full h-full bg-slate-900/70 absolute inset-0 z-10" />
           <Image
             src={imageUrl}
             alt={postFields.title || "Blog Post"}
@@ -89,10 +98,14 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           <Link href="/news" className="inline-flex items-center text-primary/90 hover:text-primary transition-colors mb-6 font-medium text-sm">
             <ChevronLeft className="h-4 w-4 mr-1" /> Back to News
           </Link>
-          <div className="bg-primary/20 text-white border border-primary/30 text-xs font-bold uppercase py-1.5 px-3 rounded-md inline-block mb-4 backdrop-blur-sm shadow-sm">
-            {categoryName}
+          <div className="flex gap-2 flex-wrap mb-4">
+            {categories.map((cat, idx) => (
+              <div key={idx} className="bg-primary/20 text-white border border-primary/30 text-xs font-bold uppercase py-1.5 px-3 rounded-md inline-block backdrop-blur-sm shadow-sm">
+                {cat}
+              </div>
+            ))}
           </div>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-extrabold text-white mb-6 max-w-4xl leading-tight">
+          <h1 className="text-3xl md:text-5xl font-heading font-extrabold text-white mb-6 max-w-4xl leading-tight">
             {postFields.title}
           </h1>
           <div className="flex items-center gap-6 text-sm text-white/80">
@@ -109,7 +122,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             {documentToReactComponents(postFields.content as any)}
           </article>
-          
+
           {/* Sidebar */}
           <aside className="lg:col-span-4 space-y-10">
             <div className="bg-muted/50 p-8 rounded-2xl border border-border shadow-sm">
@@ -120,14 +133,16 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground">{authorName}</h4>
-                  <p className="text-sm text-muted-foreground">{categoryName} Publisher</p>
+                  {categories.length > 0 && (
+                    <p className="text-sm text-muted-foreground">{categories.join(', ')}</p>
+                  )}
                 </div>
               </div>
               <p className="text-sm text-foreground/80 leading-relaxed">
                 With dedicated expertise in the industry, {authorName} shares valuable insights and knowledge to help our readers stay informed and make confident decisions.
               </p>
             </div>
-            
+
             <div className="bg-primary text-primary-foreground p-8 rounded-2xl shadow-lg relative overflow-hidden">
               <div className="absolute -right-4 -top-8 opacity-10 blur-xl">
                 <div className="w-40 h-40 bg-white rounded-full"></div>
