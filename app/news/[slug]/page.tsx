@@ -12,7 +12,7 @@ async function getPostFromSlug(slug: string) {
 
   // Try finding by slug field first
   try {
-    const response = await client.getEntries({ content_type: 'blog', 'fields.slug': slug, limit: 1 });
+    const response = await client.getEntries({ content_type: 'blog', 'fields.slug': slug, limit: 1, include: 2 });
     if (response.items.length > 0) {
       post = response.items[0];
     }
@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     ? `https:${imageField.fields.file.url}`
     : "https://images.unsplash.com/photo-1434082033009-b81d41d32e1c?q=80&w=2070&auto=format&fit=crop";
 
-  const dateObj = postFields.publishedDate ? new Date(postFields.publishedDate) : new Date(rawPost.sys.createdAt);
+  const dateObj = postFields.publishedDate ? new Date(postFields.publishedDate) : (postFields.date ? new Date(postFields.date) : new Date(rawPost.sys.createdAt));
   const formattedDate = dateObj.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
 
   let categories: string[] = [];
@@ -77,8 +77,13 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     if (catName) categories.push(catName);
   }
 
-  const authorField = postFields.author || postFields.creator || postFields.writer || postFields.publisher;
-  const authorName = authorField?.fields?.name || authorField?.fields?.title || (typeof authorField === 'string' ? authorField : "Shumaker Team");
+  const authorField = postFields.author || postFields.creator || postFields.writer || postFields.publisher || postFields.Author;
+  const authorName = authorField?.fields?.name || authorField?.fields?.fullName || authorField?.fields?.title || (typeof authorField === 'string' ? authorField : "Shumaker Team");
+
+  const authorRole = authorField?.fields?.role || authorField?.fields?.jobTitle || authorField?.fields?.position || "";
+  const authorBio = authorField?.fields?.bio || authorField?.fields?.description || authorField?.fields?.shortBio || null;
+  const authorAvatar = authorField?.fields?.avatar || authorField?.fields?.picture || authorField?.fields?.image || authorField?.fields?.profilePicture;
+  const authorAvatarUrl = authorAvatar?.fields?.file?.url ? `https:${authorAvatar.fields.file.url}` : null;
 
   return (
     <div className="flex flex-col w-full pb-24">
@@ -128,19 +133,31 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             <div className="bg-muted/50 p-8 rounded-2xl border border-border shadow-sm">
               <h3 className="text-xl font-heading font-bold mb-4">About the Author</h3>
               <div className="flex items-center gap-4 mb-4">
-                <div className="bg-primary/10 p-3 rounded-full text-primary">
-                  <User className="h-6 w-6" />
-                </div>
+                {authorAvatarUrl ? (
+                  <div className="relative h-14 w-14 rounded-full overflow-hidden border-2 border-primary/20">
+                    <Image src={authorAvatarUrl} alt={authorName} fill className="object-cover" />
+                  </div>
+                ) : (
+                  <div className="bg-primary/10 p-3 rounded-full text-primary">
+                    <User className="h-6 w-6" />
+                  </div>
+                )}
                 <div>
                   <h4 className="font-bold text-foreground">{authorName}</h4>
-                  {categories.length > 0 && (
-                    <p className="text-sm text-muted-foreground">{categories.join(', ')}</p>
+                  {authorRole && (
+                    <p className="text-sm font-medium text-primary mt-0.5">{authorRole}</p>
                   )}
                 </div>
               </div>
-              <p className="text-sm text-foreground/80 leading-relaxed">
-                With dedicated expertise in the industry, {authorName} shares valuable insights and knowledge to help our readers stay informed and make confident decisions.
-              </p>
+              <div className="text-sm text-foreground/80 leading-relaxed">
+                {typeof authorBio === 'string' ? (
+                  <p>{authorBio}</p>
+                ) : authorBio && typeof authorBio === 'object' ? (
+                  documentToReactComponents(authorBio)
+                ) : (
+                  <p>With dedicated expertise in the industry, {authorName} shares valuable insights and knowledge to help our readers stay informed and make confident decisions.</p>
+                )}
+              </div>
             </div>
 
             <div className="bg-primary text-primary-foreground p-8 rounded-2xl shadow-lg relative overflow-hidden">

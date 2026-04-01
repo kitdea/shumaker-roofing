@@ -57,7 +57,7 @@ export default async function NewsPage() {
                 : "https://images.unsplash.com/photo-1434082033009-b81d41d32e1c?q=80&w=2070&auto=format&fit=crop"; // fallback image
 
               // Format date from Contentful sys or a custom date field
-              const dateObj = post.publishedDate ? new Date(post.publishedDate) : new Date(item.sys.createdAt);
+              const dateObj = post.publishedDate ? new Date(post.publishedDate) : (post.date ? new Date(post.date) : new Date(item.sys.createdAt));
               const formattedDate = dateObj.toLocaleDateString("en-GB", {
                 day: "2-digit",
                 month: "long",
@@ -76,8 +76,8 @@ export default async function NewsPage() {
               }
 
               // Try various common contentful author field names
-              const authorField = post.author || post.creator || post.writer || post.publisher;
-              const authorName = authorField?.fields?.name || authorField?.fields?.title || (typeof authorField === 'string' ? authorField : "Shumaker Team");
+              const authorField = post.author || post.creator || post.writer || post.publisher || post.Author;
+              const authorName = authorField?.fields?.name || authorField?.fields?.fullName || authorField?.fields?.title || (typeof authorField === 'string' ? authorField : "Shumaker Team");
               const descriptionText = typeof post.description === 'string' ? post.description : (typeof post.excerpt === 'string' ? post.excerpt : "Click to read more about this topic in our detailed insights article.");
 
               return (
