@@ -49,7 +49,7 @@ export default function ContactPage() {
                     <input type="text" id="lastName" className="h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Doe" required />
                   </div>
                 </div>
-                
+
                 <div className="flex flex-col gap-2">
                   <label htmlFor="email" className="text-sm font-medium text-foreground">Email Address</label>
                   <input type="email" id="email" className="h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="john@example.com" required />
@@ -74,7 +74,7 @@ export default function ContactPage() {
             {/* Contact Details */}
             <div className="flex flex-col justify-center">
               <SectionHeader title="Contact Information" subtitle="Reach Out" className="mb-10" />
-              
+
               <div className="flex flex-col gap-8 mb-12">
                 <div className="flex items-start gap-4">
                   <div className="bg-primary/10 p-4 rounded-full text-primary">
@@ -82,7 +82,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-lg font-heading font-bold text-foreground">Our Location</h4>
-                    <p className="text-muted-foreground mt-1">123 Roofing Way, Suite 100<br/>Cityville, ST 12345</p>
+                    <p className="text-muted-foreground mt-1">123 Roofing Way, Suite 100<br />Cityville, ST 12345</p>
                   </div>
                 </div>
 
@@ -92,7 +92,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-lg font-heading font-bold text-foreground">Phone Number</h4>
-                    <p className="text-muted-foreground mt-1">+1 234 567 8900<br/>+1 987 654 3210</p>
+                    <p className="text-muted-foreground mt-1">+1 000 000 0000<br />+1 000 000 0000</p>
                   </div>
                 </div>
 
@@ -102,7 +102,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-lg font-heading font-bold text-foreground">Email Address</h4>
-                    <p className="text-muted-foreground mt-1">info@shumakerroofing.com<br/>support@shumakerroofing.com</p>
+                    <p className="text-muted-foreground mt-1">test@email.com<br />test@email.com</p>
                   </div>
                 </div>
 
@@ -112,20 +112,20 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-lg font-heading font-bold text-foreground">Working Hours</h4>
-                    <p className="text-muted-foreground mt-1">Mon - Fri: 8:00 AM - 6:00 PM<br/>Sat - Sun: 9:00 AM - 2:00 PM</p>
+                    <p className="text-muted-foreground mt-1">Mon - Fri: 8:00 AM - 6:00 PM<br />Sat - Sun: 9:00 AM - 2:00 PM</p>
                   </div>
                 </div>
               </div>
 
               {/* Map Embed Placeholder */}
               <div className="w-full h-64 bg-muted rounded-xl border border-border overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-500">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.25279998817!2d-74.14483015694208!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sen!4v1700000000000!5m2!1sen!2sen" 
-                  width="100%" 
-                  height="100%" 
-                  style={{ border: 0 }} 
-                  allowFullScreen 
-                  loading="lazy" 
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.25279998817!2d-74.14483015694208!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sen!4v1700000000000!5m2!1sen!2sen"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Google Maps Location"
                 ></iframe>
