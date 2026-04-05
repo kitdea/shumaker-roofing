@@ -50,7 +50,7 @@ export function Navbar() {
             <ThemeToggle />
             <Button size="lg" className="rounded-full gap-2 px-6">
               <Phone className="h-4 w-4" />
-              <span className="font-semibold">+1 234 567 8900</span>
+              <span className="font-semibold">+1 000 000 0000</span>
             </Button>
           </div>
 

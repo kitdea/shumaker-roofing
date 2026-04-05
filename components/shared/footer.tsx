@@ -69,15 +69,15 @@ export function Footer() {
             <ul className="flex flex-col gap-4">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                <span className="text-secondary-foreground/70 text-sm leading-relaxed">123 Roofing Way, Suite 100<br/>Cityville, ST 12345</span>
+                <span className="text-secondary-foreground/70 text-sm leading-relaxed">123 Roofing Way, Suite 100<br />Cityville, ST 12345</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-primary shrink-0" />
-                <span className="text-secondary-foreground/70 text-sm">+1 234 567 8900</span>
+                <span className="text-secondary-foreground/70 text-sm">+1 000 000 0000</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary shrink-0" />
-                <span className="text-secondary-foreground/70 text-sm">info@shumakerroofing.com</span>
+                <span className="text-secondary-foreground/70 text-sm">info@email.com</span>
               </li>
             </ul>
           </div>
