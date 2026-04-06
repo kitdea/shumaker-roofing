@@ -10,16 +10,33 @@ export const metadata = {
 };
 
 export default async function AboutPage() {
+  type ContentfulMember = {
+    sys: {
+      id: string;
+    };
+    fields: {
+      fullName?: string;
+      jobPosition?: string;
+      teamThumbnail?: {
+        fields: {
+          file: {
+            url: string;
+          };
+        };
+      };
+    };
+  };
+
   // Fetch dynamic team members from Contentful
-  let dynamicTeamMembers: any[] = [];
+  let dynamicTeamMembers: ContentfulMember[] = [];
   try {
     const response = await client.getEntries({ content_type: 'team' });
     if (response.items.length > 0) {
-      dynamicTeamMembers = response.items;
+      dynamicTeamMembers = response.items as unknown as ContentfulMember[];
     } else {
       // Fallback
       const res2 = await client.getEntries({ content_type: 'teamMember' });
-      dynamicTeamMembers = res2.items;
+      dynamicTeamMembers = res2.items as unknown as ContentfulMember[];
     }
   } catch (err) {
     console.error("Failed to fetch team members:", err);
@@ -36,8 +53,7 @@ export default async function AboutPage() {
 
   const displayTeam = dynamicTeamMembers.length > 0
     ? dynamicTeamMembers.map((member) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const fields = member.fields as any;
+        const fields = member.fields;
         const imageUrl = fields.teamThumbnail?.fields?.file?.url 
           ? `https:${fields.teamThumbnail.fields.file.url}` 
           : "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop";
