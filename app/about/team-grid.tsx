@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 type TeamMember = {
@@ -54,16 +53,17 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
 
       <AnimatePresence>
         {selectedMember && (
-          <div 
+          <motion.div 
+            key="team-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" 
             aria-modal="true" 
             role="dialog"
           >
             {/* Backdrop */}
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              exit={{ opacity: 0 }} 
+            <div 
               onClick={() => setSelectedMember(null)}
               className="absolute inset-0 bg-background/80 backdrop-blur-sm"
             />
@@ -81,7 +81,10 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
                 className="absolute top-4 right-4 p-2 bg-black/30 hover:bg-black/50 text-white rounded-full backdrop-blur-md transition-colors z-20 group"
                 aria-label="Close modal"
               >
-                <X className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 group-hover:scale-110 transition-transform">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
               </button>
               
               <div className="relative h-80 sm:h-96 w-full bg-muted/50">
@@ -113,7 +116,7 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
                 </div>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>
