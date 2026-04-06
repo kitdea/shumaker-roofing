@@ -9,6 +9,7 @@ type TeamMember = {
   name: string;
   role: string;
   img: string;
+  teamInfo: string;
 };
 
 export function TeamGrid({ team }: { team: TeamMember[] }) {
@@ -74,7 +75,7 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", duration: 0.5, bounce: 0.2 }}
-              className="relative w-full max-w-lg bg-background border border-border/50 rounded-2xl shadow-2xl overflow-hidden z-10 flex flex-col"
+              className="relative w-full max-w-3xl bg-background border border-border/50 rounded-2xl shadow-2xl overflow-hidden z-10 flex flex-col md:flex-row"
             >
               <button 
                 onClick={() => setSelectedMember(null)}
@@ -87,7 +88,7 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
                 </svg>
               </button>
               
-              <div className="relative h-80 sm:h-96 w-full bg-muted/50">
+              <div className="relative h-64 md:h-auto md:w-2/5 shrink-0 bg-muted/50 min-h-[300px]">
                 <Image 
                   src={selectedMember.img} 
                   alt={selectedMember.name} 
@@ -95,25 +96,15 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
                   className="object-cover" 
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
               </div>
               
-              <div className="p-8 text-center bg-background relative -mt-12 z-10">
+              <div className="p-8 justify-center flex flex-col bg-background md:w-3/5 text-left md:p-12">
                 <h3 className="text-3xl font-heading font-bold text-foreground mb-2">{selectedMember.name}</h3>
                 <p className="text-lg text-primary font-medium mb-6 uppercase tracking-wider text-sm">{selectedMember.role}</p>
-                <div className="w-16 h-1 bg-primary mx-auto mb-6 rounded-full" />
-                <p className="text-foreground/70 leading-relaxed max-w-md mx-auto">
-                  A dedicated professional at Shumaker Roofing, committed to providing top-quality service, ensuring safety, and upholding our core values of integrity and excellence in every project.
+                <div className="w-16 h-1 bg-primary mb-6 rounded-full" />
+                <p className="text-foreground/70 leading-relaxed text-base">
+                  {selectedMember.teamInfo}
                 </p>
-                
-                <div className="mt-8 pt-6 border-t border-border/50">
-                  <button 
-                    onClick={() => setSelectedMember(null)}
-                    className="px-8 py-3 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary/90 transition-colors shadow-sm hover:shadow-md"
-                  >
-                    Close Profile
-                  </button>
-                </div>
               </div>
             </motion.div>
           </motion.div>

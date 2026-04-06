@@ -18,6 +18,7 @@ export default async function AboutPage() {
     fields: {
       fullName?: string;
       jobPosition?: string;
+      teamInfo?: string;
       teamThumbnail?: {
         fields: {
           file: {
@@ -44,12 +45,12 @@ export default async function AboutPage() {
   }
 
   const defaultTeam = [
-    { name: "Michael Shumaker", role: "Founder & CEO", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" },
-    { name: "Sarah Jenkins", role: "Operations Manager", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" },
-    { name: "David Miller", role: "Lead Foreman", img: "https://images.unsplash.com/photo-1504221507732-5246c045949b?q=80&w=2070&auto=format&fit=crop" },
-    { name: "James Wilson", role: "Safety Inspector", img: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=80&w=1974&auto=format&fit=crop" },
-    { name: "Emily Chen", role: "Project Estimator", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop" },
-    { name: "Marcus Johnson", role: "Customer Success", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" },
+    { name: "Michael Shumaker", role: "Founder & CEO", teamInfo: "With over 20 years of experience, Michael leads the company with a commitment to excellence and community service.", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" },
+    { name: "Sarah Jenkins", role: "Operations Manager", teamInfo: "Sarah ensures all projects run smoothly and efficiently, coordinating between crews and clients with expert precision.", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" },
+    { name: "David Miller", role: "Lead Foreman", teamInfo: "David oversees our roofing crews, bringing unparalleled expertise to every residential and commercial installation.", img: "https://images.unsplash.com/photo-1504221507732-5246c045949b?q=80&w=2070&auto=format&fit=crop" },
+    { name: "James Wilson", role: "Safety Inspector", teamInfo: "James guarantees that all operations exceed safety standards, protecting both our team and your property.", img: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=80&w=1974&auto=format&fit=crop" },
+    { name: "Emily Chen", role: "Project Estimator", teamInfo: "Emily provides accurate and transparent estimates, helping clients comfortably plan their roofing investments.", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop" },
+    { name: "Marcus Johnson", role: "Customer Success", teamInfo: "Marcus is dedicated to ensuring every client is completely satisfied, from initial contact to final inspection.", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" },
   ];
 
   const displayTeam = dynamicTeamMembers.length > 0
@@ -63,6 +64,7 @@ export default async function AboutPage() {
           name: fields.fullName || "Team Member",
           role: fields.jobPosition || "Staff",
           img: imageUrl,
+          teamInfo: fields.teamInfo || "A dedicated professional at Shumaker Roofing, committed to providing top-quality service, ensuring safety, and upholding our core values of integrity and excellence in every project.",
         };
       })
     : defaultTeam.map((m, i) => ({ ...m, id: i.toString() }));
