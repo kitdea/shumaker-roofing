@@ -3,6 +3,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { CheckCircle2 } from "lucide-react";
 import { client } from "@/lib/contentful";
+import { TeamGrid } from "./team-grid";
 
 export const metadata = {
   title: "About Us | Shumaker Roofing",
@@ -127,19 +128,7 @@ export default async function AboutPage() {
       <section className="py-24 bg-muted/30">
         <Container>
           <SectionHeader title="Meet Our Experts" subtitle="The Team" align="center" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-12">
-            {displayTeam.map((member) => (
-              <div key={member.id} className="bg-background rounded-xl overflow-hidden shadow-md border border-border/50 group">
-                <div className="relative h-72 w-full overflow-hidden">
-                  <Image src={member.img} alt={member.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                </div>
-                <div className="p-6 text-center">
-                  <h4 className="text-xl font-heading font-bold text-foreground">{member.name}</h4>
-                  <p className="text-primary font-medium mt-1">{member.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TeamGrid team={displayTeam} />
         </Container>
       </section>
     </div>
