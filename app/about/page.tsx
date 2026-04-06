@@ -18,7 +18,8 @@ export default async function AboutPage() {
     fields: {
       fullName?: string;
       jobPosition?: string;
-      teamInfo?: string;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      teamInfo?: any;
       teamThumbnail?: {
         fields: {
           file: {

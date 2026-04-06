@@ -3,13 +3,15 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 type TeamMember = {
   id: string;
   name: string;
   role: string;
   img: string;
-  teamInfo: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  teamInfo: any;
 };
 
 export function TeamGrid({ team }: { team: TeamMember[] }) {
@@ -102,9 +104,11 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
                 <h3 className="text-3xl font-heading font-bold text-foreground mb-2">{selectedMember.name}</h3>
                 <p className="text-lg text-primary font-medium mb-6 uppercase tracking-wider text-sm">{selectedMember.role}</p>
                 <div className="w-16 h-1 bg-primary mb-6 rounded-full" />
-                <p className="text-foreground/70 leading-relaxed text-base">
-                  {selectedMember.teamInfo}
-                </p>
+                <div className="text-foreground/70 leading-relaxed text-base contentful-rich-text">
+                  {selectedMember.teamInfo && typeof selectedMember.teamInfo === 'object'
+                    ? documentToReactComponents(selectedMember.teamInfo)
+                    : selectedMember.teamInfo}
+                </div>
               </div>
             </motion.div>
           </motion.div>
