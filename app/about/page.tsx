@@ -2,13 +2,54 @@ import Image from "next/image";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { CheckCircle2 } from "lucide-react";
+import { client } from "@/lib/contentful";
 
 export const metadata = {
   title: "About Us | Shumaker Roofing",
   description: "Learn more about Shumaker Roofing, our mission, vision, and the skilled team behind our top-tier roofing services.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  // Fetch dynamic team members from Contentful
+  let dynamicTeamMembers: any[] = [];
+  try {
+    const response = await client.getEntries({ content_type: 'team' });
+    if (response.items.length > 0) {
+      dynamicTeamMembers = response.items;
+    } else {
+      // Fallback
+      const res2 = await client.getEntries({ content_type: 'teamMember' });
+      dynamicTeamMembers = res2.items;
+    }
+  } catch (err) {
+    console.error("Failed to fetch team members:", err);
+  }
+
+  const defaultTeam = [
+    { name: "Michael Shumaker", role: "Founder & CEO", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" },
+    { name: "Sarah Jenkins", role: "Operations Manager", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" },
+    { name: "David Miller", role: "Lead Foreman", img: "https://images.unsplash.com/photo-1504221507732-5246c045949b?q=80&w=2070&auto=format&fit=crop" },
+    { name: "James Wilson", role: "Safety Inspector", img: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=80&w=1974&auto=format&fit=crop" },
+    { name: "Emily Chen", role: "Project Estimator", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop" },
+    { name: "Marcus Johnson", role: "Customer Success", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" },
+  ];
+
+  const displayTeam = dynamicTeamMembers.length > 0
+    ? dynamicTeamMembers.map((member) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const fields = member.fields as any;
+        const imageUrl = fields.teamThumbnail?.fields?.file?.url 
+          ? `https:${fields.teamThumbnail.fields.file.url}` 
+          : "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop";
+        return {
+          id: member.sys.id,
+          name: fields.fullName || "Team Member",
+          role: fields.jobPosition || "Staff",
+          img: imageUrl,
+        };
+      })
+    : defaultTeam.map((m, i) => ({ ...m, id: i.toString() }));
+
   return (
     <div className="flex flex-col w-full">
       {/* Page Header */}
@@ -71,12 +112,8 @@ export default function AboutPage() {
         <Container>
           <SectionHeader title="Meet Our Experts" subtitle="The Team" align="center" />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-12">
-            {[
-              { name: "Michael Shumaker", role: "Founder & CEO", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" },
-              { name: "Sarah Jenkins", role: "Operations Manager", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" },
-              { name: "David Miller", role: "Lead Foreman", img: "https://images.unsplash.com/photo-1504221507732-5246c045949b?q=80&w=2070&auto=format&fit=crop" },
-            ].map((member, i) => (
-              <div key={i} className="bg-background rounded-xl overflow-hidden shadow-md border border-border/50 group">
+            {displayTeam.map((member) => (
+              <div key={member.id} className="bg-background rounded-xl overflow-hidden shadow-md border border-border/50 group">
                 <div className="relative h-72 w-full overflow-hidden">
                   <Image src={member.img} alt={member.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
