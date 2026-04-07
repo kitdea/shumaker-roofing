@@ -12,7 +12,7 @@ import { client } from "@/lib/contentful";
 
 
 export const metadata = {
-  title: "News & Insights | Shumaker Roofing",
+  title: "Blog | Shumaker Roofing",
   description: "Stay up to date with the latest roofing tips, company news, and industry insights.",
 };
 
@@ -29,14 +29,14 @@ export default async function NewsPage() {
           <div className="w-full h-full bg-slate-900/70" />
           <Image
             src="https://images.unsplash.com/photo-1434082033009-b81d41d32e1c?q=80&w=2070&auto=format&fit=crop"
-            alt="News and Insights"
+            alt="Blog"
             fill
             className="object-cover opacity-40 mix-blend-overlay"
             priority
           />
         </div>
         <Container className="relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4">News & Insights</h1>
+          <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4">Blog</h1>
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
             Get the latest updates, expert tips, and industry news from the professionals at Shumaker Roofing.
           </p>

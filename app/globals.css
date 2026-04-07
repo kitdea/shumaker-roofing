@@ -56,4 +56,7 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading tracking-tight;
   }
+  main p a, main li a, main .prose a {
+    @apply text-primary underline underline-offset-4 transition-opacity hover:opacity-80;
+  }
 }

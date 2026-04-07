@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const post = rawPost.fields as any;
   return {
-    title: `${post.title} | Shumaker Roofing News`,
+    title: `${post.title} | Shumaker Roofing Blog`,
     description: post.description || post.excerpt || "Read our latest insights.",
   };
 }
@@ -101,7 +101,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         </div>
         <Container className="relative z-20">
           <Link href="/news" className="inline-flex items-center text-primary/90 hover:text-primary transition-colors mb-6 font-medium text-sm">
-            <ChevronLeft className="h-4 w-4 mr-1" /> Back to News
+            <ChevronLeft className="h-4 w-4 mr-1" /> Back to Blog
           </Link>
           <div className="flex gap-2 flex-wrap mb-4">
             {categories.map((cat, idx) => (
