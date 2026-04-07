@@ -1,4 +1,3 @@
-
 const { createClient } = require('contentful');
 
 const client = createClient({
@@ -8,10 +7,9 @@ const client = createClient({
 
 async function run() {
   try {
-    const result = await client.getContentTypes();
+    const result = await client.getEntries({ content_type: 'services' });
     result.items.forEach(item => {
-      console.log("ID:", item.sys.id, "Name:", item.name);
-      item.fields.forEach(f => console.log("  Field:", f.id));
+      console.log("ID:", item.sys.id, "TITLE:", item.fields.title, "URL:", item.fields.url);
     });
   } catch (e) { console.error(e); }
 }
