@@ -10,10 +10,50 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Shumaker Roofing | Quality Residential & Commercial Roofing",
+  metadataBase: new URL("https://www.shumakerroofing.com"),
+  title: {
+    default: "Shumaker Roofing | Quality Residential & Commercial Roofing",
+    template: "%s | Shumaker Roofing",
+  },
   description:
     "Shumaker Roofing provides top-notch residential and commercial roofing services, including repairs, replacements, and inspections. Licensed and insured professionals.",
-  keywords: "roofing, roof repair, roof replacement, residential roofing, commercial roofing, Shumaker Roofing",
+  keywords: [
+    "roofing",
+    "roof repair",
+    "roof replacement",
+    "residential roofing",
+    "commercial roofing",
+    "Shumaker Roofing",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://www.shumakerroofing.com",
+    title: "Shumaker Roofing | Quality Residential & Commercial Roofing",
+    description:
+      "Shumaker Roofing provides top-notch residential and commercial roofing services, including repairs, replacements, and inspections. Licensed and insured professionals.",
+    siteName: "Shumaker Roofing",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop",
+        width: 1200,
+        height: 630,
+        alt: "Shumaker Roofing Services",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shumaker Roofing | Quality Residential & Commercial Roofing",
+    description:
+      "Shumaker Roofing provides top-notch residential and commercial roofing services.",
+    images: [
+      "https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop",
+    ],
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 import { Navbar } from "@/components/shared/navbar";

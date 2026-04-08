@@ -12,6 +12,9 @@ export const metadata = {
   title: "Professional Roofing Services | Shumaker Roofing",
   description: "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and expert roof inspections.",
   keywords: "roofing services, residential roofing, commercial roofing, roof repair, roof inspection, storm damage, Shumaker Roofing",
+  // SEO fields for this page are managed as a static export above.
+  // For page-level SEO via Contentful, add a `seoMetadata` reference field
+  // to the corresponding Contentful entry and use resolveSeoMetadata() from @/lib/seo.
 };
 
 const getIconForService = (title: string) => {

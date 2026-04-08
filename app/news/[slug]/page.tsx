@@ -6,6 +6,7 @@ import { Calendar, User, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { client } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { fetchEntrySeo } from "@/lib/seo";
 
 async function getPostFromSlug(slug: string) {
   let post = null;
@@ -37,16 +38,31 @@ async function getPostFromSlug(slug: string) {
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const rawPost = await getPostFromSlug(params.slug);
-  if (!rawPost) {
-    return { title: "Post Not Found" };
-  }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const post = rawPost.fields as any;
-  return {
-    title: `${post.title} | Shumaker Roofing Blog`,
-    description: post.description || post.excerpt || "Read our latest insights.",
-  };
+  // Fetches the blog entry, resolves the linked SEO Metadata entry, and builds
+  // the full Next.js Metadata object — including title, description, OG, Twitter,
+  // canonical URL, and robots directives.
+  // Falls back to the entry's own title/description when no seoMetadata is linked.
+  return fetchEntrySeo({
+    contentType: "blog",
+    slugField: "slug",
+    slug: params.slug,
+    fallbackTitle: "Shumaker Roofing Blog",
+    fallbackDesc: "Read our latest roofing insights and tips.",
+    ogType: "article",
+    notFoundTitle: "Post Not Found",
+    // Extract a fallback image from the entry's own fields if no SEO image is set
+    fallbackImageExtractor: (fields) => {
+      const img =
+        fields.featuredImage ||
+        fields.image ||
+        fields.coverImage ||
+        fields.heroImage ||
+        fields.thumbnail ||
+        fields.cover;
+      const url: string | undefined = img?.fields?.file?.url;
+      return url ? (url.startsWith("//") ? `https:${url}` : url) : undefined;
+    },
+  });
 }
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {

@@ -6,6 +6,7 @@ import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { client } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { fetchEntrySeo } from "@/lib/seo";
 
 async function getServiceFromSlug(slug: string) {
   let service = null;
@@ -36,23 +37,32 @@ async function getServiceFromSlug(slug: string) {
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const rawService = await getServiceFromSlug(params.slug);
-  if (!rawService) {
-    return { title: "Service Not Found - Shumaker Roofing" };
-  }
+  // Build a specific fallback title from the live entry if available,
+  // otherwise use a generic fallback.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const service = rawService.fields as any;
-  const description = "Learn more about our " + service.title.toLowerCase() + " services. Expert roofing solutions provided by Shumaker Roofing professionals.";
-  
-  return {
-    title: `${service.title} Services | Shumaker Roofing`,
-    description: description,
-    keywords: `${service.title.toLowerCase()}, specialty roofing, expert roofers, Shumaker Roofing services`,
-    openGraph: {
-      title: `${service.title} Services | Shumaker Roofing`,
-      description: description,
-      type: "website",
-    }
-  };
+  const serviceTitle = (rawService?.fields as any)?.title as string | undefined;
+  const fallbackTitle = serviceTitle
+    ? `${serviceTitle} Services | Shumaker Roofing`
+    : "Roofing Services | Shumaker Roofing";
+  const fallbackDesc = serviceTitle
+    ? `Learn more about our ${serviceTitle.toLowerCase()} services. Expert roofing solutions provided by Shumaker Roofing professionals.`
+    : "Expert roofing solutions provided by Shumaker Roofing professionals.";
+
+  // Fetches the services entry, resolves the linked SEO Metadata entry, and
+  // builds the full Next.js Metadata object. Falls back when not linked.
+  return fetchEntrySeo({
+    contentType: "services",
+    slugField: "url",
+    slug: params.slug,
+    fallbackTitle,
+    fallbackDesc,
+    ogType: "website",
+    notFoundTitle: "Service Not Found - Shumaker Roofing",
+    fallbackImageExtractor: (fields) => {
+      const url: string | undefined = fields.servicesImage?.fields?.file?.url;
+      return url ? (url.startsWith("//") ? `https:${url}` : url) : undefined;
+    },
+  });
 }
 
 export default async function ServiceDetailsPage({ params }: { params: { slug: string } }) {
