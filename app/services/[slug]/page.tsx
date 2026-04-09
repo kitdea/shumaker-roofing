@@ -7,12 +7,13 @@ import { Button } from "@/components/ui/button";
 import { client } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { fetchEntrySeo } from "@/lib/seo";
+import { TwoColumnSection } from "@/components/shared/two-column-section";
 
 async function getServiceFromSlug(slug: string) {
   let service = null;
 
   try {
-    const response = await client.getEntries({ content_type: 'services', 'fields.url': slug, limit: 1 });
+    const response = await client.getEntries({ content_type: 'services', 'fields.url': slug, limit: 1, include: 3 });
     if (response.items.length > 0) {
       service = response.items[0];
     }
@@ -65,6 +66,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   });
 }
 
+
 export default async function ServiceDetailsPage({ params }: { params: { slug: string } }) {
   const rawService = await getServiceFromSlug(params.slug);
 
@@ -74,6 +76,28 @@ export default async function ServiceDetailsPage({ params }: { params: { slug: s
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const serviceFields = rawService.fields as any;
+
+  // Read the splitSection reference field that is already resolved on the service entry
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const splitSections: any[] = Array.isArray(serviceFields.splitSection) ? serviceFields.splitSection : [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const twoColumnData = splitSections.map((item: any) => {
+    const f = item.fields;
+    const firstImage = Array.isArray(f.splitImage) ? f.splitImage[0] : f.splitImage;
+    const rawUrl: string | undefined = firstImage?.fields?.file?.url;
+    const imageUrl = rawUrl
+      ? rawUrl.startsWith("//")
+        ? `https:${rawUrl}`
+        : rawUrl
+      : null;
+    return {
+      id: item.sys.id,
+      splitTitle: typeof f.splitTitle === "string" ? f.splitTitle : String(f.splitTitle ?? ""),
+      // splitDescription is a Rich Text document — pass the raw object
+      splitDescription: f.splitDescription ?? null,
+      imageUrl,
+    };
+  }).filter((s: { imageUrl: string | null }) => s.imageUrl);
 
   const imageUrl = serviceFields.servicesImage?.fields?.file?.url
     ? `https:${serviceFields.servicesImage.fields.file.url}`
@@ -132,7 +156,7 @@ export default async function ServiceDetailsPage({ params }: { params: { slug: s
                 <Link href="/contact">Get a Free Quote</Link>
               </Button>
             </div>
-            
+
             <div className="bg-muted/50 p-8 rounded-2xl border border-border shadow-sm">
               <h3 className="text-xl font-heading font-bold mb-4">Why Choose Us?</h3>
               <ul className="space-y-4">
@@ -153,6 +177,22 @@ export default async function ServiceDetailsPage({ params }: { params: { slug: s
           </aside>
         </div>
       </Container>
+
+      {/* Two-Column Sections from Contentful */}
+      {twoColumnData.length > 0 && (
+        <div className="divide-y divide-border">
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {twoColumnData.map((section: any, idx: number) => (
+            <TwoColumnSection
+              key={section.id}
+              splitTitle={section.splitTitle}
+              splitDescription={section.splitDescription}
+              splitImageUrl={section.imageUrl}
+              imageRight={idx % 2 !== 0}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

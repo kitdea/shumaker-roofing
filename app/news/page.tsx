@@ -19,7 +19,8 @@ export const metadata = {
 export default async function NewsPage() {
 
   // Fetch entries of a specific content type
-  const response = await client.getEntries({ content_type: 'blog' });
+  // Order by the custom date field descending — newest published article first
+  const response = await client.getEntries({ content_type: 'blog', order: ['-fields.date'] });
 
   return (
     <div className="flex flex-col w-full">
