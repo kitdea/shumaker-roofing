@@ -38,7 +38,7 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div className="bg-background p-8 md:p-10 rounded-2xl shadow-xl border border-border/50">
               <SectionHeader title="Send Us a Message" subtitle="Get a Quote" className="mb-8" />
-              <form className="flex flex-col gap-6" action="#" netlify>
+              <form className="flex flex-col gap-6" action="#" >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex flex-col gap-2">
                     <label htmlFor="firstName" className="text-sm font-medium text-foreground">First Name</label>
