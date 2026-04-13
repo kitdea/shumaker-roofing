@@ -8,19 +8,20 @@ import { Calendar, User, ArrowRight } from "lucide-react";
 import { client } from "@/lib/contentful";
 
 
-
-
-
 export const metadata = {
   title: "Blog | Shumaker Roofing",
   description: "Stay up to date with the latest roofing tips, company news, and industry insights.",
 };
 
 export default async function NewsPage() {
-
-  // Fetch entries of a specific content type
-  // Order by the custom date field descending — newest published article first
-  const response = await client.getEntries({ content_type: 'blog', order: ['-fields.date'] });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let posts: any[] = [];
+  try {
+    const response = await client.getEntries({ content_type: 'blog', order: ['-fields.date'] });
+    posts = response.items;
+  } catch (err) {
+    console.error("Failed to fetch blog posts:", err);
+  }
 
   return (
     <div className="flex flex-col w-full">
@@ -48,7 +49,7 @@ export default async function NewsPage() {
         <Container>
           <SectionHeader title="Latest Articles" subtitle="Blog" align="center" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {response.items.map((item) => {
+            {posts.map((item) => {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const post = item.fields as any;
               // Try various common contentful image field names

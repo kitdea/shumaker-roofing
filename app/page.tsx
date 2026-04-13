@@ -7,9 +7,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ShieldCheck, Wrench, Home as HomeIcon, CheckCircle2, ArrowRight } from "lucide-react";
 
 export default async function Home() {
-
-
-
   return (
     <div className="flex flex-col w-full">
       {/* Hero Section */}
@@ -30,7 +27,7 @@ export default async function Home() {
             <span className="text-primary font-bold tracking-wider uppercase text-sm mb-4 block">
               Affordable, Reliable, and Built to Last.
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-05xl font-heading font-extrabold text-foreground leading-[1.1] mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-5xl font-heading font-extrabold text-foreground leading-[1.1] mb-6">
               Strong Durable and Affordable Roofing
             </h1>
             <p className="text-foreground/70 text-lg mb-8 max-w-lg">
