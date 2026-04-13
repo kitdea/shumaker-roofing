@@ -95,7 +95,7 @@ export function TwoColumnSection({
         {splitTitle}
       </h2>
       {splitDescription && (
-        <div className="space-y-1 text-base text-sm md:text-[1.0rem]">
+        <div className="space-y-1 text-base text-small md:text-[1.0rem]">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {documentToReactComponents(splitDescription as any, richTextOptions as any)}
         </div>
