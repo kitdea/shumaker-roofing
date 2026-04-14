@@ -36,8 +36,9 @@ async function getServiceFromSlug(slug: string) {
   return service;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const rawService = await getServiceFromSlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const rawService = await getServiceFromSlug(slug);
   // Build a specific fallback title from the live entry if available,
   // otherwise use a generic fallback.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,7 +55,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return fetchEntrySeo({
     contentType: "services",
     slugField: "url",
-    slug: params.slug,
+    slug,
     fallbackTitle,
     fallbackDesc,
     ogType: "website",
@@ -67,8 +68,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 
-export default async function ServiceDetailsPage({ params }: { params: { slug: string } }) {
-  const rawService = await getServiceFromSlug(params.slug);
+export default async function ServiceDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const rawService = await getServiceFromSlug(slug);
 
   if (!rawService) {
     notFound();
