@@ -37,7 +37,8 @@ async function getPostFromSlug(slug: string) {
   return post;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   // Fetches the blog entry, resolves the linked SEO Metadata entry, and builds
   // the full Next.js Metadata object — including title, description, OG, Twitter,
   // canonical URL, and robots directives.
@@ -45,7 +46,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return fetchEntrySeo({
     contentType: "blog",
     slugField: "slug",
-    slug: params.slug,
+    slug,
     fallbackTitle: "Shumaker Roofing Blog",
     fallbackDesc: "Read our latest roofing insights and tips.",
     ogType: "article",
@@ -65,8 +66,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   });
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const rawPost = await getPostFromSlug(params.slug);
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const rawPost = await getPostFromSlug(slug);
 
   if (!rawPost) {
     notFound();
