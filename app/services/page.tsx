@@ -7,15 +7,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { client } from "@/lib/contentful";
 import { Document } from "@contentful/rich-text-types";
+import { fetchPageSeo } from "@/lib/seo";
+import { slugify } from "@/lib/utils";
 
-export const metadata = {
-  title: "Professional Roofing Services | Shumaker Roofing",
-  description: "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and expert roof inspections.",
-  keywords: "roofing services, residential roofing, commercial roofing, roof repair, roof inspection, storm damage, Shumaker Roofing",
-  // SEO fields for this page are managed as a static export above.
-  // For page-level SEO via Contentful, add a `seoMetadata` reference field
-  // to the corresponding Contentful entry and use resolveSeoMetadata() from @/lib/seo.
-};
+export async function generateMetadata() {
+  return fetchPageSeo({
+    path: "/services",
+    fallbackTitle: "Professional Roofing Services | Shumaker Roofing",
+    fallbackDesc:
+      "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and expert roof inspections.",
+  });
+}
 
 const getIconForService = (title: string) => {
   const t = title.toLowerCase();
@@ -71,7 +73,7 @@ export default async function ServicesPage() {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const service = item.fields as any;
               const title = service.title as string;
-              const urlSlug = service.url || item.sys.id;
+              const urlSlug = title ? slugify(title) : item.sys.id;
               
               const content = service.servicesContent as Document;
               let descText = "";

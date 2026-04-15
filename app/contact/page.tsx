@@ -3,11 +3,16 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { fetchPageSeo } from "@/lib/seo";
 
-export const metadata = {
-  title: "Contact Us | Shumaker Roofing",
-  description: "Get in touch with Shumaker Roofing for a free quote or to schedule a service.",
-};
+export async function generateMetadata() {
+  return fetchPageSeo({
+    path: "/contact",
+    fallbackTitle: "Contact Us | Shumaker Roofing",
+    fallbackDesc:
+      "Get in touch with Shumaker Roofing for a free quote, emergency roof repair, or to schedule a professional inspection with our expert team.",
+  });
+}
 
 export default function ContactPage() {
   return (

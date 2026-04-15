@@ -1,22 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, Home } from "lucide-react";
+import { Menu, X, Phone, Home, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 
-const navLinks = [
+interface ServiceLink {
+  name: string;
+  href: string;
+}
+
+interface NavbarProps {
+  services?: ServiceLink[];
+}
+
+const staticLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
-  { name: "Services", href: "/services" },
   { name: "Blog", href: "/news" },
   { name: "Contact Us", href: "/contact" },
 ];
 
-export function Navbar() {
+export function Navbar({ services = [] }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnter = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setServicesOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    closeTimer.current = setTimeout(() => setServicesOpen(false), 120);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -34,15 +54,65 @@ export function Navbar() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6 lg:gap-8">
-            {navLinks.map((link) => (
+            <Link
+              href="/"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+            >
+              Home
+            </Link>
+            <Link
+              href="/about"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+            >
+              About Us
+            </Link>
+
+            {/* Services dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               <Link
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                href="/services"
+                className="flex items-center gap-1 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
               >
-                {link.name}
+                Services
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform duration-200 ${servicesOpen ? "rotate-180" : ""}`}
+                />
               </Link>
-            ))}
+
+              {servicesOpen && services.length > 0 && (
+                <div className="absolute left-0 top-full pt-2 w-56 z-50">
+                  <div className="bg-background border border-border/60 rounded-lg shadow-lg py-1 overflow-hidden">
+                    {services.map((service) => (
+                      <Link
+                        key={service.href}
+                        href={service.href}
+                        onClick={() => setServicesOpen(false)}
+                        className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-muted transition-colors"
+                      >
+                        {service.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <Link
+              href="/news"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+            >
+              Blog
+            </Link>
+            <Link
+              href="/contact"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+            >
+              Contact Us
+            </Link>
           </nav>
 
           {/* CTA & Toggle */}
@@ -71,8 +141,8 @@ export function Navbar() {
       {/* Mobile Nav */}
       {isOpen && (
         <div className="md:hidden border-t border-border">
-          <Container className="py-4 flex flex-col gap-4">
-            {navLinks.map((link) => (
+          <Container className="py-4 flex flex-col gap-1">
+            {staticLinks.slice(0, 2).map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
@@ -82,6 +152,47 @@ export function Navbar() {
                 {link.name}
               </Link>
             ))}
+
+            {/* Mobile Services expandable */}
+            <div>
+              <button
+                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                className="flex items-center justify-between w-full text-base font-medium text-foreground hover:text-primary p-2 text-left"
+              >
+                <Link href="/services" onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}>
+                  Services
+                </Link>
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform duration-200 ${mobileServicesOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+              {mobileServicesOpen && services.length > 0 && (
+                <div className="pl-4 flex flex-col gap-1 pb-1">
+                  {services.map((service) => (
+                    <Link
+                      key={service.href}
+                      href={service.href}
+                      onClick={() => { setIsOpen(false); setMobileServicesOpen(false); }}
+                      className="block text-sm font-medium text-foreground/70 hover:text-primary p-2"
+                    >
+                      {service.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {staticLinks.slice(2).map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="block text-base font-medium text-foreground hover:text-primary p-2"
+              >
+                {link.name}
+              </Link>
+            ))}
+
             <div className="pt-2">
               <Button className="w-full gap-2 rounded-full">
                 <Phone className="h-4 w-4" />

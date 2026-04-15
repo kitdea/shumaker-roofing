@@ -7,21 +7,38 @@ import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { client } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { fetchEntrySeo } from "@/lib/seo";
+import { fetchPageSeo } from "@/lib/seo";
 import { TwoColumnSection } from "@/components/shared/two-column-section";
+import { slugify } from "@/lib/utils";
 
 const getServiceFromSlug = cache(async function getServiceFromSlug(slug: string) {
   let service = null;
 
+  // Primary: match by title-derived slug
   try {
-    const response = await client.getEntries({ content_type: 'services', 'fields.url': slug, limit: 1, include: 3 });
-    if (response.items.length > 0) {
-      service = response.items[0];
-    }
+    const response = await client.getEntries({ content_type: 'services', include: 3 });
+    service = response.items.find((item) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const title = (item.fields as any).title as string | undefined;
+      return title && slugify(title) === slug;
+    }) ?? null;
   } catch {
     // ignore
   }
 
+  // Fallback: match by stored url field
+  if (!service) {
+    try {
+      const response = await client.getEntries({ content_type: 'services', 'fields.url': slug, limit: 1, include: 3 });
+      if (response.items.length > 0) {
+        service = response.items[0];
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  // Fallback: match by sys.id
   if (!service) {
     try {
       const byId = await client.getEntry(slug);
@@ -40,10 +57,12 @@ const getServiceFromSlug = cache(async function getServiceFromSlug(slug: string)
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const rawService = await getServiceFromSlug(slug);
-  // Build a specific fallback title from the live entry if available,
-  // otherwise use a generic fallback.
+  if (!rawService) return { title: "Service Not Found - Shumaker Roofing" };
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const serviceTitle = (rawService?.fields as any)?.title as string | undefined;
+  const fields = rawService.fields as any;
+
+  const serviceTitle = fields.title as string | undefined;
   const fallbackTitle = serviceTitle
     ? `${serviceTitle} Services | Shumaker Roofing`
     : "Roofing Services | Shumaker Roofing";
@@ -51,20 +70,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     ? `Learn more about our ${serviceTitle.toLowerCase()} services. Expert roofing solutions provided by Shumaker Roofing professionals.`
     : "Expert roofing solutions provided by Shumaker Roofing professionals.";
 
-  // Fetches the services entry, resolves the linked SEO Metadata entry, and
-  // builds the full Next.js Metadata object. Falls back when not linked.
-  return fetchEntrySeo({
-    contentType: "services",
-    slugField: "url",
-    slug,
+  const rawImageUrl: string | undefined = fields.servicesImage?.fields?.file?.url;
+  const fallbackImage = rawImageUrl
+    ? rawImageUrl.startsWith("//") ? `https:${rawImageUrl}` : rawImageUrl
+    : undefined;
+
+  return fetchPageSeo({
+    path: `/services/${slug}`,
+    entryFields: fields,
     fallbackTitle,
     fallbackDesc,
-    ogType: "website",
-    notFoundTitle: "Service Not Found - Shumaker Roofing",
-    fallbackImageExtractor: (fields) => {
-      const url: string | undefined = fields.servicesImage?.fields?.file?.url;
-      return url ? (url.startsWith("//") ? `https:${url}` : url) : undefined;
-    },
+    fallbackImage,
   });
 }
 
