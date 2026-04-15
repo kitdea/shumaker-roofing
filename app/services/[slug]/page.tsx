@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { cache } from "react";
 import { Container } from "@/components/shared/container";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { fetchEntrySeo } from "@/lib/seo";
 import { TwoColumnSection } from "@/components/shared/two-column-section";
 
-async function getServiceFromSlug(slug: string) {
+const getServiceFromSlug = cache(async function getServiceFromSlug(slug: string) {
   let service = null;
 
   try {
@@ -34,7 +35,7 @@ async function getServiceFromSlug(slug: string) {
   }
 
   return service;
-}
+});
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
