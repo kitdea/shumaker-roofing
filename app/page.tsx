@@ -5,6 +5,16 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ShieldCheck, Wrench, Home as HomeIcon, CheckCircle2, ArrowRight } from "lucide-react";
+import { fetchPageSeo } from "@/lib/seo";
+
+export async function generateMetadata() {
+  return fetchPageSeo({
+    path: "/",
+    fallbackTitle: "Shumaker Roofing | Strong, Durable & Affordable Roofing",
+    fallbackDesc:
+      "Shumaker Roofing provides top-tier residential and commercial roofing services, installation, repair, and maintenance backed by 78 years of expertise.",
+  });
+}
 
 export default async function Home() {
   return (

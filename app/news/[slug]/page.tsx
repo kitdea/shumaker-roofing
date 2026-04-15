@@ -7,22 +7,37 @@ import { Calendar, User, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { client } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { fetchEntrySeo } from "@/lib/seo";
+import { fetchPageSeo } from "@/lib/seo";
+import { slugify } from "@/lib/utils";
 
 const getPostFromSlug = cache(async function getPostFromSlug(slug: string) {
   let post = null;
 
-  // Try finding by slug field first
+  // Primary: match by title-derived slug
   try {
-    const response = await client.getEntries({ content_type: 'blog', 'fields.slug': slug, limit: 1, include: 2 });
-    if (response.items.length > 0) {
-      post = response.items[0];
-    }
+    const response = await client.getEntries({ content_type: 'blog', include: 2 });
+    post = response.items.find((item) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const title = (item.fields as any).title as string | undefined;
+      return title && slugify(title) === slug;
+    }) ?? null;
   } catch {
-    // Ignore error: This happens if the user doesn't have a "slug" field in their content model (422 Unprocessable Entity)
+    // ignore
   }
 
-  // If not found by slug (or if slug field doesn't exist), check if the URL parameter is actually the sys.id
+  // Fallback: match by stored slug field
+  if (!post) {
+    try {
+      const response = await client.getEntries({ content_type: 'blog', 'fields.slug': slug, limit: 1, include: 2 });
+      if (response.items.length > 0) {
+        post = response.items[0];
+      }
+    } catch {
+      // Ignore error: This happens if the content model has no "slug" field (422)
+    }
+  }
+
+  // Fallback: match by sys.id
   if (!post) {
     try {
       const byId = await client.getEntry(slug);
@@ -31,7 +46,7 @@ const getPostFromSlug = cache(async function getPostFromSlug(slug: string) {
         post = byId as any;
       }
     } catch {
-      // Ignore entry not found error 
+      // ignore
     }
   }
 
@@ -40,30 +55,33 @@ const getPostFromSlug = cache(async function getPostFromSlug(slug: string) {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  // Fetches the blog entry, resolves the linked SEO Metadata entry, and builds
-  // the full Next.js Metadata object — including title, description, OG, Twitter,
-  // canonical URL, and robots directives.
-  // Falls back to the entry's own title/description when no seoMetadata is linked.
-  return fetchEntrySeo({
-    contentType: "blog",
-    slugField: "slug",
-    slug,
-    fallbackTitle: "Shumaker Roofing Blog",
-    fallbackDesc: "Read our latest roofing insights and tips.",
+  const rawPost = await getPostFromSlug(slug);
+  if (!rawPost) return { title: "Post Not Found" };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const fields = rawPost.fields as any;
+
+  const fallbackTitle = (fields.title as string) || "Shumaker Roofing Blog";
+  const fallbackDesc =
+    (typeof fields.description === "string" ? fields.description : null) ||
+    (typeof fields.excerpt === "string" ? fields.excerpt : null) ||
+    "Read our latest roofing insights and tips.";
+
+  const imageField =
+    fields.featuredImage || fields.image || fields.coverImage ||
+    fields.heroImage || fields.thumbnail || fields.cover;
+  const rawImageUrl: string | undefined = imageField?.fields?.file?.url;
+  const fallbackImage = rawImageUrl
+    ? rawImageUrl.startsWith("//") ? `https:${rawImageUrl}` : rawImageUrl
+    : undefined;
+
+  return fetchPageSeo({
+    path: `/news/${slug}`,
+    entryFields: fields,
+    fallbackTitle,
+    fallbackDesc,
+    fallbackImage,
     ogType: "article",
-    notFoundTitle: "Post Not Found",
-    // Extract a fallback image from the entry's own fields if no SEO image is set
-    fallbackImageExtractor: (fields) => {
-      const img =
-        fields.featuredImage ||
-        fields.image ||
-        fields.coverImage ||
-        fields.heroImage ||
-        fields.thumbnail ||
-        fields.cover;
-      const url: string | undefined = img?.fields?.file?.url;
-      return url ? (url.startsWith("//") ? `https:${url}` : url) : undefined;
-    },
   });
 }
 

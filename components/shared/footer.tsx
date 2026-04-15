@@ -1,8 +1,25 @@
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { Home, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import { client } from "@/lib/contentful";
+import { slugify } from "@/lib/utils";
 
-export function Footer() {
+async function getServices() {
+  try {
+    const response = await client.getEntries({ content_type: "services" });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (response.items || []).map((item: any) => ({
+      title: item.fields.title as string,
+      slug: item.fields.title ? slugify(item.fields.title as string) : item.sys.id,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+export async function Footer() {
+  const services = await getServices();
+
   return (
     <footer className="bg-secondary text-secondary-foreground pt-16 pb-8">
       <Container>
@@ -53,11 +70,17 @@ export function Footer() {
               Our Services
             </h4>
             <ul className="flex flex-col gap-3">
-              <li><Link href="/services" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">Roof Replacement</Link></li>
-              <li><Link href="/services" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">Roof Repair</Link></li>
-              <li><Link href="/services" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">Commercial Roofing</Link></li>
-              <li><Link href="/services" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">Gutter Installation</Link></li>
-              <li><Link href="/services" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">Storm Damage</Link></li>
+              {services.length > 0 ? (
+                services.map((service) => (
+                  <li key={service.slug}>
+                    <Link href={`/services/${service.slug}`} className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">
+                      {service.title}
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <li><Link href="/services" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">View All Services</Link></li>
+              )}
             </ul>
           </div>
 

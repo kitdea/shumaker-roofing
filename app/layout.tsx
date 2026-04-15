@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   },
 };
 
-import { Navbar } from "@/components/shared/navbar";
+import { NavbarServer } from "@/components/shared/navbar-server";
 import { Footer } from "@/components/shared/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -74,7 +74,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
+          <NavbarServer />
           <main className="flex-1">
             {children}
           </main>

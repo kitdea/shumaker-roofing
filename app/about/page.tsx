@@ -3,12 +3,17 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { CheckCircle2 } from "lucide-react";
 import { client } from "@/lib/contentful";
+import { fetchPageSeo } from "@/lib/seo";
 import { TeamGrid } from "./team-grid";
 
-export const metadata = {
-  title: "About Us | Shumaker Roofing",
-  description: "Learn more about Shumaker Roofing, our mission, vision, and the skilled team behind our top-tier roofing services.",
-};
+export async function generateMetadata() {
+  return fetchPageSeo({
+    path: "/about",
+    fallbackTitle: "About Us | Shumaker Roofing",
+    fallbackDesc:
+      "Learn more about Shumaker Roofing, our mission, vision, and the skilled team of licensed professionals behind our top-tier roofing services.",
+  });
+}
 
 export default async function AboutPage() {
   type ContentfulMember = {

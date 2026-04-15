@@ -1,102 +1,74 @@
-/**
- * lib/seo.ts
- * Universal SEO Metadata resolver for Contentful-powered Next.js pages.
- *
- * HOW IT WORKS
- * ─────────────────────────────────────────────────────────────────────────────
- * 1. In Contentful you have a dedicated content type called "SEO Metadata"
- *    (API ID: seoMetadata) with these EXACT field IDs (verified live):
- *
- *    Field Name                                    │ Field ID            │ Type
- *    ──────────────────────────────────────────────┼─────────────────────┼─────────────
- *    SEO Title                                     │ seoTitle            │ Short text
- *    SEO Description                               │ seoDescription      │ Short text
- *    Featured Image                                │ featuredImage       │ Media
- *    Canonical URL                                 │ canonicalUrl        │ Short text
- *    Hide page from search engines (noindex)?      │ hidePage            │ Boolean
- *    Exclude links from Search Ranking?(nofollow)  │ excludeLinksRanking │ Boolean
- *
- * 2. Each page content type links to one SEO Metadata entry.
- *    Two reference styles are supported:
- *
- *    a) Single reference field  (Field ID: seoMetadata)  — recommended for new types
- *    b) Array reference field   (Field ID: seoMeta)      — used by the blog type
- *       The resolver reads the FIRST linked entry in the array.
- *
- * 3. Call resolveSeoMetadata(item.fields) in any generateMetadata() function.
- * 4. Pass the result to buildNextMetadata() for a full Next.js Metadata object.
- * ─────────────────────────────────────────────────────────────────────────────
- */
-
 import type { Metadata } from "next";
 import { client } from "@/lib/contentful";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export interface ResolvedSeoMetadata {
-  /** Maps to the <title> tag and og:title / twitter:title */
   seoTitle?: string;
-  /** Maps to <meta name="description"> and og:description / twitter:description */
   seoDescription?: string;
-  /** URL of the Open Graph / Twitter card image */
   featuredImageUrl?: string;
-  /** Maps to <link rel="canonical"> — omitted when blank */
   canonicalUrl?: string;
-  /** true → adds robots noindex directive */
   noIndex: boolean;
-  /** true → adds robots nofollow directive */
   noFollow: boolean;
 }
 
-// ─── Core resolver ───────────────────────────────────────────────────────────
+// ─── Core resolver ────────────────────────────────────────────────────────────
 
 /**
- * Reads the `seoMetadata` reference field from any Contentful entry's `fields`
- * object and returns the resolved SEO values.
+ * Reads a linked seoMetadata entry from any Contentful entry's fields.
  *
- * The Contentful SDK resolves linked entries inline (include >= 1, which is
- * the default), so `fields.seoMetadata.fields` is always available when the
- * entry is published and linked.
+ * Strategy:
+ *  1. Try common field names (seoMetadata, seoMeta, seo)
+ *  2. Scan ALL fields for any linked entry whose content type is 'seoMetadata'
  *
- * Returns an empty-safe object — safe to call even when no seoMetadata
- * reference has been set on the entry yet.
- *
- * @param fields  The `item.fields` from any Contentful entry.
+ * Returns null when no SEO Metadata entry is linked so callers can
+ * distinguish "not found" from "found but empty".
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function resolveSeoMetadata(fields: any): ResolvedSeoMetadata {
-  // Support two reference styles:
-  //  • seoMetadata  — single reference (recommended, used for new content types)
-  //  • seoMeta      — array reference  (used by the existing "blog" content type;  
-  //                   reads the first linked entry)
-  const seoRef =
+export function resolveSeoMetadata(fields: any): ResolvedSeoMetadata | null {
+  // Try known field names first
+  let seoRef =
     fields?.seoMetadata ||
-    (Array.isArray(fields?.seoMeta) ? fields.seoMeta[0] : fields?.seoMeta);
+    fields?.seoMeta ||
+    fields?.seo;
+  if (Array.isArray(seoRef)) seoRef = seoRef[0];
 
-  // No linked SEO Metadata entry — return safe defaults.
+  // Fallback: scan ALL fields for any linked entry with contentType 'seoMetadata'
+  // This handles any custom field name the editor chose in Contentful
   if (!seoRef?.fields) {
-    return { noIndex: false, noFollow: false };
+    for (const key of Object.keys(fields || {})) {
+      const val = fields[key];
+      const candidate = Array.isArray(val) ? val[0] : val;
+      if (candidate?.sys?.contentType?.sys?.id === "seoMetadata") {
+        seoRef = candidate;
+        break;
+      }
+    }
+  }
+
+  if (!seoRef?.fields) {
+    return null;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const seo: any = seoRef.fields;
 
-  // Resolve asset URL — Contentful returns protocol-less URLs like //images.ctfassets.net/…
   const rawImageUrl: string | undefined = seo.featuredImage?.fields?.file?.url;
   const featuredImageUrl = rawImageUrl
-    ? rawImageUrl.startsWith("//")
-      ? `https:${rawImageUrl}`
-      : rawImageUrl
+    ? rawImageUrl.startsWith("//") ? `https:${rawImageUrl}` : rawImageUrl
     : undefined;
+
+  // Try multiple possible API field ID variations for boolean flags
+  const noIndex = Boolean(seo.noindex ?? seo.noIndex ?? seo.hidePage ?? false);
+  const noFollow = Boolean(seo.nofollow ?? seo.noFollow ?? seo.excludeLinksRanking ?? seo.excludeLinks ?? false);
 
   return {
     seoTitle: seo.seoTitle ?? undefined,
     seoDescription: seo.seoDescription ?? undefined,
     featuredImageUrl,
     canonicalUrl: seo.canonicalUrl ?? undefined,
-    // Exact Contentful field IDs confirmed from the live CMS
-    noIndex: seo.hidePage ?? false,
-    noFollow: seo.excludeLinksRanking ?? false,
+    noIndex,
+    noFollow,
   };
 }
 
@@ -104,13 +76,7 @@ export function resolveSeoMetadata(fields: any): ResolvedSeoMetadata {
 
 /**
  * Builds a complete Next.js Metadata object from resolved SEO values.
- *
- * @param seo           Result of resolveSeoMetadata()
- * @param fallbackTitle Fallback title when seo.seoTitle is not set
- * @param fallbackDesc  Fallback description when seo.seoDescription is not set
- * @param fallbackImage Fallback image URL (e.g. the post's featuredImage) when
- *                      the SEO Metadata entry has no featured image
- * @param ogType        Open Graph type — "website" | "article" (default "website")
+ * CMS fields always win; fallbacks are used only when a CMS field is absent.
  */
 export function buildNextMetadata(
   seo: ResolvedSeoMetadata,
@@ -148,76 +114,78 @@ export function buildNextMetadata(
   };
 }
 
-// ─── Universal fetch + resolve helper ────────────────────────────────────────
+// ─── Unified SEO resolver for every page ─────────────────────────────────────
 
 /**
- * Fetches a single Contentful entry by content type + slug field, resolves its
- * linked seoMetadata entry, and returns a ready-to-use Next.js Metadata object.
+ * Single function used by every page — static or dynamic.
  *
- * Use this in generateMetadata() for any dynamic page:
+ * Priority order:
+ *  1. Linked seoMetadata entry on the Contentful page entry  (if entryFields provided)
+ *  2. Standalone seoMetadata entry whose canonicalUrl matches `path`
+ *  3. Provided fallback strings
  *
- * ```ts
- * export async function generateMetadata({ params }) {
- *   return fetchEntrySeo({
- *     contentType: "blog",          // your Contentful content type ID
- *     slugField:   "slug",          // the field used as the URL slug
- *     slug:        params.slug,
- *     fallbackTitle: "Shumaker Roofing Blog",
- *     fallbackDesc:  "Read our latest insights.",
- *     ogType: "article",
- *   });
- * }
- * ```
+ * Usage examples:
  *
- * @param contentType   Contentful content type ID (e.g. "blog", "services")
- * @param slugField     The field on the entry that holds the URL slug (e.g. "slug", "url")
- * @param slug          The actual slug value from the URL params
- * @param fallbackTitle Title used when seoTitle is not set on the SEO Metadata entry
- * @param fallbackDesc  Description used when seoDescription is not set
- * @param fallbackImageExtractor  Optional function to extract a fallback image
- *                                URL from the raw entry fields
- * @param ogType        "website" | "article" (default "website")
- * @param notFoundTitle Title returned when no matching entry is found
+ * // Static page
+ * return fetchPageSeo({ path: "/about", fallbackTitle: "...", fallbackDesc: "..." });
+ *
+ * // Dynamic page (entry already fetched for page content, must use include >= 2)
+ * return fetchPageSeo({ path: `/services/${slug}`, entryFields: fields, fallbackTitle: "...", fallbackDesc: "..." });
  */
-export async function fetchEntrySeo({
-  contentType,
-  slugField,
-  slug,
+export async function fetchPageSeo({
+  path,
+  entryFields,
   fallbackTitle,
   fallbackDesc,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fallbackImageExtractor,
+  fallbackImage,
   ogType = "website",
-  notFoundTitle = "Page Not Found",
 }: {
-  contentType: string;
-  slugField: string;
-  slug: string;
+  /** Canonical URL path for this page, e.g. "/about" or "/services/residential-roofing" */
+  path: string;
+  /** Fields from an already-fetched Contentful entry (fetch with include >= 2) */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  entryFields?: any;
   fallbackTitle: string;
   fallbackDesc: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fallbackImageExtractor?: (fields: any) => string | undefined;
+  /** Fallback OG image when no SEO entry provides one */
+  fallbackImage?: string;
   ogType?: "website" | "article";
-  notFoundTitle?: string;
 }): Promise<Metadata> {
   try {
-    // include: 2 ensures the linked seoMetadata entry AND its assets are resolved
+    // ── Strategy 1: linked seoMetadata entry on the page entry ──────────────
+    if (entryFields) {
+      const seo = resolveSeoMetadata(entryFields);
+      if (seo) {
+        return buildNextMetadata(seo, fallbackTitle, fallbackDesc, fallbackImage, ogType);
+      }
+    }
+
+    // ── Strategy 2: standalone seoMetadata entry matched by canonical path ──
+    const normalized = path.replace(/\/$/, "") || "/";
     const response = await client.getEntries({
-      content_type: contentType,
-      [`fields.${slugField}`]: slug,
-      limit: 1,
-      include: 2,
+      content_type: "seoMetadata",
+      "fields.canonicalUrl[match]": normalized,
+      limit: 10,
+      include: 1,
     });
 
-    if (!response.items.length) return { title: notFoundTitle };
+    const match = response.items.find((item) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const url = ((item.fields as any)?.canonicalUrl as string | undefined) ?? "";
+      const u = url.replace(/\/$/, "");
+      return u === normalized || u.endsWith(normalized);
+    });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const fields = response.items[0].fields as any;
-    const seo = resolveSeoMetadata(fields);
-    const fallbackImage = fallbackImageExtractor?.(fields);
+    if (match) {
+      const seo = resolveSeoMetadata({ seoMetadata: match });
+      if (seo) {
+        return buildNextMetadata(seo, fallbackTitle, fallbackDesc, fallbackImage, ogType);
+      }
+    }
 
-    return buildNextMetadata(seo, fallbackTitle, fallbackDesc, fallbackImage, ogType);
+    // ── Strategy 3: fallback strings only ───────────────────────────────────
+    return buildNextMetadata({ noIndex: false, noFollow: false }, fallbackTitle, fallbackDesc, fallbackImage, ogType);
   } catch {
-    return { title: fallbackTitle };
+    return { title: fallbackTitle, description: fallbackDesc };
   }
 }
