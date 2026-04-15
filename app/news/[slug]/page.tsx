@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { cache } from "react";
 import { Container } from "@/components/shared/container";
 import { Calendar, User, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,7 @@ import { client } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { fetchEntrySeo } from "@/lib/seo";
 
-async function getPostFromSlug(slug: string) {
+const getPostFromSlug = cache(async function getPostFromSlug(slug: string) {
   let post = null;
 
   // Try finding by slug field first
@@ -35,7 +36,7 @@ async function getPostFromSlug(slug: string) {
   }
 
   return post;
-}
+});
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
