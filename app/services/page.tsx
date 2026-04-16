@@ -35,7 +35,11 @@ export default async function ServicesPage() {
   let services: any[] = [];
   try {
     const response = await client.getEntries({ content_type: "services" });
-    services = response.items || [];
+    services = (response.items || []).sort((a, b) => {
+      const aTitle = ((a.fields as any).title as string) || "";
+      const bTitle = ((b.fields as any).title as string) || "";
+      return aTitle.localeCompare(bTitle);
+    });
   } catch (e) {
     console.error("Contentful fetch error:", e);
   }

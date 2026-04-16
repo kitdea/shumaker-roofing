@@ -65,19 +65,22 @@ export default async function Home() {
                 title: "Residential Roofing",
                 desc: "Complete roof replacements, repairs, and inspections for your home with premium materials.",
                 icon: HomeIcon,
+                href: "/services/residential-roofing",
               },
               {
                 title: "Commercial Roofing",
                 desc: "Durable and efficient roofing solutions tailored for businesses and commercial properties.",
                 icon: ShieldCheck,
+                href: "/services/commercial-roofing",
               },
               {
-                title: "Roof Maintenance",
-                desc: "Preventative maintenance to extend the life of your roof and catch problems early.",
+                title: "Roof Repair",
+                desc: "Fast and reliable repairs for leaks, storm damage, and worn materials to restore your roof's integrity.",
                 icon: Wrench,
+                href: "/services/roof-repair",
               },
-            ].map((service, i) => (
-              <Card key={i} className="border-none shadow-lg hover:shadow-xl transition-shadow bg-background group">
+            ].map((service) => (
+              <Card key={service.title} className="border-none shadow-lg hover:shadow-xl transition-shadow bg-background group">
                 <CardHeader>
                   <div className="bg-accent text-primary w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
                     <service.icon className="h-7 w-7" />
@@ -88,7 +91,7 @@ export default async function Home() {
                   <p className="text-muted-foreground mb-6 line-clamp-3">
                     {service.desc}
                   </p>
-                  <Link href="/services" className="text-primary font-semibold flex items-center gap-2 hover:gap-3 transition-all">
+                  <Link href={service.href} className="text-primary font-semibold flex items-center gap-2 hover:gap-3 transition-all">
                     Read More <ArrowRight className="h-4 w-4" />
                   </Link>
                 </CardContent>
@@ -114,8 +117,8 @@ export default async function Home() {
               </p>
 
               <ul className="flex flex-col gap-4 mb-10">
-                {["Over 20 Years of Experience", "Licensed and Insured Professionals", "High-Quality Materials Warranty", "Free No-Obligation Estimates"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3">
+                {["Over 20 Years of Experience", "Licensed and Insured Professionals", "High-Quality Materials Warranty", "Free No-Obligation Estimates"].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
                     <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0" />
                     <span className="text-foreground font-medium">{item}</span>
                   </li>
