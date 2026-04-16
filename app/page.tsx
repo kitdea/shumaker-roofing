@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ShieldCheck, Wrench, Home as HomeIcon, CheckCircle2, ArrowRight } from "lucide-react";
 import { fetchPageSeo } from "@/lib/seo";
+import { ProjectSlider } from "@/components/home/project-slider";
+import { LogoSlider } from "@/components/home/logo-slider";
 
 export async function generateMetadata() {
   return fetchPageSeo({
@@ -101,6 +103,22 @@ export default async function Home() {
         </Container>
       </section>
 
+      {/* Project Gallery Slider */}
+      <section className="bg-secondary" aria-label="Our roofing project gallery">
+        <div className="py-12 text-center">
+          <span className="text-primary font-bold tracking-wider uppercase text-sm block mb-2">
+            Our Work
+          </span>
+          <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-white">
+            Projects We&apos;re Proud Of
+          </h2>
+          <p className="text-slate-400 mt-3 max-w-xl mx-auto px-4">
+            A glimpse into the quality craftsmanship and dedication we bring to every roofing project.
+          </p>
+        </div>
+        <ProjectSlider />
+      </section>
+
       {/* About Us Snippet */}
       <section className="py-24">
         <Container>
@@ -148,6 +166,25 @@ export default async function Home() {
       </section>
 
 
+
+      {/* Certifications & Trust Badges */}
+      <section
+        className="py-14 bg-slate-900 overflow-hidden"
+        aria-label="Trusted roofing certifications and partnerships"
+      >
+        <div className="text-center mb-10 px-4">
+          <span className="text-primary font-bold tracking-wider uppercase text-sm block mb-2">
+            Certifications &amp; Partnerships
+          </span>
+          <h2 className="text-2xl md:text-3xl font-heading font-extrabold text-white">
+            Trusted Roofing Contractor in Frederick, MD
+          </h2>
+          <p className="text-slate-400 mt-3 max-w-xl mx-auto text-sm md:text-base">
+            Backed by the industry&apos;s most respected certifications and manufacturer partnerships.
+          </p>
+        </div>
+        <LogoSlider />
+      </section>
 
       {/* CTA Section */}
       <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
