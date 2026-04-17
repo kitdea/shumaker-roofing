@@ -8,6 +8,7 @@ import { ShieldCheck, Wrench, Home as HomeIcon, CheckCircle2, ArrowRight } from 
 import { fetchPageSeo } from "@/lib/seo";
 import { ProjectSlider } from "@/components/home/project-slider";
 import { LogoSlider } from "@/components/home/logo-slider";
+import { RoofleWidget } from "@/components/home/roofle-widget";
 
 export async function generateMetadata() {
   return fetchPageSeo({
@@ -201,6 +202,22 @@ export default async function Home() {
               CALL +1 234 567 8900
             </Button>
           </div>
+        </Container>
+      </section>
+
+
+      {/* Instant Roof Quote Widget */}
+      <section aria-label="Instant roof quote estimator" className="py-24 bg-muted/30">
+        <Container>
+          <SectionHeader
+            title="Get an Instant Roof Quote"
+            subtitle="Free Estimate"
+            align="center"
+          />
+          <p className="text-center text-muted-foreground text-lg mt-4 mb-10 max-w-xl mx-auto">
+            Answer a few quick questions and receive an accurate estimate for your roofing project — no obligation required.
+          </p>
+          <RoofleWidget />
         </Container>
       </section>
     </div>
