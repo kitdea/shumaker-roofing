@@ -215,7 +215,7 @@ export default async function Home() {
             align="center"
           />
           <p className="text-center text-muted-foreground text-lg mt-4 mb-10 max-w-xl mx-auto">
-            Answer a few quick questions and receive an accurate estimate for your roofing project — no obligation required.
+            Answer a few quick questions and receive an accurate estimate for your roofing project no obligation required.
           </p>
           <RoofleWidget />
         </Container>
