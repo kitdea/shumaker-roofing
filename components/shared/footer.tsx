@@ -111,8 +111,8 @@ export async function Footer() {
             &copy; {new Date().getFullYear()} Shumaker Roofing. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <Link href="#" className="text-secondary-foreground/50 hover:text-primary text-sm transition-colors">Privacy Policy</Link>
-            <Link href="#" className="text-secondary-foreground/50 hover:text-primary text-sm transition-colors">Terms of Service</Link>
+            <Link href="/privacy-policy" className="text-secondary-foreground/50 hover:text-primary text-sm transition-colors">Privacy Policy</Link>
+            <Link href="/terms-and-conditions" className="text-secondary-foreground/50 hover:text-primary text-sm transition-colors">Terms of Service</Link>
           </div>
         </div>
       </Container>
