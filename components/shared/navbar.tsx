@@ -19,7 +19,7 @@ interface NavbarProps {
 const staticLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
-  { name: "Blog", href: "/news" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact Us", href: "/contact" },
 ];
 
@@ -102,7 +102,7 @@ export function Navbar({ services = [] }: NavbarProps) {
             </div>
 
             <Link
-              href="/news"
+              href="/blog"
               className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
             >
               Blog
