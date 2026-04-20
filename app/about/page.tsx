@@ -25,6 +25,10 @@ export default async function AboutPage() {
       jobPosition?: string;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       teamInfo?: any;
+      email?: string;
+      socialMedia?: string;
+      phoneNumber?: string | number;
+      salesmanTag?: string;
       teamThumbnail?: {
         fields: {
           file: {
@@ -35,14 +39,12 @@ export default async function AboutPage() {
     };
   };
 
-  // Fetch dynamic team members from Contentful
   let dynamicTeamMembers: ContentfulMember[] = [];
   try {
     const response = await client.getEntries({ content_type: 'team' });
     if (response.items.length > 0) {
       dynamicTeamMembers = response.items as unknown as ContentfulMember[];
     } else {
-      // Fallback
       const res2 = await client.getEntries({ content_type: 'teamMember' });
       dynamicTeamMembers = res2.items as unknown as ContentfulMember[];
     }
@@ -94,12 +96,18 @@ export default async function AboutPage() {
           const imageUrl = fields.teamThumbnail?.fields?.file?.url
             ? `https:${fields.teamThumbnail.fields.file.url}`
             : "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop";
+          const name = fields.fullName || "Team Member";
           return {
             id: member.sys.id,
-            name: fields.fullName || "Team Member",
+            name,
             role: fields.jobPosition || "Staff",
             img: imageUrl,
             teamInfo: fields.teamInfo || "A dedicated professional at Shumaker Roofing, committed to providing top-quality service, ensuring safety, and upholding our core values of integrity and excellence in every project.",
+            email: fields.email,
+            socialMedia: fields.socialMedia,
+            phoneNumber: fields.phoneNumber,
+            salesmanTag: fields.salesmanTag,
+            retired: normalizeName(name) === "terree long",
           };
         })
       : defaultTeam.map((m, i) => ({ ...m, id: i.toString() }))

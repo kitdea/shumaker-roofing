@@ -12,13 +12,26 @@ type TeamMember = {
   img: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   teamInfo: any;
+  email?: string | null;
+  socialMedia?: string | null;
+  phoneNumber?: string | number | null;
+  salesmanTag?: string | null;
+  retired?: boolean;
 };
+
+function RetiredBadge() {
+  return (
+    <span className="bg-amber-500 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+      Retired
+    </span>
+  );
+}
 
 function MemberCard({ member, onClick }: { member: TeamMember; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="bg-background rounded-xl overflow-hidden shadow-md border border-border/50 group cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-left w-full"
+      className="bg-background rounded-xl overflow-hidden shadow-md border border-border/50 group cursor-pointer text-left w-full"
       aria-label={`View ${member.name}'s profile`}
     >
       <div className="relative w-full aspect-[9/11] overflow-hidden bg-muted/50">
@@ -29,6 +42,11 @@ function MemberCard({ member, onClick }: { member: TeamMember; onClick: () => vo
           className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
         />
+        {member.retired && (
+          <span className="absolute top-3 left-3">
+            <RetiredBadge />
+          </span>
+        )}
       </div>
       <div className="p-6 text-center">
         <h4 className="text-xl font-heading font-bold text-foreground">{member.name}</h4>
@@ -92,7 +110,7 @@ export function TeamGrid({ team, firstRowCount = 2 }: { team: TeamMember[]; firs
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", duration: 0.5, bounce: 0.2 }}
-              className="relative z-10 flex flex-row w-full max-w-5xl bg-background border border-border/50 rounded-2xl shadow-2xl overflow-hidden max-h-[90vh]"
+              className="relative z-10 flex flex-col sm:flex-row w-full max-w-7xl bg-background border border-border/50 rounded-2xl shadow-2xl overflow-y-auto sm:overflow-hidden max-h-[90vh]"
             >
               <button
                 onClick={() => setSelectedMember(null)}
@@ -105,24 +123,72 @@ export function TeamGrid({ team, firstRowCount = 2 }: { team: TeamMember[]; firs
                 </svg>
               </button>
 
-              {/* Image panel — same 9:11 portrait ratio as thumbnail */}
-              <div className="shrink-0 w-36 sm:w-56 md:w-72 lg:w-80 bg-muted/50 self-stretch">
-                <div className="relative w-full aspect-[9/11] h-full">
+              <div className="shrink-0 w-full h-56 sm:w-56 sm:h-auto md:w-72 lg:w-80 bg-muted/50">
+                <div className="relative w-full h-full aspect-[9/11]">
                   <Image
                     src={selectedMember.img}
                     alt={selectedMember.name}
                     fill
                     className="object-cover object-top"
-                    sizes="(max-width: 640px) 144px, (max-width: 768px) 224px, (max-width: 1024px) 288px, 320px"
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 224px, (max-width: 1024px) 288px, 320px"
                     priority
                   />
                 </div>
               </div>
 
-              {/* Content panel — takes remaining width, scrollable */}
-              <div className="flex flex-col justify-center flex-1 min-w-0 p-6 sm:p-8 md:p-12 overflow-y-auto">
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-foreground mb-1 pr-8">{selectedMember.name}</h3>
-                <p className="text-primary font-medium uppercase tracking-wider text-xs sm:text-sm mb-4">{selectedMember.role}</p>
+              <div className="flex flex-col justify-center flex-1 min-w-0 p-6 sm:p-8 md:p-12 sm:overflow-y-auto">
+                <div className="flex items-center gap-3 flex-wrap pr-8 mb-1">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-foreground">{selectedMember.name}</h3>
+                  {selectedMember.retired && <RetiredBadge />}
+                </div>
+                <p className="text-primary font-medium uppercase tracking-wider text-xs sm:text-sm mb-2">{selectedMember.role}</p>
+                {selectedMember.salesmanTag && (
+                  <p className="text-foreground/50 text-xs sm:text-sm italic mb-2">{selectedMember.salesmanTag}</p>
+                )}
+                {(selectedMember.email || selectedMember.socialMedia || selectedMember.phoneNumber) && (
+                  <div className="flex flex-col gap-1 mb-4">
+                    {selectedMember.phoneNumber && (
+                      <a
+                        href={`tel:${String(selectedMember.phoneNumber).replace(/\D/g, "")}`}
+                        className="text-foreground/60 hover:text-primary text-xs sm:text-sm transition-colors flex items-center gap-1.5"
+                        aria-label={`Call ${selectedMember.name}`}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.1 6.1l1.27-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
+                        {String(selectedMember.phoneNumber)}
+                      </a>
+                    )}
+                    {selectedMember.email && (
+                      <a
+                        href={`mailto:${selectedMember.email}`}
+                        className="text-foreground/60 hover:text-primary text-xs sm:text-sm transition-colors flex items-center gap-1.5"
+                        aria-label={`Email ${selectedMember.name}`}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <rect x="2" y="4" width="20" height="16" rx="2" />
+                          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                        </svg>
+                        {selectedMember.email}
+                      </a>
+                    )}
+                    {selectedMember.socialMedia && (
+                      <a
+                        href={selectedMember.socialMedia}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-foreground/60 hover:text-primary text-xs sm:text-sm transition-colors flex items-center gap-1.5"
+                        aria-label={`${selectedMember.name}'s social media profile`}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                        </svg>
+                        {selectedMember.socialMedia}
+                      </a>
+                    )}
+                  </div>
+                )}
                 <div className="w-12 h-1 bg-primary mb-4 rounded-full" />
                 <div className="text-foreground/70 leading-relaxed text-sm sm:text-base contentful-rich-text">
                   {selectedMember.teamInfo && typeof selectedMember.teamInfo === "object"
