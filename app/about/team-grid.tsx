@@ -19,6 +19,14 @@ type TeamMember = {
   retired?: boolean;
 };
 
+function RetiredBadge() {
+  return (
+    <span className="bg-amber-500 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+      Retired
+    </span>
+  );
+}
+
 function MemberCard({ member, onClick }: { member: TeamMember; onClick: () => void }) {
   return (
     <button
@@ -35,8 +43,8 @@ function MemberCard({ member, onClick }: { member: TeamMember; onClick: () => vo
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
         />
         {member.retired && (
-          <span className="absolute top-3 left-3 bg-amber-500 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
-            Retired
+          <span className="absolute top-3 left-3">
+            <RetiredBadge />
           </span>
         )}
       </div>
@@ -115,7 +123,6 @@ export function TeamGrid({ team, firstRowCount = 2 }: { team: TeamMember[]; firs
                 </svg>
               </button>
 
-              {/* Image panel — full width on mobile, fixed sidebar on sm+ */}
               <div className="shrink-0 w-full h-56 sm:w-56 sm:h-auto md:w-72 lg:w-80 bg-muted/50">
                 <div className="relative w-full h-full aspect-[9/11]">
                   <Image
@@ -129,15 +136,10 @@ export function TeamGrid({ team, firstRowCount = 2 }: { team: TeamMember[]; firs
                 </div>
               </div>
 
-              {/* Content panel — takes remaining width, scrollable */}
               <div className="flex flex-col justify-center flex-1 min-w-0 p-6 sm:p-8 md:p-12 sm:overflow-y-auto">
                 <div className="flex items-center gap-3 flex-wrap pr-8 mb-1">
                   <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-foreground">{selectedMember.name}</h3>
-                  {selectedMember.retired && (
-                    <span className="bg-amber-500 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-sm">
-                      Retired
-                    </span>
-                  )}
+                  {selectedMember.retired && <RetiredBadge />}
                 </div>
                 <p className="text-primary font-medium uppercase tracking-wider text-xs sm:text-sm mb-2">{selectedMember.role}</p>
                 {selectedMember.salesmanTag && (

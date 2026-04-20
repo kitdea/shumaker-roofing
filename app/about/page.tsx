@@ -39,14 +39,12 @@ export default async function AboutPage() {
     };
   };
 
-  // Fetch dynamic team members from Contentful
   let dynamicTeamMembers: ContentfulMember[] = [];
   try {
     const response = await client.getEntries({ content_type: 'team' });
     if (response.items.length > 0) {
       dynamicTeamMembers = response.items as unknown as ContentfulMember[];
     } else {
-      // Fallback
       const res2 = await client.getEntries({ content_type: 'teamMember' });
       dynamicTeamMembers = res2.items as unknown as ContentfulMember[];
     }
@@ -105,10 +103,10 @@ export default async function AboutPage() {
             role: fields.jobPosition || "Staff",
             img: imageUrl,
             teamInfo: fields.teamInfo || "A dedicated professional at Shumaker Roofing, committed to providing top-quality service, ensuring safety, and upholding our core values of integrity and excellence in every project.",
-            email: fields.email || null,
-            socialMedia: fields.socialMedia || null,
-            phoneNumber: fields.phoneNumber || null,
-            salesmanTag: fields.salesmanTag || null,
+            email: fields.email,
+            socialMedia: fields.socialMedia,
+            phoneNumber: fields.phoneNumber,
+            salesmanTag: fields.salesmanTag,
             retired: normalizeName(name) === "terree long",
           };
         })
