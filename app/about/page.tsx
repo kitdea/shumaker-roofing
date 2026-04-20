@@ -110,7 +110,7 @@ export default async function AboutPage() {
             retired: normalizeName(name) === "terree long",
           };
         })
-      : defaultTeam.map((m, i) => ({ ...m, id: i.toString() }))
+      : defaultTeam.map((m, i) => ({ ...m, id: i.toString(), email: undefined, socialMedia: undefined, phoneNumber: undefined, salesmanTag: undefined, retired: false }))
   );
 
   return (
