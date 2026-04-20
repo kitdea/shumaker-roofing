@@ -59,21 +59,51 @@ export default async function AboutPage() {
     { name: "Marcus Johnson", role: "Customer Success", teamInfo: "Marcus is dedicated to ensuring every client is completely satisfied, from initial contact to final inspection.", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" },
   ];
 
-  const displayTeam = dynamicTeamMembers.length > 0
-    ? dynamicTeamMembers.map((member) => {
-        const fields = member.fields;
-        const imageUrl = fields.teamThumbnail?.fields?.file?.url 
-          ? `https:${fields.teamThumbnail.fields.file.url}` 
-          : "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop";
-        return {
-          id: member.sys.id,
-          name: fields.fullName || "Team Member",
-          role: fields.jobPosition || "Staff",
-          img: imageUrl,
-          teamInfo: fields.teamInfo || "A dedicated professional at Shumaker Roofing, committed to providing top-quality service, ensuring safety, and upholding our core values of integrity and excellence in every project.",
-        };
-      })
-    : defaultTeam.map((m, i) => ({ ...m, id: i.toString() }));
+  const TEAM_ORDER = [
+    "robert bob schisler",
+    "tyler schisler",
+    "christian ekberg",
+    "terree long",
+    "bailey walker",
+    "don stillwagon",
+    "victor razuri",
+    "amin mekki",
+  ];
+
+  const normalizeName = (name: string) =>
+    name
+      .toLowerCase()
+      .replace(/[“”"'’‘]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  const sortTeam = <T extends { name: string }>(members: T[]): T[] =>
+    [...members].sort((a, b) => {
+      const ai = TEAM_ORDER.indexOf(normalizeName(a.name));
+      const bi = TEAM_ORDER.indexOf(normalizeName(b.name));
+      if (ai === -1 && bi === -1) return 0;
+      if (ai === -1) return 1;
+      if (bi === -1) return -1;
+      return ai - bi;
+    });
+
+  const displayTeam = sortTeam(
+    dynamicTeamMembers.length > 0
+      ? dynamicTeamMembers.map((member) => {
+          const fields = member.fields;
+          const imageUrl = fields.teamThumbnail?.fields?.file?.url
+            ? `https:${fields.teamThumbnail.fields.file.url}`
+            : "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop";
+          return {
+            id: member.sys.id,
+            name: fields.fullName || "Team Member",
+            role: fields.jobPosition || "Staff",
+            img: imageUrl,
+            teamInfo: fields.teamInfo || "A dedicated professional at Shumaker Roofing, committed to providing top-quality service, ensuring safety, and upholding our core values of integrity and excellence in every project.",
+          };
+        })
+      : defaultTeam.map((m, i) => ({ ...m, id: i.toString() }))
+  );
 
   return (
     <div className="flex flex-col w-full">
