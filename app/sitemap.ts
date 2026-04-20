@@ -16,7 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     blogEntries = blogsRes.items.map((item: any) => ({
-      url: `${baseUrl}/news/${item.fields.slug || item.sys.id}`,
+      url: `${baseUrl}/blog/${item.fields.slug || item.sys.id}`,
       lastModified: new Date(item.sys.updatedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
@@ -53,7 +53,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/news`,
+      url: `${baseUrl}/blog`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.5,

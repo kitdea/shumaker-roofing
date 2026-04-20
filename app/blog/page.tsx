@@ -11,7 +11,7 @@ import { slugify } from "@/lib/utils";
 
 export async function generateMetadata() {
   return fetchPageSeo({
-    path: "/news",
+    path: "/blog",
     fallbackTitle: "Blog | Shumaker Roofing",
     fallbackDesc:
       "Stay up to date with the latest roofing tips, maintenance guides, company news, and industry insights from the Shumaker Roofing team.",
@@ -19,7 +19,7 @@ export async function generateMetadata() {
   });
 }
 
-export default async function NewsPage() {
+export default async function BlogPage() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let posts: any[] = [];
   try {
@@ -90,7 +90,7 @@ export default async function NewsPage() {
 
               return (
                 <Card key={item.sys.id} className="border-border/50 shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col h-full">
-                  <Link href={`/news/${post.title ? slugify(post.title as string) : item.sys.id}`} className="relative h-56 w-full overflow-hidden block bg-muted">
+                  <Link href={`/blog/${post.title ? slugify(post.title as string) : item.sys.id}`} className="relative h-56 w-full overflow-hidden block bg-muted">
                     <Image
                       src={imageUrl}
                       alt={post.title || "Blog post"}
@@ -110,14 +110,14 @@ export default async function NewsPage() {
                       <span className="flex items-center gap-1.5"><Calendar className="h-3.5 w-3.5" /> {formattedDate}</span>
                       <span className="flex items-center gap-1.5"><User className="h-3.5 w-3.5" /> {authorName}</span>
                     </div>
-                    <Link href={`/news/${post.title ? slugify(post.title as string) : item.sys.id}`} className="group-hover:text-primary transition-colors">
+                    <Link href={`/blog/${post.title ? slugify(post.title as string) : item.sys.id}`} className="group-hover:text-primary transition-colors">
                       <h3 className="text-xl font-heading font-bold mb-3">{post.title as string}</h3>
                     </Link>
                     <p className="text-foreground/70 mb-6 flex-1 line-clamp-3">
                       {descriptionText}
                     </p>
                     <Button variant="link" className="p-0 h-auto justify-start font-semibold text-primary" asChild>
-                      <Link href={`/news/${post.title ? slugify(post.title as string) : item.sys.id}`}>
+                      <Link href={`/blog/${post.title ? slugify(post.title as string) : item.sys.id}`}>
                         READ MORE <ArrowRight className="h-4 w-4 ml-1" />
                       </Link>
                     </Button>
