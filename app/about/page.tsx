@@ -25,6 +25,10 @@ export default async function AboutPage() {
       jobPosition?: string;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       teamInfo?: any;
+      email?: string;
+      socialMedia?: string;
+      phoneNumber?: string | number;
+      salesmanTag?: string;
       teamThumbnail?: {
         fields: {
           file: {
@@ -94,12 +98,18 @@ export default async function AboutPage() {
           const imageUrl = fields.teamThumbnail?.fields?.file?.url
             ? `https:${fields.teamThumbnail.fields.file.url}`
             : "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop";
+          const name = fields.fullName || "Team Member";
           return {
             id: member.sys.id,
-            name: fields.fullName || "Team Member",
+            name,
             role: fields.jobPosition || "Staff",
             img: imageUrl,
             teamInfo: fields.teamInfo || "A dedicated professional at Shumaker Roofing, committed to providing top-quality service, ensuring safety, and upholding our core values of integrity and excellence in every project.",
+            email: fields.email || null,
+            socialMedia: fields.socialMedia || null,
+            phoneNumber: fields.phoneNumber || null,
+            salesmanTag: fields.salesmanTag || null,
+            retired: normalizeName(name) === "terree long",
           };
         })
       : defaultTeam.map((m, i) => ({ ...m, id: i.toString() }))
