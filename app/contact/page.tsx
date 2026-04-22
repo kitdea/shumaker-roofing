@@ -75,6 +75,7 @@ export default function ContactPage() {
                 </Button>
               </form>
             </div>
+            
 
             {/* Contact Details */}
             <div className="flex flex-col justify-center">
@@ -87,7 +88,9 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-lg font-heading font-bold text-foreground">Our Location</h4>
-                    <p className="text-muted-foreground mt-1">123 Roofing Way, Suite 100<br />Cityville, ST 12345</p>
+                    <p className="text-muted-foreground mt-1">- 26 Water St. Frederick, MD 21701</p>
+                    <p className="text-muted-foreground mt-1">- 6 W Washington St suite 208, Hagerstown, MD 21740</p>
+                    <p className="text-muted-foreground mt-1">- 12001 Sunrise Valley Dr, Reston, VA 20191</p>
                   </div>
                 </div>
 
@@ -97,7 +100,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-lg font-heading font-bold text-foreground">Phone Number</h4>
-                    <p className="text-muted-foreground mt-1">+1 234 567 8900</p>
+                    <p className="text-muted-foreground mt-1">+1 301-662-0533</p>
                   </div>
                 </div>
 
@@ -117,22 +120,81 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-lg font-heading font-bold text-foreground">Working Hours</h4>
-                    <p className="text-muted-foreground mt-1">Mon - Fri: 8:00 AM - 6:00 PM<br />Sat - Sun: 9:00 AM - 2:00 PM</p>
+                    <p className="text-muted-foreground mt-1">Mon - Fri: 8:00 AM - 5:00 PM</p>
                   </div>
                 </div>
               </div>
 
-              {/* Map Embed Placeholder */}
-              <div className="w-full h-64 bg-muted rounded-xl border border-border overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-500">
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Our Locations Map Section */}
+      <section className="py-16 bg-muted/40">
+        <Container>
+          <SectionHeader
+            title="Find Us"
+            subtitle="Our Locations"
+            className="mb-12 text-center"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-2">
+                <MapPin className="h-5 w-5 text-primary shrink-0" />
+                <h4 className="text-base font-heading font-bold text-foreground">Frederick, MD</h4>
+              </div>
+              <p className="text-sm text-muted-foreground">26 Water St. Frederick, MD 21701</p>
+              <div className="w-full h-72 rounded-xl border border-border overflow-hidden shadow-md">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.25279998817!2d-74.14483015694208!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sen!4v1700000000000!5m2!1sen!2sen"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3103.051992993649!2d-77.36344262406091!3d38.945640571713774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b64906aaaa4f1d%3A0x7fc69ec8cdf8f004!2sShumaker%20Roofing%20Company!5e0!3m2!1sen!2sph!4v1776891299304!5m2!1sen!2sph"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Google Maps Location"
+                  title="Shumaker Roofing - Frederick, MD"
+                ></iframe>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-2">
+                <MapPin className="h-5 w-5 text-primary shrink-0" />
+                <h4 className="text-base font-heading font-bold text-foreground">Hagerstown, MD</h4>
+              </div>
+              <p className="text-sm text-muted-foreground">6 W Washington St Suite 208, Hagerstown, MD 21740</p>
+              <div className="w-full h-72 rounded-xl border border-border overflow-hidden shadow-md">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3072.330027553726!2d-77.72310332402718!3d39.642286571574566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c9ecb669a6af07%3A0x581ade45e3590790!2sShumaker%20Roofing%20Company!5e0!3m2!1sen!2sph!4v1776891191862!5m2!1sen!2sph"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Shumaker Roofing - Hagerstown, MD"
+                ></iframe>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-2">
+                <MapPin className="h-5 w-5 text-primary shrink-0" />
+                <h4 className="text-base font-heading font-bold text-foreground">Reston, VA</h4>
+              </div>
+              <p className="text-sm text-muted-foreground">12001 Sunrise Valley Dr, Reston, VA 20191</p>
+              <div className="w-full h-72 rounded-xl border border-border overflow-hidden shadow-md">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3082.5392735339065!2d-77.40461549999999!3d39.4119283!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c9da5c304ada73%3A0x20ee81a5d09380d2!2sShumaker%20Roofing%20Company!5e0!3m2!1sen!2sph!4v1776890979259!5m2!1sen!2sph"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Shumaker Roofing - Reston, VA"
                 ></iframe>
               </div>
             </div>

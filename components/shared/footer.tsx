@@ -92,16 +92,31 @@ export async function Footer() {
             <ul className="flex flex-col gap-4">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                <span className="text-secondary-foreground/70 text-sm leading-relaxed">123 Roofing Way, Suite 100<br />Cityville, ST 12345</span>
+                <span className="text-secondary-foreground/70 text-sm leading-relaxed">26 Water St. Frederick, MD 21701</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-primary shrink-0" />
-                <span className="text-secondary-foreground/70 text-sm">+1 234 567 8900</span>
+                <span className="text-secondary-foreground/70 text-sm">+1 301-662-0533</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary shrink-0" />
                 <span className="text-secondary-foreground/70 text-sm">info@shumakerroofing.com</span>
               </li>
+            </ul>
+            <h4 className="text-lg font-heading font-semibold text-white mt-6 mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/2 after:h-0.5 after:bg-primary">
+              MHIC License
+            </h4>
+            <ul className="flex flex-col gap-2" aria-label="Contractor license numbers">
+              {[
+                { number: "#4503", state: "MHIC" },
+                { number: "#160849", state: "PA" },
+                { number: "#062924", state: "WV" },
+                { number: "#2705191905", state: "VA" },
+              ].map(({ number, state }) => (
+                <li key={state} className="text-secondary-foreground/70 text-sm">
+                  <span className="text-white font-medium">{number}</span> {state}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
