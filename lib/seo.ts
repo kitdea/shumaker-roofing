@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { client } from "@/lib/contentful";
+import { toHttpsUrl } from "@/lib/utils";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -54,9 +55,7 @@ export function resolveSeoMetadata(fields: any): ResolvedSeoMetadata | null {
   const seo: any = seoRef.fields;
 
   const rawImageUrl: string | undefined = seo.featuredImage?.fields?.file?.url;
-  const featuredImageUrl = rawImageUrl
-    ? rawImageUrl.startsWith("//") ? `https:${rawImageUrl}` : rawImageUrl
-    : undefined;
+  const featuredImageUrl = toHttpsUrl(rawImageUrl);
 
   // Try multiple possible API field ID variations for boolean flags
   const noIndex = Boolean(seo.noindex ?? seo.noIndex ?? seo.hidePage ?? false);
