@@ -9,7 +9,7 @@ import { client } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { fetchPageSeo } from "@/lib/seo";
 import { TwoColumnSection } from "@/components/shared/two-column-section";
-import { slugify } from "@/lib/utils";
+import { slugify, toHttpsUrl } from "@/lib/utils";
 
 const getServiceFromSlug = cache(async function getServiceFromSlug(slug: string) {
   let service = null;
@@ -71,9 +71,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     : "Expert roofing solutions provided by Shumaker Roofing professionals.";
 
   const rawImageUrl: string | undefined = fields.servicesImage?.fields?.file?.url;
-  const fallbackImage = rawImageUrl
-    ? rawImageUrl.startsWith("//") ? `https:${rawImageUrl}` : rawImageUrl
-    : undefined;
+  const fallbackImage = toHttpsUrl(rawImageUrl);
 
   return fetchPageSeo({
     path: `/services/${slug}`,
@@ -96,7 +94,6 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const serviceFields = rawService.fields as any;
 
-  // Read the splitSection reference field that is already resolved on the service entry
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const splitSections: any[] = Array.isArray(serviceFields.splitSection) ? serviceFields.splitSection : [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -104,23 +101,21 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
     const f = item.fields;
     const firstImage = Array.isArray(f.splitImage) ? f.splitImage[0] : f.splitImage;
     const rawUrl: string | undefined = firstImage?.fields?.file?.url;
-    const imageUrl = rawUrl
-      ? rawUrl.startsWith("//")
-        ? `https:${rawUrl}`
-        : rawUrl
-      : null;
+    const imageUrl = toHttpsUrl(rawUrl) ?? null;
     return {
       id: item.sys.id,
       splitTitle: typeof f.splitTitle === "string" ? f.splitTitle : String(f.splitTitle ?? ""),
-      // splitDescription is a Rich Text document — pass the raw object
       splitDescription: f.splitDescription ?? null,
       imageUrl,
     };
-  }).filter((s: { imageUrl: string | null }) => s.imageUrl);
+  }).filter((s: { imageUrl: string | null }) => s.imageUrl !== null);
 
-  const imageUrl = serviceFields.servicesImage?.fields?.file?.url
-    ? `https:${serviceFields.servicesImage.fields.file.url}`
-    : "https://images.unsplash.com/photo-1548614606-52b4451f994b?q=80&w=2070&auto=format&fit=crop";
+  // additionalContent is a top-level Rich Text field on the service entry itself
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const additionalContent = serviceFields.additionalContent ?? null;
+
+  const imageUrl = toHttpsUrl(serviceFields.servicesImage?.fields?.file?.url)
+    ?? "https://images.unsplash.com/photo-1548614606-52b4451f994b?q=80&w=2070&auto=format&fit=crop";
 
   return (
     <div className="flex flex-col w-full pb-24">
@@ -159,6 +154,8 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
           <article className="lg:col-span-8 prose prose-lg md:prose-xl dark:prose-invert max-w-none prose-p:text-foreground/90 [&_h2]:text-[1.8rem] [&_h2]:font-extrabold [&_h2]:mt-0 [&_h2]:mb-4 [&_h3]:text-[1.4rem] [&_h3]:font-bold [&_h3]:mt-0 [&_h3]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-6 [&_li]:mb-2 [&_p]:mb-6 [&_p]:leading-relaxed">
             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             {serviceFields.servicesContent ? documentToReactComponents(serviceFields.servicesContent as any) : null}
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            {additionalContent ? documentToReactComponents(additionalContent as any) : null}
           </article>
 
           {/* Sidebar */}

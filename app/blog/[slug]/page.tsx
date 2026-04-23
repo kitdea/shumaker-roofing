@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { client } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { fetchPageSeo } from "@/lib/seo";
-import { slugify } from "@/lib/utils";
+import { slugify, toHttpsUrl } from "@/lib/utils";
 
 const getPostFromSlug = cache(async function getPostFromSlug(slug: string) {
   let post = null;
@@ -70,9 +70,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     fields.featuredImage || fields.image || fields.coverImage ||
     fields.heroImage || fields.thumbnail || fields.cover;
   const rawImageUrl: string | undefined = imageField?.fields?.file?.url;
-  const fallbackImage = rawImageUrl
-    ? rawImageUrl.startsWith("//") ? `https:${rawImageUrl}` : rawImageUrl
-    : undefined;
+  const fallbackImage = toHttpsUrl(rawImageUrl);
 
   return fetchPageSeo({
     path: `/blog/${slug}`,

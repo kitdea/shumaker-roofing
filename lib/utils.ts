@@ -13,6 +13,11 @@ export function cn(...inputs: ClassValue[]) {
  * - Special / non-ASCII characters removed
  * - Consecutive hyphens collapsed
  */
+export function toHttpsUrl(url: string | undefined): string | undefined {
+  if (!url) return undefined;
+  return url.startsWith("//") ? `https:${url}` : url;
+}
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()
