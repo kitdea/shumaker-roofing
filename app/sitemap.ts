@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { client } from '@/lib/contentful';
+import { client, fetchAllLocations } from '@/lib/contentful';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.shumakerroofing.com';
@@ -7,11 +7,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch dynamic content
   let blogEntries: MetadataRoute.Sitemap = [];
   let serviceEntries: MetadataRoute.Sitemap = [];
+  let locationUrls: MetadataRoute.Sitemap = [];
 
   try {
-    const [blogsRes, servicesRes] = await Promise.all([
+    const [blogsRes, servicesRes, locations] = await Promise.all([
       client.getEntries({ content_type: 'blog' }),
-      client.getEntries({ content_type: 'services' })
+      client.getEntries({ content_type: 'services' }),
+      fetchAllLocations(),
     ]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,6 +28,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     serviceEntries = servicesRes.items.map((item: any) => ({
       url: `${baseUrl}/services/${item.fields.url || item.sys.id}`,
       lastModified: new Date(item.sys.updatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }));
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    locationUrls = locations.map((loc: any) => ({
+      url: `${baseUrl}/service-areas/${loc.fields.slug}/`,
+      lastModified: new Date(loc.sys.updatedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     }));
@@ -64,7 +74,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'yearly',
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/service-areas/`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    },
     ...serviceEntries,
-    ...blogEntries
+    ...blogEntries,
+    ...locationUrls,
   ];
 }
