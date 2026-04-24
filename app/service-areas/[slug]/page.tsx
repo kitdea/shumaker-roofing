@@ -1,0 +1,227 @@
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { cache } from "react";
+import { MapPin, Phone, ChevronLeft, CheckCircle2 } from "lucide-react";
+import { Container } from "@/components/shared/container";
+import { Button } from "@/components/ui/button";
+import { fetchLocation, fetchAllLocationSlugs } from "@/lib/contentful";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { fetchPageSeo } from "@/lib/seo";
+
+const getLocation = cache((slug: string) => fetchLocation(slug));
+
+export async function generateStaticParams() {
+  const slugs = await fetchAllLocationSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const loc = await getLocation(slug);
+  if (!loc) return { title: "Location Not Found - Shumaker Roofing" };
+
+  return fetchPageSeo({
+    path: `/service-areas/${slug}`,
+    entryFields: loc.fields,
+    fallbackTitle:
+      loc.fields.seoTitle ||
+      `Roofing Services in ${loc.fields.fullLocationName || loc.fields.cityName} | Shumaker Roofing`,
+    fallbackDesc:
+      loc.fields.metaDescription ||
+      `Shumaker Roofing provides expert roofing services in ${loc.fields.fullLocationName || loc.fields.cityName}, ${loc.fields.state}. Contact us for a free estimate.`,
+  });
+}
+
+export default async function LocationPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const loc = await getLocation(slug);
+
+  if (!loc) notFound();
+
+  const { fields } = loc;
+  const cityDisplay = fields.fullLocationName || fields.cityName;
+
+  return (
+    <div className="flex flex-col w-full pb-24">
+      {/* Hero */}
+      <section className="relative w-full h-[40vh] min-h-[300px] flex flex-col justify-end pb-16 bg-secondary">
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="w-full h-full bg-slate-900/75 absolute inset-0 z-10" />
+          <Image
+            src="https://images.unsplash.com/photo-1548614606-52b4451f994b?q=80&w=2070&auto=format&fit=crop"
+            alt={`Roofing services in ${cityDisplay}`}
+            fill
+            sizes="100vw"
+            quality={85}
+            className="object-cover opacity-60 mix-blend-overlay z-0"
+            priority
+          />
+        </div>
+        <Container className="relative z-20">
+          <Link
+            href="/service-areas"
+            className="inline-flex items-center text-primary/90 hover:text-primary transition-colors mb-6 font-medium text-sm"
+          >
+            <ChevronLeft className="h-4 w-4 mr-1" /> All Service Areas
+          </Link>
+          <div className="flex items-center gap-2 mb-4">
+            <div className="bg-primary/20 text-white border border-primary/30 text-xs font-bold uppercase py-1.5 px-3 rounded-md inline-flex items-center gap-1.5 backdrop-blur-sm shadow-sm">
+              <MapPin className="h-3 w-3" />
+              {fields.state}
+            </div>
+          </div>
+          <h1 className="text-3xl md:text-5xl font-heading font-extrabold text-white mb-2 max-w-4xl leading-tight">
+            {fields.heroHeadline || `Roofing Services in ${cityDisplay}`}
+          </h1>
+        </Container>
+      </section>
+
+      <Container className="mt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Main Content */}
+          <article className="lg:col-span-8 space-y-12">
+            {/* Intro text */}
+            {fields.introText && (
+              <div className="prose prose-lg md:prose-xl dark:prose-invert max-w-none prose-p:text-foreground/90 [&_h2]:text-[1.8rem] [&_h2]:font-extrabold [&_h2]:mt-0 [&_h2]:mb-4 [&_h3]:text-[1.4rem] [&_h3]:font-bold [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-6 [&_li]:mb-2 [&_p]:mb-6 [&_p]:leading-relaxed">
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                {documentToReactComponents(fields.introText as any)}
+              </div>
+            )}
+
+            {/* Services offered */}
+            {fields.servicesOffered?.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-heading font-bold mb-6">
+                  Services Available in {cityDisplay}
+                </h2>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {fields.servicesOffered.map((svc) => (
+                    <li key={svc.sys.id} className="flex items-center gap-3 text-foreground/80">
+                      <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
+                      <span className="font-medium">{svc.fields.serviceName}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* FAQ */}
+            {fields.faqItems?.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-heading font-bold mb-6">
+                  Frequently Asked Questions
+                </h2>
+                <div className="space-y-6">
+                  {fields.faqItems.map((faq) => (
+                    <div key={faq.sys.id} className="border-b border-border pb-6 last:border-0 last:pb-0">
+                      <h3 className="text-lg font-semibold text-foreground mb-2">
+                        {faq.fields.question}
+                      </h3>
+                      <p className="text-foreground/70 leading-relaxed">{faq.fields.answer}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Testimonials */}
+            {fields.localTestimonials?.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-heading font-bold mb-6">
+                  What {cityDisplay} Customers Say
+                </h2>
+                <div className="space-y-6">
+                  {fields.localTestimonials.map((t) => (
+                    <blockquote
+                      key={t.sys.id}
+                      className="bg-muted/50 border border-border rounded-xl p-6"
+                    >
+                      <p className="text-foreground/80 italic leading-relaxed mb-4">
+                        &ldquo;{t.fields.quote}&rdquo;
+                      </p>
+                      <footer className="flex items-center justify-between text-sm">
+                        <span className="font-semibold text-foreground">
+                          {t.fields.customerName}
+                        </span>
+                        {t.fields.rating && (
+                          <span className="text-primary font-medium">
+                            {"★".repeat(t.fields.rating)}
+                          </span>
+                        )}
+                      </footer>
+                    </blockquote>
+                  ))}
+                </div>
+              </div>
+            )}
+          </article>
+
+          {/* Sidebar */}
+          <aside className="lg:col-span-4 space-y-8">
+            {/* CTA card */}
+            <div className="bg-primary text-primary-foreground p-8 rounded-2xl shadow-lg relative overflow-hidden">
+              <div className="absolute -right-4 -top-8 opacity-10 blur-xl">
+                <div className="w-40 h-40 bg-white rounded-full" />
+              </div>
+              <h3 className="text-xl font-heading font-bold mb-4 text-white relative z-10">
+                Serving {cityDisplay}
+              </h3>
+              <p className="text-white/90 mb-8 text-sm relative z-10 leading-relaxed">
+                Our team is ready to help with all your roofing needs in{" "}
+                {cityDisplay}, {fields.state}. Get your free estimate today.
+              </p>
+              {fields.phoneNumber && (
+                <a
+                  href={`tel:${fields.phoneNumber.replace(/\D/g, "")}`}
+                  className="flex items-center gap-2 text-white font-semibold mb-6 relative z-10 hover:text-white/80 transition-colors"
+                >
+                  <Phone className="h-4 w-4" />
+                  {fields.phoneNumber}
+                </a>
+              )}
+              <Button
+                variant="secondary"
+                size="lg"
+                className="w-full font-bold text-primary hover:bg-white relative z-10 shadow-md"
+                asChild
+              >
+                <Link href="/contact">Get a Free Quote</Link>
+              </Button>
+            </div>
+
+            {/* Why choose us */}
+            <div className="bg-muted/50 p-8 rounded-2xl border border-border shadow-sm">
+              <h3 className="text-xl font-heading font-bold mb-4">Why Choose Us?</h3>
+              <ul className="space-y-4">
+                {[
+                  "Licensed & Insured Professionals",
+                  "Decades of Experience",
+                  "High-Quality Materials",
+                  "Exceptional Customer Service",
+                  "Fast & Reliable",
+                ].map((item) => (
+                  <li key={item} className="flex items-center text-sm font-medium text-foreground/80">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary mr-3 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Location info */}
+            <div className="bg-muted/50 p-8 rounded-2xl border border-border shadow-sm">
+              <h3 className="text-xl font-heading font-bold mb-4">Location Details</h3>
+              <div className="flex items-start gap-3 text-sm text-foreground/70">
+                <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                <span>
+                  {cityDisplay}, {fields.state}
+                </span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </Container>
+    </div>
+  );
+}
