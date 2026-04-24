@@ -20,19 +20,7 @@ export async function fetchLocation(slug: string): Promise<ContentfulLocation | 
   return res.items[0] as unknown as ContentfulLocation
 }
 
-// Fetch all active location slugs — used for generateStaticParams
-export async function fetchAllLocationSlugs(): Promise<string[]> {
-  const res = await client.getEntries({
-    content_type: 'location',
-    'fields.isActive': true,
-    select: ['fields.slug'],
-    limit: 200,
-  })
-
-  return res.items.map((item: any) => item.fields.slug as string)
-}
-
-// Fetch all active locations — used for hub page and sitemap
+// Fetch all active locations — used for hub page, sitemap, and generateStaticParams
 export async function fetchAllLocations(): Promise<ContentfulLocation[]> {
   const res = await client.getEntries({
     content_type: 'location',

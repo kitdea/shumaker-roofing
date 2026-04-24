@@ -1,7 +1,7 @@
 export interface ContentfulService {
   sys: { id: string }
   fields: {
-    serviceName: string
+    title: string
     slug: string
     shortDescription: string
   }

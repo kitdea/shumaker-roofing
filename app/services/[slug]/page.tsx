@@ -9,6 +9,7 @@ import { client } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { fetchPageSeo } from "@/lib/seo";
 import { TwoColumnSection } from "@/components/shared/two-column-section";
+import { WhyChooseUs } from "@/components/shared/why-choose-us";
 import { slugify, toHttpsUrl } from "@/lib/utils";
 
 const getServiceFromSlug = cache(async function getServiceFromSlug(slug: string) {
@@ -173,23 +174,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
               </Button>
             </div>
 
-            <div className="bg-muted/50 p-8 rounded-2xl border border-border shadow-sm">
-              <h3 className="text-xl font-heading font-bold mb-4">Why Choose Us?</h3>
-              <ul className="space-y-4">
-                {[
-                  "Licensed & Insured Professionals",
-                  "Decades of Experience",
-                  "High-Quality Materials",
-                  "Exceptional Customer Service",
-                  "Fast & Reliable",
-                ].map((item, idx) => (
-                  <li key={idx} className="flex items-center text-sm font-medium text-foreground/80">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mr-3 shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <WhyChooseUs />
           </aside>
         </div>
       </Container>

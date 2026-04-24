@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
-import { client } from '@/lib/contentful';
-import { fetchAllLocations } from '@/lib/contentful';
+import { client, fetchAllLocations } from '@/lib/contentful';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.shumakerroofing.com';
@@ -33,9 +32,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }));
 
-    locationUrls = locations.map((loc) => ({
-      url: `https://shumakeroofing.com/service-areas/${loc.fields.slug}/`,
-      lastModified: new Date(),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    locationUrls = locations.map((loc: any) => ({
+      url: `${baseUrl}/service-areas/${loc.fields.slug}/`,
+      lastModified: new Date(loc.sys.updatedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     }));
@@ -75,7 +75,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     },
     {
-      url: 'https://shumakeroofing.com/service-areas/',
+      url: `${baseUrl}/service-areas/`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.9,

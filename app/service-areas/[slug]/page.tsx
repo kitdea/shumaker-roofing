@@ -5,15 +5,16 @@ import { cache } from "react";
 import { MapPin, Phone, ChevronLeft, CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
-import { fetchLocation, fetchAllLocationSlugs } from "@/lib/contentful";
+import { fetchLocation, fetchAllLocations } from "@/lib/contentful";
+import { WhyChooseUs } from "@/components/shared/why-choose-us";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { fetchPageSeo } from "@/lib/seo";
 
 const getLocation = cache((slug: string) => fetchLocation(slug));
 
 export async function generateStaticParams() {
-  const slugs = await fetchAllLocationSlugs();
-  return slugs.map((slug) => ({ slug }));
+  const locations = await fetchAllLocations();
+  return locations.map((loc) => ({ slug: loc.fields.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -99,7 +100,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
                   {fields.servicesOffered.map((svc) => (
                     <li key={svc.sys.id} className="flex items-center gap-3 text-foreground/80">
                       <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
-                      <span className="font-medium">{svc.fields.serviceName}</span>
+                      <span className="font-medium">{svc.fields.title}</span>
                     </li>
                   ))}
                 </ul>
@@ -190,24 +191,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
               </Button>
             </div>
 
-            {/* Why choose us */}
-            <div className="bg-muted/50 p-8 rounded-2xl border border-border shadow-sm">
-              <h3 className="text-xl font-heading font-bold mb-4">Why Choose Us?</h3>
-              <ul className="space-y-4">
-                {[
-                  "Licensed & Insured Professionals",
-                  "Decades of Experience",
-                  "High-Quality Materials",
-                  "Exceptional Customer Service",
-                  "Fast & Reliable",
-                ].map((item) => (
-                  <li key={item} className="flex items-center text-sm font-medium text-foreground/80">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mr-3 shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <WhyChooseUs />
 
             {/* Location info */}
             <div className="bg-muted/50 p-8 rounded-2xl border border-border shadow-sm">

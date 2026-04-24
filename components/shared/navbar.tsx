@@ -7,35 +7,37 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 
-interface ServiceLink {
+interface NavLink {
   name: string;
   href: string;
 }
 
 interface NavbarProps {
-  services?: ServiceLink[];
+  services?: NavLink[];
+  locations?: NavLink[];
 }
 
-const staticLinks = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact Us", href: "/contact" },
-];
 
-export function Navbar({ services = [] }: NavbarProps) {
+export function Navbar({ services = [], locations = [] }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileLocationsOpen, setMobileLocationsOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (name: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    setServicesOpen(true);
+    setOpenDropdown(name);
   };
 
   const handleMouseLeave = () => {
-    closeTimer.current = setTimeout(() => setServicesOpen(false), 120);
+    closeTimer.current = setTimeout(() => setOpenDropdown(null), 120);
+  };
+
+  const closeAll = () => {
+    setIsOpen(false);
+  setMobileServicesOpen(false);
+    setMobileLocationsOpen(false);
   };
 
   return (
@@ -60,6 +62,7 @@ export function Navbar({ services = [] }: NavbarProps) {
             >
               Home
             </Link>
+
             <Link
               href="/about"
               className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
@@ -70,7 +73,7 @@ export function Navbar({ services = [] }: NavbarProps) {
             {/* Services dropdown */}
             <div
               className="relative"
-              onMouseEnter={handleMouseEnter}
+              onMouseEnter={() => handleMouseEnter("services")}
               onMouseLeave={handleMouseLeave}
             >
               <Link
@@ -79,21 +82,60 @@ export function Navbar({ services = [] }: NavbarProps) {
               >
                 Services
                 <ChevronDown
-                  className={`h-4 w-4 transition-transform duration-200 ${servicesOpen ? "rotate-180" : ""}`}
+                  className={`h-4 w-4 transition-transform duration-200 ${openDropdown === "services" ? "rotate-180" : ""}`}
                 />
               </Link>
-
-              {servicesOpen && services.length > 0 && (
+              {openDropdown === "services" && services.length > 0 && (
                 <div className="absolute left-0 top-full pt-2 w-56 z-50">
                   <div className="bg-background border border-border/60 rounded-lg shadow-lg py-1 overflow-hidden">
                     {services.map((service) => (
                       <Link
                         key={service.href}
                         href={service.href}
-                        onClick={() => setServicesOpen(false)}
+                        onClick={() => setOpenDropdown(null)}
                         className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-muted transition-colors"
                       >
                         {service.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Service Areas dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMouseEnter("locations")}
+              onMouseLeave={handleMouseLeave}
+            >
+              <Link
+                href="/service-areas"
+                className="flex items-center gap-1 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+              >
+                Service Areas
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform duration-200 ${openDropdown === "locations" ? "rotate-180" : ""}`}
+                />
+              </Link>
+              {openDropdown === "locations" && (
+                <div className="absolute left-0 top-full pt-2 w-56 z-50">
+                  <div className="bg-background border border-border/60 rounded-lg shadow-lg py-1 overflow-y-auto max-h-80">
+                    <Link
+                      href="/service-areas"
+                      onClick={() => setOpenDropdown(null)}
+                      className="block px-4 py-2.5 text-sm font-semibold text-primary hover:bg-muted transition-colors border-b border-border/40"
+                    >
+                      View All Areas
+                    </Link>
+                    {locations.map((loc) => (
+                      <Link
+                        key={loc.href}
+                        href={loc.href}
+                        onClick={() => setOpenDropdown(null)}
+                        className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-muted transition-colors"
+                      >
+                        {loc.name}
                       </Link>
                     ))}
                   </div>
@@ -142,24 +184,29 @@ export function Navbar({ services = [] }: NavbarProps) {
       {isOpen && (
         <div className="md:hidden border-t border-border">
           <Container className="py-4 flex flex-col gap-1">
-            {staticLinks.slice(0, 2).map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="block text-base font-medium text-foreground hover:text-primary p-2"
-              >
-                {link.name}
-              </Link>
-            ))}
+            <Link
+              href="/"
+              onClick={closeAll}
+              className="block text-base font-medium text-foreground hover:text-primary p-2"
+            >
+              Home
+            </Link>
 
-            {/* Mobile Services expandable */}
+            <Link
+              href="/about"
+              onClick={closeAll}
+              className="block text-base font-medium text-foreground hover:text-primary p-2"
+            >
+              About Us
+            </Link>
+
+            {/* Mobile Services */}
             <div>
               <button
                 onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                 className="flex items-center justify-between w-full text-base font-medium text-foreground hover:text-primary p-2 text-left"
               >
-                <Link href="/services" onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}>
+                <Link href="/services" onClick={(e) => { e.stopPropagation(); closeAll(); }}>
                   Services
                 </Link>
                 <ChevronDown
@@ -172,7 +219,7 @@ export function Navbar({ services = [] }: NavbarProps) {
                     <Link
                       key={service.href}
                       href={service.href}
-                      onClick={() => { setIsOpen(false); setMobileServicesOpen(false); }}
+                      onClick={closeAll}
                       className="block text-sm font-medium text-foreground/70 hover:text-primary p-2"
                     >
                       {service.name}
@@ -182,16 +229,56 @@ export function Navbar({ services = [] }: NavbarProps) {
               )}
             </div>
 
-            {staticLinks.slice(2).map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="block text-base font-medium text-foreground hover:text-primary p-2"
+            {/* Mobile Service Areas */}
+            <div>
+              <button
+                onClick={() => setMobileLocationsOpen(!mobileLocationsOpen)}
+                className="flex items-center justify-between w-full text-base font-medium text-foreground hover:text-primary p-2 text-left"
               >
-                {link.name}
-              </Link>
-            ))}
+                <Link href="/service-areas" onClick={(e) => { e.stopPropagation(); closeAll(); }}>
+                  Service Areas
+                </Link>
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform duration-200 ${mobileLocationsOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+              {mobileLocationsOpen && (
+                <div className="pl-4 flex flex-col gap-1 pb-1">
+                  <Link
+                    href="/service-areas"
+                    onClick={closeAll}
+                    className="block text-sm font-semibold text-primary hover:text-primary p-2"
+                  >
+                    View All Areas
+                  </Link>
+                  {locations.map((loc) => (
+                    <Link
+                      key={loc.href}
+                      href={loc.href}
+                      onClick={closeAll}
+                      className="block text-sm font-medium text-foreground/70 hover:text-primary p-2"
+                    >
+                      {loc.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link
+              href="/blog"
+              onClick={closeAll}
+              className="block text-base font-medium text-foreground hover:text-primary p-2"
+            >
+              Blog
+            </Link>
+            <Link
+              href="/contact"
+              onClick={closeAll}
+              className="block text-base font-medium text-foreground hover:text-primary p-2"
+            >
+              Contact Us
+            </Link>
 
             <div className="pt-2">
               <Button className="w-full gap-2 rounded-full">

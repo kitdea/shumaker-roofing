@@ -105,13 +105,13 @@ export function LocationSchema({
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://shumakeroofing.com/',
+        item: 'https://www.shumakerroofing.com/',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Service Areas',
-        item: 'https://shumakeroofing.com/service-areas/',
+        item: 'https://www.shumakerroofing.com/service-areas/',
       },
       {
         '@type': 'ListItem',

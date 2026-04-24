@@ -1,8 +1,10 @@
 import { client } from "@/lib/contentful";
+import { fetchAllLocations } from "@/lib/contentful";
 import { Navbar } from "@/components/shared/navbar";
 
 export async function NavbarServer() {
   let services: { name: string; href: string }[] = [];
+  let locations: { name: string; href: string }[] = [];
 
   try {
     const response = await client.getEntries({ content_type: "services" });
@@ -18,8 +20,18 @@ export async function NavbarServer() {
       })
       .sort((a, b) => a.name.localeCompare(b.name));
   } catch (e) {
-    console.error("Contentful fetch error:", e);
+    console.error("Contentful services fetch error:", e);
   }
 
-  return <Navbar services={services} />;
+  try {
+    const locs = await fetchAllLocations();
+    locations = locs.map((loc) => ({
+      name: loc.fields.fullLocationName || loc.fields.cityName,
+      href: `/service-areas/${loc.fields.slug}`,
+    }));
+  } catch (e) {
+    console.error("Contentful locations fetch error:", e);
+  }
+
+  return <Navbar services={services} locations={locations} />;
 }
