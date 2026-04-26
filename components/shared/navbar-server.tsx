@@ -1,4 +1,5 @@
 import { client, fetchAllLocations } from "@/lib/contentful";
+import { slugify } from "@/lib/utils";
 import { Navbar } from "@/components/shared/navbar";
 
 export async function NavbarServer() {
@@ -10,7 +11,7 @@ export async function NavbarServer() {
       client.getEntries({
         content_type: "services",
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        select: ["fields.title", "fields.url"] as any,
+        select: ["fields.title"] as any,
         order: ["fields.title"],
       }),
       fetchAllLocations(),
@@ -18,9 +19,8 @@ export async function NavbarServer() {
 
     services = servicesRes.items.map((item) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const fields = item.fields as any;
-      const slug = fields.url || item.sys.id;
-      return { name: fields.title as string, href: `/services/${slug}` };
+      const title = (item.fields as any).title as string;
+      return { name: title, href: `/services/${slugify(title)}` };
     });
 
     locations = locs.map((loc) => ({
