@@ -7,6 +7,7 @@ import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 import { fetchLocation, fetchAllLocations } from "@/lib/contentful";
 import { WhyChooseUs } from "@/components/shared/why-choose-us";
+import { slugify } from "@/lib/utils";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { fetchPageSeo } from "@/lib/seo";
 
@@ -100,7 +101,12 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
                   {fields.servicesOffered.map((svc) => (
                     <li key={svc.sys.id} className="flex items-center gap-3 text-foreground/80">
                       <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
-                      <span className="font-medium">{svc.fields.title}</span>
+                      <Link
+                        href={`/services/${slugify(svc.fields.title)}`}
+                        className="font-medium hover:text-primary transition-colors"
+                      >
+                        {svc.fields.title}
+                      </Link>
                     </li>
                   ))}
                 </ul>

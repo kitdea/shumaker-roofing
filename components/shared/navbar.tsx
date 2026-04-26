@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Phone, Home, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,13 +17,17 @@ interface NavbarProps {
   locations?: NavLink[];
 }
 
-
 export function Navbar({ services = [], locations = [] }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const [mobileLocationsOpen, setMobileLocationsOpen] = useState(false);
+  const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+    };
+  }, []);
 
   const handleMouseEnter = (name: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -34,17 +38,19 @@ const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
     closeTimer.current = setTimeout(() => setOpenDropdown(null), 120);
   };
 
+  const toggleMobileSection = (name: string) => {
+    setOpenMobileSection((prev) => (prev === name ? null : name));
+  };
+
   const closeAll = () => {
     setIsOpen(false);
-  setMobileServicesOpen(false);
-    setMobileLocationsOpen(false);
+    setOpenMobileSection(null);
   };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <Container>
         <div className="flex h-20 items-center justify-between">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="bg-primary p-2 flex items-center justify-center rounded-sm">
               <Home className="h-6 w-6 text-white" />
@@ -54,7 +60,6 @@ const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
             </span>
           </Link>
 
-          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             <Link
               href="/"
@@ -70,7 +75,6 @@ const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
               About Us
             </Link>
 
-            {/* Services dropdown */}
             <div
               className="relative"
               onMouseEnter={() => handleMouseEnter("services")}
@@ -103,7 +107,6 @@ const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
               )}
             </div>
 
-            {/* Service Areas dropdown */}
             <div
               className="relative"
               onMouseEnter={() => handleMouseEnter("locations")}
@@ -157,7 +160,6 @@ const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
             </Link>
           </nav>
 
-          {/* CTA & Toggle */}
           <div className="hidden md:flex items-center gap-4">
             <ThemeToggle />
             <Button size="lg" className="rounded-full gap-2 px-6">
@@ -166,7 +168,6 @@ const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
             </Button>
           </div>
 
-          {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center gap-4">
             <ThemeToggle />
             <button
@@ -180,7 +181,6 @@ const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
         </div>
       </Container>
 
-      {/* Mobile Nav */}
       {isOpen && (
         <div className="md:hidden border-t border-border">
           <Container className="py-4 flex flex-col gap-1">
@@ -200,20 +200,19 @@ const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
               About Us
             </Link>
 
-            {/* Mobile Services */}
             <div>
               <button
-                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                onClick={() => toggleMobileSection("services")}
                 className="flex items-center justify-between w-full text-base font-medium text-foreground hover:text-primary p-2 text-left"
               >
                 <Link href="/services" onClick={(e) => { e.stopPropagation(); closeAll(); }}>
                   Services
                 </Link>
                 <ChevronDown
-                  className={`h-4 w-4 transition-transform duration-200 ${mobileServicesOpen ? "rotate-180" : ""}`}
+                  className={`h-4 w-4 transition-transform duration-200 ${openMobileSection === "services" ? "rotate-180" : ""}`}
                 />
               </button>
-              {mobileServicesOpen && services.length > 0 && (
+              {openMobileSection === "services" && services.length > 0 && (
                 <div className="pl-4 flex flex-col gap-1 pb-1">
                   {services.map((service) => (
                     <Link
@@ -229,25 +228,24 @@ const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
               )}
             </div>
 
-            {/* Mobile Service Areas */}
             <div>
               <button
-                onClick={() => setMobileLocationsOpen(!mobileLocationsOpen)}
+                onClick={() => toggleMobileSection("locations")}
                 className="flex items-center justify-between w-full text-base font-medium text-foreground hover:text-primary p-2 text-left"
               >
                 <Link href="/service-areas" onClick={(e) => { e.stopPropagation(); closeAll(); }}>
                   Service Areas
                 </Link>
                 <ChevronDown
-                  className={`h-4 w-4 transition-transform duration-200 ${mobileLocationsOpen ? "rotate-180" : ""}`}
+                  className={`h-4 w-4 transition-transform duration-200 ${openMobileSection === "locations" ? "rotate-180" : ""}`}
                 />
               </button>
-              {mobileLocationsOpen && (
+              {openMobileSection === "locations" && (
                 <div className="pl-4 flex flex-col gap-1 pb-1">
                   <Link
                     href="/service-areas"
                     onClick={closeAll}
-                    className="block text-sm font-semibold text-primary hover:text-primary p-2"
+                    className="block text-sm font-semibold text-primary p-2"
                   >
                     View All Areas
                   </Link>
