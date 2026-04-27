@@ -263,9 +263,7 @@ export default function PrivacyPolicyPage() {
                     Shumaker Roofing
                   </p>
                   <p className="text-foreground/70 mt-1">
-                    123 Roofing Way, Suite 100
-                    <br />
-                    Cityville, ST 12345
+                    26 Water St. Frederick, MD 21701
                   </p>
                   <p className="text-foreground/70 mt-2">
                     <a
@@ -275,7 +273,7 @@ export default function PrivacyPolicyPage() {
                       info@shumakerroofing.com
                     </a>
                   </p>
-                  <p className="text-foreground/70">+1 234 567 8900</p>
+                  <p className="text-foreground/70">+1 301-662-0533</p>
                 </div>
               </PolicySection>
 

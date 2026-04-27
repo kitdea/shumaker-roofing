@@ -162,9 +162,11 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
 
           <div className="hidden md:flex items-center gap-4">
             <ThemeToggle />
-            <Button size="lg" className="rounded-full gap-2 px-6">
-              <Phone className="h-4 w-4" />
-              <span className="font-semibold">+1 234 567 8900</span>
+            <Button size="lg" className="rounded-full gap-2 px-6" asChild>
+              <a href="tel:+13016620533">
+                <Phone className="h-4 w-4" />
+                <span className="font-semibold">+1 301-662-0533</span>
+              </a>
             </Button>
           </div>
 
@@ -201,17 +203,24 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
             </Link>
 
             <div>
-              <button
-                onClick={() => toggleMobileSection("services")}
-                className="flex items-center justify-between w-full text-base font-medium text-foreground hover:text-primary p-2 text-left"
-              >
-                <Link href="/services" onClick={(e) => { e.stopPropagation(); closeAll(); }}>
+              <div className="flex items-center justify-between w-full text-base font-medium text-foreground p-2">
+                <Link
+                  href="/services"
+                  onClick={closeAll}
+                  className="hover:text-primary transition-colors"
+                >
                   Services
                 </Link>
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform duration-200 ${openMobileSection === "services" ? "rotate-180" : ""}`}
-                />
-              </button>
+                <button
+                  onClick={() => toggleMobileSection("services")}
+                  aria-label="Toggle services menu"
+                  className="hover:text-primary transition-colors p-1"
+                >
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-200 ${openMobileSection === "services" ? "rotate-180" : ""}`}
+                  />
+                </button>
+              </div>
               {openMobileSection === "services" && services.length > 0 && (
                 <div className="pl-4 flex flex-col gap-1 pb-1">
                   {services.map((service) => (
@@ -229,17 +238,24 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
             </div>
 
             <div>
-              <button
-                onClick={() => toggleMobileSection("locations")}
-                className="flex items-center justify-between w-full text-base font-medium text-foreground hover:text-primary p-2 text-left"
-              >
-                <Link href="/service-areas" onClick={(e) => { e.stopPropagation(); closeAll(); }}>
+              <div className="flex items-center justify-between w-full text-base font-medium text-foreground p-2">
+                <Link
+                  href="/service-areas"
+                  onClick={closeAll}
+                  className="hover:text-primary transition-colors"
+                >
                   Service Areas
                 </Link>
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform duration-200 ${openMobileSection === "locations" ? "rotate-180" : ""}`}
-                />
-              </button>
+                <button
+                  onClick={() => toggleMobileSection("locations")}
+                  aria-label="Toggle service areas menu"
+                  className="hover:text-primary transition-colors p-1"
+                >
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-200 ${openMobileSection === "locations" ? "rotate-180" : ""}`}
+                  />
+                </button>
+              </div>
               {openMobileSection === "locations" && (
                 <div className="pl-4 flex flex-col gap-1 pb-1">
                   <Link
@@ -279,9 +295,11 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
             </Link>
 
             <div className="pt-2">
-              <Button className="w-full gap-2 rounded-full">
-                <Phone className="h-4 w-4" />
-                <span>+1 234 567 8900</span>
+              <Button className="w-full gap-2 rounded-full" asChild>
+                <a href="tel:+13016620533">
+                  <Phone className="h-4 w-4" />
+                  <span>+1 301-662-0533</span>
+                </a>
               </Button>
             </div>
           </Container>

@@ -94,9 +94,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const imageField =
     postFields.featuredImage || postFields.image || postFields.coverImage ||
     postFields.heroImage || postFields.thumbnail || postFields.picture || postFields.cover;
-  const imageUrl = imageField?.fields?.file?.url
-    ? `https:${imageField.fields.file.url}`
-    : "https://images.unsplash.com/photo-1434082033009-b81d41d32e1c?q=80&w=2070&auto=format&fit=crop";
+  const imageUrl = toHttpsUrl(imageField?.fields?.file?.url)
+    ?? "https://images.unsplash.com/photo-1434082033009-b81d41d32e1c?q=80&w=2070&auto=format&fit=crop";
 
   const dateObj = postFields.publishedDate
     ? new Date(postFields.publishedDate)
@@ -142,9 +141,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const authorAvatar =
     authorField?.fields?.avatar || authorField?.fields?.picture ||
     authorField?.fields?.image || authorField?.fields?.profilePicture;
-  const authorAvatarUrl = authorAvatar?.fields?.file?.url
-    ? `https:${authorAvatar.fields.file.url}`
-    : null;
+  const authorAvatarUrl = toHttpsUrl(authorAvatar?.fields?.file?.url) ?? null;
 
   return (
     <div className="flex flex-col w-full pb-24">

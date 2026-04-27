@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { client } from "@/lib/contentful";
 import { fetchPageSeo } from "@/lib/seo";
-import { slugify } from "@/lib/utils";
+import { slugify, toHttpsUrl } from "@/lib/utils";
 
 export async function generateMetadata() {
   return fetchPageSeo({
@@ -60,9 +60,8 @@ export default async function BlogPage() {
               const post = item.fields as any;
               // Try various common contentful image field names
               const imageField = post.featuredImage || post.image || post.coverImage || post.heroImage || post.thumbnail || post.picture || post.cover;
-              const imageUrl = imageField?.fields?.file?.url
-                ? `https:${imageField.fields.file.url}`
-                : "https://images.unsplash.com/photo-1434082033009-b81d41d32e1c?q=80&w=2070&auto=format&fit=crop"; // fallback image
+              const imageUrl = toHttpsUrl(imageField?.fields?.file?.url)
+                ?? "https://images.unsplash.com/photo-1434082033009-b81d41d32e1c?q=80&w=2070&auto=format&fit=crop";
 
               // Format date from Contentful sys or a custom date field
               const dateObj = post.publishedDate ? new Date(post.publishedDate) : (post.date ? new Date(post.date) : new Date(item.sys.createdAt));

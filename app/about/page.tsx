@@ -4,6 +4,7 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { CheckCircle2 } from "lucide-react";
 import { client } from "@/lib/contentful";
 import { fetchPageSeo } from "@/lib/seo";
+import { toHttpsUrl } from "@/lib/utils";
 import { TeamGrid } from "./team-grid";
 
 export async function generateMetadata() {
@@ -93,9 +94,8 @@ export default async function AboutPage() {
     dynamicTeamMembers.length > 0
       ? dynamicTeamMembers.map((member) => {
           const fields = member.fields;
-          const imageUrl = fields.teamThumbnail?.fields?.file?.url
-            ? `https:${fields.teamThumbnail.fields.file.url}`
-            : "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop";
+          const imageUrl = toHttpsUrl(fields.teamThumbnail?.fields?.file?.url)
+            ?? "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop";
           const name = fields.fullName || "Team Member";
           return {
             id: member.sys.id,

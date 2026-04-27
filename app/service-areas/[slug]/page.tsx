@@ -92,7 +92,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
             )}
 
             {/* Services offered */}
-            {fields.servicesOffered?.length > 0 && (
+            {(fields.servicesOffered?.length ?? 0) > 0 && (
               <div>
                 <h2 className="text-2xl font-heading font-bold mb-6">
                   Services Available in {cityDisplay}
@@ -114,13 +114,13 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
             )}
 
             {/* FAQ */}
-            {fields.faqItems?.length > 0 && (
+            {(fields.faqItems?.length ?? 0) > 0 && (
               <div>
                 <h2 className="text-2xl font-heading font-bold mb-6">
                   Frequently Asked Questions
                 </h2>
                 <div className="space-y-6">
-                  {fields.faqItems.map((faq) => (
+                  {fields.faqItems!.map((faq) => (
                     <div key={faq.sys.id} className="border-b border-border pb-6 last:border-0 last:pb-0">
                       <h3 className="text-lg font-semibold text-foreground mb-2">
                         {faq.fields.question}
@@ -133,13 +133,13 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
             )}
 
             {/* Testimonials */}
-            {fields.localTestimonials?.length > 0 && (
+            {(fields.localTestimonials?.length ?? 0) > 0 && (
               <div>
                 <h2 className="text-2xl font-heading font-bold mb-6">
                   What {cityDisplay} Customers Say
                 </h2>
                 <div className="space-y-6">
-                  {fields.localTestimonials.map((t) => (
+                  {fields.localTestimonials!.map((t) => (
                     <blockquote
                       key={t.sys.id}
                       className="bg-muted/50 border border-border rounded-xl p-6"

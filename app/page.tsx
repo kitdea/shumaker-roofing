@@ -46,8 +46,8 @@ export default async function Home() {
             <p className="text-foreground/70 text-lg mb-8 max-w-lg">
               When it comes to protecting your home your roof is the first line of defense we provide notch roofing service designed to safeguard.
             </p>
-            <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base">
-              SCHEDULE YOUR ROOF REPAIR
+            <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base" asChild>
+              <Link href="/contact">SCHEDULE YOUR ROOF REPAIR</Link>
             </Button>
           </div>
         </Container>
@@ -195,11 +195,11 @@ export default async function Home() {
             Contact us today for a free inspection and estimate. Our experts are ready to help you find the best roofing solution for your needs.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" variant="secondary" className="h-14 px-8 text-base bg-white text-primary hover:bg-white/90">
-              GET A FREE ESTIMATE
+            <Button size="lg" variant="secondary" className="h-14 px-8 text-base bg-white text-primary hover:bg-white/90" asChild>
+              <Link href="/contact">GET A FREE ESTIMATE</Link>
             </Button>
-            <Button size="lg" variant="outline" className="h-14 px-8 border-white text-primary hover:text-white text-base hover:bg-white/10">
-              CALL +1 234 567 8900
+            <Button size="lg" variant="outline" className="h-14 px-8 border-white text-primary hover:text-white text-base hover:bg-white/10" asChild>
+              <a href="tel:+13016620533">CALL +1 301-662-0533</a>
             </Button>
           </div>
         </Container>

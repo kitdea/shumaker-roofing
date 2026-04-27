@@ -238,11 +238,11 @@ export default function TermsAndConditionsPage() {
               >
                 <p>
                   These Terms shall be governed by and construed in accordance
-                  with the laws of the State of [Your State], without regard to
+                  with the laws of the State of Maryland, without regard to
                   its conflict of law provisions. Any dispute arising from or
                   relating to these Terms or your use of the site shall be
                   subject to the exclusive jurisdiction of the state and federal
-                  courts located in [Your County], [Your State].
+                  courts located in Frederick County, Maryland.
                 </p>
               </TermsSection>
 
@@ -277,9 +277,7 @@ export default function TermsAndConditionsPage() {
                     Shumaker Roofing
                   </p>
                   <p className="text-foreground/70 mt-1">
-                    123 Roofing Way, Suite 100
-                    <br />
-                    Cityville, ST 12345
+                    26 Water St. Frederick, MD 21701
                   </p>
                   <p className="text-foreground/70 mt-2">
                     <a
@@ -289,7 +287,7 @@ export default function TermsAndConditionsPage() {
                       info@shumakerroofing.com
                     </a>
                   </p>
-                  <p className="text-foreground/70">+1 234 567 8900</p>
+                  <p className="text-foreground/70">+1 301-662-0533</p>
                 </div>
               </TermsSection>
 

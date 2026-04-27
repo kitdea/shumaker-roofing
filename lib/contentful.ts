@@ -25,7 +25,7 @@ export async function fetchAllLocations(): Promise<ContentfulLocation[]> {
   const res = await client.getEntries({
     content_type: 'location',
     'fields.isActive': true,
-    select: ['fields.cityName', 'fields.slug', 'fields.state', 'fields.fullLocationName'],
+    select: ['sys.updatedAt', 'fields.cityName', 'fields.slug', 'fields.state', 'fields.fullLocationName'],
     order: ['fields.cityName'],
     limit: 200,
   })
