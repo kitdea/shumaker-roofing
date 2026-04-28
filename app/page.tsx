@@ -44,7 +44,7 @@ export default async function Home() {
               Strong Durable and Affordable Roofing
             </h1>
             <p className="text-foreground/70 text-lg mb-8 max-w-lg">
-              When it comes to protecting your home your roof is the first line of defense we provide notch roofing service designed to safeguard.
+              When it comes to protecting your home your roof is the first line of defense we provide top-notch roofing service designed to safeguard.
             </p>
             <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base" asChild>
               <Link href="/contact">SCHEDULE YOUR ROOF REPAIR</Link>
@@ -136,7 +136,7 @@ export default async function Home() {
               </p>
 
               <ul className="flex flex-col gap-4 mb-10">
-                {["Over 20 Years of Experience", "Licensed and Insured Professionals", "High-Quality Materials Warranty", "Free No-Obligation Estimates"].map((item) => (
+                {["Over 78 Years of Experience", "Licensed and Insured Professionals", "High-Quality Materials Warranty", "Free No-Obligation Estimates"].map((item) => (
                   <li key={item} className="flex items-center gap-3">
                     <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0" />
                     <span className="text-foreground font-medium">{item}</span>
