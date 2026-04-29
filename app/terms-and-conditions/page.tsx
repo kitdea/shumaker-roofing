@@ -1,17 +1,28 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
-import { fetchPageSeo } from "@/lib/seo";
 import { FileText, AlertTriangle, Scale, RefreshCw, Ban, Gavel, Mail } from "lucide-react";
 
-export async function generateMetadata() {
-  return fetchPageSeo({
-    path: "/terms-and-conditions",
-    fallbackTitle: "Terms & Conditions | Shumaker Roofing",
-    fallbackDesc:
-      "Review Shumaker Roofing's Terms and Conditions governing the use of our website and services. Understanding these terms protects both you and us.",
-  });
-}
+export const metadata: Metadata = {
+  title: { absolute: "Terms & Conditions | Shumaker Roofing Company" },
+  description:
+    "Carefully review Shumaker Roofing's Terms and Conditions governing the use of our website and services. Understanding these terms protects both you and us.",
+  alternates: { canonical: "/terms-and-conditions" },
+  openGraph: {
+    title: "Terms & Conditions | Shumaker Roofing Company",
+    description:
+      "Carefully review Shumaker Roofing's Terms and Conditions governing the use of our website and services. Understanding these terms protects both you and us.",
+    url: "/terms-and-conditions",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms & Conditions | Shumaker Roofing Company",
+    description:
+      "Carefully review Shumaker Roofing's Terms and Conditions governing the use of our website and services. Understanding these terms protects both you and us.",
+  },
+};
 
 const sections = [
   { id: "acceptance", label: "Acceptance of Terms" },

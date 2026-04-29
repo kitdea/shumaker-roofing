@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
@@ -6,18 +7,27 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { client } from "@/lib/contentful";
-import { fetchPageSeo } from "@/lib/seo";
 import { slugify, toHttpsUrl } from "@/lib/utils";
 
-export async function generateMetadata() {
-  return fetchPageSeo({
-    path: "/blog",
-    fallbackTitle: "Blog | Shumaker Roofing",
-    fallbackDesc:
-      "Stay up to date with the latest roofing tips, maintenance guides, company news, and industry insights from the Shumaker Roofing team.",
-    ogType: "website",
-  });
-}
+export const metadata: Metadata = {
+  title: { absolute: "Shumaker Roofing Blog | Expert Roofing Advice & Updates" },
+  description:
+    "Follow Shumaker Roofing for the latest roofing tips, maintenance guides, company news, and industry insights. Keep your roof in top shape! Contact us now!",
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "Shumaker Roofing Blog | Expert Roofing Advice & Updates",
+    description:
+      "Follow Shumaker Roofing for the latest roofing tips, maintenance guides, company news, and industry insights. Keep your roof in top shape! Contact us now!",
+    url: "/blog",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shumaker Roofing Blog | Expert Roofing Advice & Updates",
+    description:
+      "Follow Shumaker Roofing for the latest roofing tips, maintenance guides, company news, and industry insights. Keep your roof in top shape! Contact us now!",
+  },
+};
 
 export default async function BlogPage() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

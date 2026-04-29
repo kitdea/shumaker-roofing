@@ -1,20 +1,31 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { CheckCircle2 } from "lucide-react";
 import { client } from "@/lib/contentful";
-import { fetchPageSeo } from "@/lib/seo";
 import { toHttpsUrl } from "@/lib/utils";
 import { TeamGrid } from "./team-grid";
 
-export async function generateMetadata() {
-  return fetchPageSeo({
-    path: "/about",
-    fallbackTitle: "About Us | Shumaker Roofing",
-    fallbackDesc:
-      "Learn more about Shumaker Roofing, our mission, vision, and the skilled team of licensed professionals behind our top-tier roofing services.",
-  });
-}
+export const metadata: Metadata = {
+  title: { absolute: "About Us | Shumaker Roofing Company" },
+  description:
+    "Learn about Shumaker Roofing Company's mission, vision, and highly skilled licensed team! Experience top-notch roofing services from trusted professionals.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About Us | Shumaker Roofing Company",
+    description:
+      "Learn about Shumaker Roofing Company's mission, vision, and highly skilled licensed team! Experience top-notch roofing services from trusted professionals.",
+    url: "/about",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Us | Shumaker Roofing Company",
+    description:
+      "Learn about Shumaker Roofing Company's mission, vision, and highly skilled licensed team! Experience top-notch roofing services from trusted professionals.",
+  },
+};
 
 export default async function AboutPage() {
   type ContentfulMember = {

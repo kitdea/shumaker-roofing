@@ -58,15 +58,15 @@ const getServiceFromSlug = cache(async function getServiceFromSlug(slug: string)
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const rawService = await getServiceFromSlug(slug);
-  if (!rawService) return { title: "Service Not Found - Shumaker Roofing" };
+  if (!rawService) return { title: "Service Not Found - Shumaker Roofing Company" };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const fields = rawService.fields as any;
 
   const serviceTitle = fields.title as string | undefined;
   const fallbackTitle = serviceTitle
-    ? `${serviceTitle} Services | Shumaker Roofing`
-    : "Roofing Services | Shumaker Roofing";
+    ? `${serviceTitle} Services | Shumaker Roofing Company`
+    : "Roofing Services | Shumaker Roofing Company";
   const fallbackDesc = serviceTitle
     ? `Learn more about our ${serviceTitle.toLowerCase()} services. Expert roofing solutions provided by Shumaker Roofing professionals.`
     : "Expert roofing solutions provided by Shumaker Roofing professionals.";
@@ -75,7 +75,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const fallbackImage = toHttpsUrl(rawImageUrl);
 
   return fetchPageSeo({
-    path: `/services/${slug}`,
     entryFields: fields,
     fallbackTitle,
     fallbackDesc,

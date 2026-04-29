@@ -24,7 +24,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!loc) return { title: "Location Not Found - Shumaker Roofing" };
 
   return fetchPageSeo({
-    path: `/service-areas/${slug}`,
     entryFields: loc.fields,
     fallbackTitle:
       loc.fields.seoTitle ||

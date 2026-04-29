@@ -54,6 +54,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 import { NavbarServer } from "@/components/shared/navbar-server";

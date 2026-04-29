@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, ArrowRight } from "lucide-react";
@@ -6,16 +7,26 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { fetchAllLocations } from "@/lib/contentful";
-import { fetchPageSeo } from "@/lib/seo";
 
-export async function generateMetadata() {
-  return fetchPageSeo({
-    path: "/service-areas",
-    fallbackTitle: "Service Areas | Shumaker Roofing",
-    fallbackDesc:
-      "Shumaker Roofing proudly serves homeowners and businesses across the region. Find your city and learn how we can help with all your roofing needs.",
-  });
-}
+export const metadata: Metadata = {
+  title: { absolute: "Licensed Roofing Service Areas | Shumaker Roofing Company" },
+  description:
+    "Shumaker Roofing Company proudly serves homeowners and businesses across the region. Find your city and learn how we can help with all your roofing needs.",
+  alternates: { canonical: "/service-areas" },
+  openGraph: {
+    title: "Licensed Roofing Service Areas | Shumaker Roofing Company",
+    description:
+      "Shumaker Roofing Company proudly serves homeowners and businesses across the region. Find your city and learn how we can help with all your roofing needs.",
+    url: "/service-areas",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Licensed Roofing Service Areas | Shumaker Roofing Company",
+    description:
+      "Shumaker Roofing Company proudly serves homeowners and businesses across the region. Find your city and learn how we can help with all your roofing needs.",
+  },
+};
 
 export default async function ServiceAreasPage() {
   const locations = await fetchAllLocations();

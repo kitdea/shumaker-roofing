@@ -73,7 +73,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const fallbackImage = toHttpsUrl(rawImageUrl);
 
   return fetchPageSeo({
-    path: `/blog/${slug}`,
     entryFields: fields,
     fallbackTitle,
     fallbackDesc,

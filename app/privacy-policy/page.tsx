@@ -1,17 +1,28 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
-import { fetchPageSeo } from "@/lib/seo";
 import { Shield, Eye, Lock, Users, Cookie, Bell, Mail } from "lucide-react";
 
-export async function generateMetadata() {
-  return fetchPageSeo({
-    path: "/privacy-policy",
-    fallbackTitle: "Privacy Policy | Shumaker Roofing",
-    fallbackDesc:
-      "Read Shumaker Roofing's Privacy Policy to understand how we collect, use, and protect your personal information when you use our services.",
-  });
-}
+export const metadata: Metadata = {
+  title: { absolute: "Privacy Policy | Shumaker Roofing Company" },
+  description:
+    "Learn how Shumaker Roofing always protects your privacy. Read our full policy on data collection, use, and security when you use our professional services.",
+  alternates: { canonical: "/privacy-policy" },
+  openGraph: {
+    title: "Privacy Policy | Shumaker Roofing Company",
+    description:
+      "Learn how Shumaker Roofing always protects your privacy. Read our full policy on data collection, use, and security when you use our professional services.",
+    url: "/privacy-policy",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Shumaker Roofing Company",
+    description:
+      "Learn how Shumaker Roofing always protects your privacy. Read our full policy on data collection, use, and security when you use our professional services.",
+  },
+};
 
 const sections = [
   { id: "information-we-collect", label: "Information We Collect" },

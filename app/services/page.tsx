@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Home, Building2, Wrench, Umbrella, ShieldAlert, Droplets, Grid, ArrowRight } from "lucide-react";
@@ -7,17 +8,27 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { client } from "@/lib/contentful";
 import { Document } from "@contentful/rich-text-types";
-import { fetchPageSeo } from "@/lib/seo";
 import { slugify } from "@/lib/utils";
 
-export async function generateMetadata() {
-  return fetchPageSeo({
-    path: "/services",
-    fallbackTitle: "Professional Roofing Services | Shumaker Roofing",
-    fallbackDesc:
-      "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and expert roof inspections.",
-  });
-}
+export const metadata: Metadata = {
+  title: { absolute: "Professional Roofing Services | Shumaker Roofing Company" },
+  description:
+    "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and roof inspections.",
+  alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Professional Roofing Services | Shumaker Roofing Company",
+    description:
+      "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and roof inspections.",
+    url: "/services",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Professional Roofing Services | Shumaker Roofing Company",
+    description:
+      "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and roof inspections.",
+  },
+};
 
 const getIconForService = (title: string) => {
   const t = title.toLowerCase();
