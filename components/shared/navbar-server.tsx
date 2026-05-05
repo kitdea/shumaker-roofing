@@ -1,5 +1,5 @@
-import { client } from "@/lib/contentful";
-import { fetchAllLocations } from "@/lib/contentful";
+import { fetchAllServices, fetchAllLocations } from "@/lib/contentful";
+import { slugify } from "@/lib/utils";
 import { Navbar } from "@/components/shared/navbar";
 
 export async function NavbarServer() {
@@ -7,30 +7,45 @@ export async function NavbarServer() {
   let locations: { name: string; href: string }[] = [];
 
   try {
-    const response = await client.getEntries({ content_type: "services" });
-    services = response.items
-      .map((item) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const fields = item.fields as any;
-        const slug = fields.url || item.sys.id;
-        return {
-          name: fields.title as string,
-          href: `/services/${slug}`,
-        };
+    const [servicesItems, locs] = await Promise.all([
+      fetchAllServices(),
+      fetchAllLocations(),
+    ]);
+
+    services = servicesItems
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .map((item: any) => {
+        const title = (item.fields as any).title as string;
+        return { name: title, href: `/services/${slugify(title)}` };
       })
       .sort((a, b) => a.name.localeCompare(b.name));
-  } catch (e) {
-    console.error("Contentful services fetch error:", e);
-  }
 
-  try {
-    const locs = await fetchAllLocations();
-    locations = locs.map((loc) => ({
-      name: loc.fields.fullLocationName || loc.fields.cityName,
-      href: `/service-areas/${loc.fields.slug}`,
-    }));
+    const STATE_ORDER: Record<string, number> = {
+      "Maryland": 0,
+      "MD": 0,
+      "Northern Virginia": 1,
+      "Virginia": 1,
+      "VA": 1,
+      "Pennsylvania": 2,
+      "PA": 2,
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    locations = locs
+      .map((loc: any) => ({
+        name: loc.fields.fullLocationName || loc.fields.cityName,
+        href: `/service-areas/${loc.fields.slug}`,
+        state: loc.fields.state as string,
+      }))
+      .sort((a: { name: string; state: string }, b: { name: string; state: string }) => {
+        const orderA = STATE_ORDER[a.state] ?? 99;
+        const orderB = STATE_ORDER[b.state] ?? 99;
+        if (orderA !== orderB) return orderA - orderB;
+        return a.name.localeCompare(b.name);
+      })
+      .map(({ name, href }: { name: string; href: string }) => ({ name, href }));
   } catch (e) {
-    console.error("Contentful locations fetch error:", e);
+    console.error("Contentful navbar fetch error:", e);
   }
 
   return <Navbar services={services} locations={locations} />;

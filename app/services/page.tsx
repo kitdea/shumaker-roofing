@@ -1,41 +1,43 @@
+export const revalidate = 3600;
+
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Home, Building2, Wrench, Umbrella, ShieldAlert, Droplets, Grid, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { client } from "@/lib/contentful";
+import { fetchAllServices } from "@/lib/contentful";
 import { Document } from "@contentful/rich-text-types";
-import { fetchPageSeo } from "@/lib/seo";
-import { slugify } from "@/lib/utils";
+import { slugify, getServiceIcon } from "@/lib/utils";
 
-export async function generateMetadata() {
-  return fetchPageSeo({
-    path: "/services",
-    fallbackTitle: "Professional Roofing Services | Shumaker Roofing",
-    fallbackDesc:
-      "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and expert roof inspections.",
-  });
-}
-
-const getIconForService = (title: string) => {
-  const t = title.toLowerCase();
-  if (t.includes("residential")) return Home;
-  if (t.includes("commercial")) return Building2;
-  if (t.includes("maintenance") || t.includes("repair")) return Wrench;
-  if (t.includes("storm") || t.includes("damage")) return ShieldAlert;
-  if (t.includes("gutter")) return Droplets;
-  if (t.includes("inspection")) return Umbrella;
-  return Grid; // fallback icon
+export const metadata: Metadata = {
+  title: { absolute: "Professional Roofing Services | Shumaker Roofing Company" },
+  description:
+    "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and roof inspections.",
+  alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Professional Roofing Services | Shumaker Roofing Company",
+    description:
+      "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and roof inspections.",
+    url: "/services",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Professional Roofing Services | Shumaker Roofing Company",
+    description:
+      "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and roof inspections.",
+  },
 };
 
 export default async function ServicesPage() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let services: any[] = [];
   try {
-    const response = await client.getEntries({ content_type: "services" });
-    services = (response.items || []).sort((a, b) => {
+    const items = await fetchAllServices();
+    services = [...items].sort((a, b) => {
       const aTitle = ((a.fields as any).title as string) || "";
       const bTitle = ((b.fields as any).title as string) || "";
       return aTitle.localeCompare(bTitle);
@@ -91,7 +93,7 @@ export default async function ServicesPage() {
                 ).join(' ').trim().substring(0, 300);
               }
 
-              const Icon = getIconForService(title || "");
+              const Icon = getServiceIcon(title || "");
 
               return (
                 <Link href={`/services/${urlSlug}`} key={item.sys.id} className="block group h-full">
@@ -105,9 +107,8 @@ export default async function ServicesPage() {
                       <p className="text-foreground/70 mb-6 line-clamp-4 flex-1">
                         {descText || "Learn more about our professional roofing services."}
                       </p>
-                      
                       <div className="mt-auto pt-6 border-t border-border flex items-center text-primary font-semibold text-sm">
-                        VIEW <ArrowRight className="h-4 w-4 ml-1" />
+                        Read More <ArrowRight className="h-4 w-4 ml-1" />
                       </div>
                     </CardContent>
                   </Card>

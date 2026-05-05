@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { client, fetchAllLocations } from '@/lib/contentful';
+import { slugify } from '@/lib/utils';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.shumakerroofing.com';
@@ -18,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     blogEntries = blogsRes.items.map((item: any) => ({
-      url: `${baseUrl}/blog/${item.fields.slug || item.sys.id}`,
+      url: `${baseUrl}/blog/${item.fields.title ? slugify(item.fields.title as string) : item.sys.id}`,
       lastModified: new Date(item.sys.updatedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
@@ -26,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     serviceEntries = servicesRes.items.map((item: any) => ({
-      url: `${baseUrl}/services/${item.fields.url || item.sys.id}`,
+      url: `${baseUrl}/services/${item.fields.title ? slugify(item.fields.title as string) : item.sys.id}`,
       lastModified: new Date(item.sys.updatedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.8,

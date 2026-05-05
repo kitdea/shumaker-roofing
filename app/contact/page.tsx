@@ -1,18 +1,29 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { fetchPageSeo } from "@/lib/seo";
 
-export async function generateMetadata() {
-  return fetchPageSeo({
-    path: "/contact",
-    fallbackTitle: "Contact Us | Shumaker Roofing",
-    fallbackDesc:
-      "Get in touch with Shumaker Roofing for a free quote, emergency roof repair, or to schedule a professional inspection with our expert team.",
-  });
-}
+export const metadata: Metadata = {
+  title: { absolute: "Contact Us | Get in Touch with Shumaker Roofing Company" },
+  description:
+    "Get in touch with Shumaker Roofing Company for reliable roofing services. Contact us today for free estimates, expert advice, and top-quality roofing solution.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact Us | Get in Touch with Shumaker Roofing Company",
+    description:
+      "Get in touch with Shumaker Roofing Company for reliable roofing services. Contact us today for free estimates, expert advice, and top-quality roofing solution.",
+    url: "/contact",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Us | Get in Touch with Shumaker Roofing Company",
+    description:
+      "Get in touch with Shumaker Roofing Company for reliable roofing services. Contact us today for free estimates, expert advice, and top-quality roofing solution.",
+  },
+};
 
 export default function ContactPage() {
   return (

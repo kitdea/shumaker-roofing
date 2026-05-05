@@ -54,8 +54,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
+import Script from "next/script";
 import { NavbarServer } from "@/components/shared/navbar-server";
 import { Footer } from "@/components/shared/footer";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -68,6 +73,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn("min-h-screen bg-background font-sans antialiased flex flex-col", inter.variable, montserrat.variable)}>
+        <Script
+          src="https://app.roofle.com/roof-quote-pro-widget.js?id=edgE0YoULrACgxaIeovOR"
+          strategy="lazyOnload"
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

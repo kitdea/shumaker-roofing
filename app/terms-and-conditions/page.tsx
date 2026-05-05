@@ -1,17 +1,28 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
-import { fetchPageSeo } from "@/lib/seo";
 import { FileText, AlertTriangle, Scale, RefreshCw, Ban, Gavel, Mail } from "lucide-react";
 
-export async function generateMetadata() {
-  return fetchPageSeo({
-    path: "/terms-and-conditions",
-    fallbackTitle: "Terms & Conditions | Shumaker Roofing",
-    fallbackDesc:
-      "Review Shumaker Roofing's Terms and Conditions governing the use of our website and services. Understanding these terms protects both you and us.",
-  });
-}
+export const metadata: Metadata = {
+  title: { absolute: "Terms & Conditions | Shumaker Roofing Company" },
+  description:
+    "Carefully review Shumaker Roofing's Terms and Conditions governing the use of our website and services. Understanding these terms protects both you and us.",
+  alternates: { canonical: "/terms-and-conditions" },
+  openGraph: {
+    title: "Terms & Conditions | Shumaker Roofing Company",
+    description:
+      "Carefully review Shumaker Roofing's Terms and Conditions governing the use of our website and services. Understanding these terms protects both you and us.",
+    url: "/terms-and-conditions",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms & Conditions | Shumaker Roofing Company",
+    description:
+      "Carefully review Shumaker Roofing's Terms and Conditions governing the use of our website and services. Understanding these terms protects both you and us.",
+  },
+};
 
 const sections = [
   { id: "acceptance", label: "Acceptance of Terms" },
@@ -238,11 +249,11 @@ export default function TermsAndConditionsPage() {
               >
                 <p>
                   These Terms shall be governed by and construed in accordance
-                  with the laws of the State of [Your State], without regard to
+                  with the laws of the State of Maryland, without regard to
                   its conflict of law provisions. Any dispute arising from or
                   relating to these Terms or your use of the site shall be
                   subject to the exclusive jurisdiction of the state and federal
-                  courts located in [Your County], [Your State].
+                  courts located in Frederick County, Maryland.
                 </p>
               </TermsSection>
 
@@ -277,9 +288,7 @@ export default function TermsAndConditionsPage() {
                     Shumaker Roofing
                   </p>
                   <p className="text-foreground/70 mt-1">
-                    123 Roofing Way, Suite 100
-                    <br />
-                    Cityville, ST 12345
+                    26 Water St. Frederick, MD 21701
                   </p>
                   <p className="text-foreground/70 mt-2">
                     <a
@@ -289,7 +298,7 @@ export default function TermsAndConditionsPage() {
                       info@shumakerroofing.com
                     </a>
                   </p>
-                  <p className="text-foreground/70">+1 234 567 8900</p>
+                  <p className="text-foreground/70">+1 301-662-0533</p>
                 </div>
               </TermsSection>
 

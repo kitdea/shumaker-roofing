@@ -30,9 +30,13 @@ This is a **Next.js 16 App Router** site for Shumaker Roofing, using TypeScript 
 | `/about` | `app/about/page.tsx` |
 | `/services` | `app/services/page.tsx` — fetches `services` content type |
 | `/services/[slug]` | `app/services/[slug]/page.tsx` — slug derived from `slugify(title)` |
-| `/news` | `app/news/page.tsx` — fetches `blog` content type |
-| `/news/[slug]` | `app/news/[slug]/page.tsx` — slug derived from `slugify(title)` |
+| `/blog` | `app/blog/page.tsx` — fetches `blog` content type |
+| `/blog/[slug]` | `app/blog/[slug]/page.tsx` — slug derived from `slugify(title)` |
+| `/service-areas` | `app/service-areas/page.tsx` — fetches `location` content type |
+| `/service-areas/[slug]` | `app/service-areas/[slug]/page.tsx` — slug from `fields.slug` on location entry |
 | `/contact` | `app/contact/page.tsx` |
+| `/privacy-policy` | `app/privacy-policy/page.tsx` |
+| `/terms-and-conditions` | `app/terms-and-conditions/page.tsx` |
 
 ### Key Libraries
 

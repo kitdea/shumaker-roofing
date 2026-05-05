@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { client } from "@/lib/contentful";
 import { toHttpsUrl } from "@/lib/utils";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -84,7 +83,8 @@ export function buildNextMetadata(
   fallbackImage?: string,
   ogType: "website" | "article" = "website"
 ): Metadata {
-  const title = seo.seoTitle || fallbackTitle;
+  const rawTitle = seo.seoTitle || fallbackTitle;
+  const title = { absolute: rawTitle };
   const description = seo.seoDescription || fallbackDesc;
   const imageUrl = seo.featuredImageUrl || fallbackImage;
 
@@ -99,14 +99,14 @@ export function buildNextMetadata(
     ...(robots && { robots }),
     ...(seo.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
     openGraph: {
-      title,
+      title: rawTitle,
       description,
       type: ogType,
       ...(imageUrl && { images: [{ url: imageUrl, width: 1200, height: 630 }] }),
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: rawTitle,
       description,
       ...(imageUrl && { images: [imageUrl] }),
     },
@@ -116,31 +116,21 @@ export function buildNextMetadata(
 // ─── Unified SEO resolver for every page ─────────────────────────────────────
 
 /**
- * Single function used by every page — static or dynamic.
+ * Resolves Next.js Metadata for a dynamic page.
  *
  * Priority order:
- *  1. Linked seoMetadata entry on the Contentful page entry  (if entryFields provided)
- *  2. Standalone seoMetadata entry whose canonicalUrl matches `path`
- *  3. Provided fallback strings
+ *  1. Linked seoMetadata entry on the Contentful page entry (if entryFields provided)
+ *  2. Provided fallback strings
  *
- * Usage examples:
- *
- * // Static page
- * return fetchPageSeo({ path: "/about", fallbackTitle: "...", fallbackDesc: "..." });
- *
- * // Dynamic page (entry already fetched for page content, must use include >= 2)
- * return fetchPageSeo({ path: `/services/${slug}`, entryFields: fields, fallbackTitle: "...", fallbackDesc: "..." });
+ * Dynamic pages: pass entryFields fetched with include >= 2.
  */
 export async function fetchPageSeo({
-  path,
   entryFields,
   fallbackTitle,
   fallbackDesc,
   fallbackImage,
   ogType = "website",
 }: {
-  /** Canonical URL path for this page, e.g. "/about" or "/services/residential-roofing" */
-  path: string;
   /** Fields from an already-fetched Contentful entry (fetch with include >= 2) */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   entryFields?: any;
@@ -159,32 +149,9 @@ export async function fetchPageSeo({
       }
     }
 
-    // ── Strategy 2: standalone seoMetadata entry matched by canonical path ──
-    const normalized = path.replace(/\/$/, "") || "/";
-    const response = await client.getEntries({
-      content_type: "seoMetadata",
-      "fields.canonicalUrl[match]": normalized,
-      limit: 10,
-      include: 1,
-    });
-
-    const match = response.items.find((item) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const url = ((item.fields as any)?.canonicalUrl as string | undefined) ?? "";
-      const u = url.replace(/\/$/, "");
-      return u === normalized || u.endsWith(normalized);
-    });
-
-    if (match) {
-      const seo = resolveSeoMetadata({ seoMetadata: match });
-      if (seo) {
-        return buildNextMetadata(seo, fallbackTitle, fallbackDesc, fallbackImage, ogType);
-      }
-    }
-
-    // ── Strategy 3: fallback strings only ───────────────────────────────────
+    // ── Strategy 2: fallback strings only ───────────────────────────────────
     return buildNextMetadata({ noIndex: false, noFollow: false }, fallbackTitle, fallbackDesc, fallbackImage, ogType);
   } catch {
-    return { title: fallbackTitle, description: fallbackDesc };
+    return { title: { absolute: fallbackTitle }, description: fallbackDesc };
   }
 }
