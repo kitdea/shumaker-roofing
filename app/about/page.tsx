@@ -1,3 +1,5 @@
+export const revalidate = 3600;
+
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/shared/container";

@@ -1,18 +1,22 @@
+export const revalidate = 3600;
+
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ShieldCheck, Wrench, Home as HomeIcon, CheckCircle2, ArrowRight } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 import { fetchPageSeo } from "@/lib/seo";
 import { ProjectSlider } from "@/components/home/project-slider";
 import { LogoSlider } from "@/components/home/logo-slider";
 import { RoofleWidget } from "@/components/home/roofle-widget";
+import { fetchAllServices } from "@/lib/contentful";
+import { slugify, getServiceIcon } from "@/lib/utils";
+import { Document } from "@contentful/rich-text-types";
 
 export async function generateMetadata() {
   return fetchPageSeo({
-    path: "/",
     fallbackTitle: "Shumaker Roofing | Strong, Durable & Affordable Roofing",
     fallbackDesc:
       "Shumaker Roofing provides top-tier residential and commercial roofing services, installation, repair, and maintenance backed by 78 years of expertise.",
@@ -20,6 +24,14 @@ export async function generateMetadata() {
 }
 
 export default async function Home() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let services: any[] = [];
+  try {
+    services = await fetchAllServices();
+  } catch {
+    // fall through to empty — section is hidden when no services
+  }
+
   return (
     <div className="flex flex-col w-full">
       {/* Hero Section */}
@@ -63,43 +75,45 @@ export default async function Home() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            {[
-              {
-                title: "Residential Roofing",
-                desc: "Complete roof replacements, repairs, and inspections for your home with premium materials.",
-                icon: HomeIcon,
-                href: "/services/residential-roofing",
-              },
-              {
-                title: "Commercial Roofing",
-                desc: "Durable and efficient roofing solutions tailored for businesses and commercial properties.",
-                icon: ShieldCheck,
-                href: "/services/commercial-roofing",
-              },
-              {
-                title: "Roof Repair",
-                desc: "Fast and reliable repairs for leaks, storm damage, and worn materials to restore your roof's integrity.",
-                icon: Wrench,
-                href: "/services/roof-repair",
-              },
-            ].map((service) => (
-              <Card key={service.title} className="border-none shadow-lg hover:shadow-xl transition-shadow bg-background group">
-                <CardHeader>
-                  <div className="bg-accent text-primary w-14 h-14 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                    <service.icon className="h-7 w-7" />
-                  </div>
-                  <CardTitle className="text-xl">{service.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-6 line-clamp-3">
-                    {service.desc}
-                  </p>
-                  <Link href={service.href} className="text-primary font-semibold flex items-center gap-2 hover:gap-3 transition-all">
-                    Read More <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
+            {services.map((item) => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const fields = item.fields as any;
+              const title = fields.title as string;
+              const href = `/services/${slugify(title)}`;
+              const Icon = getServiceIcon(title);
+
+              const content = fields.servicesContent as Document | undefined;
+              let desc = "";
+              if (content?.content) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                desc = content.content.map((block: any) =>
+                  block.nodeType === "paragraph" && block.content
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    ? block.content.map((n: any) => (n.nodeType === "text" ? n.value : "")).join("")
+                    : ""
+                ).join(" ").trim().substring(0, 200);
+              }
+
+              return (
+                <Link href={href} key={item.sys.id} className="block group h-full">
+                  <Card className="border-border/50 shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col h-full">
+                    <div className="h-2 w-full bg-primary/20 group-hover:bg-primary transition-colors shrink-0" />
+                    <CardContent className="p-8 pt-8 flex-1 flex flex-col">
+                      <div className="bg-primary/10 text-primary w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shrink-0">
+                        <Icon className="h-8 w-8" />
+                      </div>
+                      <h2 className="text-2xl font-heading font-bold mb-4 text-foreground">{title}</h2>
+                      <p className="text-foreground/70 mb-6 line-clamp-4 flex-1">
+                        {desc || "Learn more about our professional roofing services."}
+                      </p>
+                      <div className="mt-auto pt-6 border-t border-border flex items-center text-primary font-semibold text-sm">
+                        Read More <ArrowRight className="h-4 w-4 ml-1" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
           </div>
         </Container>
       </section>

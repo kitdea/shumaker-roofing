@@ -1,3 +1,5 @@
+export const revalidate = 3600;
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +11,30 @@ import { fetchLocation, fetchAllLocations } from "@/lib/contentful";
 import { WhyChooseUs } from "@/components/shared/why-choose-us";
 import { slugify } from "@/lib/utils";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { INLINES } from "@contentful/rich-text-types";
+import type { Options } from "@contentful/rich-text-react-renderer";
+import type { Hyperlink } from "@contentful/rich-text-types";
 import { fetchPageSeo } from "@/lib/seo";
+
+const SITE_DOMAIN = "shumakerroofing.com";
+
+const richTextOptions: Options = {
+  renderNode: {
+    [INLINES.HYPERLINK]: (node, children) => {
+      const uri = (node as Hyperlink).data.uri as string;
+      const isExternal = uri.startsWith("http") && !uri.includes(SITE_DOMAIN);
+      return (
+        <a
+          href={uri}
+          target={isExternal ? "_blank" : "_self"}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+        >
+          {children}
+        </a>
+      );
+    },
+  },
+};
 
 const getLocation = cache((slug: string) => fetchLocation(slug));
 
@@ -86,7 +111,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
             {fields.introText && (
               <div className="prose prose-lg md:prose-xl dark:prose-invert max-w-none prose-p:text-foreground/90 [&_h2]:text-[1.8rem] [&_h2]:font-extrabold [&_h2]:mt-0 [&_h2]:mb-4 [&_h3]:text-[1.4rem] [&_h3]:font-bold [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-6 [&_li]:mb-2 [&_p]:mb-6 [&_p]:leading-relaxed">
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                {documentToReactComponents(fields.introText as any)}
+                {documentToReactComponents(fields.introText as any, richTextOptions)}
               </div>
             )}
 

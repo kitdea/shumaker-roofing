@@ -4,6 +4,29 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { INLINES } from "@contentful/rich-text-types";
+import type { Options } from "@contentful/rich-text-react-renderer";
+import type { Hyperlink } from "@contentful/rich-text-types";
+
+const SITE_DOMAIN = "shumakerroofing.com";
+
+const richTextOptions: Options = {
+  renderNode: {
+    [INLINES.HYPERLINK]: (node, children) => {
+      const uri = (node as Hyperlink).data.uri as string;
+      const isExternal = uri.startsWith("http") && !uri.includes(SITE_DOMAIN);
+      return (
+        <a
+          href={uri}
+          target={isExternal ? "_blank" : "_self"}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+        >
+          {children}
+        </a>
+      );
+    },
+  },
+};
 
 type TeamMember = {
   id: string;
@@ -192,7 +215,7 @@ export function TeamGrid({ team, firstRowCount = 2 }: { team: TeamMember[]; firs
                 <div className="w-12 h-1 bg-primary mb-4 rounded-full" />
                 <div className="text-foreground/70 leading-relaxed text-sm sm:text-base contentful-rich-text">
                   {selectedMember.teamInfo && typeof selectedMember.teamInfo === "object"
-                    ? documentToReactComponents(selectedMember.teamInfo)
+                    ? documentToReactComponents(selectedMember.teamInfo, richTextOptions)
                     : selectedMember.teamInfo}
                 </div>
               </div>

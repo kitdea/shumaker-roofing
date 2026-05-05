@@ -8,7 +8,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 export const metadata: Metadata = {
   title: { absolute: "Contact Us | Get in Touch with Shumaker Roofing Company" },
   description:
-    "GGet in touch with Shumaker Roofing Company for reliable roofing services. Contact us today for free estimates, expert advice, and top-quality roofing solution.",
+    "Get in touch with Shumaker Roofing Company for reliable roofing services. Contact us today for free estimates, expert advice, and top-quality roofing solution.",
   alternates: { canonical: "/contact" },
   openGraph: {
     title: "Contact Us | Get in Touch with Shumaker Roofing Company",

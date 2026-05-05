@@ -1,3 +1,5 @@
+export const revalidate = 3600;
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,8 +9,31 @@ import { Calendar, User, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { client } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { INLINES } from "@contentful/rich-text-types";
+import type { Options } from "@contentful/rich-text-react-renderer";
+import type { Hyperlink } from "@contentful/rich-text-types";
 import { fetchPageSeo } from "@/lib/seo";
-import { slugify, toHttpsUrl } from "@/lib/utils";
+import { slugify, toHttpsUrl, SITE_URL } from "@/lib/utils";
+
+const SITE_DOMAIN = "shumakerroofing.com";
+
+const richTextOptions: Options = {
+  renderNode: {
+    [INLINES.HYPERLINK]: (node, children) => {
+      const uri = (node as Hyperlink).data.uri as string;
+      const isExternal = uri.startsWith("http") && !uri.includes(SITE_DOMAIN);
+      return (
+        <a
+          href={uri}
+          target={isExternal ? "_blank" : "_self"}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+        >
+          {children}
+        </a>
+      );
+    },
+  },
+};
 
 const getPostFromSlug = cache(async function getPostFromSlug(slug: string) {
   let post = null;
@@ -142,7 +167,35 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     authorField?.fields?.image || authorField?.fields?.profilePicture;
   const authorAvatarUrl = toHttpsUrl(authorAvatar?.fields?.file?.url) ?? null;
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": postFields.title as string,
+    "image": imageUrl,
+    "url": `${SITE_URL}/blog/${slug}`,
+    "datePublished": dateObj.toISOString(),
+    "dateModified": dateObj.toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": authorName,
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Shumaker Roofing Company",
+      "url": SITE_URL,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${SITE_URL}/logo.png`,
+      },
+    },
+  };
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
     <div className="flex flex-col w-full pb-24">
       {/* Hero */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex flex-col justify-end pb-16 bg-secondary">
@@ -191,7 +244,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <Container className="mt-12">
         <article className="prose prose-lg md:prose-xl dark:prose-invert max-w-none prose-p:text-foreground/90 [&_h2]:text-[1.8rem] [&_h2]:font-extrabold [&_h2]:mt-0 [&_h2]:mb-4 [&_h3]:text-[1.4rem] [&_h3]:font-bold [&_h3]:mt-0 [&_h3]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-6 [&_li]:mb-2 [&_p]:mb-6 [&_p]:leading-relaxed">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          {documentToReactComponents(postFields.content as any)}
+          {documentToReactComponents(postFields.content as any, richTextOptions)}
         </article>
       </Container>
 
@@ -221,7 +274,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {typeof authorBio === "string" ? (
                 <p>{authorBio}</p>
               ) : authorBio && typeof authorBio === "object" ? (
-                documentToReactComponents(authorBio)
+                documentToReactComponents(authorBio, richTextOptions)
               ) : (
                 <p>
                   With dedicated expertise in the industry, {authorName} shares valuable insights
@@ -257,5 +310,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
       </Container>
     </div>
+    </>
   );
 }
