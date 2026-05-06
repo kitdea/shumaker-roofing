@@ -174,20 +174,28 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     "image": imageUrl,
     "url": `${SITE_URL}/blog/${slug}`,
     "datePublished": dateObj.toISOString(),
-    "dateModified": dateObj.toISOString(),
+    "dateModified": new Date(rawPost.sys.updatedAt).toISOString(),
     "author": {
       "@type": "Person",
       "name": authorName,
+      ...(authorRole ? { "jobTitle": authorRole } : {}),
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Shumaker Roofing Company",
+        "url": SITE_URL,
+      },
     },
     "publisher": {
       "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
       "name": "Shumaker Roofing Company",
       "url": SITE_URL,
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${SITE_URL}/logo.png`,
-      },
     },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/blog/${slug}`,
+    },
+    ...(categories.length > 0 ? { "articleSection": categories.join(", ") } : {}),
   };
 
   return (

@@ -1,9 +1,11 @@
+export const revalidate = 3600;
+
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
-import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { GhlForm } from "@/components/shared/ghl-form";
 
 export const metadata: Metadata = {
   title: { absolute: "Contact Us | Get in Touch with Shumaker Roofing Company" },
@@ -54,37 +56,7 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div className="bg-background p-8 md:p-10 rounded-2xl shadow-xl border border-border/50">
               <SectionHeader title="Send Us a Message" subtitle="Get a Quote" className="mb-8" />
-              <form className="flex flex-col gap-6" action="#" >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="firstName" className="text-sm font-medium text-foreground">First Name</label>
-                    <input type="text" id="firstName" className="h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="John" required />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="lastName" className="text-sm font-medium text-foreground">Last Name</label>
-                    <input type="text" id="lastName" className="h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Doe" required />
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className="text-sm font-medium text-foreground">Email Address</label>
-                  <input type="email" id="email" className="h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="john@example.com" required />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="phone" className="text-sm font-medium text-foreground">Phone Number</label>
-                  <input type="tel" id="phone" className="h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="(555) 123-4567" required />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="message" className="text-sm font-medium text-foreground">Message</label>
-                  <textarea id="message" rows={5} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y" placeholder="Tell us about your roofing needs..." required></textarea>
-                </div>
-
-                <Button type="submit" size="lg" className="w-full h-14 mt-2">
-                  SEND MESSAGE
-                </Button>
-              </form>
+              <GhlForm />
             </div>
             
 
