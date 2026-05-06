@@ -9,7 +9,8 @@ import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 import { fetchLocation, fetchAllLocations } from "@/lib/contentful";
 import { WhyChooseUs } from "@/components/shared/why-choose-us";
-import { slugify } from "@/lib/utils";
+import { TwoColumnSection } from "@/components/shared/two-column-section";
+import { slugify, toHttpsUrl, SITE_URL } from "@/lib/utils";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { INLINES } from "@contentful/rich-text-types";
 import type { Options } from "@contentful/rich-text-react-renderer";
@@ -68,7 +69,41 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
   const { fields } = loc;
   const cityDisplay = fields.fullLocationName || fields.cityName;
 
+  const twoColumnData = (fields.twoColumn ?? []).map((item) => {
+    const f = item.fields;
+    const firstImage = Array.isArray(f.splitImage) ? f.splitImage[0] : f.splitImage;
+    const rawUrl: string | undefined = firstImage?.fields?.file?.url;
+    const imageUrl = toHttpsUrl(rawUrl) ?? null;
+    const altText = firstImage?.fields?.title ?? f.splitTitle ?? cityDisplay;
+    return { id: item.sys.id, splitTitle: f.splitTitle ?? "", splitDescription: f.splitDescription ?? null, imageUrl, altText };
+  }).filter((s) => s.imageUrl !== null) as Array<{ id: string; splitTitle: string; splitDescription: unknown; imageUrl: string; altText: string }>;
+
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${SITE_URL}/#organization`,
+    "name": "Shumaker Roofing Company",
+    "url": SITE_URL,
+    "telephone": "+1-301-662-0533",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": fields.cityName,
+      "addressRegion": fields.state,
+      "addressCountry": "US",
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": cityDisplay,
+    },
+    "description": fields.metaDescription || `Expert roofing services in ${cityDisplay}, ${fields.state}.`,
+  };
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
     <div className="flex flex-col w-full pb-24">
       {/* Hero */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex flex-col justify-end pb-16 bg-secondary">
@@ -236,6 +271,22 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
           </aside>
         </div>
       </Container>
+
+      {twoColumnData.length > 0 && (
+        <div className="divide-y divide-border">
+          {twoColumnData.map((section, idx) => (
+            <TwoColumnSection
+              key={section.id}
+              splitTitle={section.splitTitle}
+              splitDescription={section.splitDescription as Parameters<typeof TwoColumnSection>[0]["splitDescription"]}
+              splitImageUrl={section.imageUrl}
+              splitImageAlt={section.altText}
+              imageRight={idx % 2 !== 0}
+            />
+          ))}
+        </div>
+      )}
     </div>
+    </>
   );
 }

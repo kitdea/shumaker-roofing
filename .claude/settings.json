@@ -1,12 +1,19 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(gh pr *)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\franc\\\\Documents\\\\shumaker-roofing\" -Force)",
+      "Bash(Select-Object Name)",
+      "mcp__claude_ai_MCP_Contentful_Model__get_initial_context",
+      "mcp__claude_ai_MCP_Contentful_Model__get_content_type"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\franc\\.claude\\projects\\c--Users-franc-Documents-shumaker-roofing\\memory"
+    ]
+  },
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true
-  },
-  "permissions": {
-    "allow": [
-      "Bash(gh pr *)"
-    ]
   }
 }

@@ -23,6 +23,62 @@ export async function generateMetadata() {
   });
 }
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "RoofingContractor"],
+  "@id": "https://www.shumakerroofing.com/#organization",
+  "name": "Shumaker Roofing Company",
+  "url": "https://www.shumakerroofing.com",
+  "logo": "https://www.shumakerroofing.com/logo.png",
+  "image": "https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop",
+  "description": "Shumaker Roofing provides top-tier residential and commercial roofing services, installation, repair, and maintenance backed by 78 years of expertise.",
+  "telephone": "+1-301-662-0533",
+  "email": "info@shumakerroofing.com",
+  "address": [
+    {
+      "@type": "PostalAddress",
+      "streetAddress": "26 Water St.",
+      "addressLocality": "Frederick",
+      "addressRegion": "MD",
+      "postalCode": "21701",
+      "addressCountry": "US",
+    },
+    {
+      "@type": "PostalAddress",
+      "streetAddress": "6 W Washington St Suite 208",
+      "addressLocality": "Hagerstown",
+      "addressRegion": "MD",
+      "postalCode": "21740",
+      "addressCountry": "US",
+    },
+    {
+      "@type": "PostalAddress",
+      "streetAddress": "12001 Sunrise Valley Dr",
+      "addressLocality": "Reston",
+      "addressRegion": "VA",
+      "postalCode": "20191",
+      "addressCountry": "US",
+    },
+  ],
+  "areaServed": [
+    { "@type": "State", "name": "Maryland" },
+    { "@type": "State", "name": "Virginia" },
+    { "@type": "State", "name": "Pennsylvania" },
+    { "@type": "State", "name": "West Virginia" },
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "08:00",
+    "closes": "17:00",
+  },
+  "sameAs": [
+    "https://www.facebook.com/shumakerroofingcompany/",
+    "https://www.instagram.com/shumakerroofingco/",
+  ],
+  "priceRange": "$$",
+};
+
 export default async function Home() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let services: any[] = [];
@@ -33,6 +89,11 @@ export default async function Home() {
   }
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
     <div className="flex flex-col w-full">
       {/* Hero Section */}
       <section className="relative w-full h-[80vh] min-h-[600px] flex items-center bg-secondary">
@@ -235,5 +296,6 @@ export default async function Home() {
         </Container>
       </section>
     </div>
+    </>
   );
 }

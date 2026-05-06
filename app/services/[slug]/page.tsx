@@ -146,18 +146,35 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
     "@context": "https://schema.org",
     "@type": "Service",
     "name": serviceFields.title as string,
-    "description": `Expert ${((serviceFields.title as string) ?? "roofing").toLowerCase()} services provided by Shumaker Roofing Company. Professional, licensed roofing contractors serving Pennsylvania and surrounding areas.`,
+    "description": `Expert ${((serviceFields.title as string) ?? "roofing").toLowerCase()} services provided by Shumaker Roofing Company. Professional, licensed roofing contractors serving Maryland, Virginia, Pennsylvania, and West Virginia.`,
     "image": imageUrl,
     "url": `${SITE_URL}/services/${slug}`,
     "serviceType": serviceFields.title as string,
     "provider": {
-      "@type": "RoofingContractor",
+      "@type": "LocalBusiness",
+      "@id": `${SITE_URL}/#organization`,
       "name": "Shumaker Roofing Company",
       "url": SITE_URL,
+      "telephone": "+1-301-662-0533",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "26 Water St.",
+        "addressLocality": "Frederick",
+        "addressRegion": "MD",
+        "postalCode": "21701",
+        "addressCountry": "US",
+      },
     },
-    "areaServed": {
-      "@type": "State",
-      "name": "Pennsylvania",
+    "areaServed": [
+      { "@type": "State", "name": "Maryland" },
+      { "@type": "State", "name": "Virginia" },
+      { "@type": "State", "name": "Pennsylvania" },
+      { "@type": "State", "name": "West Virginia" },
+    ],
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
     },
   };
 

@@ -27,6 +27,20 @@ export interface ContentfulFaqItem {
   }
 }
 
+export interface ContentfulTwoColumnSection {
+  sys: { id: string }
+  fields: {
+    splitTitle?: string
+    splitDescription?: any
+    splitImage?: Array<{
+      fields: {
+        title?: string
+        file: { url: string; details?: { image?: { width: number; height: number } } }
+      }
+    }>
+  }
+}
+
 export interface ContentfulLocation {
   sys: { id: string }
   fields: {
@@ -38,6 +52,7 @@ export interface ContentfulLocation {
     metaDescription: string
     heroHeadline: string
     introText: any
+    twoColumn?: ContentfulTwoColumnSection[]
     servicesOffered: ContentfulService[]
     localTestimonials?: ContentfulTestimonial[]
     faqItems?: ContentfulFaqItem[]
