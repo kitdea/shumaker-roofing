@@ -66,15 +66,6 @@ export default async function AboutPage() {
     console.error("Failed to fetch team members:", err);
   }
 
-  const defaultTeam = [
-    { name: "Michael Shumaker", role: "Founder & CEO", teamInfo: "With over 20 years of experience, Michael leads the company with a commitment to excellence and community service.", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop" },
-    { name: "Sarah Jenkins", role: "Operations Manager", teamInfo: "Sarah ensures all projects run smoothly and efficiently, coordinating between crews and clients with expert precision.", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" },
-    { name: "David Miller", role: "Lead Foreman", teamInfo: "David oversees our roofing crews, bringing unparalleled expertise to every residential and commercial installation.", img: "https://images.unsplash.com/photo-1504221507732-5246c045949b?q=80&w=2070&auto=format&fit=crop" },
-    { name: "James Wilson", role: "Safety Inspector", teamInfo: "James guarantees that all operations exceed safety standards, protecting both our team and your property.", img: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=80&w=1974&auto=format&fit=crop" },
-    { name: "Emily Chen", role: "Project Estimator", teamInfo: "Emily provides accurate and transparent estimates, helping clients comfortably plan their roofing investments.", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop" },
-    { name: "Marcus Johnson", role: "Customer Success", teamInfo: "Marcus is dedicated to ensuring every client is completely satisfied, from initial contact to final inspection.", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" },
-  ];
-
   const TEAM_ORDER = [
     "robert bob schisler",
     "tyler schisler",
@@ -123,7 +114,7 @@ export default async function AboutPage() {
             retired: normalizeName(name) === "terree long",
           };
         })
-      : defaultTeam.map((m, i) => ({ ...m, id: i.toString(), email: undefined, socialMedia: undefined, phoneNumber: undefined, salesmanTag: undefined, retired: false }))
+      : []
   );
 
   return (
@@ -145,6 +136,37 @@ export default async function AboutPage() {
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
             Discover the story behind Shumaker Roofing, our values, and what makes us a trusted name in the industry.
           </p>
+        </Container>
+      </section>
+
+      {/* Who Are We */}
+      <section className="py-24 bg-secondary text-white">
+        <Container className="max-w-4xl">
+          <h2 className="text-3xl md:text-4xl font-heading font-extrabold mb-8">Who Are We?</h2>
+          <div className="flex flex-col gap-6 text-white/80 text-lg leading-relaxed">
+            <p>
+              For over 75 years,{" "}
+              <span className="text-primary font-semibold">Shumaker Roofing Co.</span>{" "}
+              has been the go-to{" "}
+              <strong className="text-white font-bold">roofing company in Frederick, MD</strong>
+              , serving homeowners and businesses with trusted solutions.
+            </p>
+            <p>
+              Shumaker Roofing is a team of dedicated and genuine individuals. Our vision and goals align with the
+              Shumaker brothers who started the company back in the 1940s.
+            </p>
+            <p>
+              As a leading roofing company in Frederick, MD, we solve real problems for homeowners and business
+              owners alike. We alleviate the stress from your problems so you don&apos;t have to deal with them while
+              having the confidence that they are taken care of.
+            </p>
+            <p>
+              As a CertainTeed 5 STAR &ldquo;Select ShingleMaster&rdquo; since the program&apos;s inception in 1998, we offer a Full
+              Replacement Cost Warranty which is transferable, covers both non-prorated 50 year labor &amp; material
+              costs, and workmanship defects for the first 25 years. Regardless of manufacturer warranties, we
+              always include a 10 year craftsmanship warranty as well.
+            </p>
+          </div>
         </Container>
       </section>
 
