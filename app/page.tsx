@@ -10,9 +10,8 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 import { fetchPageSeo } from "@/lib/seo";
 import { ProjectSlider } from "@/components/home/project-slider";
 import { LogoSlider } from "@/components/home/logo-slider";
-import { RoofleWidget } from "@/components/home/roofle-widget";
-import { fetchAllServices } from "@/lib/contentful";
-import { slugify, getServiceIcon } from "@/lib/utils";
+import { fetchAllServices, fetchHeroBanner, fetchCertificationBadges, fetchProjectSlides } from "@/lib/contentful";
+import { slugify, getServiceIcon, toHttpsUrl } from "@/lib/utils";
 import { Document } from "@contentful/rich-text-types";
 
 export async function generateMetadata() {
@@ -81,12 +80,16 @@ const organizationSchema = {
 
 export default async function Home() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let services: any[] = [];
-  try {
-    services = await fetchAllServices();
-  } catch {
-    // fall through to empty — section is hidden when no services
-  }
+  const [services, hero, certBadges, projectSlides] = await Promise.all([
+    fetchAllServices().catch((): any[] => []),
+    fetchHeroBanner().catch(() => null),
+    fetchCertificationBadges().catch(() => []),
+    fetchProjectSlides().catch(() => []),
+  ]);
+
+  const heroBgUrl =
+    toHttpsUrl(hero?.backgroundImage?.fields?.file?.url) ??
+    "https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop";
 
   return (
     <>
@@ -100,7 +103,7 @@ export default async function Home() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-800/60" /> {/* Dark overlay */}
           <Image
-            src="https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop"
+            src={heroBgUrl}
             alt="Roofing Professionals"
             fill
             className="object-cover opacity-60 mix-blend-overlay"
@@ -111,16 +114,16 @@ export default async function Home() {
         <Container className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left pt-20">
           <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm p-8 md:p-12 rounded-2xl max-w-2xl border border-border shadow-2xl">
             <span className="text-primary font-bold tracking-wider uppercase text-sm mb-4 block">
-              Affordable, Reliable, and Built to Last.
+              {hero?.tagline ?? "Affordable, Reliable, and Built to Last."}
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-5xl font-heading font-extrabold text-foreground leading-[1.1] mb-6">
-              Strong Durable and Affordable Roofing
+              {hero?.heading ?? "Strong Durable and Affordable Roofing"}
             </h1>
             <p className="text-foreground/70 text-lg mb-8 max-w-lg">
-              When it comes to protecting your home your roof is the first line of defense we provide top-notch roofing service designed to safeguard.
+              {hero?.bodyText ?? "When it comes to protecting your home your roof is the first line of defense we provide top-notch roofing service designed to safeguard."}
             </p>
             <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base" asChild>
-              <Link href="/contact">SCHEDULE YOUR ROOF REPAIR</Link>
+              <Link href={hero?.buttonLink ?? "/contact"}>{hero?.buttonText ?? "SCHEDULE YOUR ROOF REPAIR"}</Link>
             </Button>
           </div>
         </Container>
@@ -192,7 +195,7 @@ export default async function Home() {
             A glimpse into the quality craftsmanship and dedication we bring to every roofing project.
           </p>
         </div>
-        <ProjectSlider />
+        <ProjectSlider slides={projectSlides} />
       </section>
 
       {/* About Us Snippet */}
@@ -259,7 +262,7 @@ export default async function Home() {
             Backed by the industry&apos;s most respected certifications and manufacturer partnerships.
           </p>
         </div>
-        <LogoSlider />
+        <LogoSlider badges={certBadges} />
       </section>
 
       {/* CTA Section */}
@@ -281,20 +284,6 @@ export default async function Home() {
       </section>
 
 
-      {/* Instant Roof Quote Widget */}
-      <section aria-label="Instant roof quote estimator" className="py-24 bg-muted/30">
-        <Container>
-          <SectionHeader
-            title="Get an Instant Roof Quote"
-            subtitle="Free Estimate"
-            align="center"
-          />
-          <p className="text-center text-muted-foreground text-lg mt-4 mb-10 max-w-xl mx-auto">
-            Answer a few quick questions and receive an accurate estimate for your roofing project no obligation required.
-          </p>
-          <RoofleWidget />
-        </Container>
-      </section>
     </div>
     </>
   );

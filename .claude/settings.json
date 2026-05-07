@@ -5,7 +5,9 @@
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\franc\\\\Documents\\\\shumaker-roofing\" -Force)",
       "Bash(Select-Object Name)",
       "mcp__claude_ai_MCP_Contentful_Model__get_initial_context",
-      "mcp__claude_ai_MCP_Contentful_Model__get_content_type"
+      "mcp__claude_ai_MCP_Contentful_Model__get_content_type",
+      "mcp__claude_ai_MCP_Contentful_Model__list_content_types",
+      "mcp__claude_ai_MCP_Contentful_Model__search_entries"
     ],
     "additionalDirectories": [
       "c:\\Users\\franc\\.claude\\projects\\c--Users-franc-Documents-shumaker-roofing\\memory"

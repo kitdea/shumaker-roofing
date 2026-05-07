@@ -1,29 +1,20 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-
-const SCRIPT_SRC =
-  "https://app.roofle.com/roof-quote-pro-embedded-widget.js?id=edgE0YoULrACgxaIeovOR";
+import Script from "next/script";
 
 export function RoofleWidget() {
-  const injectedRef = useRef(false);
-
-  useEffect(() => {
-    if (injectedRef.current) return;
-    injectedRef.current = true;
-
-    if (document.querySelector(`script[src="${SCRIPT_SRC}"]`)) return;
-
-    const script = document.createElement("script");
-    script.src = SCRIPT_SRC;
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
-
   return (
-    <div
-      aria-live="polite"
-      className="w-full min-h-[480px] sm:min-h-[520px]"
-    />
+    <>
+      <Script
+        src="https://app.roofle.com/roof-quote-pro-embedded-widget.js?id=edgE0YoULrACgxaIeovOR"
+        strategy="afterInteractive"
+      />
+      <div
+        id="roofle-embedded-widget"
+        aria-label="Instant roof quote estimator"
+        aria-live="polite"
+        className="w-full min-h-[480px] sm:min-h-[520px]"
+      />
+    </>
   );
 }

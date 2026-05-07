@@ -73,6 +73,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn("min-h-screen bg-background font-sans antialiased flex flex-col", inter.variable, montserrat.variable)}>
+        {/* Roofle floating quote button — loads on all pages */}
         <Script
           src="https://app.roofle.com/roof-quote-pro-widget.js?id=edgE0YoULrACgxaIeovOR"
           strategy="lazyOnload"
