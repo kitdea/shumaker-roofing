@@ -86,18 +86,25 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
                 <div className="absolute left-0 top-full pt-2 w-44 z-50">
                   <div className="bg-background border border-border/60 rounded-lg shadow-lg py-1 overflow-hidden">
                     <Link
-                      href="/about"
-                      onClick={() => setOpenDropdown(null)}
-                      className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-muted transition-colors"
-                    >
-                      About Us
-                    </Link>
-                    <Link
                       href="/faqs"
                       onClick={() => setOpenDropdown(null)}
                       className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-muted transition-colors"
                     >
                       FAQs
+                    </Link>
+                    <Link
+                      href="/projects"
+                      onClick={() => setOpenDropdown(null)}
+                      className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-muted transition-colors"
+                    >
+                      Our Projects
+                    </Link>
+                    <Link
+                      href="/roofs-for-heroes"
+                      onClick={() => setOpenDropdown(null)}
+                      className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-muted transition-colors"
+                    >
+                      Roofs for Heroes
                     </Link>
                   </div>
                 </div>
@@ -245,18 +252,25 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
               {openMobileSection === "about" && (
                 <div className="pl-4 flex flex-col gap-1 pb-1">
                   <Link
-                    href="/about"
-                    onClick={closeAll}
-                    className="block text-sm font-medium text-foreground/70 hover:text-primary p-2"
-                  >
-                    About Us
-                  </Link>
-                  <Link
                     href="/faqs"
                     onClick={closeAll}
                     className="block text-sm font-medium text-foreground/70 hover:text-primary p-2"
                   >
                     FAQs
+                  </Link>
+                  <Link
+                    href="/projects"
+                    onClick={closeAll}
+                    className="block text-sm font-medium text-foreground/70 hover:text-primary p-2"
+                  >
+                    Our Projects
+                  </Link>
+                  <Link
+                    href="/roofs-for-heroes"
+                    onClick={closeAll}
+                    className="block text-sm font-medium text-foreground/70 hover:text-primary p-2"
+                  >
+                    Roofs for Heroes
                   </Link>
                 </div>
               )}
