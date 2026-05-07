@@ -7,40 +7,58 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 /** Minimum horizontal distance (px) to register a swipe instead of a tap. */
 const DRAG_THRESHOLD = 50;
 
-const slides = [
+const FALLBACK_SLIDES = [
   {
+    id: "1",
     src: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2070&auto=format&fit=crop",
     alt: "Professional roof installation with new shingles on a residential home",
     caption: "Residential Roof Installation",
   },
   {
+    id: "2",
     src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop",
     alt: "Expert roofers performing shingle replacement on a sloped roof",
     caption: "Shingle Replacement & Repair",
   },
   {
+    id: "3",
     src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
     alt: "Beautifully completed modern home exterior with new roofing",
     caption: "Modern Home Exterior Roofing",
   },
   {
+    id: "4",
     src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop",
     alt: "Construction crew working on a large commercial roofing project",
     caption: "Commercial Roofing Projects",
   },
   {
+    id: "5",
     src: "https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop",
     alt: "Shumaker Roofing professionals inspecting and repairing a roof",
     caption: "Expert Roof Inspections",
   },
   {
+    id: "6",
     src: "https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?q=80&w=2070&auto=format&fit=crop",
     alt: "Skilled roofing team completing a quality roof replacement project",
     caption: "Full Roof Replacements",
   },
 ];
 
-export function ProjectSlider() {
+interface ProjectSlide {
+  id: string;
+  src: string;
+  alt: string;
+  caption: string;
+}
+
+interface ProjectSliderProps {
+  slides?: ProjectSlide[];
+}
+
+export function ProjectSlider({ slides: propSlides }: ProjectSliderProps) {
+  const slides = propSlides && propSlides.length > 0 ? propSlides : FALLBACK_SLIDES;
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -56,11 +74,11 @@ export function ProjectSlider() {
 
   const goNext = useCallback(() => {
     setCurrent((prev) => (prev + 1) % slides.length);
-  }, []);
+  }, [slides.length]);
 
   const goPrev = useCallback(() => {
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
-  }, []);
+  }, [slides.length]);
 
   useEffect(() => {
     if (isPaused) return;
