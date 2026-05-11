@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="32" height="32">
+  <polygon
+    points="128,50 40,206 216,206"
+    fill="none"
+    stroke="#F27727"
+    stroke-width="36"
+    stroke-linejoin="miter"
+    stroke-miterlimit="10"
+  />
+</svg>

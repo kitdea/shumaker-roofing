@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, Home, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
@@ -51,13 +51,13 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <Container>
         <div className="flex h-20 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="bg-primary p-2 flex items-center justify-center rounded-sm">
-              <Home className="h-6 w-6 text-white" />
-            </div>
-            <span className="text-2xl font-heading font-bold tracking-tight">
-              Shumaker<span className="text-primary">Roofing</span>
-            </span>
+          <Link href="/" className="flex items-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.svg"
+              alt="Shumaker Roofing Co. Inc."
+              className="h-14 w-auto"
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-6 lg:gap-8">
@@ -105,6 +105,20 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
                       className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-muted transition-colors"
                     >
                       Roofs for Heroes
+                    </Link>
+                    <Link
+                      href="/testimonials"
+                      onClick={() => setOpenDropdown(null)}
+                      className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-muted transition-colors"
+                    >
+                      Testimonials
+                    </Link>
+                    <Link
+                      href="/careers"
+                      onClick={() => setOpenDropdown(null)}
+                      className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-muted transition-colors"
+                    >
+                      Careers
                     </Link>
                   </div>
                 </div>
@@ -271,6 +285,20 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
                     className="block text-sm font-medium text-foreground/70 hover:text-primary p-2"
                   >
                     Roofs for Heroes
+                  </Link>
+                  <Link
+                    href="/testimonials"
+                    onClick={closeAll}
+                    className="block text-sm font-medium text-foreground/70 hover:text-primary p-2"
+                  >
+                    Testimonials
+                  </Link>
+                  <Link
+                    href="/careers"
+                    onClick={closeAll}
+                    className="block text-sm font-medium text-foreground/70 hover:text-primary p-2"
+                  >
+                    Careers
                   </Link>
                 </div>
               )}
