@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 250" width="100%" height="100%">
+  <defs>
+    <style>
+      .purple { fill: #ffffff; font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; }
+      .orange { fill: #EF7622; font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; }
+      .small-orange { fill: #EF7622; font-family: Arial, sans-serif; font-weight: bold; }
+    </style>
+  </defs>
+
+  <g transform="translate(10, 10)">
+    <polyline points="0,30 0,0 30,0" fill="none" stroke="#ffffff" stroke-width="2"/>
+    <polyline points="0,200 0,230 30,230" fill="none" stroke="#ffffff" stroke-width="2"/>
+
+    <text x="10" y="45" class="purple" font-size="45">OVER</text>
+
+    <text x="5" y="130" class="orange" font-size="90" letter-spacing="-5">7O</text>
+
+    <text x="8" y="180" class="purple" font-size="50">YEARS</text>
+    <text x="10" y="205" class="small-orange" font-size="14">Then • Now • Always</text>
+  </g>
+
+  <g transform="translate(240, 10)">
+    <text x="0" y="115" class="orange" font-size="115" letter-spacing="2">SHUMAKER</text>
+
+    <rect x="0" y="145" width="750" height="15" fill="#ffffff" />
+
+    <text x="0" y="230" class="purple" font-size="75" letter-spacing="14">ROOFING CO</text>
+
+    <text x="695" y="185" class="small-orange" font-size="30">Inc.</text>
+    <polygon points="720,200 730,210 720,220 710,210" fill="#ffffff"/>
+  </g>
+</svg>

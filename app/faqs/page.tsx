@@ -181,7 +181,7 @@ export default function FaqsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-secondary">
+      <section className="py-24 bg-slate-400">
         <Container className="text-center">
           <p className="uppercase text-primary font-semibold text-sm tracking-widest mb-3">
             Still Have Questions?
@@ -202,7 +202,7 @@ export default function FaqsPage() {
             <Button
               size="lg"
               variant="outline"
-              className="rounded-full gap-2 px-8 border-white/30 text-white hover:bg-white/10"
+              className="rounded-full gap-2 px-8 border-white/30 hover:bg-white/10"
               asChild
             >
               <Link href="/contact">

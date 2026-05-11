@@ -59,9 +59,9 @@ export default function TestimonialsPage() {
         <Container>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { value: "70+", label: "Years in Business" },
-              { value: "5.0", label: "Average Rating" },
-              { value: "1,000+", label: "Roofs Installed" },
+              { value: "75+", label: "Years in Business" },
+              { value: "4.9", label: "Average Rating" },
+              { value: "5,000+", label: "Roofs Installed" },
               { value: "4 States", label: "Service Area" },
             ].map((stat) => (
               <div key={stat.label}>
@@ -127,7 +127,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-secondary">
+      <section className="py-24 bg-slate-500">
         <Container className="text-center">
           <p className="uppercase text-primary font-semibold text-sm tracking-widest mb-3">
             Ready to Experience the Difference?
@@ -148,7 +148,7 @@ export default function TestimonialsPage() {
             <Button
               size="lg"
               variant="outline"
-              className="rounded-full gap-2 px-8 border-white/30 text-white hover:bg-white/10"
+              className="rounded-full gap-2 px-8 border-white/30 hover:bg-white/10"
               asChild
             >
               <Link href="/contact">

@@ -372,7 +372,7 @@ export default function CareersPage() {
             Build Your Career with Shumaker Roofing
           </h2>
           <p className="text-white/70 text-lg max-w-xl mx-auto mb-10">
-            Join a team that has protected homes and built careers across the Mid-Atlantic for over 70 years. We&apos;re growing — and we&apos;d love to grow with you.
+            Join a team that has protected homes and built careers across the Mid-Atlantic for over 70 years. We&apos;re growing - and we&apos;d love to grow with you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="rounded-full gap-2 px-8" asChild>
@@ -384,7 +384,7 @@ export default function CareersPage() {
             <Button
               size="lg"
               variant="outline"
-              className="rounded-full gap-2 px-8 border-white/30 text-white hover:bg-white/10"
+              className="rounded-full gap-2 px-8 border-white/30 hover:bg-white/10"
               asChild
             >
               <Link href="/contact">
