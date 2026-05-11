@@ -141,7 +141,7 @@ export default async function AboutPage() {
 
       {/* Who Are We */}
       <section className="py-24 bg-secondary text-white">
-        <Container className="max-w-4xl">
+        <Container className="max-w-7xl">
           <h2 className="text-3xl md:text-4xl font-heading font-extrabold mb-8">Who Are We?</h2>
           <div className="flex flex-col gap-6 text-white/80 text-lg leading-relaxed">
             <p>

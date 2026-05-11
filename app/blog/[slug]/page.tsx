@@ -13,6 +13,7 @@ import { INLINES } from "@contentful/rich-text-types";
 import type { Options } from "@contentful/rich-text-react-renderer";
 import type { Hyperlink } from "@contentful/rich-text-types";
 import { fetchPageSeo } from "@/lib/seo";
+import { TwoColumnSection } from "@/components/shared/two-column-section";
 import { slugify, toHttpsUrl, SITE_URL } from "@/lib/utils";
 
 const SITE_DOMAIN = "shumakerroofing.com";
@@ -39,7 +40,7 @@ const getPostFromSlug = cache(async function getPostFromSlug(slug: string) {
   let post = null;
 
   try {
-    const response = await client.getEntries({ content_type: "blog", include: 2 });
+    const response = await client.getEntries({ content_type: "blog", include: 3 });
     post =
       response.items.find((item) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -56,7 +57,7 @@ const getPostFromSlug = cache(async function getPostFromSlug(slug: string) {
         content_type: "blog",
         "fields.slug": slug,
         limit: 1,
-        include: 2,
+        include: 3,
       });
       if (response.items.length > 0) post = response.items[0];
     } catch {
@@ -114,6 +115,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const postFields = rawPost.fields as any;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const splitSections: any[] = Array.isArray(postFields.splitSection) ? postFields.splitSection : [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const twoColumnData = splitSections.map((item: any) => {
+    const f = item.fields;
+    const firstImage = Array.isArray(f.splitImage) ? f.splitImage[0] : f.splitImage;
+    const rawUrl: string | undefined = firstImage?.fields?.file?.url;
+    const imageUrl = toHttpsUrl(rawUrl) ?? null;
+    return {
+      id: item.sys.id,
+      splitTitle: typeof f.splitTitle === "string" ? f.splitTitle : String(f.splitTitle ?? ""),
+      splitDescription: f.splitDescription ?? null,
+      imageUrl,
+    };
+  }).filter((s: { imageUrl: string | null }) => s.imageUrl !== null);
 
   const imageField =
     postFields.featuredImage || postFields.image || postFields.coverImage ||
@@ -317,6 +334,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </Button>
         </div>
       </Container>
+      {twoColumnData.length > 0 && (
+        <div className="divide-y divide-border">
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {twoColumnData.map((section: any, idx: number) => (
+            <TwoColumnSection
+              key={section.id}
+              splitTitle={section.splitTitle}
+              splitDescription={section.splitDescription}
+              splitImageUrl={section.imageUrl}
+              imageRight={idx % 2 !== 0}
+            />
+          ))}
+        </div>
+      )}
     </div>
     </>
   );

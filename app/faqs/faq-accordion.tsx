@@ -35,7 +35,7 @@ function FaqItem({ question, answer }: FaqItem) {
         />
       </button>
       {open && (
-        <div className="px-6 pb-5 pt-2 bg-muted/20 text-foreground/70 text-sm leading-relaxed border-t border-border/40">
+        <div className="px-6 pb-5 pt-2 bg-muted/20 text-foreground/70 text-m leading-relaxed border-t border-border/40">
           {answer}
         </div>
       )}
