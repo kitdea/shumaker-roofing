@@ -82,6 +82,36 @@ export const fetchProjectSlides = cache(async function fetchProjectSlides() {
   return slides;
 });
 
+export const fetchJobPostings = cache(async function fetchJobPostings() {
+  const res = await client.getEntries({
+    content_type: 'jobPosting',
+    'fields.isActive': true,
+    order: ['fields.displayOrder'],
+    limit: 50,
+  });
+  return res.items.map((item) => {
+    const f = item.fields as {
+      title?: string;
+      department?: string;
+      employmentType?: string;
+      location?: string;
+      description?: string;
+      requirements?: string[];
+      datePosted?: string;
+    };
+    return {
+      id: item.sys.id,
+      title: f.title ?? '',
+      department: f.department ?? '',
+      type: f.employmentType ?? 'Full-Time',
+      location: f.location ?? '',
+      description: f.description ?? '',
+      requirements: f.requirements ?? [],
+      datePosted: f.datePosted ?? new Date().toISOString().split('T')[0],
+    };
+  });
+});
+
 // Fetch a single location by slug
 export async function fetchLocation(slug: string): Promise<ContentfulLocation | null> {
   const res = await client.getEntries({
