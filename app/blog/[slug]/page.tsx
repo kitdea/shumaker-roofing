@@ -9,7 +9,7 @@ import { Calendar, User, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { client } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { INLINES } from "@contentful/rich-text-types";
+import { INLINES, BLOCKS } from "@contentful/rich-text-types";
 import type { Options } from "@contentful/rich-text-react-renderer";
 import type { Hyperlink } from "@contentful/rich-text-types";
 import { fetchPageSeo } from "@/lib/seo";
@@ -31,6 +31,20 @@ const richTextOptions: Options = {
         >
           {children}
         </a>
+      );
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
+      const asset = node.data?.target?.fields;
+      const url = toHttpsUrl(asset?.file?.url);
+      const alt = (asset?.title as string) || (asset?.description as string) || "";
+      const width = (asset?.file?.details?.image?.width as number) || 800;
+      const height = (asset?.file?.details?.image?.height as number) || 500;
+      if (!url) return null;
+      return (
+        <div className="my-8 rounded-xl overflow-hidden shadow-md">
+          <Image src={url} alt={alt} width={width} height={height} className="w-full h-auto object-cover" />
+        </div>
       );
     },
   },

@@ -18,6 +18,7 @@ import {
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
+import { fetchJobPostings } from "@/lib/contentful";
 
 export const metadata: Metadata = {
   title: { absolute: "Careers | Join the Shumaker Roofing Team" },
@@ -39,120 +40,45 @@ export const metadata: Metadata = {
   },
 };
 
-interface JobPosting {
-  id: string;
-  title: string;
-  type: string;
-  location: string;
-  department: string;
-  description: string;
-  requirements: string[];
-}
+export default async function CareersPage() {
+  const jobs = await fetchJobPostings();
 
-const JOB_POSTINGS: JobPosting[] = [
-  {
-    id: "roofing-installer",
-    title: "Roofing Installer",
-    type: "Full-Time",
-    location: "Frederick, MD",
-    department: "Field Operations",
-    description:
-      "Install, repair, and replace residential and commercial roofing systems. Work as part of a skilled crew delivering high-quality craftsmanship on every job.",
-    requirements: [
-      "1+ years of roofing installation experience",
-      "Ability to work at heights and in varying weather conditions",
-      "Knowledge of shingle, metal, or flat roofing systems (one or more)",
-      "Valid driver's license",
-      "Reliable transportation",
-    ],
-  },
-  {
-    id: "roofing-estimator",
-    title: "Roofing Estimator / Sales",
-    type: "Full-Time",
-    location: "Frederick, MD / Hagerstown, MD",
-    department: "Sales",
-    description:
-      "Conduct on-site roof inspections, develop detailed estimates, and guide homeowners and business owners through their roofing options. Build lasting client relationships and help grow the Shumaker brand.",
-    requirements: [
-      "Experience in roofing sales or estimating preferred",
-      "Strong communication and people skills",
-      "Ability to read measurements and use estimating software",
-      "Self-motivated with a results-driven mindset",
-      "Valid driver's license and reliable transportation",
-    ],
-  },
-  {
-    id: "crew-lead",
-    title: "Roofing Crew Lead",
-    type: "Full-Time",
-    location: "Frederick, MD",
-    department: "Field Operations",
-    description:
-      "Lead a roofing crew on residential and commercial projects. Oversee daily job-site operations, ensure quality standards are met, and mentor junior installers.",
-    requirements: [
-      "3+ years of roofing experience with at least 1 year in a leadership role",
-      "Strong knowledge of roofing installation techniques and safety protocols",
-      "OSHA 10 certification (or willingness to obtain)",
-      "Excellent communication and team leadership skills",
-      "Valid driver's license",
-    ],
-  },
-  {
-    id: "office-coordinator",
-    title: "Office Coordinator",
-    type: "Full-Time",
-    location: "Frederick, MD",
-    department: "Administration",
-    description:
-      "Support daily office operations including scheduling, customer communication, job tracking, and administrative tasks. Play a key role in keeping our projects running smoothly from the office.",
-    requirements: [
-      "2+ years of administrative or office coordination experience",
-      "Proficiency in Microsoft Office and CRM or scheduling software",
-      "Exceptional organizational and communication skills",
-      "Ability to multi-task in a fast-paced environment",
-      "Construction or home services industry experience a plus",
-    ],
-  },
-];
-
-const CAREER_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: "Open Positions at Shumaker Roofing Co. Inc.",
-  itemListElement: JOB_POSTINGS.map((job, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    item: {
-      "@type": "JobPosting",
-      title: job.title,
-      employmentType: job.type === "Full-Time" ? "FULL_TIME" : "PART_TIME",
-      hiringOrganization: {
-        "@type": "Organization",
-        name: "Shumaker Roofing Co. Inc.",
-        sameAs: "https://www.shumakerroofing.com",
-      },
-      jobLocation: {
-        "@type": "Place",
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: job.location.split("/")[0].trim().split(",")[0].trim(),
-          addressRegion: job.location.includes("MD") ? "MD" : "VA",
-          addressCountry: "US",
+  const careerSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Open Positions at Shumaker Roofing Co. Inc.",
+    itemListElement: jobs.map((job, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "JobPosting",
+        title: job.title,
+        employmentType: job.type === "Full-Time" ? "FULL_TIME" : "PART_TIME",
+        hiringOrganization: {
+          "@type": "Organization",
+          name: "Shumaker Roofing Co. Inc.",
+          sameAs: "https://www.shumakerroofing.com",
         },
+        jobLocation: {
+          "@type": "Place",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: job.location.split("/")[0].trim().split(",")[0].trim(),
+            addressRegion: job.location.includes("MD") ? "MD" : "VA",
+            addressCountry: "US",
+          },
+        },
+        description: job.description,
+        datePosted: job.datePosted,
       },
-      description: job.description,
-      datePosted: "2026-05-01",
-    },
-  })),
-};
+    })),
+  };
 
-export default function CareersPage() {
   return (
     <div className="flex flex-col w-full">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(CAREER_SCHEMA) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(careerSchema) }}
       />
 
       {/* Page Header */}
@@ -235,54 +161,62 @@ export default function CareersPage() {
         <Container>
           <SectionHeader title="Open Positions" subtitle="Now Hiring" align="center" />
           <div className="flex flex-col gap-6">
-            {JOB_POSTINGS.map((job) => (
-              <div
-                key={job.id}
-                className="bg-background border border-border/50 rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300"
-              >
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-                  <div>
-                    <h3 className="text-xl font-heading font-bold text-foreground mb-2">{job.title}</h3>
-                    <div className="flex flex-wrap gap-3">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-primary/10 text-primary px-3 py-1 rounded-full">
-                        <Briefcase className="h-3.5 w-3.5" />
-                        {job.department}
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-muted text-foreground/70 px-3 py-1 rounded-full">
-                        <Clock className="h-3.5 w-3.5" />
-                        {job.type}
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-muted text-foreground/70 px-3 py-1 rounded-full">
-                        <MapPin className="h-3.5 w-3.5" />
-                        {job.location}
-                      </span>
+            {jobs.length === 0 ? (
+              <p className="text-center text-foreground/60 py-12">
+                No open positions at this time. Check back soon or send a general application below.
+              </p>
+            ) : (
+              jobs.map((job) => (
+                <div
+                  key={job.id}
+                  className="bg-background border border-border/50 rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+                    <div>
+                      <h3 className="text-xl font-heading font-bold text-foreground mb-2">{job.title}</h3>
+                      <div className="flex flex-wrap gap-3">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-primary/10 text-primary px-3 py-1 rounded-full">
+                          <Briefcase className="h-3.5 w-3.5" />
+                          {job.department}
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-muted text-foreground/70 px-3 py-1 rounded-full">
+                          <Clock className="h-3.5 w-3.5" />
+                          {job.type}
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-muted text-foreground/70 px-3 py-1 rounded-full">
+                          <MapPin className="h-3.5 w-3.5" />
+                          {job.location}
+                        </span>
+                      </div>
                     </div>
+                    <Button className="rounded-full gap-2 shrink-0" asChild>
+                      <a href={`mailto:info@shumakerroofing.com?subject=Application: ${encodeURIComponent(job.title)}`}>
+                        Apply Now
+                        <ChevronRight className="h-4 w-4" />
+                      </a>
+                    </Button>
                   </div>
-                  <Button className="rounded-full gap-2 shrink-0" asChild>
-                    <a href={`mailto:info@shumakerroofing.com?subject=Application: ${encodeURIComponent(job.title)}`}>
-                      Apply Now
-                      <ChevronRight className="h-4 w-4" />
-                    </a>
-                  </Button>
-                </div>
 
-                <p className="text-foreground/70 leading-relaxed mb-5">{job.description}</p>
+                  <p className="text-foreground/70 leading-relaxed mb-5">{job.description}</p>
 
-                <div>
-                  <h4 className="text-sm font-heading font-bold text-foreground mb-3 uppercase tracking-wide">
-                    Requirements
-                  </h4>
-                  <ul className="flex flex-col gap-2">
-                    {job.requirements.map((req) => (
-                      <li key={req} className="flex items-start gap-2 text-sm text-foreground/70">
-                        <ChevronRight className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                        {req}
-                      </li>
-                    ))}
-                  </ul>
+                  {job.requirements.length > 0 && (
+                    <div>
+                      <h4 className="text-sm font-heading font-bold text-foreground mb-3 uppercase tracking-wide">
+                        Requirements
+                      </h4>
+                      <ul className="flex flex-col gap-2">
+                        {job.requirements.map((req) => (
+                          <li key={req} className="flex items-start gap-2 text-sm text-foreground/70">
+                            <ChevronRight className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                            {req}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </Container>
       </section>
