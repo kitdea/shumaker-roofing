@@ -46,7 +46,7 @@ memory/seo/
 
 ### `/keyword-researcher [topic]`
 - Accepts a topic or page slug as input
-- Generates target keywords with search intent label: `informational`, `commercial`, `local`
+- Generates target keywords with search intent label: `informational`, `commercial`, `transactional`, `local`
 - Groups keywords into named clusters (e.g. "residential", "metal", "emergency")
 - Writes results to `memory/seo/keywords.md`
 - Sets status to `researched`
@@ -57,11 +57,12 @@ memory/seo/
 - Drafts: SEO title, meta description, H1, H2 structure, body copy optimized for primary keyword
 - Presents draft in conversation for review before QA
 - Updates keyword status to `written`
+- Add new images
 
 ### `/qa [draft or page-slug]`
 - Runs draft through SEO checklist:
   - Primary keyword in title, H1, first 100 words
-  - Meta description 120–160 characters
+  - Meta description 150–160 characters
   - At least 2 internal links
   - No keyword stuffing (density < 3%)
   - H2s present and keyword-adjacent
