@@ -1,0 +1,8 @@
+{
+  "name": "seo-agents",
+  "description": "SEO pipeline agents for Shumaker Roofing: project manager, keyword researcher, writer, QA, and content updater",
+  "version": "1.0.0",
+  "author": {
+    "name": "Shumaker Roofing"
+  }
+}
