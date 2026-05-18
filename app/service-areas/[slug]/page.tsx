@@ -19,6 +19,42 @@ import { fetchPageSeo } from "@/lib/seo";
 
 const SITE_DOMAIN = "shumakerroofing.com";
 
+const OFFICES = {
+  MD: {
+    streetAddress: "26 Water St",
+    addressLocality: "Frederick",
+    addressRegion: "MD",
+    postalCode: "21701",
+    telephone: "+1-301-662-0533",
+  },
+  MD_WEST: {
+    streetAddress: "6 W Washington St Suite 208",
+    addressLocality: "Hagerstown",
+    addressRegion: "MD",
+    postalCode: "21740",
+    telephone: "+1-301-662-0533",
+  },
+  VA: {
+    streetAddress: "12001 Sunrise Valley Dr",
+    addressLocality: "Reston",
+    addressRegion: "VA",
+    postalCode: "20191",
+    telephone: "+1-301-662-0533",
+  },
+} as const;
+
+const WESTERN_MD_CITIES = new Set([
+  "hagerstown", "boonsboro", "smithsburg", "williamsport",
+  "funkstown", "hancock", "clear spring", "sharpsburg",
+  "keedysville", "thurmont", "waynesboro",
+]);
+
+function getOffice(state: string, cityName: string) {
+  if (state === "VA") return OFFICES.VA;
+  if (state === "MD" && WESTERN_MD_CITIES.has(cityName.toLowerCase())) return OFFICES.MD_WEST;
+  return OFFICES.MD;
+}
+
 const richTextOptions: Options = {
   renderNode: {
     [INLINES.HYPERLINK]: (node, children) => {
