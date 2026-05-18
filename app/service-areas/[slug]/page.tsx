@@ -160,7 +160,7 @@ function buildLocationSchema(
             "name": `How do I get a free roofing estimate in ${cityDisplay}?`,
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": `Call us at +1-301-662-0533 or fill out our contact form at shumakeroofing.com/contact to schedule a free estimate in ${cityDisplay}.`,
+              "text": `Call us at +1-301-662-0533 or fill out our contact form at shumakerroofing.com/contact to schedule a free estimate in ${cityDisplay}.`,
             },
           },
         ];
@@ -194,14 +194,13 @@ function buildLocationSchema(
     const avg =
       ratedTestimonials.reduce((sum, t) => sum + t.fields.rating, 0) /
       ratedTestimonials.length;
-    graph.push({
+    localBusiness["aggregateRating"] = {
       "@type": "AggregateRating",
-      "itemReviewed": { "@id": lbId },
       "ratingValue": Math.round(avg * 10) / 10,
       "reviewCount": ratedTestimonials.length,
       "bestRating": 5,
       "worstRating": 1,
-    });
+    };
   }
 
   return { "@context": "https://schema.org", "@graph": graph };
