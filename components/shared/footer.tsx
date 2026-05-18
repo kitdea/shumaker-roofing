@@ -8,10 +8,13 @@ async function getServices() {
   try {
     const response = await client.getEntries({ content_type: "services" });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (response.items || []).map((item: any) => ({
-      title: item.fields.title as string,
-      slug: item.fields.title ? slugify(item.fields.title as string) : item.sys.id,
-    }));
+    return (response.items || []).map((item: any) => {
+      const title = item.fields.title as string;
+      return {
+        title: title === "Commercial Flat & Low Slope Roofing Restoration" ? "Commercial" : title,
+        slug: title ? slugify(title) : item.sys.id,
+      };
+    });
   } catch {
     return [];
   }
@@ -134,7 +137,7 @@ export async function Footer() {
             <h4 className="text-lg font-heading font-semibold text-white mt-6 mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/2 after:h-0.5 after:bg-primary">
               MHIC License
             </h4>
-            <ul className="flex flex-col gap-2" aria-label="Contractor license numbers">
+            <ul className="flex flex-col gap-2 list-disc list-inside" aria-label="Contractor license numbers">
               {[
                 { number: "#4503", state: "MHIC" },
                 { number: "#160849", state: "PA" },
