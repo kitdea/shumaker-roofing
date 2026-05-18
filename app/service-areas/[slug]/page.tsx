@@ -8,6 +8,7 @@ import { MapPin, Phone, ChevronLeft, CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 import { fetchLocation, fetchAllLocations } from "@/lib/contentful";
+import type { ContentfulLocation } from "@/types/contentful";
 import { WhyChooseUs } from "@/components/shared/why-choose-us";
 import { TwoColumnSection } from "@/components/shared/two-column-section";
 import { slugify, toHttpsUrl, SITE_URL } from "@/lib/utils";
@@ -72,6 +73,139 @@ const richTextOptions: Options = {
     },
   },
 };
+
+function buildLocationSchema(
+  fields: ContentfulLocation["fields"],
+  cityDisplay: string,
+  slug: string,
+) {
+  const pageUrl = `${SITE_URL}/service-areas/${slug}`;
+  const lbId = `${pageUrl}/#localbusiness`;
+  const faqId = `${pageUrl}/#faq`;
+  const servicesId = `${pageUrl}/#services`;
+
+  const office = getOffice(fields.state, fields.cityName);
+
+  const localBusiness: Record<string, unknown> = {
+    "@type": "LocalBusiness",
+    "@id": lbId,
+    "name": "Shumaker Roofing Company",
+    "url": pageUrl,
+    "telephone": office.telephone,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": office.streetAddress,
+      "addressLocality": office.addressLocality,
+      "addressRegion": office.addressRegion,
+      "postalCode": office.postalCode,
+      "addressCountry": "US",
+    },
+    "serviceArea": {
+      "@type": "City",
+      "name": cityDisplay,
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "07:00",
+        "closes": "18:00",
+      },
+    ],
+    "priceRange": "$$",
+    "description":
+      fields.metaDescription ||
+      `Expert roofing services in ${cityDisplay}, ${fields.state}. Contact Shumaker Roofing for a free estimate.`,
+    "mainEntity": { "@id": faqId },
+  };
+
+  if (fields.latitude != null && fields.longitude != null) {
+    localBusiness["geo"] = {
+      "@type": "GeoCoordinates",
+      "latitude": fields.latitude,
+      "longitude": fields.longitude,
+    };
+  }
+
+  if ((fields.servicesOffered?.length ?? 0) > 0) {
+    localBusiness["hasOfferCatalog"] = { "@id": servicesId };
+  }
+
+  const faqMainEntity =
+    fields.faqItems?.length
+      ? fields.faqItems.map((faq) => ({
+          "@type": "Question",
+          "name": faq.fields.question,
+          "acceptedAnswer": { "@type": "Answer", "text": faq.fields.answer },
+        }))
+      : [
+          {
+            "@type": "Question",
+            "name": `Do you provide roofing services in ${cityDisplay}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `Yes, ${cityDisplay} is one of our primary service areas. We provide residential and commercial roofing services throughout ${cityDisplay}, ${fields.state}.`,
+            },
+          },
+          {
+            "@type": "Question",
+            "name": `What roofing services do you offer in ${cityDisplay}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `We offer residential roofing, commercial roofing, roof repair, storm damage repair, gutters, and roof inspections in ${cityDisplay}.`,
+            },
+          },
+          {
+            "@type": "Question",
+            "name": `How do I get a free roofing estimate in ${cityDisplay}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `Call us at +1-301-662-0533 or fill out our contact form at shumakeroofing.com/contact to schedule a free estimate in ${cityDisplay}.`,
+            },
+          },
+        ];
+
+  const faqPage = {
+    "@type": "FAQPage",
+    "@id": faqId,
+    "mainEntity": faqMainEntity,
+  };
+
+  const graph: unknown[] = [localBusiness, faqPage];
+
+  if ((fields.servicesOffered?.length ?? 0) > 0) {
+    graph.push({
+      "@type": "ItemList",
+      "@id": servicesId,
+      "name": `Roofing Services in ${cityDisplay}`,
+      "itemListElement": fields.servicesOffered.map((svc, idx) => ({
+        "@type": "ListItem",
+        "position": idx + 1,
+        "name": svc.fields.title,
+        "url": `${SITE_URL}/services/${slugify(svc.fields.title)}`,
+      })),
+    });
+  }
+
+  const ratedTestimonials = (fields.localTestimonials ?? []).filter(
+    (t) => typeof t.fields.rating === "number",
+  );
+  if (ratedTestimonials.length > 0) {
+    const avg =
+      ratedTestimonials.reduce((sum, t) => sum + t.fields.rating, 0) /
+      ratedTestimonials.length;
+    graph.push({
+      "@type": "AggregateRating",
+      "itemReviewed": { "@id": lbId },
+      "ratingValue": Math.round(avg * 10) / 10,
+      "reviewCount": ratedTestimonials.length,
+      "bestRating": 5,
+      "worstRating": 1,
+    });
+  }
+
+  return { "@context": "https://schema.org", "@graph": graph };
+}
 
 const getLocation = cache((slug: string) => fetchLocation(slug));
 
