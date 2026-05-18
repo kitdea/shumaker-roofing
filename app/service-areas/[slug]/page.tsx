@@ -247,31 +247,13 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
     return { id: item.sys.id, splitTitle: f.splitTitle ?? "", splitDescription: f.splitDescription ?? null, imageUrl, altText };
   }).filter((s) => s.imageUrl !== null) as Array<{ id: string; splitTitle: string; splitDescription: unknown; imageUrl: string; altText: string }>;
 
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": `${SITE_URL}/#organization`,
-    "name": "Shumaker Roofing Company",
-    "url": SITE_URL,
-    "telephone": "+1-301-662-0533",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": fields.cityName,
-      "addressRegion": fields.state,
-      "addressCountry": "US",
-    },
-    "areaServed": {
-      "@type": "City",
-      "name": cityDisplay,
-    },
-    "description": fields.metaDescription || `Expert roofing services in ${cityDisplay}, ${fields.state}.`,
-  };
+  const locationSchema = buildLocationSchema(fields, cityDisplay, slug);
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(locationSchema) }}
       />
     <div className="flex flex-col w-full pb-24">
       {/* Hero */}
