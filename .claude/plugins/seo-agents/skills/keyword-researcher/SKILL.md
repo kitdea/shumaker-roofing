@@ -30,7 +30,7 @@ Generate 20–25 candidate keywords for the topic. For each keyword include:
 - **Cluster**: a short cluster name (1–2 words, e.g. "metal", "repair", "storm")
 
 Rules:
-- Prioritize local intent keywords (include city/state modifiers like "Maryland", "MD", "Hagerstown")
+- Prioritize local intent keywords (include city/state modifiers like "Maryland", "MD", "Hagerstown", "PA", "VA")
 - Include at least 6 commercial-intent keywords (buyer-ready: "cost", "near me", "company", "contractor")
 - Include at least 3 informational keywords (research-phase: "how to", "signs of", "types of")
 - No keyword should exceed 6 words

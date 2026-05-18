@@ -16,7 +16,8 @@ export async function NavbarServer() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .map((item: any) => {
         const title = (item.fields as any).title as string;
-        return { name: title, href: `/services/${slugify(title)}` };
+        const displayName = title === "Commercial Flat & Low Slope Roofing Restoration" ? "Commercial" : title;
+        return { name: displayName, href: `/services/${slugify(title)}` };
       })
       .sort((a, b) => a.name.localeCompare(b.name));
 
