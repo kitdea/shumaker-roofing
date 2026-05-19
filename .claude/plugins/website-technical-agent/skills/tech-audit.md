@@ -294,12 +294,12 @@ Format values as:
 - LCP and INP: `{value}ms` (round to nearest integer)
 - CLS: `{value}` (round to 3 decimal places)
 - Score: integer (e.g. `72`)
-- Severity: `P1` or `P2`
+- Severity: worst severity across all failing metrics for that URL (`P1` takes precedence over `P2`)
 - Suggested Fix: concatenate all fix strings for failing metrics on that page, separated by ` · `
 
 Example row:
 ```
-| /blog/metal-roofing | 5100ms | 0.31 | 620ms | 41 | P1 | LCP: check hero image size · CLS: set explicit dimensions · INP: defer non-critical scripts |
+| /blog/metal-roofing | 5100ms | 0.31 | 620ms | 41 | P1 | LCP: Check hero image size, lazy loading, and server response time · CLS: Set explicit width/height on images and embeds; avoid inserting content above the fold · INP: Reduce JavaScript blocking time; defer non-critical scripts |
 ```
 
 **Severity key:** P1 = poor (immediate attention) · P2 = needs work (monitor)
