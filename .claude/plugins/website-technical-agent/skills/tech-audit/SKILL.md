@@ -318,7 +318,7 @@ If the file does not exist yet, start with an empty list.
 
 ### Step A.2: Merge New Findings
 
-For each new finding from Module 1 and Module 2:
+For each new finding from Module 1, Module 2, and Module 3:
 
 1. Check if a finding with the same `Module` + `URL` + `Issue` combination already exists in the list.
    - **If it exists and is `open`:** keep it as-is (it's a recurring issue — do not change First Seen).
@@ -328,6 +328,7 @@ For each new finding from Module 1 and Module 2:
 ID assignment:
 - Health module findings: `H-{NNN}` where NNN is the next available 3-digit integer (e.g. `H-001`, `H-002`)
 - SEO module findings: `S-{NNN}` (e.g. `S-001`, `S-002`)
+- Performance module findings: `P-{NNN}` (e.g. `P-001`, `P-002`)
 - IDs are never reused.
 
 2. For each existing `open` finding NOT present in the current run's results: mark it `closed` (the issue resolved itself).
@@ -356,6 +357,7 @@ Append a new entry to `memory/tech-audit/audit-log.md`:
 - URLs checked: {N}
 - Health findings: {N total} ({N new}, {N resolved})
 - SEO findings: {N total} ({N new}, {N resolved})
+- Performance findings: {N total} ({N new}, {N resolved})
 - Open P1 issues: {N}
 - Open P2 issues: {N}
 ```
@@ -385,8 +387,9 @@ Print a run summary:
 Tech Audit Complete — {YYYY-MM-DD HH:MM UTC}
 URLs checked: {N}
 ──────────────────────────────
-Health:       {N issues} ({N new}, {N resolved})
+Health:        {N issues} ({N new}, {N resolved})
 Technical SEO: {N issues} ({N new}, {N resolved})
+Performance:   {N issues} ({N new}, {N resolved})
 ──────────────────────────────
 Open P1: {N}   Open P2: {N}   INFO: {N}
 ──────────────────────────────
