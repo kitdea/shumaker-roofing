@@ -438,7 +438,7 @@ Construct this JSON payload, substituting all `{...}` placeholders with real val
 }
 ```
 
-**COLOR:** `3258260` (green `#31B257`) if zero P1 issues · `15158332` (red `#E74C3C`) if one or more P1 issues
+**COLOR:** `3258260` (green `#31B257`) if zero P1 issues · `15158332` (red `#E74C3C`) if one or more P1 issues. Use the integer directly — do not quote it.
 
 **P1_LIST:**
 - Zero P1s → `"✅ All checks passed"`
