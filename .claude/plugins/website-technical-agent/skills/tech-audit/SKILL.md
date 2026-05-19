@@ -308,7 +308,7 @@ Example row:
 
 ## Findings Aggregator
 
-Run this after both modules complete.
+Run this after all modules complete. Steps A.1–A.6 write findings and report to the user. Step A.7 sends a Discord notification.
 
 ### Step A.1: Load Existing findings.md
 
@@ -381,7 +381,7 @@ Overwrite `memory/tech-audit/MEMORY.md` with:
 
 ### Step A.6: Final Report to User
 
-Print a run summary:
+Print the run summary below, then proceed to Step A.7.
 
 ```
 Tech Audit Complete — {YYYY-MM-DD HH:MM UTC}
@@ -404,3 +404,64 @@ If there are any P1 issues, list them explicitly after the summary table:
 - [H-001] /blog/old-post — 404 Not Found
 - [S-001] /services/gutters — Missing meta description
 ```
+
+### Step A.7: Send Discord Alert
+
+**7.1 — Read webhook URL**
+
+Read `DISCORD_WEBHOOK_URL` from `.env.local`.
+
+If the value is empty or the key is missing:
+- Log: `"DISCORD_WEBHOOK_URL not set — skipping Discord alert"`
+- Stop here. Do not fail the audit run.
+
+**7.2 — Build embed payload**
+
+Construct this JSON payload, substituting all `{...}` placeholders with real values from the current run:
+
+```json
+{
+  "embeds": [{
+    "title": "Tech Audit — {YYYY-MM-DD HH:MM UTC}",
+    "color": {COLOR},
+    "description": "{P1_LIST}",
+    "fields": [
+      { "name": "URLs Checked", "value": "{N}", "inline": true },
+      { "name": "Open P1", "value": "{N}", "inline": true },
+      { "name": "Open P2", "value": "{N}", "inline": true },
+      { "name": "Health", "value": "{N issues} ({N new}, {N resolved})", "inline": false },
+      { "name": "Technical SEO", "value": "{N issues} ({N new}, {N resolved})", "inline": false },
+      { "name": "Performance", "value": "{N issues} ({N new}, {N resolved})", "inline": false }
+    ],
+    "footer": { "text": "Shumaker Roofing · nightly audit" }
+  }]
+}
+```
+
+**COLOR:** `3258260` (green `#31B257`) if zero P1 issues · `15158332` (red `#E74C3C`) if one or more P1 issues
+
+**P1_LIST:**
+- Zero P1s → `"✅ All checks passed"`
+- One or more P1s → one line per P1 finding:
+  ```
+  ⚠ [H-003] /about — 404 Not Found
+  ⚠ [S-002] /services/gutters — Missing meta description
+  ```
+
+**7.3 — POST to webhook**
+
+Use `WebFetch` to POST the payload:
+
+```
+POST {DISCORD_WEBHOOK_URL}
+Content-Type: application/json
+Body: {payload from 7.2}
+```
+
+Response handling:
+
+| Response | Action |
+|---|---|
+| HTTP 204 | Log: `"Discord alert sent"` |
+| HTTP 429 | Log: `"Discord alert skipped — rate limited"`. Do not retry. |
+| Any other non-2xx | Log: `"Discord alert failed — HTTP {status}"`. Do not fail the audit run. |
