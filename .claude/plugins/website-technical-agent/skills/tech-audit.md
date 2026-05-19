@@ -273,6 +273,10 @@ Apply these thresholds per metric. Generate one finding per failing metric per U
 | INP | Reduce JavaScript blocking time; defer non-critical scripts |
 | Performance score | Review Lighthouse opportunities tab for the largest wins |
 
+**HARD CONSTRAINT — DO NOT AUTO-FIX PERFORMANCE ISSUES.**
+
+All findings are logged only. Never modify code, configuration, images, or assets based on these results without explicit user approval.
+
 ### Step 3.5: Write performance-report.md
 
 Overwrite `memory/tech-audit/performance-report.md` with:
