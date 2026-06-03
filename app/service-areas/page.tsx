@@ -9,6 +9,7 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { fetchAllLocations } from "@/lib/contentful";
+import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
   title: { absolute: "Licensed Roofing Service Areas | Shumaker Roofing Company" },
@@ -50,8 +51,8 @@ export default async function ServiceAreasPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70 absolute inset-0 z-10" />
           <Image
-            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop"
-            alt="Aerial view of a neighborhood Shumaker Roofing serves"
+            src="https://images.ctfassets.net/1daipl7z93ig/50iHJtfm4UkBWGmLs4hGLl/e585de4da3a67060c01a0478f6160df9/roof-replacement-in-frederick-md_002.jpg"
+            alt="Aerial view of a neighborhood roof Shumaker Roofing serves"
             fill
             sizes="100vw"
             quality={85}
@@ -110,17 +111,19 @@ export default async function ServiceAreasPage() {
         </Container>
       </section>
 
+      <CertificationsSection />
+
       {/* CTA */}
-      <section className="py-20 bg-muted/50 border-t border-border">
-        <Container className="text-center">
+      <section className="py-20 bg-muted-foreground border-border">
+        <Container className="text-center text-white dark:text-black">
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
             Don&apos;t See Your City?
           </h2>
           <p className="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto">
             We may still be able to help. Contact us and let&apos;s talk about your roofing needs.
           </p>
-          <Button size="lg" asChild>
-            <Link href="/contact">Get a Free Quote</Link>
+          <Button className="uppercase font-bold" size="lg" asChild>
+            <Link href="/contact">Get a Free Estimate</Link>
           </Button>
         </Container>
       </section>

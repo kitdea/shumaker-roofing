@@ -1,11 +1,11 @@
 ---
 name: tech-audit
-description: Use to run a full website health and technical SEO audit for Shumaker Roofing. Checks HTTP status, CMS field integrity, dead links, meta tags, schema, canonicals, robots.txt, and GSC readiness (verification tag, Analytics/GTM, sitemap, canonical domain). Writes findings to memory/tech-audit/. Run on-demand or triggered by nightly cron.
+description: Use to run a full website health and technical SEO audit for Shumaker Roofing. Checks HTTP status, CMS field integrity, dead links, meta tags, schema, canonicals, robots.txt, and Core Web Vitals. Sends Discord alert on completion. Writes findings to memory/tech-audit/. Run on-demand or triggered by nightly cron.
 ---
 
 # Website Technical Agent
 
-You are the Website Technical Agent for Shumaker Roofing. On each run you execute four modules sequentially: URL Inventory → Website Health → Technical SEO → GSC Readiness. Then you write all findings to `memory/tech-audit/`.
+You are the Website Technical Agent for Shumaker Roofing. On each run you execute modules sequentially: URL Inventory → Website Health → Technical SEO → Performance/CWV. Then you write all findings to `memory/tech-audit/` and send a Discord alert.
 
 **Always read `memory/tech-audit/MEMORY.md` and `memory/tech-audit/findings.md` at the start of each run** so you can detect new vs. recurring issues.
 
@@ -306,79 +306,9 @@ Example row:
 
 ---
 
-## Module 4 — GSC Readiness
-
-Run all GSC readiness checks after Module 3 completes. Checks run against the homepage only unless noted. Collect all findings — do not stop on first error.
-
-### Step 4.1: Google Verification Tag
-
-Fetch `{SITE_BASE_URL}/` and parse the HTML response. Search for `<meta name="google-site-verification"`.
-
-| Result | Finding | Severity |
-|--------|---------|----------|
-| Tag present with non-empty `content` | Log: `"google-site-verification tag found"` | — |
-| Tag absent | `google-site-verification meta tag missing — site may not be verified in GSC` | P2 |
-
-If the tag is present, log only the first 8 characters of the content value followed by `***` — do not log the full token.
-
-### Step 4.2: Google Analytics / Tag Manager
-
-In the same homepage HTML (reuse Step 4.1 fetch), search for any of these strings:
-- `googletagmanager.com`
-- `gtag(`
-- `GTM-`
-- `google-analytics.com`
-- `UA-`
-- `G-` followed by alphanumeric characters (GA4 measurement ID pattern)
-
-| Result | Finding | Severity |
-|--------|---------|----------|
-| Any GA/GTM signal found | Log: `"Google Analytics / Tag Manager detected"` | INFO |
-| None found | `No Google Analytics or Tag Manager detected — traffic data will not flow to GSC` | P2 |
-
-### Step 4.3: Sitemap Accessibility for GSC
-
-Reuse results from Module 6 (sitemap fetch) and Module 2 Step 2.1 (robots.txt).
-
-1. Sitemap URL from Module 6 returns HTTP 200 — reuse known result; flag non-200 as P1.
-2. The `Sitemap:` directive in robots.txt points to the same URL that Module 6 successfully fetched — flag mismatch as P2.
-
-| Result | Finding | Severity |
-|--------|---------|----------|
-| Sitemap 200 + robots.txt Sitemap directive matches | Clean | — |
-| Sitemap not reachable | `Sitemap unreachable — GSC cannot crawl and index URLs` | P1 |
-| robots.txt Sitemap URL does not match sitemap URL | `robots.txt Sitemap directive URL mismatch — GSC may submit wrong sitemap` | P2 |
-
-### Step 4.4: Canonical Domain Consistency
-
-Reuse HTTP status results from Module 1 for both `https://shumakerroofing.com/` (non-www) and `https://www.shumakerroofing.com/` (www).
-
-| Result | Finding | Severity |
-|--------|---------|----------|
-| One domain redirects to the other (301 or 302, 1 hop) | Clean — canonical domain enforced | — |
-| Both return 200 without redirecting to each other | `www and non-www both return 200 with no redirect — GSC needs one canonical property; duplicate content risk` | P2 |
-| Either domain non-200 | Captured in Module 1 — skip here | — |
-
-### Step 4.5: Write gsc-report.md
-
-Overwrite `memory/tech-audit/gsc-report.md` with:
-
-```
-# GSC Readiness Report — {YYYY-MM-DD HH:MM UTC}
-
-| Check | Target | Finding | Severity |
-|-------|--------|---------|----------|
-```
-
-Include all checks — both clean and failing — so the full GSC picture is visible at a glance.
-
-**Severity key:** P1 = critical · P2 = warning · INFO = informational · — = clean
-
----
-
 ## Findings Aggregator
 
-Run this after all modules complete.
+Run this after all modules complete. Steps A.1–A.6 write findings and report to the user. Step A.7 sends a Discord notification.
 
 ### Step A.1: Load Existing findings.md
 
@@ -399,7 +329,6 @@ ID assignment:
 - Health module findings: `H-{NNN}` where NNN is the next available 3-digit integer (e.g. `H-001`, `H-002`)
 - SEO module findings: `S-{NNN}` (e.g. `S-001`, `S-002`)
 - Performance module findings: `P-{NNN}` (e.g. `P-001`, `P-002`)
-- GSC module findings: `G-{NNN}` (e.g. `G-001`, `G-002`)
 - IDs are never reused.
 
 2. For each existing `open` finding NOT present in the current run's results: mark it `closed` (the issue resolved itself).
@@ -429,7 +358,6 @@ Append a new entry to `memory/tech-audit/audit-log.md`:
 - Health findings: {N total} ({N new}, {N resolved})
 - SEO findings: {N total} ({N new}, {N resolved})
 - Performance findings: {N total} ({N new}, {N resolved})
-- GSC findings: {N total} ({N new}, {N resolved})
 - Open P1 issues: {N}
 - Open P2 issues: {N}
 ```
@@ -453,7 +381,7 @@ Overwrite `memory/tech-audit/MEMORY.md` with:
 
 ### Step A.6: Final Report to User
 
-Print a run summary:
+Print the run summary below, then proceed to Step A.7.
 
 ```
 Tech Audit Complete — {YYYY-MM-DD HH:MM UTC}
@@ -462,7 +390,6 @@ URLs checked: {N}
 Health:        {N issues} ({N new}, {N resolved})
 Technical SEO: {N issues} ({N new}, {N resolved})
 Performance:   {N issues} ({N new}, {N resolved})
-GSC Readiness: {N issues} ({N new}, {N resolved})
 ──────────────────────────────
 Open P1: {N}   Open P2: {N}   INFO: {N}
 ──────────────────────────────
@@ -477,3 +404,64 @@ If there are any P1 issues, list them explicitly after the summary table:
 - [H-001] /blog/old-post — 404 Not Found
 - [S-001] /services/gutters — Missing meta description
 ```
+
+### Step A.7: Send Discord Alert
+
+**7.1 — Read webhook URL**
+
+Read `DISCORD_WEBHOOK_URL` from `.env.local`.
+
+If the value is empty or the key is missing:
+- Log: `"DISCORD_WEBHOOK_URL not set — skipping Discord alert"`
+- Stop here. Do not fail the audit run.
+
+**7.2 — Build embed payload**
+
+Construct this JSON payload, substituting all `{...}` placeholders with real values from the current run:
+
+```json
+{
+  "embeds": [{
+    "title": "Tech Audit — {YYYY-MM-DD HH:MM UTC}",
+    "color": {COLOR},
+    "description": "{P1_LIST}",
+    "fields": [
+      { "name": "URLs Checked", "value": "{N}", "inline": true },
+      { "name": "Open P1", "value": "{N}", "inline": true },
+      { "name": "Open P2", "value": "{N}", "inline": true },
+      { "name": "Health", "value": "{N issues} ({N new}, {N resolved})", "inline": false },
+      { "name": "Technical SEO", "value": "{N issues} ({N new}, {N resolved})", "inline": false },
+      { "name": "Performance", "value": "{N issues} ({N new}, {N resolved})", "inline": false }
+    ],
+    "footer": { "text": "Shumaker Roofing · nightly audit" }
+  }]
+}
+```
+
+**COLOR:** `3258260` (green `#31B257`) if zero P1 issues · `15158332` (red `#E74C3C`) if one or more P1 issues. Use the integer directly — do not quote it.
+
+**P1_LIST:**
+- Zero P1s → `"✅ All checks passed"`
+- One or more P1s → one line per P1 finding:
+  ```
+  ⚠ [H-003] /about — 404 Not Found
+  ⚠ [S-002] /services/gutters — Missing meta description
+  ```
+
+**7.3 — POST to webhook**
+
+Use `WebFetch` to POST the payload:
+
+```
+POST {DISCORD_WEBHOOK_URL}
+Content-Type: application/json
+Body: {payload from 7.2}
+```
+
+Response handling:
+
+| Response | Action |
+|---|---|
+| HTTP 204 | Log: `"Discord alert sent"` |
+| HTTP 429 | Log: `"Discord alert skipped — rate limited"`. Do not retry. |
+| Any other non-2xx | Log: `"Discord alert failed — HTTP {status}"`. Do not fail the audit run. |

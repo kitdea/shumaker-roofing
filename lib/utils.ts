@@ -19,7 +19,7 @@ export function toHttpsUrl(url: string | undefined): string | undefined {
   return url.startsWith("//") ? `https:${url}` : url;
 }
 
-export const SITE_URL = "https://www.shumakeroofing.com";
+export const SITE_URL = "https://www.shumakerroofing.com";
 
 export function getServiceIcon(title: string) {
   const t = title.toLowerCase();

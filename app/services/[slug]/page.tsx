@@ -16,6 +16,7 @@ import { fetchPageSeo } from "@/lib/seo";
 import { TwoColumnSection } from "@/components/shared/two-column-section";
 import { WhyChooseUs } from "@/components/shared/why-choose-us";
 import { slugify, toHttpsUrl, SITE_URL } from "@/lib/utils";
+import { VeluxWidget } from "@/components/shared/velux-widget";
 
 const SITE_DOMAIN = "shumakerroofing.com";
 
@@ -122,7 +123,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const splitSections: any[] = Array.isArray(serviceFields.splitSection) ? serviceFields.splitSection : [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const twoColumnData = splitSections.map((item: any) => {
+  const twoColumnData = splitSections.filter((item: any) => item?.fields).map((item: any) => {
     const f = item.fields;
     const firstImage = Array.isArray(f.splitImage) ? f.splitImage[0] : f.splitImage;
     const rawUrl: string | undefined = firstImage?.fields?.file?.url;
@@ -215,34 +216,20 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
       </section>
 
       <Container className="mt-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Main Content */}
-          <article className="lg:col-span-8 prose prose-lg md:prose-xl dark:prose-invert max-w-none prose-p:text-foreground/90 [&_h2]:text-[1.8rem] [&_h2]:font-extrabold [&_h2]:mt-0 [&_h2]:mb-4 [&_h3]:text-[1.4rem] [&_h3]:font-bold [&_h3]:mt-0 [&_h3]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-6 [&_li]:mb-2 [&_p]:mb-6 [&_p]:leading-relaxed">
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            {serviceFields.servicesContent ? documentToReactComponents(serviceFields.servicesContent as any, richTextOptions) : null}
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            {additionalContent ? documentToReactComponents(additionalContent as any, richTextOptions) : null}
-          </article>
-
-          {/* Sidebar */}
-          <aside className="lg:col-span-4 space-y-10">
-            <div className="bg-primary text-primary-foreground p-8 rounded-2xl shadow-lg relative overflow-hidden">
-              <div className="absolute -right-4 -top-8 opacity-10 blur-xl">
-                <div className="w-40 h-40 bg-white rounded-full"></div>
-              </div>
-              <h3 className="text-xl font-heading font-bold mb-4 text-white relative z-10">Need Roofing Help?</h3>
-              <p className="text-primary-foreground/90 mb-8 text-sm text-white/90 relative z-10 leading-relaxed">
-                If you are dealing with roofing issues or want to learn more about our <strong>{serviceFields.title}</strong> service, our expert team is ready to provide top-notch service and a free estimate.
-              </p>
-              <Button variant="secondary" size="lg" className="w-full font-bold text-primary hover:bg-white relative z-10 shadow-md" asChild>
-                <Link href="/contact">Get a Free Quote</Link>
-              </Button>
-            </div>
-
-            <WhyChooseUs />
-          </aside>
-        </div>
+        <article className="prose prose-lg md:prose-xl dark:prose-invert max-w-none prose-p:text-foreground/90 [&_h2]:text-[1.8rem] [&_h2]:font-extrabold [&_h2]:mt-0 [&_h2]:mb-4 [&_h3]:text-[1.4rem] [&_h3]:font-bold [&_h3]:mt-0 [&_h3]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-6 [&_li]:mb-2 [&_p]:mb-6 [&_p]:leading-relaxed">
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {serviceFields.servicesContent ? documentToReactComponents(serviceFields.servicesContent as any, richTextOptions) : null}
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {additionalContent ? documentToReactComponents(additionalContent as any, richTextOptions) : null}
+        </article>
       </Container>
+
+      {/* VELUX Widget — Skylight Installation only */}
+      {slug === "skylight-installation" && (
+        <Container className="mt-16">
+          <VeluxWidget />
+        </Container>
+      )}
 
       {/* Two-Column Sections from Contentful */}
       {twoColumnData.length > 0 && (
@@ -259,6 +246,26 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
           ))}
         </div>
       )}
+
+      {/* CTA + Why Choose Us */}
+      <Container className="mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-primary text-primary-foreground p-8 rounded-2xl shadow-lg relative overflow-hidden">
+            <div className="absolute -right-4 -top-8 opacity-10 blur-xl">
+              <div className="w-40 h-40 bg-white rounded-full"></div>
+            </div>
+            <h3 className="text-xl font-heading font-bold mb-4 text-white relative z-10">Need Roofing Help?</h3>
+            <p className="text-primary-foreground/90 mb-8 text-sm text-white/90 relative z-10 leading-relaxed">
+              If you are dealing with roofing issues or want to learn more about our <strong>{serviceFields.title}</strong> service, our expert team is ready to provide top-notch service and a free estimate.
+            </p>
+            <Button variant="secondary" size="lg" className="w-full font-bold text-primary hover:bg-white relative z-10 shadow-md" asChild>
+              <Link href="/contact">Get a Free Quote</Link>
+            </Button>
+          </div>
+
+          <WhyChooseUs />
+        </div>
+      </Container>
     </div>
     </>
   );

@@ -9,8 +9,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { fetchPageSeo } from "@/lib/seo";
 import { ProjectSlider } from "@/components/home/project-slider";
-import { LogoSlider } from "@/components/home/logo-slider";
-import { fetchAllServices, fetchHeroBanner, fetchCertificationBadges, fetchProjectSlides } from "@/lib/contentful";
+import { fetchAllServices, fetchHeroBanner, fetchProjectSlides } from "@/lib/contentful";
+import { CertificationsSection } from "@/components/shared/certifications-section";
 import { slugify, getServiceIcon, toHttpsUrl } from "@/lib/utils";
 import { Document } from "@contentful/rich-text-types";
 
@@ -80,10 +80,9 @@ const organizationSchema = {
 
 export default async function Home() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [services, hero, certBadges, projectSlides] = await Promise.all([
+  const [services, hero, projectSlides] = await Promise.all([
     fetchAllServices().catch((): any[] => []),
     fetchHeroBanner().catch(() => null),
-    fetchCertificationBadges().catch(() => []),
     fetchProjectSlides().catch(() => []),
   ]);
 
@@ -106,6 +105,7 @@ export default async function Home() {
             src={heroBgUrl}
             alt="Roofing Professionals"
             fill
+            sizes="100vw"
             className="object-cover opacity-60 mix-blend-overlay"
             priority
           />
@@ -122,8 +122,8 @@ export default async function Home() {
             <p className="text-foreground/70 text-lg mb-8 max-w-lg">
               {hero?.bodyText ?? "When it comes to protecting your home your roof is the first line of defense we provide top-notch roofing service designed to safeguard."}
             </p>
-            <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base" asChild>
-              <Link href={hero?.buttonLink ?? "/contact"}>{hero?.buttonText ?? "SCHEDULE YOUR ROOF REPAIR"}</Link>
+            <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-bold uppercase" asChild>
+              <Link href={hero?.buttonLink ?? "/book-appointment"}>{hero?.buttonText ?? "SCHEDULE YOUR ROOF REPAIR"}</Link>
             </Button>
           </div>
         </Container>
@@ -229,15 +229,15 @@ export default async function Home() {
 
             <div className="relative h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?q=80&w=2070&auto=format&fit=crop"
-                alt="Roofing Team"
+                  src="https://images.ctfassets.net/1daipl7z93ig/6FfGgVIoAPZ2FWbh9PrG93/2e5f8d3e0a0f1b883fbdf7b3dd35842a/shumaker-roofing-company.jpg"
+                alt="Shumaker Roofing Company"
                 fill
                 className="object-cover"
               />
               {/* Floating Stat Card */}
               <div className="absolute bottom-8 left-8 bg-primary text-white p-6 rounded-xl shadow-xl max-w-[200px]">
-                <div className="text-4xl font-heading font-bold mb-2">2.5k+</div>
-                <div className="text-white/90 font-medium">Projects Completed</div>
+                  <div className="text-2xl font-heading font-bold mb-2">Call Now</div>
+                  <div className="text-white/90 font-bold">+1 301-662-0533</div>
               </div>
             </div>
           </div>
@@ -246,24 +246,7 @@ export default async function Home() {
 
 
 
-      {/* Certifications & Trust Badges */}
-      <section
-        className="py-14 bg-slate-900 overflow-hidden"
-        aria-label="Trusted roofing certifications and partnerships"
-      >
-        <div className="text-center mb-10 px-4">
-          <span className="text-primary font-bold tracking-wider uppercase text-sm block mb-2">
-            Certifications &amp; Partnerships
-          </span>
-          <h2 className="text-2xl md:text-3xl font-heading font-extrabold text-white">
-            Trusted Roofing Contractor in Frederick, MD
-          </h2>
-          <p className="text-slate-400 mt-3 max-w-xl mx-auto text-sm md:text-base">
-            Backed by the industry&apos;s most respected certifications and manufacturer partnerships.
-          </p>
-        </div>
-        <LogoSlider badges={certBadges} />
-      </section>
+      <CertificationsSection />
 
       {/* CTA Section */}
       <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
@@ -273,10 +256,10 @@ export default async function Home() {
             Contact us today for a free inspection and estimate. Our experts are ready to help you find the best roofing solution for your needs.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" variant="secondary" className="h-14 px-8 text-base bg-white text-primary hover:bg-white/90" asChild>
+            <Button size="lg" variant="secondary" className="h-14 px-8 text-base font-bold bg-white text-primary hover:bg-white/90" asChild>
               <Link href="/contact">GET A FREE ESTIMATE</Link>
             </Button>
-            <Button size="lg" variant="outline" className="h-14 px-8 border-white text-primary hover:text-white text-base hover:bg-white/10" asChild>
+              <Button size="lg" variant="outline" className="h-14 px-8 text-primary hover:text-white text-base font-bold hover:bg-white/10" asChild>
               <a href="tel:+13016620533">CALL +1 301-662-0533</a>
             </Button>
           </div>

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
@@ -48,7 +48,7 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/85 dark:bg-slate-900/90 dark:supports-[backdrop-filter]:bg-slate-900/85">
       <Container>
         <div className="flex h-20 items-center justify-between">
           <Link href="/" className="flex items-center">
@@ -57,12 +57,16 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
               src="/logo.svg"
               alt="Shumaker Roofing Co. Inc."
               className="h-14 w-auto dark:hidden"
+              width={224}
+              height={56}
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo-dark.svg"
               alt="Shumaker Roofing Co. Inc."
               className="h-14 w-auto hidden dark:block"
+              width={224}
+              height={56}
             />
           </Link>
 
@@ -218,11 +222,8 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
 
           <div className="hidden md:flex items-center gap-4">
             <ThemeToggle />
-            <Button size="lg" className="rounded-full gap-2 px-6" asChild>
-              <a href="tel:+13016620533">
-                <Phone className="h-4 w-4" />
-                <span className="font-semibold">+1 301-662-0533</span>
-              </a>
+            <Button size="lg" className="rounded-full font-bold uppercase gap-2 px-6" asChild>
+              <Link href="/book-appointment">Schedule Now</Link>
             </Button>
           </div>
 
@@ -403,11 +404,8 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
             </Link>
 
             <div className="pt-2">
-              <Button className="w-full gap-2 rounded-full" asChild>
-                <a href="tel:+13016620533">
-                  <Phone className="h-4 w-4" />
-                  <span>+1 301-662-0533</span>
-                </a>
+              <Button className="w-full rounded-full" asChild>
+                <Link href="/book-appointment" onClick={closeAll}>Book Appointment</Link>
               </Button>
             </div>
           </Container>

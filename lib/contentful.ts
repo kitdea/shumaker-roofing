@@ -13,6 +13,23 @@ export const fetchAllServices = cache(async function fetchAllServices() {
   return res.items;
 });
 
+/**
+ * Lean fetch for the /services listing page.
+ * Selects only the fields needed for cards (title + description snippet).
+ * include:0 skips all linked entry resolution (splitSection, etc.),
+ * dramatically cutting payload and API latency.
+ */
+export const fetchServicesForListing = cache(async function fetchServicesForListing() {
+  const res = await client.getEntries({
+    content_type: 'services',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    select: ['sys.id', 'sys.updatedAt', 'fields.title', 'fields.servicesContent'] as any,
+    include: 0,
+    limit: 50,
+  });
+  return res.items;
+});
+
 export const fetchHeroBanner = cache(async function fetchHeroBanner() {
   const res = await client.getEntries({
     content_type: 'heroBanner',
@@ -32,28 +49,32 @@ export const fetchHeroBanner = cache(async function fetchHeroBanner() {
 });
 
 export const fetchCertificationBadges = cache(async function fetchCertificationBadges() {
-  const res = await client.getEntries({
-    content_type: 'certificationBadge',
-    order: ['fields.displayOrder'],
-    include: 1,
-    limit: 50,
-  });
-  const badges: { id: string; name: string; logoUrl: string }[] = [];
-  for (const item of res.items) {
-    const f = item.fields as {
-      badgeName?: string;
-      logoImage?: { fields: { file: { url: string }; title?: string } };
-      displayOrder?: number;
-    };
-    const rawUrl = f.logoImage?.fields?.file?.url;
-    if (!rawUrl) continue;
-    badges.push({
-      id: item.sys.id,
-      name: f.badgeName ?? '',
-      logoUrl: toHttpsUrl(rawUrl)!,
+  try {
+    const res = await client.getEntries({
+      content_type: 'certificationBadge',
+      order: ['fields.displayOrder'],
+      include: 1,
+      limit: 50,
     });
+    const badges: { id: string; name: string; logoUrl: string }[] = [];
+    for (const item of res.items) {
+      const f = item.fields as {
+        badgeName?: string;
+        logoImage?: { fields: { file: { url: string }; title?: string } };
+        displayOrder?: number;
+      };
+      const rawUrl = f.logoImage?.fields?.file?.url;
+      if (!rawUrl) continue;
+      badges.push({
+        id: item.sys.id,
+        name: f.badgeName ?? '',
+        logoUrl: toHttpsUrl(rawUrl)!,
+      });
+    }
+    return badges;
+  } catch {
+    return [];
   }
-  return badges;
 });
 
 export const fetchProjectSlides = cache(async function fetchProjectSlides() {

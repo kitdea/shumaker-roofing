@@ -7,6 +7,9 @@ const nextConfig = {
   },
   images: {
     formats: ['image/avif', 'image/webp'],
+    // Cap at 1920 — removes 2048 & 3840 from default srcset,
+    // avoiding unnecessarily large image downloads.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     remotePatterns: [
       {
         protocol: 'https',
@@ -21,6 +24,20 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/appointment-calendar-book-now',
+        destination: '/book-appointment',
+        permanent: true,
+      },
+      {
+        source: '/schedule-now',
+        destination: '/contact',
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     return [

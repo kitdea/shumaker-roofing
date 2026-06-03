@@ -19,6 +19,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { fetchJobPostings } from "@/lib/contentful";
+import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
   title: { absolute: "Careers | Join the Shumaker Roofing Team" },
@@ -86,7 +87,7 @@ export default async function CareersPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop"
+            src="https://images.ctfassets.net/1daipl7z93ig/2KbRs7Pt4PbPMBx7ewU782/abaab2215229ddc7610d6ad7f3c84033/residential-roof-replacement-in-frederick-md.jpg"
             alt="Shumaker Roofing crew at work"
             fill
             className="object-cover opacity-50 mix-blend-overlay"
@@ -221,6 +222,8 @@ export default async function CareersPage() {
         </Container>
       </section>
 
+      <CertificationsSection />
+
       {/* How to Apply */}
       <section className="py-24">
         <Container>
@@ -312,7 +315,7 @@ export default async function CareersPage() {
             <Button size="lg" className="rounded-full gap-2 px-8" asChild>
               <a href="mailto:info@shumakerroofing.com?subject=Application: Shumaker Roofing">
                 <Mail className="h-4 w-4" />
-                <span className="font-semibold">Apply by Email</span>
+                <span className="uppercase font-bold">Apply by Email</span>
               </a>
             </Button>
             <Button
@@ -323,7 +326,7 @@ export default async function CareersPage() {
             >
               <Link href="/contact">
                 <Phone className="h-4 w-4" />
-                <span className="font-semibold">Contact Us</span>
+                <span className="uppercase font-bold">Contact Us</span>
               </Link>
             </Button>
           </div>

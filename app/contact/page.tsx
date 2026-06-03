@@ -6,6 +6,8 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { GhlForm } from "@/components/shared/ghl-form";
+import { CertificationsSection } from "@/components/shared/certifications-section";
+import { SITE_URL } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: { absolute: "Contact Us | Get in Touch with Shumaker Roofing Company" },
@@ -27,15 +29,84 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+
+const contactPageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": SITE_URL + "/contact#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/" },
+        { "@type": "ListItem", "position": 2, "name": "Contact", "item": SITE_URL + "/contact" },
+      ],
+    },
+    {
+      "@type": "ContactPage",
+      "@id": SITE_URL + "/contact#contactpage",
+      "url": SITE_URL + "/contact",
+      "name": "Contact Shumaker Roofing Company",
+      "description":
+        "Get in touch with Shumaker Roofing Company for reliable roofing services. Contact us today for free estimates, expert advice, and top-quality roofing solutions.",
+      "breadcrumb": { "@id": SITE_URL + "/contact#breadcrumb" },
+      "mainEntity": {
+        "@type": "LocalBusiness",
+        "@id": SITE_URL + "/#organization",
+        "name": "Shumaker Roofing Company",
+        "url": SITE_URL,
+        "telephone": "+1-301-662-0533",
+        "email": "info@shumakerroofing.com",
+        "address": [
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "26 Water St.",
+            "addressLocality": "Frederick",
+            "addressRegion": "MD",
+            "postalCode": "21701",
+            "addressCountry": "US",
+          },
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "6 W Washington St Suite 208",
+            "addressLocality": "Hagerstown",
+            "addressRegion": "MD",
+            "postalCode": "21740",
+            "addressCountry": "US",
+          },
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "12001 Sunrise Valley Dr",
+            "addressLocality": "Reston",
+            "addressRegion": "VA",
+            "postalCode": "20191",
+            "addressCountry": "US",
+          },
+        ],
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:00",
+          "closes": "17:00",
+        },
+      },
+    },
+  ],
+};
+
+export default async function ContactPage() {
   return (
-    <div className="flex flex-col w-full">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }}
+      />
+      <div className="flex flex-col w-full">
       {/* Page Header */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop"
+            src="https://images.ctfassets.net/1daipl7z93ig/50iHJtfm4UkBWGmLs4hGLl/e585de4da3a67060c01a0478f6160df9/roof-replacement-in-frederick-md_002.jpg"
             alt="Contact us"
             fill
             className="object-cover opacity-50 mix-blend-overlay"
@@ -113,6 +184,8 @@ export default function ContactPage() {
         </Container>
       </section>
 
+      <CertificationsSection />
+
       {/* Our Locations Map Section */}
       <section className="py-16 bg-muted/40">
         <Container>
@@ -185,5 +258,6 @@ export default function ContactPage() {
         </Container>
       </section>
     </div>
+    </>
   );
 }

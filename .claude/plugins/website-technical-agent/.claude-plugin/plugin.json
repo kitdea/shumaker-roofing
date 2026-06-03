@@ -1,0 +1,8 @@
+{
+  "name": "website-technical-agent",
+  "description": "Nightly website health and technical SEO audit for Shumaker Roofing. Checks HTTP status, CMS field integrity, dead links, meta tags, schema, canonicals, and robots.txt. Writes findings to memory/tech-audit/.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Shumaker Roofing"
+  }
+}
