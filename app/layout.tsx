@@ -58,6 +58,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    google: "google8d7a9d080d00094f",
+  },
 };
 
 import Script from "next/script";
@@ -73,6 +76,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn("min-h-screen bg-background font-sans antialiased flex flex-col", inter.variable, montserrat.variable)}>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-4NR3D3JVVL"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4NR3D3JVVL');`}
+        </Script>
         {/* Roofle floating quote button — loads on all pages */}
         <Script
           src="https://app.roofle.com/roof-quote-pro-widget.js?id=edgE0YoULrACgxaIeovOR"
