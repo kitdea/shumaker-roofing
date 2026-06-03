@@ -8,6 +8,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { ProjectMap } from "./project-map";
+import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
   title: { absolute: "Our Projects | Shumaker Roofing Company" },
@@ -43,7 +44,7 @@ const projectsSchema = {
   },
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
   return (
     <div className="flex flex-col w-full">
       <script
@@ -56,7 +57,7 @@ export default function ProjectsPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://images.unsplash.com/photo-1632823471565-1ecdf5c6da11?q=80&w=2070&auto=format&fit=crop"
+            src="https://images.ctfassets.net/1daipl7z93ig/50iHJtfm4UkBWGmLs4hGLl/e585de4da3a67060c01a0478f6160df9/roof-replacement-in-frederick-md_002.jpg"
             alt="Shumaker Roofing completed projects"
             fill
             className="object-cover opacity-50 mix-blend-overlay"
@@ -91,6 +92,8 @@ export default function ProjectsPage() {
         </Container>
       </section>
 
+      <CertificationsSection />
+
       {/* CTA Section */}
       <section className="py-24 bg-slate-500">
         <Container className="text-center">
@@ -108,7 +111,7 @@ export default function ProjectsPage() {
             <Button size="lg" className="rounded-full gap-2 px-8" asChild>
               <a href="tel:+13016620533">
                 <Phone className="h-4 w-4" />
-                <span className="font-semibold">Call Us Now</span>
+                <span className="uppercase font-bold">Call Us Now</span>
               </a>
             </Button>
             <Button
@@ -118,8 +121,7 @@ export default function ProjectsPage() {
               asChild
             >
               <Link href="/contact">
-                <MessageSquare className="h-4 w-4" />
-                <span className="font-semibold">Get a Free Estimate</span>
+                <span className="uppercase font-semibold">Get a Free Estimate</span>
               </Link>
             </Button>
           </div>

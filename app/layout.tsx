@@ -55,8 +55,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
   },
 };
 

@@ -3,12 +3,13 @@ export const revalidate = 3600;
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, MessageSquare } from "lucide-react";
+import { Phone } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "./faq-accordion";
 import type { FaqCategory } from "./faq-accordion";
+import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
   title: { absolute: "Frequently Asked Questions | Shumaker Roofing Company" },
@@ -138,7 +139,7 @@ const FAQ_SCHEMA = {
   ),
 };
 
-export default function FaqsPage() {
+export default async function FaqsPage() {
   return (
     <div className="flex flex-col w-full">
       <script
@@ -180,6 +181,8 @@ export default function FaqsPage() {
         </Container>
       </section>
 
+      <CertificationsSection />
+
       {/* CTA Section */}
       <section className="py-24 bg-slate-400">
         <Container className="text-center">
@@ -196,7 +199,7 @@ export default function FaqsPage() {
             <Button size="lg" className="rounded-full gap-2 px-8" asChild>
               <a href="tel:+13016620533">
                 <Phone className="h-4 w-4" />
-                <span className="font-semibold">Call Us Now</span>
+                <span className="uppercase font-bold">Call Us Now</span>
               </a>
             </Button>
             <Button
@@ -205,9 +208,8 @@ export default function FaqsPage() {
               className="rounded-full gap-2 px-8 border-white/30 hover:bg-white/10"
               asChild
             >
-              <Link href="/contact">
-                <MessageSquare className="h-4 w-4" />
-                <span className="font-semibold">Send a Message</span>
+              <Link href="/contact">             
+                <span className="uppercase font-bold">Get a Free Estimate</span>
               </Link>
             </Button>
           </div>

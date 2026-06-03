@@ -8,6 +8,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { ReviewWidget } from "@/components/shared/review-widget";
+import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
   title: { absolute: "Customer Testimonials | Shumaker Roofing Company" },
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TestimonialsPage() {
+export default async function TestimonialsPage() {
   return (
     <div className="flex flex-col w-full">
       {/* Page Header */}
@@ -37,7 +38,7 @@ export default function TestimonialsPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop"
+            src="https://images.ctfassets.net/1daipl7z93ig/2KbRs7Pt4PbPMBx7ewU782/abaab2215229ddc7610d6ad7f3c84033/residential-roof-replacement-in-frederick-md.jpg"
             alt="Happy homeowners after roofing project"
             fill
             className="object-cover opacity-50 mix-blend-overlay"
@@ -126,6 +127,9 @@ export default function TestimonialsPage() {
         </Container>
       </section>
 
+      {/* Certifications & Trust Badges */}
+      <CertificationsSection />
+
       {/* CTA */}
       <section className="py-24 bg-slate-500">
         <Container className="text-center">
@@ -142,7 +146,7 @@ export default function TestimonialsPage() {
             <Button size="lg" className="rounded-full gap-2 px-8" asChild>
               <a href="tel:+13016620533">
                 <Phone className="h-4 w-4" />
-                <span className="font-semibold">Call Us Now</span>
+                <span className="uppercase font-bold">Call Us Now</span>
               </a>
             </Button>
             <Button
@@ -151,9 +155,8 @@ export default function TestimonialsPage() {
               className="rounded-full gap-2 px-8 border-white/30 hover:bg-white/10"
               asChild
             >
-              <Link href="/contact">
-                <MessageSquare className="h-4 w-4" />
-                <span className="font-semibold">Get a Free Estimate</span>
+              <Link href="/contact">               
+                <span className="uppercase font-bold">Get a Free Estimate</span>
               </Link>
             </Button>
           </div>

@@ -200,33 +200,48 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": postFields.title as string,
-    "image": imageUrl,
-    "url": `${SITE_URL}/blog/${slug}`,
-    "datePublished": dateObj.toISOString(),
-    "dateModified": new Date(rawPost.sys.updatedAt).toISOString(),
-    "author": {
-      "@type": "Person",
-      "name": authorName,
-      ...(authorRole ? { "jobTitle": authorRole } : {}),
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Shumaker Roofing Company",
-        "url": SITE_URL,
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${SITE_URL}/blog/${slug}#breadcrumb`,
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": `${SITE_URL}/` },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${SITE_URL}/blog` },
+          { "@type": "ListItem", "position": 3, "name": postFields.title as string, "item": `${SITE_URL}/blog/${slug}` },
+        ],
       },
-    },
-    "publisher": {
-      "@type": "Organization",
-      "@id": `${SITE_URL}/#organization`,
-      "name": "Shumaker Roofing Company",
-      "url": SITE_URL,
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `${SITE_URL}/blog/${slug}`,
-    },
-    ...(categories.length > 0 ? { "articleSection": categories.join(", ") } : {}),
+      {
+        "@type": "Article",
+        "@id": `${SITE_URL}/blog/${slug}#article`,
+        "headline": postFields.title as string,
+        "image": imageUrl,
+        "url": `${SITE_URL}/blog/${slug}`,
+        "datePublished": dateObj.toISOString(),
+        "dateModified": new Date(rawPost.sys.updatedAt).toISOString(),
+        "author": {
+          "@type": "Person",
+          "name": authorName,
+          ...(authorRole ? { "jobTitle": authorRole } : {}),
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Shumaker Roofing Company",
+            "url": SITE_URL,
+          },
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": `${SITE_URL}/#organization`,
+          "name": "Shumaker Roofing Company",
+          "url": SITE_URL,
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `${SITE_URL}/blog/${slug}`,
+        },
+        "breadcrumb": { "@id": `${SITE_URL}/blog/${slug}#breadcrumb` },
+        ...(categories.length > 0 ? { "articleSection": categories.join(", ") } : {}),
+      },
+    ],
   };
 
   return (

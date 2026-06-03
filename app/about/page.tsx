@@ -8,6 +8,7 @@ import { CheckCircle2 } from "lucide-react";
 import { client } from "@/lib/contentful";
 import { toHttpsUrl } from "@/lib/utils";
 import { TeamGrid } from "./team-grid";
+import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
   title: { absolute: "About Us | Shumaker Roofing Company" },
@@ -124,7 +125,7 @@ export default async function AboutPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?q=80&w=2072&auto=format&fit=crop"
+            src="https://images.ctfassets.net/1daipl7z93ig/50iHJtfm4UkBWGmLs4hGLl/e585de4da3a67060c01a0478f6160df9/roof-replacement-in-frederick-md_002.jpg"
             alt="Roofing working"
             fill
             className="object-cover opacity-50 mix-blend-overlay"
@@ -140,15 +141,15 @@ export default async function AboutPage() {
       </section>
 
       {/* Who Are We */}
-      <section className="py-24 bg-secondary text-white">
+      <section className="py-24 bg-accent dark:bg-secondary dark:text-white">
         <Container className="max-w-7xl">
           <h2 className="text-3xl md:text-4xl font-heading font-extrabold mb-8">Who Are We?</h2>
-          <div className="flex flex-col gap-6 text-white/80 text-lg leading-relaxed">
+          <div className="flex flex-col gap-6 text-lg leading-relaxed">
             <p>
               For over 75 years,{" "}
-              <span className="text-primary font-semibold">Shumaker Roofing Co.</span>{" "}
+              <span>Shumaker Roofing Co.</span>{" "}
               has been the go-to{" "}
-              <strong className="text-white font-bold">roofing company in Frederick, MD</strong>
+              <strong className="font-bold">roofing company in Frederick, MD</strong>
               , serving homeowners and businesses with trusted solutions.
             </p>
             <p>
@@ -169,6 +170,8 @@ export default async function AboutPage() {
           </div>
         </Container>
       </section>
+
+      <CertificationsSection />
 
       {/* Mission & Vision */}
       <section className="py-24">

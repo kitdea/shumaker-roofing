@@ -7,6 +7,7 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { CheckCircle2, Heart, Home, Users, ClipboardList, Phone, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
   title: { absolute: "Roofs for Heroes | Shumaker Roofing Company" },
@@ -77,7 +78,7 @@ const steps = [
   },
 ];
 
-export default function RoofsForHeroesPage() {
+export default async function RoofsForHeroesPage() {
   return (
     <div className="flex flex-col w-full">
       {/* Page Header */}
@@ -85,7 +86,7 @@ export default function RoofsForHeroesPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://images.unsplash.com/photo-1536060316316-2466bda904f1?q=80&w=2070&auto=format&fit=crop"
+            src="https://images.ctfassets.net/1daipl7z93ig/6cUde0TKpHGhgzGbgmRDSl/031e72a2d5cfcfc549056844625e1568/united-states-flag.jpg"
             alt="American flag waving"
             fill
             className="object-cover opacity-50 mix-blend-overlay"
@@ -247,8 +248,15 @@ export default function RoofsForHeroesPage() {
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="mt-16 text-center">
+        </Container>
+      </section>
+
+      <CertificationsSection />
+
+      {/* CTA */}
+      <section className="py-24 bg-muted/30">
+        <Container>
+          <div className="text-center">
             <div className="bg-slate-900 rounded-2xl p-12 flex flex-col items-center gap-6 max-w-2xl mx-auto">
               <FileText className="h-10 w-10 text-primary" />
               <h3 className="text-2xl font-heading font-bold text-white">
@@ -274,7 +282,7 @@ export default function RoofsForHeroesPage() {
                 >
                   <Link href="tel:+13018989706">
                     <Phone className="h-4 w-4 mr-2" />
-                    Call Us
+                    Call Us Now
                   </Link>
                 </Button>
               </div>
