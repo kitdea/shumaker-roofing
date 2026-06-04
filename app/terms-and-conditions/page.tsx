@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { FileText, AlertTriangle, Scale, RefreshCw, Ban, Gavel, Mail } from "lucide-react";
@@ -41,16 +40,7 @@ export default function TermsAndConditionsPage() {
     <div className="flex flex-col w-full">
       {/* Page Header */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">
-        <div className="absolute inset-0 z-0">
-          <div className="w-full h-full bg-slate-900/70" />
-          <Image
-            src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop"
-            alt="Terms and Conditions"
-            fill
-            className="object-cover opacity-50 mix-blend-overlay"
-            priority
-          />
-        </div>
+        <div className="absolute inset-0 z-0 bg-slate-900/70" />
         <Container className="relative z-10 text-center">
           <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4">
             Terms &amp; Conditions

@@ -140,8 +140,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const additionalContent = serviceFields.additionalContent ?? null;
 
-  const imageUrl = toHttpsUrl(serviceFields.servicesImage?.fields?.file?.url)
-    ?? "https://images.unsplash.com/photo-1548614606-52b4451f994b?q=80&w=2070&auto=format&fit=crop";
+  const imageUrl = toHttpsUrl(serviceFields.servicesImage?.fields?.file?.url) ?? null;
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -190,15 +189,17 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
       <section className="relative w-full h-[40vh] min-h-[300px] flex flex-col justify-end pb-16 bg-secondary">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="w-full h-full bg-slate-900/75 absolute inset-0 z-10" />
-          <Image
-            src={imageUrl}
-            alt={`${serviceFields.title || "Shumaker Roofing Service"} - Banner Image`}
-            fill
-            sizes="100vw"
-            quality={85}
-            className="object-cover opacity-60 mix-blend-overlay z-0"
-            priority
-          />
+          {imageUrl && (
+            <Image
+              src={imageUrl}
+              alt={`${serviceFields.title || "Shumaker Roofing Service"} - Banner Image`}
+              fill
+              sizes="100vw"
+              quality={85}
+              className="object-cover opacity-60 mix-blend-overlay z-0"
+              priority
+            />
+          )}
         </div>
         <Container className="relative z-20">
           <Link href="/services" className="inline-flex items-center text-primary/90 hover:text-primary transition-colors mb-6 font-medium text-sm">
