@@ -100,7 +100,7 @@ export default async function AboutPage() {
       ? dynamicTeamMembers.map((member) => {
           const fields = member.fields;
           const imageUrl = toHttpsUrl(fields.teamThumbnail?.fields?.file?.url)
-            ?? "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop";
+            ?? "";
           const name = fields.fullName || "Team Member";
           return {
             id: member.sys.id,
@@ -141,7 +141,7 @@ export default async function AboutPage() {
       </section>
 
       {/* Who Are We */}
-      <section className="py-24 bg-accent dark:bg-secondary dark:text-white">
+      <section className="py-24 bg-white dark:bg-secondary dark:text-white">
         <Container className="max-w-7xl">
           <h2 className="text-3xl md:text-4xl font-heading font-extrabold mb-8">Who Are We?</h2>
           <div className="flex flex-col gap-6 text-lg leading-relaxed">

@@ -37,6 +37,61 @@ const nextConfig = {
         destination: '/contact',
         permanent: true,
       },
+      {
+        source: '/meet-the-shumaker-roofing-team-frederick-md',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/view-projects',
+        destination: '/projects',
+        permanent: true,
+      },
+      {
+        source: '/roof-for-heroes-shumaker-roofings-commitment-to-veterans',
+        destination: '/roof-for-heroes',
+        permanent: true,
+      },
+      {
+        source: '/roofs-for-heroes',
+        destination: '/roof-for-heroes',
+        permanent: true,
+      },
+      {
+        source: '/location/roofers-in-reston-va',
+        destination: '/service-areas/reston-va',
+        permanent: true,
+      },
+      {
+        source: '/location/roofers-in-frederick-md',
+        destination: '/service-areas/frederick-md',
+        permanent: true,
+      },
+      {
+        source: '/location/roofers-in-hagerstown-md',
+        destination: '/service-areas/hagerstown-md',
+        permanent: true,
+      },
+      {
+        source: '/location/roofers-in-chambersburg-pa',
+        destination: '/service-areas/chambersburg-pa',
+        permanent: true,
+      },
+      {
+        source: '/roofers-frederick-md-faqs',
+        destination: '/faqs',
+        permanent: true,
+      },
+      {
+        source: '/faq-items/is-your-contractor-licensed-insured',
+        destination: '/faqs',
+        permanent: true,
+      },
+      {
+        source: '/roof-installation-in-frederick-md',
+        destination: '/roof-installation',
+        permanent: true,
+      },
     ];
   },
   async headers() {
