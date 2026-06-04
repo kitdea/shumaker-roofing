@@ -225,6 +225,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     fallbackDesc:
       loc.fields.metaDescription ||
       `Shumaker Roofing provides expert roofing services in ${loc.fields.fullLocationName || loc.fields.cityName}, ${loc.fields.state}. Contact us for a free estimate.`,
+    canonicalPath: `/service-areas/${slug}`,
   });
 }
 

@@ -19,6 +19,7 @@ export async function generateMetadata() {
     fallbackTitle: "Shumaker Roofing | Strong, Durable & Affordable Roofing",
     fallbackDesc:
       "Shumaker Roofing provides top-tier residential and commercial roofing services, installation, repair, and maintenance backed by 78 years of expertise.",
+    canonicalPath: "/",
   });
 }
 

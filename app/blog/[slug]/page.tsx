@@ -1,4 +1,5 @@
 export const revalidate = 3600;
+export const dynamicParams = true;
 
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -94,6 +95,20 @@ const getPostFromSlug = cache(async function getPostFromSlug(slug: string) {
   return post;
 });
 
+export async function generateStaticParams() {
+  const response = await client.getEntries({ content_type: "blog", limit: 200 });
+  return response.items.map((item) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const fields = item.fields as any;
+    const slug = fields.slug
+      ? (fields.slug as string)
+      : fields.title
+      ? slugify(fields.title as string)
+      : item.sys.id;
+    return { slug };
+  });
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const rawPost = await getPostFromSlug(slug);
@@ -120,6 +135,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     fallbackDesc,
     fallbackImage,
     ogType: "article",
+    canonicalPath: `/blog/${slug}`,
   });
 }
 
