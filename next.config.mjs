@@ -92,6 +92,56 @@ const nextConfig = {
         destination: '/roof-installation',
         permanent: true,
       },
+      {
+        source: '/roof-repair-in-frederick-md',
+        destination: '/services/roof-repair',
+        permanent: true,
+      },
+      {
+        source: '/roof-replacement-frederick-md',
+        destination: '/services/roof-replacement',
+        permanent: true,
+      },
+      {
+        source: '/roofing-company-in-frederick-md',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/roof-rejuvenation-in-frederick-md',
+        destination: '/services/roof-rejuvenation',
+        permanent: true,
+      },
+      {
+        source: '/gutter-installation-frederick-md',
+        destination: '/services/gutter-installation',
+        permanent: true,
+      },
+      {
+        source: '/residential-roofers-frederick-md',
+        destination: '/services/residential-roofing',
+        permanent: true,
+      },
+      {
+        source: '/storm-damage-roofers-frederick-md',
+        destination: '/services/storm-damage-restoration',
+        permanent: true,
+      },
+      {
+        source: '/local-roofers-in-hagerstown-md',
+        destination: '/service-areas/hagerstown-md',
+        permanent: true,
+      },
+      {
+        source: '/roof-leak-repair-in-hagerstown-md',
+        destination: '/service-areas/hagerstown-md',
+        permanent: true,
+      },
+      {
+        source: '/skylight-installation-in-hagerstown-md',
+        destination: '/service-areas/hagerstown-md',
+        permanent: true,
+      },
     ];
   },
   async headers() {

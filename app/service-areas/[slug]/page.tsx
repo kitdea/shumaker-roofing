@@ -1,7 +1,6 @@
 export const revalidate = 3600;
 
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { cache } from "react";
 import { MapPin, Phone, ChevronLeft, CheckCircle2 } from "lucide-react";
@@ -260,15 +259,6 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
       <section className="relative w-full h-[40vh] min-h-[300px] flex flex-col justify-end pb-16 bg-secondary">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="w-full h-full bg-slate-900/75 absolute inset-0 z-10" />
-          <Image
-            src="https://images.unsplash.com/photo-1548614606-52b4451f994b?q=80&w=2070&auto=format&fit=crop"
-            alt={`Roofing services in ${cityDisplay}`}
-            fill
-            sizes="100vw"
-            quality={85}
-            className="object-cover opacity-60 mix-blend-overlay z-0"
-            priority
-          />
         </div>
         <Container className="relative z-20">
           <Link

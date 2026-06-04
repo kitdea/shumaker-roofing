@@ -155,7 +155,7 @@ export default async function BlogPage() {
 
     return {
       id: item.sys.id,
-      slug: post.title ? slugify(post.title as string) : item.sys.id,
+      slug: post.slug ? (post.slug as string) : post.title ? slugify(post.title as string) : item.sys.id,
       title: (post.title as string) || "Untitled",
       description,
       imageUrl,

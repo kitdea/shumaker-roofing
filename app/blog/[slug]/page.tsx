@@ -53,29 +53,31 @@ const richTextOptions: Options = {
 const getPostFromSlug = cache(async function getPostFromSlug(slug: string) {
   let post = null;
 
+  // Check fields.slug first (custom slug set in Contentful)
   try {
-    const response = await client.getEntries({ content_type: "blog", include: 3 });
-    post =
-      response.items.find((item) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const title = (item.fields as any).title as string | undefined;
-        return title && slugify(title) === slug;
-      }) ?? null;
+    const response = await client.getEntries({
+      content_type: "blog",
+      "fields.slug": slug,
+      limit: 1,
+      include: 3,
+    });
+    if (response.items.length > 0) post = response.items[0];
   } catch {
-    // ignore
+    // ignore — content model may not have a slug field
   }
 
+  // Fall back to slugify(title) match
   if (!post) {
     try {
-      const response = await client.getEntries({
-        content_type: "blog",
-        "fields.slug": slug,
-        limit: 1,
-        include: 3,
-      });
-      if (response.items.length > 0) post = response.items[0];
+      const response = await client.getEntries({ content_type: "blog", include: 3 });
+      post =
+        response.items.find((item) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const title = (item.fields as any).title as string | undefined;
+          return title && slugify(title) === slug;
+        }) ?? null;
     } catch {
-      // ignore — content model may not have a slug field
+      // ignore
     }
   }
 
