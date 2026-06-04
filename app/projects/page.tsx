@@ -8,6 +8,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { ProjectMap } from "./project-map";
+import { SITE_URL } from "@/lib/utils";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
@@ -36,11 +37,11 @@ const projectsSchema = {
   name: "Shumaker Roofing Projects",
   description:
     "A map of completed roofing projects by Shumaker Roofing Company across the Mid-Atlantic region.",
-  url: "https://www.shumakerroofing.com/projects",
+  url: `${SITE_URL}/projects`,
   provider: {
     "@type": "LocalBusiness",
     name: "Shumaker Roofing Company",
-    url: "https://www.shumakerroofing.com",
+    url: SITE_URL,
   },
 };
 

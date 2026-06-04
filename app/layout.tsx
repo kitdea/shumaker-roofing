@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
+import { cn, SITE_URL } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const montserrat = Montserrat({
@@ -10,7 +10,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.shumakerroofing.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Shumaker Roofing | Quality Residential & Commercial Roofing",
     template: "%s | Shumaker Roofing",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://www.shumakerroofing.com",
+    url: SITE_URL,
     title: "Shumaker Roofing | Quality Residential & Commercial Roofing",
     description:
       "Shumaker Roofing provides top-notch residential and commercial roofing services, including repairs, replacements, and inspections. Licensed and insured professionals.",

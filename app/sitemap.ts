@@ -1,9 +1,9 @@
 import { MetadataRoute } from 'next';
 import { client, fetchAllLocations } from '@/lib/contentful';
-import { slugify } from '@/lib/utils';
+import { slugify, SITE_URL } from '@/lib/utils';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://www.shumakerroofing.com';
+  const baseUrl = SITE_URL;
 
   // Fetch dynamic content
   let blogEntries: MetadataRoute.Sitemap = [];

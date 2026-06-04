@@ -1,4 +1,5 @@
 import type { ContentfulFaqItem } from '@/types/contentful'
+import { SITE_URL } from '@/lib/utils'
 
 interface LocationSchemaProps {
   name: string
@@ -105,13 +106,13 @@ export function LocationSchema({
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://www.shumakerroofing.com/',
+        item: `${SITE_URL}/`,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Service Areas',
-        item: 'https://www.shumakerroofing.com/service-areas/',
+        item: `${SITE_URL}/service-areas/`,
       },
       {
         '@type': 'ListItem',
