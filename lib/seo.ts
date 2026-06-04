@@ -81,7 +81,8 @@ export function buildNextMetadata(
   fallbackTitle: string,
   fallbackDesc: string,
   fallbackImage?: string,
-  ogType: "website" | "article" = "website"
+  ogType: "website" | "article" = "website",
+  canonicalPath?: string,
 ): Metadata {
   const rawTitle = seo.seoTitle || fallbackTitle;
   const title = { absolute: rawTitle };
@@ -93,11 +94,13 @@ export function buildNextMetadata(
       ? { index: !seo.noIndex, follow: !seo.noFollow }
       : undefined;
 
+  const canonical = seo.canonicalUrl || canonicalPath;
+
   return {
     title,
     description,
     ...(robots && { robots }),
-    ...(seo.canonicalUrl && { alternates: { canonical: seo.canonicalUrl } }),
+    ...(canonical && { alternates: { canonical } }),
     openGraph: {
       title: rawTitle,
       description,
@@ -130,6 +133,7 @@ export async function fetchPageSeo({
   fallbackDesc,
   fallbackImage,
   ogType = "website",
+  canonicalPath,
 }: {
   /** Fields from an already-fetched Contentful entry (fetch with include >= 2) */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -139,18 +143,20 @@ export async function fetchPageSeo({
   /** Fallback OG image when no SEO entry provides one */
   fallbackImage?: string;
   ogType?: "website" | "article";
+  /** The page's own path (e.g. "/blog/my-post") used as canonical when Contentful doesn't override it */
+  canonicalPath?: string;
 }): Promise<Metadata> {
   try {
     // ── Strategy 1: linked seoMetadata entry on the page entry ──────────────
     if (entryFields) {
       const seo = resolveSeoMetadata(entryFields);
       if (seo) {
-        return buildNextMetadata(seo, fallbackTitle, fallbackDesc, fallbackImage, ogType);
+        return buildNextMetadata(seo, fallbackTitle, fallbackDesc, fallbackImage, ogType, canonicalPath);
       }
     }
 
     // ── Strategy 2: fallback strings only ───────────────────────────────────
-    return buildNextMetadata({ noIndex: false, noFollow: false }, fallbackTitle, fallbackDesc, fallbackImage, ogType);
+    return buildNextMetadata({ noIndex: false, noFollow: false }, fallbackTitle, fallbackDesc, fallbackImage, ogType, canonicalPath);
   } catch {
     return { title: { absolute: fallbackTitle }, description: fallbackDesc };
   }

@@ -138,7 +138,6 @@ export async function fetchLocation(slug: string): Promise<ContentfulLocation | 
   const res = await client.getEntries({
     content_type: 'location',
     'fields.slug': slug,
-    'fields.isActive': true,
     include: 2,
     limit: 1,
   })
@@ -147,11 +146,10 @@ export async function fetchLocation(slug: string): Promise<ContentfulLocation | 
   return res.items[0] as unknown as ContentfulLocation
 }
 
-// Fetch all active locations — used for hub page, sitemap, and generateStaticParams
+// Fetch all locations — used for hub page, sitemap, and generateStaticParams
 export async function fetchAllLocations(): Promise<ContentfulLocation[]> {
   const res = await client.getEntries({
     content_type: 'location',
-    'fields.isActive': true,
     select: ['sys.updatedAt', 'fields.cityName', 'fields.slug', 'fields.state', 'fields.fullLocationName', 'fields.isActive'],
     order: ['fields.cityName'],
     limit: 200,
