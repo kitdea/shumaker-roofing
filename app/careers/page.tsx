@@ -19,6 +19,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { fetchJobPostings } from "@/lib/contentful";
+import { SITE_URL } from "@/lib/utils";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
@@ -58,7 +59,7 @@ export default async function CareersPage() {
         hiringOrganization: {
           "@type": "Organization",
           name: "Shumaker Roofing Co. Inc.",
-          sameAs: "https://www.shumakerroofing.com",
+          sameAs: SITE_URL,
         },
         jobLocation: {
           "@type": "Place",

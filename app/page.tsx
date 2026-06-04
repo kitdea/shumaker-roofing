@@ -11,7 +11,7 @@ import { fetchPageSeo } from "@/lib/seo";
 import { ProjectSlider } from "@/components/home/project-slider";
 import { fetchAllServices, fetchHeroBanner, fetchProjectSlides } from "@/lib/contentful";
 import { CertificationsSection } from "@/components/shared/certifications-section";
-import { slugify, getServiceIcon, toHttpsUrl } from "@/lib/utils";
+import { slugify, getServiceIcon, toHttpsUrl, SITE_URL } from "@/lib/utils";
 import { Document } from "@contentful/rich-text-types";
 
 export async function generateMetadata() {
@@ -25,10 +25,10 @@ export async function generateMetadata() {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "RoofingContractor"],
-  "@id": "https://www.shumakerroofing.com/#organization",
+  "@id": `${SITE_URL}/#organization`,
   "name": "Shumaker Roofing Company",
-  "url": "https://www.shumakerroofing.com",
-  "logo": "https://www.shumakerroofing.com/logo.png",
+  "url": SITE_URL,
+  "logo": `${SITE_URL}/logo.png`,
   "image": "https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop",
   "description": "Shumaker Roofing provides top-tier residential and commercial roofing services, installation, repair, and maintenance backed by 78 years of expertise.",
   "telephone": "+1-301-662-0533",
