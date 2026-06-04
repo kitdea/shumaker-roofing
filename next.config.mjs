@@ -142,6 +142,21 @@ const nextConfig = {
         destination: '/service-areas/hagerstown-md',
         permanent: true,
       },
+      {
+        source: '/top-roofing-in-hagerstown-md',
+        destination: '/service-areas/hagerstown-md',
+        permanent: true,
+      },
+      {
+        source: '/reviews-testimonials',
+        destination: '/testimonials',
+        permanent: true,
+      },
+      {
+        source: '/faq-items',
+        destination: '/faqs',
+        permanent: true,
+      },
     ];
   },
   async headers() {
