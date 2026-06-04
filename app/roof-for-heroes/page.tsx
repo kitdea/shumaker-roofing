@@ -10,12 +10,12 @@ import Link from "next/link";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
-  title: { absolute: "Roof for Heroes | Shumaker Roofing Company" },
+  title: { absolute: "Roofs for Heroes | Shumaker Roofing Company" },
   description:
     "Shumaker Roofing Co. donates roofs to veterans in need. Nominate a veteran today and help us honor those who served our country.",
-  alternates: { canonical: "/roof-for-heroes" },
+  alternates: { canonical: "/roofs-for-heroes" },
   openGraph: {
-    title: "Roof for Heroes | Shumaker Roofing Company",
+    title: "Roofs for Heroes | Shumaker Roofing Company",
     description:
       "Shumaker Roofing Co. donates roofs to veterans in need. Nominate a veteran today and help us honor those who served our country.",
     url: "/roofs-for-heroes",
@@ -23,14 +23,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Roof for Heroes | Shumaker Roofing Company",
+    title: "Roofs for Heroes | Shumaker Roofing Company",
     description:
       "Shumaker Roofing Co. donates roofs to veterans in need. Nominate a veteran today and help us honor those who served our country.",
   },
 };
 
 const stats = [
-  { value: "0", label: "Roof Donated to Veterans" },
+  { value: "0", label: "Roofs Donated to Veterans" },
   { value: "7", label: "Veterans Hired" },
   { value: "$6800", label: "Given Back To Veterans" },
   { value: "0", label: "Veteran Labor Hours" },
@@ -95,7 +95,7 @@ export default async function RoofsForHeroesPage() {
         </div>
         <Container className="relative z-10 text-center">
           <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4">
-            Roof for Heroes
+            Roofs for Heroes
           </h1>
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
             Honoring those who served by giving back — one roof at a time.
