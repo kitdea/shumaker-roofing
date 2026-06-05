@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     siteName: "Shumaker Roofing",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop",
+        url: "https://images.ctfassets.net/1daipl7z93ig/ZKSfLysHgXPAYYPfbDqT9/1a87cf72f401cdd63349b9c1f7750187/shumaker-roofing-company.jpg",
         width: 1200,
         height: 630,
         alt: "Shumaker Roofing Services",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     description:
       "Shumaker Roofing provides top-notch residential and commercial roofing services.",
     images: [
-      "https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop",
+      "https://images.ctfassets.net/1daipl7z93ig/ZKSfLysHgXPAYYPfbDqT9/1a87cf72f401cdd63349b9c1f7750187/shumaker-roofing-company.jpg",
     ],
   },
   robots: {
@@ -82,6 +82,9 @@ export default function RootLayout({
         />
         <Script id="ga4-init" strategy="afterInteractive">
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4NR3D3JVVL');`}
+        </Script>
+        <Script id="microsoft-clarity" strategy="afterInteractive">
+          {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","m2654ikl3f");`}
         </Script>
         {/* Roofle floating quote button — loads on all pages */}
         <Script

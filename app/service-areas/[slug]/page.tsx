@@ -391,10 +391,10 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
               <Button
                 variant="secondary"
                 size="lg"
-                className="w-full font-bold text-primary hover:bg-white relative z-10 shadow-md"
+                className="w-full uppercase font-bold text-primary hover:bg-white relative z-10 shadow-md"
                 asChild
               >
-                <Link href="/contact">Get a Free Quote</Link>
+                <Link href="/contact">Get a Free Estimate</Link>
               </Button>
             </div>
 

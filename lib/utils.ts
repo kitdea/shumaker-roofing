@@ -33,6 +33,10 @@ export function getServiceIcon(title: string) {
   return Grid;
 }
 
+export function deriveBlogSlug(fields: { slug?: unknown; title?: unknown }, id: string): string {
+  return (fields.slug as string) || (fields.title ? slugify(fields.title as string) : id);
+}
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()

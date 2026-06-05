@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { client } from "@/lib/contentful";
-import { slugify, toHttpsUrl, SITE_URL } from "@/lib/utils";
+import { deriveBlogSlug, toHttpsUrl, SITE_URL } from "@/lib/utils";
 import { BlogFilter, type BlogPost } from "./blog-filter";
 
 export const metadata: Metadata = {
@@ -155,7 +155,7 @@ export default async function BlogPage() {
 
     return {
       id: item.sys.id,
-      slug: post.slug ? (post.slug as string) : post.title ? slugify(post.title as string) : item.sys.id,
+      slug: deriveBlogSlug(post, item.sys.id),
       title: (post.title as string) || "Untitled",
       description,
       imageUrl,

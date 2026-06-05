@@ -162,6 +162,13 @@ const nextConfig = {
         destination: '/faqs',
         permanent: true,
       },
+      {
+        source: '/location',
+        destination: '/service-areas',
+        permanent: true,
+      },
+
+
       // Blog posts previously linked without /blog/ prefix
       {
         source: '/do-commercial-silicone-roof-coatings-offer-tax-advantages',

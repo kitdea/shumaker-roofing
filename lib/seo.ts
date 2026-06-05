@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { toHttpsUrl } from "@/lib/utils";
+import { toHttpsUrl, SITE_URL } from "@/lib/utils";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -94,7 +94,11 @@ export function buildNextMetadata(
       ? { index: !seo.noIndex, follow: !seo.noFollow }
       : undefined;
 
-  const canonical = seo.canonicalUrl || canonicalPath;
+  // Page-specific path always wins over any CMS-stored canonicalUrl.
+  // CMS canonical is only used for pages that don't supply their own path.
+  const canonical = canonicalPath
+    ? `${SITE_URL}${canonicalPath}`
+    : seo.canonicalUrl;
 
   return {
     title,

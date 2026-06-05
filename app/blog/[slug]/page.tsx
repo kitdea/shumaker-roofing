@@ -1,5 +1,4 @@
 export const revalidate = 3600;
-export const dynamicParams = true;
 
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -15,7 +14,7 @@ import type { Options } from "@contentful/rich-text-react-renderer";
 import type { Hyperlink } from "@contentful/rich-text-types";
 import { fetchPageSeo } from "@/lib/seo";
 import { TwoColumnSection } from "@/components/shared/two-column-section";
-import { slugify, toHttpsUrl, SITE_URL } from "@/lib/utils";
+import { deriveBlogSlug, slugify, toHttpsUrl, SITE_URL } from "@/lib/utils";
 
 const SITE_DOMAIN = "shumakerroofing.com";
 
@@ -96,17 +95,16 @@ const getPostFromSlug = cache(async function getPostFromSlug(slug: string) {
 });
 
 export async function generateStaticParams() {
-  const response = await client.getEntries({ content_type: "blog", limit: 200 });
-  return response.items.map((item) => {
+  const response = await client.getEntries({
+    content_type: "blog",
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const fields = item.fields as any;
-    const slug = fields.slug
-      ? (fields.slug as string)
-      : fields.title
-      ? slugify(fields.title as string)
-      : item.sys.id;
-    return { slug };
+    select: ["fields.slug", "fields.title", "sys.id"] as any,
+    include: 0,
+    limit: 200,
   });
+  return response.items.map((item) => ({
+    slug: deriveBlogSlug(item.fields as { slug?: unknown; title?: unknown }, item.sys.id),
+  }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
