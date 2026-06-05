@@ -12,7 +12,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Shumaker Roofing | Quality Residential & Commercial Roofing",
+    default: "Roofing Contractor in Frederick MD | Shumaker Roofing",
     template: "%s | Shumaker Roofing",
   },
   description:
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
-    title: "Shumaker Roofing | Quality Residential & Commercial Roofing",
+    title: "Roofing Contractor in Frederick MD | Shumaker Roofing",
     description:
       "Shumaker Roofing provides top-notch residential and commercial roofing services, including repairs, replacements, and inspections. Licensed and insured professionals.",
     siteName: "Shumaker Roofing",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shumaker Roofing | Quality Residential & Commercial Roofing",
+    title: "Roofing Contractor in Frederick MD | Shumaker Roofing",
     description:
       "Shumaker Roofing provides top-notch residential and commercial roofing services.",
     images: [

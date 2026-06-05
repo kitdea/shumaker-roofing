@@ -16,9 +16,9 @@ import { Document } from "@contentful/rich-text-types";
 
 export async function generateMetadata() {
   return fetchPageSeo({
-    fallbackTitle: "Shumaker Roofing | Strong, Durable & Affordable Roofing",
+    fallbackTitle: "Roofing Contractor in Frederick MD | Shumaker Roofing",
     fallbackDesc:
-      "Shumaker Roofing provides top-tier residential and commercial roofing services, installation, repair, and maintenance backed by 78 years of expertise.",
+      "Expert roofing contractor in Frederick, MD. Shumaker Roofing provides top-tier residential and commercial roofing services, installation, and  repair.",
     canonicalPath: "/",
   });
 }
@@ -30,8 +30,8 @@ const organizationSchema = {
   "name": "Shumaker Roofing Company",
   "url": SITE_URL,
   "logo": `${SITE_URL}/logo.png`,
-  "image": "https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop",
-  "description": "Shumaker Roofing provides top-tier residential and commercial roofing services, installation, repair, and maintenance backed by 78 years of expertise.",
+  "image": "https://images.ctfassets.net/1daipl7z93ig/ZKSfLysHgXPAYYPfbDqT9/1a87cf72f401cdd63349b9c1f7750187/shumaker-roofing-company.jpg",
+  "description": "Expert roofing contractor in Frederick, MD. Shumaker Roofing provides top-tier residential and commercial roofing services, installation, and  repair.",
   "telephone": "+1-301-662-0533",
   "email": "info@shumakerroofing.com",
   "address": [
@@ -89,7 +89,7 @@ export default async function Home() {
 
   const heroBgUrl =
     toHttpsUrl(hero?.backgroundImage?.fields?.file?.url) ??
-    "https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop";
+    "https://images.ctfassets.net/1daipl7z93ig/6Zx6z8OUj0MmaemuNBh4YE/337ca30394ff8cfbcf10defc0325c709/residential-roof-replacement-in-frederick-md_001_.jpg";
 
   return (
     <>

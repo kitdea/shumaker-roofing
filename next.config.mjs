@@ -178,12 +178,68 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/blog/what-are-shingles-made-of',
+        source: '/blog/roof-repair-in-hagerstown-md',
+        destination: '/services/roof-repair',
+        permanent: true,
+      },
+    
+      
+
+
+
+      // Blog posts previously linked without /blog/ prefix
+      {
+        source: '/do-commercial-silicone-roof-coatings-offer-tax-advantages',
         destination: '/blog',
         permanent: true,
       },
       {
-        source: '/blog/the-7-main-parts-of-a-metal-roof',
+        source: '/flat-roof-warranty-guide-for-frederick-md-homeowners',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-can-you-find-a-trustworthy-local-roofing-contractor',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/skylight-installation-a-step-by-step-guide',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/why-skylights-and-sun-tunnels-are-a-good-idea-for-your-home',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-does-roof-rejuvenation-improve-extend-your-roof',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/is-roof-rejuvenation-the-cost-effective-solution-for-you',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/what-is-the-average-roof-replacement-cost-in-maryland',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/12-types-of-roof-materials-choosing-the-best-option',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/what-are-shingles-made-of',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/complete-guide-to-metal-roof-maintenance',
         destination: '/blog',
         permanent: true,
       },
@@ -193,125 +249,11 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/what-is-the-average-roof-replacement-cost-in-maryland',
+        source: '/blog/the-7-main-parts-of-a-metal-roof',
         destination: '/blog',
         permanent: true,
       },
-      {
-        source: '/blog/12-types-of-roof-materials-choosing-the-best-option',
-        destination: '/blog',
-        permanent: true,
-      },
-      {
-        source: '/blog/roof-repair-in-hagerstown-md',
-        destination: '/roof-repair',
-        permanent: true,
-      },
-      {
-        source: '/blog/skylight-installation-a-step-by-step-guide',
-        destination: '/roof-repair',
-        permanent: true,
-      },
-      {
-        source: '/blog/why-skylights-and-sun-tunnels-are-a-good-idea-for-your-home',
-        destination: '/blog',
-        permanent: true,
-      },
-      {
-        source: '/blog/how-can-you-find-a-trustworthy-local-roofing-contractor',
-        destination: '/blog',
-        permanent: true,
-      },
-      {
-        source: '/blog/is-roof-rejuvenation-the-cost-effective-solution-for-you',
-        destination: '/blog',
-        permanent: true,
-      },
-      {
-        source: '/blog/do-commercial-silicone-roof-coatings-offer-tax-advantages',
-        destination: '/blog',
-        permanent: true,
-      },
-      {
-        source: '/blog/how-does-roof-rejuvenation-improve-extend-your-roof',
-        destination: '/blog',
-        permanent: true,
-      },
-      {
-        source: '/blog/flat-roof-warranty-guide-for-frederick-md-homeowners',
-        destination: '/blog',
-        permanent: true,
-      },
-      
 
-
-
-      // Blog posts previously linked without /blog/ prefix
-      {
-        source: '/do-commercial-silicone-roof-coatings-offer-tax-advantages',
-        destination: '/blog/do-commercial-silicone-roof-coatings-offer-tax-advantages',
-        permanent: true,
-      },
-      {
-        source: '/flat-roof-warranty-guide-for-frederick-md-homeowners',
-        destination: '/blog/flat-roof-warranty-guide-for-frederick-md-homeowners',
-        permanent: true,
-      },
-      {
-        source: '/how-can-you-find-a-trustworthy-local-roofing-contractor',
-        destination: '/blog/how-can-you-find-a-trustworthy-local-roofing-contractor',
-        permanent: true,
-      },
-      {
-        source: '/skylight-installation-a-step-by-step-guide',
-        destination: '/blog/skylight-installation-a-step-by-step-guide',
-        permanent: true,
-      },
-      {
-        source: '/why-skylights-and-sun-tunnels-are-a-good-idea-for-your-home',
-        destination: '/blog/why-skylights-and-sun-tunnels-are-a-good-idea-for-your-home',
-        permanent: true,
-      },
-      {
-        source: '/how-does-roof-rejuvenation-improve-extend-your-roof',
-        destination: '/blog/how-does-roof-rejuvenation-improve-extend-your-roof',
-        permanent: true,
-      },
-      {
-        source: '/is-roof-rejuvenation-the-cost-effective-solution-for-you',
-        destination: '/blog/is-roof-rejuvenation-the-cost-effective-solution-for-you',
-        permanent: true,
-      },
-      {
-        source: '/what-is-the-average-roof-replacement-cost-in-maryland',
-        destination: '/blog/what-is-the-average-roof-replacement-cost-in-maryland',
-        permanent: true,
-      },
-      {
-        source: '/12-types-of-roof-materials-choosing-the-best-option',
-        destination: '/blog/12-types-of-roof-materials-choosing-the-best-option',
-        permanent: true,
-      },
-      {
-        source: '/roof-repair-in-hagerstown-md',
-        destination: '/blog/roof-repair-in-hagerstown-md',
-        permanent: true,
-      },
-      {
-        source: '/what-are-shingles-made-of',
-        destination: '/blog/what-are-shingles-made-of',
-        permanent: true,
-      },
-      {
-        source: '/complete-guide-to-metal-roof-maintenance',
-        destination: '/blog/complete-guide-to-metal-roof-maintenance',
-        permanent: true,
-      },
-      {
-        source: '/the-7-main-parts-of-a-metal-roof',
-        destination: '/blog/the-7-main-parts-of-a-metal-roof',
-        permanent: true,
-      },
       // Old service path
       {
         source: '/residential-services/skylights-and-suntunnels',
