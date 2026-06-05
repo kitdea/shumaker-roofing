@@ -10,12 +10,12 @@ import Link from "next/link";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
-  title: { absolute: "Roof for Heroes | Shumaker Roofing Company" },
+  title: { absolute: "Roofs for Heroes | Shumaker Roofing Company" },
   description:
     "Shumaker Roofing Co. donates roofs to veterans in need. Nominate a veteran today and help us honor those who served our country.",
-  alternates: { canonical: "/roof-for-heroes" },
+  alternates: { canonical: "/roofs-for-heroes" },
   openGraph: {
-    title: "Roof for Heroes | Shumaker Roofing Company",
+    title: "Roofs for Heroes | Shumaker Roofing Company",
     description:
       "Shumaker Roofing Co. donates roofs to veterans in need. Nominate a veteran today and help us honor those who served our country.",
     url: "/roofs-for-heroes",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Roof for Heroes | Shumaker Roofing Company",
+    title: "Roofs for Heroes | Shumaker Roofing Company",
     description:
       "Shumaker Roofing Co. donates roofs to veterans in need. Nominate a veteran today and help us honor those who served our country.",
   },

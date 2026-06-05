@@ -260,8 +260,8 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
             <p className="text-primary-foreground/90 mb-8 text-sm text-white/90 relative z-10 leading-relaxed">
               If you are dealing with roofing issues or want to learn more about our <strong>{serviceFields.title}</strong> service, our expert team is ready to provide top-notch service and a free estimate.
             </p>
-            <Button variant="secondary" size="lg" className="w-full font-bold text-primary hover:bg-white relative z-10 shadow-md" asChild>
-              <Link href="/contact">Get a Free Quote</Link>
+            <Button variant="secondary" size="lg" className="w-full uppercase font-bold text-primary hover:bg-white relative z-10 shadow-md" asChild>
+              <Link href="/contact">Get a Free Estimate</Link>
             </Button>
           </div>
 

@@ -222,7 +222,7 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
 
           <div className="hidden md:flex items-center gap-4">
             <ThemeToggle />
-            <Button size="lg" className="rounded-full font-bold uppercase gap-2 px-6" asChild>
+            <Button size="lg" className="font-bold uppercase dark:hover:bg-white hover:bg-secondary hover:text-primary gap-2 px-6" asChild>
               <Link href="/book-appointment">Schedule Now</Link>
             </Button>
           </div>
