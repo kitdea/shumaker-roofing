@@ -253,8 +253,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": `${SITE_URL}/blog/${slug}`,
+          "breadcrumb": { "@id": `${SITE_URL}/blog/${slug}#breadcrumb` },
         },
-        "breadcrumb": { "@id": `${SITE_URL}/blog/${slug}#breadcrumb` },
         ...(categories.length > 0 ? { "articleSection": categories.join(", ") } : {}),
       },
     ],
