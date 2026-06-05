@@ -3,7 +3,7 @@ export const revalidate = 3600;
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, MessageSquare } from "lucide-react";
+import { Phone } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
@@ -42,6 +42,14 @@ const projectsSchema = {
     "@type": "LocalBusiness",
     name: "Shumaker Roofing Company",
     url: SITE_URL,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "26 Water St.",
+      addressLocality: "Frederick",
+      addressRegion: "MD",
+      postalCode: "21701",
+      addressCountry: "US",
+    },
   },
 };
 

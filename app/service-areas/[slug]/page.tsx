@@ -115,7 +115,6 @@ function buildLocationSchema(
     "description":
       fields.metaDescription ||
       `Expert roofing services in ${cityDisplay}, ${fields.state}. Contact Shumaker Roofing for a free estimate.`,
-    "mainEntity": { "@id": faqId },
   };
 
   if (fields.latitude != null && fields.longitude != null) {

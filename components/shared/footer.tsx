@@ -29,9 +29,22 @@ export async function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-12">
           {/* Brand */}
           <div className="flex flex-col gap-4">
+            
+              
+              
+              
+              
+           
             <Link href="/" className="flex items-center gap-2">
-              <div className="bg-primary p-2 flex items-center justify-center rounded-sm">
-                <Home className="h-6 w-6 text-white" />
+              <div className="bg-white p-2 flex items-center justify-center rounded-sm">
+                {/* <Home className="h-6 w-6 text-white" /> */}
+                <img
+                  src="/favicon.svg"
+                  alt="Shumaker Roofing Co. Inc."
+                  className="h-6 w-6"
+                  width={224}
+                  height={56}
+                />
               </div>
               <span className="text-2xl font-heading font-bold tracking-tight text-white">
                 Shumaker<span className="text-primary">Roofing</span>
