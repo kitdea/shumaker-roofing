@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { fetchAllLocations } from "@/lib/contentful";
 import { CertificationsSection } from "@/components/shared/certifications-section";
+import { SITE_URL } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: { absolute: "Licensed Roofing Service Areas | Shumaker Roofing Company" },
@@ -31,6 +32,35 @@ export const metadata: Metadata = {
   },
 };
 
+const serviceAreasPageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": SITE_URL + "/service-areas#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/" },
+        { "@type": "ListItem", "position": 2, "name": "Service Areas", "item": SITE_URL + "/service-areas" },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": SITE_URL + "/service-areas#webpage",
+      "url": SITE_URL + "/service-areas",
+      "name": "Licensed Roofing Service Areas | Shumaker Roofing Company",
+      "description":
+        "Shumaker Roofing Company proudly serves homeowners and businesses across the region. Find your city and learn how we can help with all your roofing needs.",
+      "isPartOf": { "@id": SITE_URL + "/#website" },
+      "breadcrumb": { "@id": SITE_URL + "/service-areas#breadcrumb" },
+      "publisher": {
+        "@type": "Organization",
+        "@id": SITE_URL + "/#organization",
+        "name": "Shumaker Roofing Company",
+      },
+    },
+  ],
+};
+
 export default async function ServiceAreasPage() {
   const locations = await fetchAllLocations();
 
@@ -45,6 +75,11 @@ export default async function ServiceAreasPage() {
   const states = Object.keys(byState).sort();
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceAreasPageSchema) }}
+      />
     <div className="flex flex-col w-full">
       {/* Hero */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">
@@ -128,5 +163,6 @@ export default async function ServiceAreasPage() {
         </Container>
       </section>
     </div>
+    </>
   );
 }

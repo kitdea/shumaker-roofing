@@ -182,7 +182,12 @@ const nextConfig = {
         destination: '/services/roof-repair',
         permanent: true,
       },
-    
+      {
+        source: '/roof-repair',
+        destination: '/services/roof-repair',
+        permanent: true,
+      },
+
       
 
 

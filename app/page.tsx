@@ -14,11 +14,18 @@ import { CertificationsSection } from "@/components/shared/certifications-sectio
 import { slugify, getServiceIcon, toHttpsUrl, SITE_URL } from "@/lib/utils";
 import { Document } from "@contentful/rich-text-types";
 
+const FALLBACK_HERO_IMAGE_URL =
+  "https://images.ctfassets.net/1daipl7z93ig/6Zx6z8OUj0MmaemuNBh4YE/337ca30394ff8cfbcf10defc0325c709/residential-roof-replacement-in-frederick-md_001_.jpg";
+
 export async function generateMetadata() {
+  const hero = await fetchHeroBanner().catch(() => null);
+  const heroImageUrl = toHttpsUrl(hero?.backgroundImage?.fields?.file?.url) ?? FALLBACK_HERO_IMAGE_URL;
+
   return fetchPageSeo({
     fallbackTitle: "Roofing Contractor in Frederick MD | Shumaker Roofing",
     fallbackDesc:
       "Expert roofing contractor in Frederick, MD. Shumaker Roofing provides top-tier residential and commercial roofing services, installation, and  repair.",
+    fallbackImage: heroImageUrl,
     canonicalPath: "/",
   });
 }
@@ -87,9 +94,7 @@ export default async function Home() {
     fetchProjectSlides().catch(() => []),
   ]);
 
-  const heroBgUrl =
-    toHttpsUrl(hero?.backgroundImage?.fields?.file?.url) ??
-    "https://images.ctfassets.net/1daipl7z93ig/6Zx6z8OUj0MmaemuNBh4YE/337ca30394ff8cfbcf10defc0325c709/residential-roof-replacement-in-frederick-md_001_.jpg";
+  const heroBgUrl = toHttpsUrl(hero?.backgroundImage?.fields?.file?.url) ?? FALLBACK_HERO_IMAGE_URL;
 
   return (
     <>
@@ -233,6 +238,7 @@ export default async function Home() {
                   src="https://images.ctfassets.net/1daipl7z93ig/6FfGgVIoAPZ2FWbh9PrG93/2e5f8d3e0a0f1b883fbdf7b3dd35842a/shumaker-roofing-company.jpg"
                 alt="Shumaker Roofing Company"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
               />
               {/* Floating Stat Card */}

@@ -89,6 +89,7 @@ export default async function RoofsForHeroesPage() {
             src="https://images.ctfassets.net/1daipl7z93ig/6cUde0TKpHGhgzGbgmRDSl/031e72a2d5cfcfc549056844625e1568/united-states-flag.jpg"
             alt="American flag waving"
             fill
+            sizes="100vw"
             className="object-cover opacity-50 mix-blend-overlay"
             priority
           />

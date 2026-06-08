@@ -155,6 +155,7 @@ export default async function FaqsPage() {
             src="https://images.unsplash.com/photo-1632823471565-1ecdf5c6da11?q=80&w=2070&auto=format&fit=crop"
             alt="Roofing professionals at work"
             fill
+            sizes="100vw"
             className="object-cover opacity-50 mix-blend-overlay"
             priority
           />

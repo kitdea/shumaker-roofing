@@ -65,6 +65,7 @@ export default function BookPage() {
               src="https://images.ctfassets.net/1daipl7z93ig/50iHJtfm4UkBWGmLs4hGLl/e585de4da3a67060c01a0478f6160df9/roof-replacement-in-frederick-md_002.jpg"
               alt="Book an appointment with Shumaker Roofing"
               fill
+              sizes="100vw"
               className="object-cover opacity-50 mix-blend-overlay"
               priority
             />
