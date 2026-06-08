@@ -45,6 +45,7 @@ export default function PrivacyPolicyPage() {
             src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop"
             alt="Privacy Policy"
             fill
+            sizes="100vw"
             className="object-cover opacity-50 mix-blend-overlay"
             priority
           />

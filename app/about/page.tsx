@@ -6,7 +6,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { CheckCircle2 } from "lucide-react";
 import { client } from "@/lib/contentful";
-import { toHttpsUrl } from "@/lib/utils";
+import { toHttpsUrl, SITE_URL } from "@/lib/utils";
 import { TeamGrid } from "./team-grid";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 
@@ -28,6 +28,36 @@ export const metadata: Metadata = {
     description:
       "Learn about Shumaker Roofing Company's mission, vision, and highly skilled licensed team! Experience top-notch roofing services from trusted professionals.",
   },
+};
+
+const aboutPageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": SITE_URL + "/about#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/" },
+        { "@type": "ListItem", "position": 2, "name": "About", "item": SITE_URL + "/about" },
+      ],
+    },
+    {
+      "@type": "AboutPage",
+      "@id": SITE_URL + "/about#webpage",
+      "url": SITE_URL + "/about",
+      "name": "About Us | Shumaker Roofing Company",
+      "description":
+        "Learn about Shumaker Roofing Company's mission, vision, and highly skilled licensed team! Experience top-notch roofing services from trusted professionals.",
+      "isPartOf": { "@id": SITE_URL + "/#website" },
+      "breadcrumb": { "@id": SITE_URL + "/about#breadcrumb" },
+      "about": { "@id": SITE_URL + "/#organization" },
+      "publisher": {
+        "@type": "Organization",
+        "@id": SITE_URL + "/#organization",
+        "name": "Shumaker Roofing Company",
+      },
+    },
+  ],
 };
 
 export default async function AboutPage() {
@@ -119,6 +149,11 @@ export default async function AboutPage() {
   );
 
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
+      />
     <div className="flex flex-col w-full">
       {/* Page Header */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">
@@ -128,6 +163,7 @@ export default async function AboutPage() {
             src="https://images.ctfassets.net/1daipl7z93ig/50iHJtfm4UkBWGmLs4hGLl/e585de4da3a67060c01a0478f6160df9/roof-replacement-in-frederick-md_002.jpg"
             alt="Roofing working"
             fill
+            sizes="100vw"
             className="object-cover opacity-50 mix-blend-overlay"
             priority
           />
@@ -216,5 +252,6 @@ export default async function AboutPage() {
         </Container>
       </section>
     </div>
+    </>
   );
 }

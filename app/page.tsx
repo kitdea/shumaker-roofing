@@ -14,11 +14,18 @@ import { CertificationsSection } from "@/components/shared/certifications-sectio
 import { slugify, getServiceIcon, toHttpsUrl, SITE_URL } from "@/lib/utils";
 import { Document } from "@contentful/rich-text-types";
 
+const FALLBACK_HERO_IMAGE_URL =
+  "https://images.ctfassets.net/1daipl7z93ig/6Zx6z8OUj0MmaemuNBh4YE/337ca30394ff8cfbcf10defc0325c709/residential-roof-replacement-in-frederick-md_001_.jpg";
+
 export async function generateMetadata() {
+  const hero = await fetchHeroBanner().catch(() => null);
+  const heroImageUrl = toHttpsUrl(hero?.backgroundImage?.fields?.file?.url) ?? FALLBACK_HERO_IMAGE_URL;
+
   return fetchPageSeo({
-    fallbackTitle: "Shumaker Roofing | Strong, Durable & Affordable Roofing",
+    fallbackTitle: "Roofing Contractor in Frederick MD | Shumaker Roofing",
     fallbackDesc:
-      "Shumaker Roofing provides top-tier residential and commercial roofing services, installation, repair, and maintenance backed by 78 years of expertise.",
+      "Expert roofing contractor in Frederick, MD. Shumaker Roofing provides top-tier residential and commercial roofing services, installation, and  repair.",
+    fallbackImage: heroImageUrl,
     canonicalPath: "/",
   });
 }
@@ -30,8 +37,8 @@ const organizationSchema = {
   "name": "Shumaker Roofing Company",
   "url": SITE_URL,
   "logo": `${SITE_URL}/logo.png`,
-  "image": "https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop",
-  "description": "Shumaker Roofing provides top-tier residential and commercial roofing services, installation, repair, and maintenance backed by 78 years of expertise.",
+  "image": "https://images.ctfassets.net/1daipl7z93ig/ZKSfLysHgXPAYYPfbDqT9/1a87cf72f401cdd63349b9c1f7750187/shumaker-roofing-company.jpg",
+  "description": "Expert roofing contractor in Frederick, MD. Shumaker Roofing provides top-tier residential and commercial roofing services, installation, and  repair.",
   "telephone": "+1-301-662-0533",
   "email": "info@shumakerroofing.com",
   "address": [
@@ -87,9 +94,7 @@ export default async function Home() {
     fetchProjectSlides().catch(() => []),
   ]);
 
-  const heroBgUrl =
-    toHttpsUrl(hero?.backgroundImage?.fields?.file?.url) ??
-    "https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=2070&auto=format&fit=crop";
+  const heroBgUrl = toHttpsUrl(hero?.backgroundImage?.fields?.file?.url) ?? FALLBACK_HERO_IMAGE_URL;
 
   return (
     <>
@@ -233,6 +238,7 @@ export default async function Home() {
                   src="https://images.ctfassets.net/1daipl7z93ig/6FfGgVIoAPZ2FWbh9PrG93/2e5f8d3e0a0f1b883fbdf7b3dd35842a/shumaker-roofing-company.jpg"
                 alt="Shumaker Roofing Company"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
               />
               {/* Floating Stat Card */}

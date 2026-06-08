@@ -275,6 +275,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             src={imageUrl}
             alt={postFields.title || "Blog Post"}
             fill
+            sizes="100vw"
             className="object-cover opacity-60 mix-blend-overlay z-0"
             priority
           />
@@ -324,7 +325,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <div className="flex items-center gap-4 sm:shrink-0">
             {authorAvatarUrl ? (
               <div className="relative h-14 w-14 rounded-full overflow-hidden border-2 border-primary/20">
-                <Image src={authorAvatarUrl} alt={authorName} fill className="object-cover" />
+                <Image src={authorAvatarUrl} alt={authorName} fill sizes="56px" className="object-cover" />
               </div>
             ) : (
               <div className="bg-primary/10 p-3 rounded-full text-primary">

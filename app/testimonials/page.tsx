@@ -41,6 +41,7 @@ export default async function TestimonialsPage() {
             src="https://images.ctfassets.net/1daipl7z93ig/2KbRs7Pt4PbPMBx7ewU782/abaab2215229ddc7610d6ad7f3c84033/residential-roof-replacement-in-frederick-md.jpg"
             alt="Happy homeowners after roofing project"
             fill
+            sizes="100vw"
             className="object-cover opacity-50 mix-blend-overlay"
             priority
           />
