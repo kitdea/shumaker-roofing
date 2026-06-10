@@ -166,7 +166,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     postFields.featuredImage || postFields.image || postFields.coverImage ||
     postFields.heroImage || postFields.thumbnail || postFields.picture || postFields.cover;
   const imageUrl = toHttpsUrl(imageField?.fields?.file?.url)
-    ?? "https://images.unsplash.com/photo-1434082033009-b81d41d32e1c?q=80&w=2070&auto=format&fit=crop";
+    ?? "https://images.ctfassets.net/1daipl7z93ig/ZKSfLysHgXPAYYPfbDqT9/1a87cf72f401cdd63349b9c1f7750187/shumaker-roofing-company.jpg";
+  const imageWidth = (imageField?.fields?.file?.details?.image?.width as number) || 1200;
+  const imageHeight = (imageField?.fields?.file?.details?.image?.height as number) || 630;
 
   const dateObj = postFields.publishedDate
     ? new Date(postFields.publishedDate)
@@ -230,7 +232,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         "@type": "Article",
         "@id": `${SITE_URL}/blog/${slug}#article`,
         "headline": postFields.title as string,
-        "image": imageUrl,
+        "description": ((postFields.excerpt || postFields.description || postFields.summary || "") as string).trim(),
+        "image": {
+          "@type": "ImageObject",
+          "url": imageUrl,
+          "width": imageWidth,
+          "height": imageHeight,
+        },
         "url": `${SITE_URL}/blog/${slug}`,
         "datePublished": dateObj.toISOString(),
         "dateModified": new Date(rawPost.sys.updatedAt).toISOString(),
