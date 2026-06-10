@@ -49,12 +49,12 @@ const nextConfig = {
       },
       {
         source: '/roof-for-heroes-shumaker-roofings-commitment-to-veterans',
-        destination: '/roof-for-heroes',
+        destination: '/roofs-for-heroes',
         permanent: true,
       },
       {
-        source: '/roofs-for-heroes',
-        destination: '/roof-for-heroes',
+        source: '/roof-for-heroes',
+        destination: '/roofs-for-heroes',
         permanent: true,
       },
       {
@@ -183,6 +183,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/roof-repair-in-hagerstown-md',
+        destination: '/services/roof-repair',
+        permanent: true,
+      },
+      {
         source: '/roof-repair',
         destination: '/services/roof-repair',
         permanent: true,
@@ -254,7 +259,7 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/blog/the-7-main-parts-of-a-metal-roof',
+        source: '/the-7-main-parts-of-a-metal-roof',
         destination: '/blog',
         permanent: true,
       },
