@@ -18,6 +18,62 @@ import { deriveBlogSlug, slugify, toHttpsUrl, SITE_URL } from "@/lib/utils";
 
 const SITE_DOMAIN = "shumakerroofing.com";
 
+const MARKDOWN_LINK_REGEX = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
+const BARE_URL_REGEX = /(https?:\/\/[^\s]+)/g;
+
+function renderTextWithLinks(text: string) {
+  const result: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  // First pass: parse markdown links [label](url)
+  MARKDOWN_LINK_REGEX.lastIndex = 0;
+  while ((match = MARKDOWN_LINK_REGEX.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      result.push(...renderBareUrls(text.slice(lastIndex, match.index), result.length));
+    }
+    const [, label, href] = match;
+    const isInternal = href.includes(SITE_DOMAIN);
+    result.push(
+      <a
+        key={match.index}
+        href={href}
+        target={isInternal ? "_self" : "_blank"}
+        rel={isInternal ? undefined : "noopener noreferrer"}
+        className="text-primary underline underline-offset-2 hover:opacity-80 transition-opacity"
+      >
+        {label}
+      </a>
+    );
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    result.push(...renderBareUrls(text.slice(lastIndex), result.length));
+  }
+  return result;
+}
+
+function renderBareUrls(text: string, keyOffset: number): React.ReactNode[] {
+  const parts = text.split(BARE_URL_REGEX);
+  return parts.map((part, i) => {
+    if (/^https?:\/\//.test(part)) {
+      const isInternal = part.includes(SITE_DOMAIN);
+      return (
+        <a
+          key={keyOffset + i}
+          href={part}
+          target={isInternal ? "_self" : "_blank"}
+          rel={isInternal ? undefined : "noopener noreferrer"}
+          className="text-primary underline underline-offset-2 hover:opacity-80 transition-opacity"
+        >
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+}
+
 const richTextOptions: Options = {
   renderNode: {
     [INLINES.HYPERLINK]: (node, children) => {
@@ -216,6 +272,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     authorField?.fields?.image || authorField?.fields?.profilePicture;
   const authorAvatarUrl = toHttpsUrl(authorAvatar?.fields?.file?.url) ?? null;
 
+  // Build FAQ schema nodes if faqItems are linked on this post
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const faqItems: { question: string; answer: string }[] = (postFields.faqItems ?? [])
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map((item: any) => ({
+      question: (item?.fields?.question as string) ?? "",
+      answer: (item?.fields?.answer as string) ?? "",
+    }))
+    .filter((f: { question: string; answer: string }) => f.question && f.answer);
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@graph": [
@@ -265,6 +331,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         },
         ...(categories.length > 0 ? { "articleSection": categories.join(", ") } : {}),
       },
+      ...(faqItems.length > 0
+        ? [
+            {
+              "@type": "FAQPage",
+              "@id": `${SITE_URL}/blog/${slug}#faq`,
+              "mainEntity": faqItems.map((faq) => ({
+                "@type": "Question",
+                "name": faq.question,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": faq.answer,
+                },
+              })),
+            },
+          ]
+        : []),
     ],
   };
 
@@ -326,6 +408,32 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           {documentToReactComponents(postFields.content as any, richTextOptions)}
         </article>
       </Container>
+
+      {/* FAQ Section */}
+      {faqItems.length > 0 && (
+        <Container className="mt-12">
+          <div className="border border-border rounded-2xl overflow-hidden">
+            <div className="bg-muted/60 px-6 py-4 border-b border-border">
+              <h2 className="text-xl font-heading font-bold text-foreground">Frequently Asked Questions</h2>
+            </div>
+            <div className="divide-y divide-border">
+              {faqItems.map((faq, idx) => (
+                <details key={idx} className="group">
+                  <summary className="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer list-none select-none hover:bg-muted/40 transition-colors">
+                    <span className="font-semibold text-foreground">{faq.question}</span>
+                    <span className="shrink-0 text-muted-foreground transition-transform group-open:rotate-180">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </span>
+                  </summary>
+                  <div className="px-6 pb-5 pt-1 text-foreground/80 leading-relaxed text-sm">
+                    {renderTextWithLinks(faq.answer)}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </Container>
+      )}
 
       {/* About the Author — horizontal */}
       <Container className="mt-16">
