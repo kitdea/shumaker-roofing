@@ -229,7 +229,7 @@ export default async function Home() {
               </ul>
 
               <Button size="lg" asChild>
-                <Link href="/about">LEARN MORE</Link>
+                  <Link href="/about" className="uppercase font-bold">Learn More About Shumaker Roofing</Link>
               </Button>
             </div>
 

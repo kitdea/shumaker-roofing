@@ -95,9 +95,9 @@ export async function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-heading font-semibold text-white mb-6 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/2 after:h-0.5 after:bg-primary">
+            <h3 className="text-lg font-heading font-semibold text-white mb-6 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/2 after:h-0.5 after:bg-primary">
               Quick Links
-            </h4>
+            </h3>
             <ul className="flex flex-col gap-3">
               <li><Link href="/" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">Home</Link></li>
               <li><Link href="/about" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">About Us</Link></li>
@@ -110,9 +110,9 @@ export async function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="text-lg font-heading font-semibold text-white mb-6 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/2 after:h-0.5 after:bg-primary">
+            <h3 className="text-lg font-heading font-semibold text-white mb-6 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/2 after:h-0.5 after:bg-primary">
               Our Services
-            </h4>
+            </h3>
             <ul className="flex flex-col gap-3">
               {services.length > 0 ? (
                 services.map((service) => (
@@ -130,9 +130,9 @@ export async function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-lg font-heading font-semibold text-white mb-6 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/2 after:h-0.5 after:bg-primary">
+            <h3 className="text-lg font-heading font-semibold text-white mb-6 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/2 after:h-0.5 after:bg-primary">
               Get in Touch
-            </h4>
+            </h3>
             <ul className="flex flex-col gap-4">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
@@ -147,9 +147,9 @@ export async function Footer() {
                 <span className="text-secondary-foreground/70 text-sm">info@shumakerroofing.com</span>
               </li>
             </ul>
-            <h4 className="text-lg font-heading font-semibold text-white mt-6 mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/2 after:h-0.5 after:bg-primary">
+            <h3 className="text-lg font-heading font-semibold text-white mt-6 mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/2 after:h-0.5 after:bg-primary">
               MHIC License
-            </h4>
+            </h3>
             <ul className="flex flex-col gap-2 list-disc list-inside" aria-label="Contractor license numbers">
               {[
                 { number: "#4503", state: "MHIC" },
