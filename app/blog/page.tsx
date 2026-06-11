@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { client } from "@/lib/contentful";
-import { deriveBlogSlug, toHttpsUrl, SITE_URL } from "@/lib/utils";
+import { deriveBlogSlug, resolveBlogAuthor, toHttpsUrl, SITE_URL } from "@/lib/utils";
 import { BlogFilter, type BlogPost } from "./blog-filter";
 
 export const metadata: Metadata = {
@@ -134,12 +134,7 @@ export default async function BlogPage() {
       if (catName) categories.push(catName);
     }
 
-    const authorField =
-      post.author ||
-      post.creator ||
-      post.writer ||
-      post.publisher ||
-      post.Author;
+    const authorField = resolveBlogAuthor(post);
     const authorName =
       authorField?.fields?.name ||
       authorField?.fields?.fullName ||

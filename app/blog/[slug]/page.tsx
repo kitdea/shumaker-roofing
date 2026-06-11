@@ -14,7 +14,7 @@ import type { Options } from "@contentful/rich-text-react-renderer";
 import type { Hyperlink } from "@contentful/rich-text-types";
 import { fetchPageSeo } from "@/lib/seo";
 import { TwoColumnSection } from "@/components/shared/two-column-section";
-import { deriveBlogSlug, slugify, toHttpsUrl, SITE_URL } from "@/lib/utils";
+import { deriveBlogSlug, resolveBlogAuthor, slugify, toHttpsUrl, SITE_URL } from "@/lib/utils";
 
 const SITE_DOMAIN = "shumakerroofing.com";
 
@@ -255,9 +255,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     if (catName) categories.push(catName);
   }
 
-  const authorField =
-    postFields.author || postFields.creator || postFields.writer ||
-    postFields.publisher || postFields.Author;
+  const authorField = resolveBlogAuthor(postFields);
   const authorName =
     authorField?.fields?.name || authorField?.fields?.fullName ||
     authorField?.fields?.title || (typeof authorField === "string" ? authorField : "Shumaker Team");

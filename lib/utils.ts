@@ -37,6 +37,18 @@ export function deriveBlogSlug(fields: { slug?: unknown; title?: unknown }, id: 
   return (fields.slug as string) || (fields.title ? slugify(fields.title as string) : id);
 }
 
+/**
+ * Resolves the author entry from a blog source object, trying the various field
+ * names Contentful entries use. The `author` field is an Array of references —
+ * return the first one.
+ */
+export function resolveBlogAuthor(source: any) {
+  const raw =
+    source?.author || source?.creator || source?.writer ||
+    source?.publisher || source?.Author;
+  return Array.isArray(raw) ? raw[0] : raw;
+}
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()
