@@ -148,13 +148,18 @@ export async function fetchLocation(slug: string): Promise<ContentfulLocation | 
 
 // Fetch all locations — used for hub page, sitemap, and generateStaticParams
 export async function fetchAllLocations(): Promise<ContentfulLocation[]> {
-  const res = await client.getEntries({
-    content_type: 'location',
-    select: ['sys.updatedAt', 'fields.cityName', 'fields.slug', 'fields.state', 'fields.fullLocationName', 'fields.isActive'],
-    'fields.isActive': true,
-    order: ['fields.cityName'],
-    limit: 200,
-  })
+  try {
+    const res = await client.getEntries({
+      content_type: 'location',
+      select: ['sys.updatedAt', 'fields.cityName', 'fields.slug', 'fields.state', 'fields.fullLocationName', 'fields.isActive'],
+      'fields.isActive': true,
+      order: ['fields.cityName'],
+      limit: 200,
+    })
 
-  return res.items as unknown as ContentfulLocation[]
+    return res.items as unknown as ContentfulLocation[]
+  } catch (e) {
+    console.error('fetchAllLocations error:', e)
+    return []
+  }
 }

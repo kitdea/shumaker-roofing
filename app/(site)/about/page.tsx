@@ -157,14 +157,14 @@ export default async function AboutPage() {
     <div className="flex flex-col w-full">
       {/* Page Header */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-top">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://images.ctfassets.net/1daipl7z93ig/50iHJtfm4UkBWGmLs4hGLl/e585de4da3a67060c01a0478f6160df9/roof-replacement-in-frederick-md_002.jpg"
-            alt="Roofing working"
+            src="https://cdn.sanity.io/images/rg9pahe7/production/cdecd0427930485b643b38441e8540458a58fc26-4000x2250.jpg"
+            alt="Shumaker Roofing team"
             fill
             sizes="100vw"
-            className="object-cover opacity-50 mix-blend-overlay"
+            className="object-cover object-[center_20%] opacity-50 mix-blend-overlay"
             priority
           />
         </div>

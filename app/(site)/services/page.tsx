@@ -9,10 +9,9 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { fetchServicesForListing } from "@/lib/contentful";
+import { fetchServicesForListing } from "@/lib/sanity";
 import { CertificationsSection } from "@/components/shared/certifications-section";
-import { Document } from "@contentful/rich-text-types";
-import { slugify, getServiceIcon, SITE_URL } from "@/lib/utils";
+import { getServiceIcon, SITE_URL } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: { absolute: "Professional Roofing Services | Shumaker Roofing Company" },
@@ -65,45 +64,29 @@ const servicesPageSchema = {
 
 // Async data component streamed after the hero is painted
 async function ServicesGrid() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let services: any[] = [];
+  let services: Array<{ _id: string; title: string; slug?: { current: string }; excerpt?: string }> = [];
   try {
     const items = await fetchServicesForListing();
     services = [...items].sort((a, b) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const aTitle = ((a.fields as any).title as string) || "";
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const bTitle = ((b.fields as any).title as string) || "";
+      const aTitle = (a.title as string) || "";
+      const bTitle = (b.title as string) || "";
       return aTitle.localeCompare(bTitle);
     });
   } catch (e) {
-    console.error("Contentful fetch error:", e);
+    console.error("Sanity fetch error:", e);
   }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-      {services.map((item) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const service = item.fields as any;
+      {services.map((service) => {
         const title = service.title as string;
-        const urlSlug = title ? slugify(title) : item.sys.id;
-
-        const content = service.servicesContent as Document;
-        let descText = "";
-        if (content && content.content) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          descText = content.content.map((block: any) =>
-            block.nodeType === "paragraph" && block.content
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              ? block.content.map((n: any) => (n.nodeType === "text" ? n.value : "")).join("")
-              : ""
-          ).join(" ").trim().substring(0, 300);
-        }
+        const urlSlug = service.slug?.current ?? service._id;
+        const descText = ((service.excerpt as string) || "").trim().substring(0, 300);
 
         const Icon = getServiceIcon(title || "");
 
         return (
-          <Link href={"/services/" + urlSlug} key={item.sys.id} className="block group h-full">
+          <Link href={"/services/" + urlSlug} key={service._id} className="block group h-full">
             <Card className="border-border/50 shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col h-full">
               <div className="h-2 w-full bg-primary/20 group-hover:bg-primary transition-colors shrink-0" />
               <CardContent className="p-8 pt-8 flex-1 flex flex-col">

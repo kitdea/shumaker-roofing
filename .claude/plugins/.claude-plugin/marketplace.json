@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "local",
+  "description": "Local Shumaker Roofing plugins (SEO agents, tech audit)",
+  "owner": {
+    "name": "Shumaker Roofing"
+  },
+  "plugins": [
+    {
+      "name": "seo-agents",
+      "source": "./seo-agents"
+    },
+    {
+      "name": "website-technical-agent",
+      "source": "./website-technical-agent"
+    }
+  ]
+}
