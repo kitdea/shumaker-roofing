@@ -3,28 +3,13 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { INLINES } from "@contentful/rich-text-types";
-import type { Options } from "@contentful/rich-text-react-renderer";
-import type { Hyperlink } from "@contentful/rich-text-types";
+import { PortableText } from "@portabletext/react";
+import type { PortableTextComponents } from "@portabletext/react";
+import { portableTextLinkMark } from "@/components/shared/portable-text-link";
 
-const SITE_DOMAIN = "shumakerroofing.com";
-
-const richTextOptions: Options = {
-  renderNode: {
-    [INLINES.HYPERLINK]: (node, children) => {
-      const uri = (node as Hyperlink).data.uri as string;
-      const isExternal = uri.startsWith("http") && !uri.includes(SITE_DOMAIN);
-      return (
-        <a
-          href={uri}
-          target={isExternal ? "_blank" : "_self"}
-          rel={isExternal ? "noopener noreferrer" : undefined}
-        >
-          {children}
-        </a>
-      );
-    },
+const portableTextComponents: PortableTextComponents = {
+  marks: {
+    link: portableTextLinkMark,
   },
 };
 
@@ -57,7 +42,7 @@ function MemberCard({ member, onClick }: { member: TeamMember; onClick: () => vo
       className="bg-background rounded-xl overflow-hidden shadow-md border border-border/50 group cursor-pointer text-left w-full"
       aria-label={`View ${member.name}'s profile`}
     >
-      <div className="relative w-full aspect-[9/11] overflow-hidden bg-muted/50">
+      <div className="relative w-full aspect-square overflow-hidden bg-muted/50">
         <Image
           src={member.img}
           alt={member.name}
@@ -90,14 +75,23 @@ export function TeamGrid({ team, firstRowCount = 2 }: { team: TeamMember[]; firs
   const firstRow = team.slice(0, firstRowCount);
   const rest = team.slice(firstRowCount);
 
+  // Widths below are sized to exactly match the column width of the
+  // 3-column grid used for `rest`, so cards in both rows render at
+  // identical pixel sizes despite the first row using flex centering.
+  const cardWidthClasses = "w-full sm:w-[calc(50%-1rem)] md:w-[calc((100%-4rem)/3)]";
+
   return (
     <>
-      {/* First row: centered, 2 columns max */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-12 max-w-2xl mx-auto w-full">
-        {firstRow.map((member) => (
-          <MemberCard key={member.id} member={member} onClick={() => setSelectedMember(member)} />
-        ))}
-      </div>
+      {/* First row: centered, sized to match the grid below */}
+      {firstRow.length > 0 && (
+        <div className="flex flex-wrap justify-center gap-8 mt-12">
+          {firstRow.map((member) => (
+            <div key={member.id} className={cardWidthClasses}>
+              <MemberCard member={member} onClick={() => setSelectedMember(member)} />
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Remaining rows: 3 columns */}
       {rest.length > 0 && (
@@ -213,9 +207,9 @@ export function TeamGrid({ team, firstRowCount = 2 }: { team: TeamMember[]; firs
                   </div>
                 )}
                 <div className="w-12 h-1 bg-primary mb-4 rounded-full" />
-                <div className="text-foreground/70 leading-relaxed text-sm sm:text-base contentful-rich-text">
-                  {selectedMember.teamInfo && typeof selectedMember.teamInfo === "object"
-                    ? documentToReactComponents(selectedMember.teamInfo, richTextOptions)
+                <div className="text-foreground/70 leading-relaxed text-sm sm:text-base space-y-3">
+                  {Array.isArray(selectedMember.teamInfo)
+                    ? <PortableText value={selectedMember.teamInfo} components={portableTextComponents} />
                     : selectedMember.teamInfo}
                 </div>
               </div>

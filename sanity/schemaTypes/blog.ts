@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity'
+import { withTablePasteInput } from '../lib/table-paste'
 
 export const blog = defineType({
   name: 'blog',
@@ -16,6 +17,7 @@ export const blog = defineType({
       name: 'content',
       title: 'Content',
       type: 'array',
+      components: withTablePasteInput(),
       of: [
         { type: 'block' },
         {
@@ -26,6 +28,7 @@ export const blog = defineType({
             { name: 'caption', type: 'string', title: 'Caption' },
           ],
         },
+        { type: 'table' },
       ],
     }),
     defineField({

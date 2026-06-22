@@ -86,7 +86,7 @@ export default async function RoofsForHeroesPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://images.ctfassets.net/1daipl7z93ig/6cUde0TKpHGhgzGbgmRDSl/031e72a2d5cfcfc549056844625e1568/united-states-flag.jpg"
+            src="https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg"
             alt="American flag waving"
             fill
             sizes="100vw"

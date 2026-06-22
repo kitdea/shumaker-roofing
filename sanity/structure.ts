@@ -14,6 +14,7 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('certificationBadge').title('Certification Badges'),
       S.documentTypeListItem('projectSlide').title('Project Slides'),
       S.documentTypeListItem('jobPosting').title('Job Postings'),
+      S.documentTypeListItem('teamMember').title('Team Members'),
       S.divider(),
       ...S.documentTypeListItems().filter(
         (item) =>
@@ -27,6 +28,7 @@ export const structure: StructureResolver = (S) =>
             'certificationBadge',
             'projectSlide',
             'jobPosting',
+            'teamMember',
           ].includes(item.getId()!),
       ),
     ])

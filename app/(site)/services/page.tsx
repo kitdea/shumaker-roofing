@@ -9,7 +9,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { fetchServicesForListing } from "@/lib/sanity";
+import { fetchServicesForListing, type ServiceListItem } from "@/lib/sanity";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 import { getServiceIcon, SITE_URL } from "@/lib/utils";
 
@@ -64,14 +64,10 @@ const servicesPageSchema = {
 
 // Async data component streamed after the hero is painted
 async function ServicesGrid() {
-  let services: Array<{ _id: string; title: string; slug?: { current: string }; excerpt?: string }> = [];
+  let services: ServiceListItem[] = [];
   try {
     const items = await fetchServicesForListing();
-    services = [...items].sort((a, b) => {
-      const aTitle = (a.title as string) || "";
-      const bTitle = (b.title as string) || "";
-      return aTitle.localeCompare(bTitle);
-    });
+    services = [...items].sort((a, b) => (a.title ?? "").localeCompare(b.title ?? ""));
   } catch (e) {
     console.error("Sanity fetch error:", e);
   }
@@ -141,7 +137,7 @@ export default function ServicesPage() {
           <div className="absolute inset-0 z-0">
             <div className="w-full h-full bg-slate-900/70 absolute inset-0 z-10" />
             <Image
-              src="https://images.ctfassets.net/1daipl7z93ig/50iHJtfm4UkBWGmLs4hGLl/e585de4da3a67060c01a0478f6160df9/roof-replacement-in-frederick-md_002.jpg"
+              src="https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg"
               alt="Professional roofing contractors at work on a residential roof"
               fill
               sizes="100vw"

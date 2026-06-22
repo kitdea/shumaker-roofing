@@ -9,17 +9,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { fetchPageSeo } from "@/lib/seo";
 import { ProjectSlider } from "@/components/home/project-slider";
-import { fetchAllServices, fetchHeroBanner, fetchProjectSlides } from "@/lib/contentful";
+import { fetchServicesForListing, fetchHeroBanner, fetchProjectSlides } from "@/lib/sanity";
 import { CertificationsSection } from "@/components/shared/certifications-section";
-import { slugify, getServiceIcon, toHttpsUrl, SITE_URL } from "@/lib/utils";
-import { Document } from "@contentful/rich-text-types";
+import { getServiceIcon, SITE_URL } from "@/lib/utils";
 
 const FALLBACK_HERO_IMAGE_URL =
   "https://images.ctfassets.net/1daipl7z93ig/6Zx6z8OUj0MmaemuNBh4YE/337ca30394ff8cfbcf10defc0325c709/residential-roof-replacement-in-frederick-md_001_.jpg";
 
 export async function generateMetadata() {
   const hero = await fetchHeroBanner().catch(() => null);
-  const heroImageUrl = toHttpsUrl(hero?.backgroundImage?.fields?.file?.url) ?? FALLBACK_HERO_IMAGE_URL;
+  const heroImageUrl = hero?.backgroundImageUrl ?? FALLBACK_HERO_IMAGE_URL;
 
   return fetchPageSeo({
     fallbackTitle: "Roofing Contractor in Frederick MD | Shumaker Roofing",
@@ -87,14 +86,15 @@ const organizationSchema = {
 };
 
 export default async function Home() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  type ServiceCard = { _id: string; title: string; slug?: { current: string }; excerpt?: string };
+
   const [services, hero, projectSlides] = await Promise.all([
-    fetchAllServices().catch((): any[] => []),
+    fetchServicesForListing().catch((): ServiceCard[] => []) as Promise<ServiceCard[]>,
     fetchHeroBanner().catch(() => null),
     fetchProjectSlides().catch(() => []),
   ]);
 
-  const heroBgUrl = toHttpsUrl(hero?.backgroundImage?.fields?.file?.url) ?? FALLBACK_HERO_IMAGE_URL;
+  const heroBgUrl = hero?.backgroundImageUrl ?? FALLBACK_HERO_IMAGE_URL;
 
   return (
     <>
@@ -146,26 +146,13 @@ export default async function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
             {services.map((item) => {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const fields = item.fields as any;
-              const title = fields.title as string;
-              const href = `/services/${slugify(title)}`;
+              const title = item.title as string;
+              const href = `/services/${item.slug?.current ?? item._id}`;
               const Icon = getServiceIcon(title);
-
-              const content = fields.servicesContent as Document | undefined;
-              let desc = "";
-              if (content?.content) {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                desc = content.content.map((block: any) =>
-                  block.nodeType === "paragraph" && block.content
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    ? block.content.map((n: any) => (n.nodeType === "text" ? n.value : "")).join("")
-                    : ""
-                ).join(" ").trim().substring(0, 200);
-              }
+              const desc = ((item.excerpt as string) || "").trim().substring(0, 200);
 
               return (
-                <Link href={href} key={item.sys.id} className="block group h-full">
+                <Link href={href} key={item._id} className="block group h-full">
                   <Card className="border-border/50 shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col h-full">
                     <div className="h-2 w-full bg-primary/20 group-hover:bg-primary transition-colors shrink-0" />
                     <CardContent className="p-8 pt-8 flex-1 flex flex-col">
@@ -235,7 +222,7 @@ export default async function Home() {
 
             <div className="relative h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                  src="https://images.ctfassets.net/1daipl7z93ig/6FfGgVIoAPZ2FWbh9PrG93/2e5f8d3e0a0f1b883fbdf7b3dd35842a/shumaker-roofing-company.jpg"
+                  src="https://cdn.sanity.io/images/rg9pahe7/production/b9f43146aaeedf62d5e94e2b29f409f70492cf49-2052x1540.jpg"
                 alt="Shumaker Roofing Company"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

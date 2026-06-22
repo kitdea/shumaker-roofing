@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
-import { client, fetchAllLocations } from '@/lib/contentful';
-import { slugify, SITE_URL } from '@/lib/utils';
+import { fetchAllBlogPosts, fetchServiceSlugs, fetchAllLocations } from '@/lib/sanity';
+import { SITE_URL } from '@/lib/utils';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_URL;
@@ -11,32 +11,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let locationUrls: MetadataRoute.Sitemap = [];
 
   try {
-    const [blogsRes, servicesRes, locations] = await Promise.all([
-      client.getEntries({ content_type: 'blog' }),
-      client.getEntries({ content_type: 'services' }),
+    const [blogs, services, locations] = await Promise.all([
+      fetchAllBlogPosts(),
+      fetchServiceSlugs(),
       fetchAllLocations(),
     ]);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    blogEntries = blogsRes.items.map((item: any) => ({
-      url: `${baseUrl}/blog/${item.fields.title ? slugify(item.fields.title as string) : item.sys.id}`,
-      lastModified: new Date(item.sys.updatedAt),
+    blogEntries = blogs.map((item) => ({
+      url: `${baseUrl}/blog/${item.slug?.current ?? item._id}`,
+      lastModified: new Date(item._updatedAt ?? Date.now()),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    serviceEntries = servicesRes.items.map((item: any) => ({
-      url: `${baseUrl}/services/${item.fields.title ? slugify(item.fields.title as string) : item.sys.id}`,
-      lastModified: new Date(item.sys.updatedAt),
+    serviceEntries = services.map((item) => ({
+      url: `${baseUrl}/services/${item.slug?.current ?? item._id}`,
+      lastModified: new Date(item._updatedAt ?? Date.now()),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     }));
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    locationUrls = locations.map((loc: any) => ({
-      url: `${baseUrl}/service-areas/${loc.fields.slug}/`,
-      lastModified: new Date(loc.sys.updatedAt),
+    locationUrls = locations.map((loc) => ({
+      url: `${baseUrl}/service-areas/${loc.slug}/`,
+      lastModified: new Date(loc._updatedAt ?? Date.now()),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     }));

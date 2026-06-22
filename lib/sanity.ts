@@ -9,13 +9,48 @@ const splitSectionsProjection = `"splitSections": splitSection[]->{
       splitImage
     }`
 
+export type SplitSectionItem = {
+  id: string
+  splitTitle: string
+  splitDescription: string | null
+  imageUrl: string | null
+}
+
+export function mapSplitSections(
+  sections: Array<{ _id: string; splitTitle?: string; splitDescription?: string | null; splitImage?: unknown }> | undefined
+): SplitSectionItem[] {
+  return (sections ?? []).map((item) => ({
+    id: item._id,
+    splitTitle: item.splitTitle ?? '',
+    splitDescription: item.splitDescription ?? null,
+    imageUrl: urlFor(item.splitImage) ?? null,
+  }))
+}
+
 // ─── Services ─────────────────────────────────────────────────────────────────
 
-export const fetchAllServices = cache(async function fetchAllServices() {
-  return sanityClient.fetch(`*[_type == "services"] | order(_createdAt asc)`)
+export type ServiceSlugItem = {
+  _id: string
+  _updatedAt?: string
+  title?: string
+  slug?: { current?: string }
+}
+
+// Lean projection for nav/footer/sitemap/location lookups that only need the slug.
+export const fetchServiceSlugs = cache(async function fetchServiceSlugs(): Promise<ServiceSlugItem[]> {
+  return sanityClient.fetch(`*[_type == "services"]{
+    _id,
+    _updatedAt,
+    title,
+    slug
+  } | order(title asc)`)
 })
 
-export const fetchServicesForListing = cache(async function fetchServicesForListing() {
+export type ServiceListItem = ServiceSlugItem & {
+  excerpt?: string
+}
+
+export const fetchServicesForListing = cache(async function fetchServicesForListing(): Promise<ServiceListItem[]> {
   return sanityClient.fetch(`*[_type == "services"]{
     _id,
     _updatedAt,
@@ -75,7 +110,7 @@ export const fetchCertificationBadges = cache(async function fetchCertificationB
   }`)
   return (badges as Array<{ _id: string; badgeName?: string; logoImage?: unknown }>)
     .map((b) => {
-      const logoUrl = urlFor(b.logoImage as never)
+      const logoUrl = urlFor(b.logoImage)
       if (!logoUrl) return null
       return { id: b._id, name: b.badgeName ?? '', logoUrl }
     })
@@ -94,7 +129,7 @@ export const fetchProjectSlides = cache(async function fetchProjectSlides() {
   }`)
   return (slides as Array<{ _id: string; title?: string; image?: unknown }>)
     .map((s) => {
-      const src = urlFor(s.image as never)
+      const src = urlFor(s.image)
       if (!src) return null
       return { id: s._id, src, alt: s.title ?? 'Roofing project', caption: s.title ?? '' }
     })
@@ -136,11 +171,66 @@ export const fetchJobPostings = cache(async function fetchJobPostings() {
   }))
 })
 
+// ─── Team Members ─────────────────────────────────────────────────────────────
+// Shape matches lib/contentful.ts team fetch in app/about/page.tsx
+
+export const fetchTeamMembers = cache(async function fetchTeamMembers() {
+  const members = await sanityClient.fetch(`*[_type == "teamMember"] | order(displayOrder asc){
+    _id,
+    fullName,
+    jobPosition,
+    teamThumbnail,
+    teamInfo,
+    email,
+    socialMedia,
+    phoneNumber,
+    salesmanTag,
+    retired
+  }`)
+  return (members as Array<{
+    _id: string
+    fullName?: string
+    jobPosition?: string
+    teamThumbnail?: unknown
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    teamInfo?: any
+    email?: string
+    socialMedia?: string
+    phoneNumber?: string
+    salesmanTag?: string
+    retired?: boolean
+  }>).map((m) => ({
+    id: m._id,
+    name: m.fullName || 'Team Member',
+    role: m.jobPosition || 'Staff',
+    img: urlFor(m.teamThumbnail) ?? '',
+    teamInfo: m.teamInfo,
+    email: m.email,
+    socialMedia: m.socialMedia,
+    phoneNumber: m.phoneNumber,
+    salesmanTag: m.salesmanTag,
+    retired: m.retired ?? false,
+  }))
+})
+
 // ─── Blog ─────────────────────────────────────────────────────────────────────
 
-export const fetchAllBlogPosts = cache(async function fetchAllBlogPosts() {
+export type BlogListItem = {
+  _id: string
+  _updatedAt?: string
+  title?: string
+  slug?: { current: string }
+  publishedDate?: string
+  featuredImage?: unknown
+  categories?: string[]
+  author?: string
+  excerpt?: string
+}
+
+export const fetchAllBlogPosts = cache(async function fetchAllBlogPosts(): Promise<BlogListItem[]> {
   return sanityClient.fetch(`*[_type == "blog"] | order(publishedDate desc){
     _id,
+    _updatedAt,
     title,
     slug,
     publishedDate,
@@ -154,6 +244,7 @@ export const fetchAllBlogPosts = cache(async function fetchAllBlogPosts() {
 export const fetchBlogPostBySlug = cache(async function fetchBlogPostBySlug(slug: string) {
   return sanityClient.fetch(`*[_type == "blog" && slug.current == $slug][0]{
     _id,
+    _createdAt,
     _updatedAt,
     title,
     slug,
@@ -176,7 +267,17 @@ export const fetchAllBlogSlugs = cache(async function fetchAllBlogSlugs() {
 // ─── Locations (Service Areas) ────────────────────────────────────────────────
 // Shape matches lib/contentful.ts fetchAllLocations() / fetchLocation()
 
-export const fetchAllLocations = cache(async function fetchAllLocations() {
+export type LocationListItem = {
+  _id: string
+  _updatedAt?: string
+  cityName?: string
+  slug?: string
+  state?: string
+  fullLocationName?: string
+  isActive?: boolean
+}
+
+export const fetchAllLocations = cache(async function fetchAllLocations(): Promise<LocationListItem[]> {
   return sanityClient.fetch(`*[_type == "location" && isActive == true]{
     _id,
     _updatedAt,
@@ -188,7 +289,24 @@ export const fetchAllLocations = cache(async function fetchAllLocations() {
   } | order(cityName asc)`)
 })
 
-export const fetchLocationBySlug = cache(async function fetchLocationBySlug(slug: string) {
+export type LocationDetail = {
+  _id: string
+  cityName?: string
+  slug?: string
+  state?: string
+  fullLocationName?: string
+  isActive?: boolean
+  heroHeadline?: string
+  introText?: string
+  servicesOffered?: string[]
+  faqItems?: { question?: string; answer?: string }[]
+  phoneNumber?: string
+  latitude?: number
+  longitude?: number
+  seo?: { seoDescription?: string }
+}
+
+export const fetchLocationBySlug = cache(async function fetchLocationBySlug(slug: string): Promise<LocationDetail | null> {
   return sanityClient.fetch(`*[_type == "location" && slug.current == $slug][0]{
     _id,
     cityName,

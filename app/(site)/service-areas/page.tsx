@@ -8,9 +8,9 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { fetchAllLocations } from "@/lib/contentful";
+import { fetchAllLocations, type LocationListItem } from "@/lib/sanity";
 import { CertificationsSection } from "@/components/shared/certifications-section";
-import { SITE_URL } from "@/lib/utils";
+import { SITE_URL, stateDisplayName } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: { absolute: "Licensed Roofing Service Areas | Shumaker Roofing Company" },
@@ -65,8 +65,8 @@ export default async function ServiceAreasPage() {
   const locations = await fetchAllLocations();
 
   // Group by state
-  const byState = locations.reduce<Record<string, typeof locations>>((acc, loc) => {
-    const state = loc.fields.state || "Other";
+  const byState = locations.reduce<Record<string, LocationListItem[]>>((acc, loc) => {
+    const state = loc.state || "Other";
     if (!acc[state]) acc[state] = [];
     acc[state].push(loc);
     return acc;
@@ -86,7 +86,7 @@ export default async function ServiceAreasPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70 absolute inset-0 z-10" />
           <Image
-            src="https://images.ctfassets.net/1daipl7z93ig/50iHJtfm4UkBWGmLs4hGLl/e585de4da3a67060c01a0478f6160df9/roof-replacement-in-frederick-md_002.jpg"
+              src="https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg"
             alt="Aerial view of a neighborhood roof Shumaker Roofing serves"
             fill
             sizes="100vw"
@@ -114,12 +114,12 @@ export default async function ServiceAreasPage() {
           ) : (
             states.map((state) => (
               <div key={state} className="mb-16 last:mb-0">
-                <SectionHeader title={state} subtitle="Serving" align="left" />
+                <SectionHeader title={stateDisplayName(state)} subtitle="Serving" align="left" />
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {byState[state].map((loc) => (
                     <Link
-                      key={loc.sys.id}
-                      href={`/service-areas/${loc.fields.slug}`}
+                      key={loc._id}
+                      href={`/service-areas/${loc.slug}`}
                       className="block group"
                     >
                       <Card className="border-border/50 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden h-full">
@@ -130,9 +130,9 @@ export default async function ServiceAreasPage() {
                           </div>
                           <div className="flex-1 min-w-0">
                             <h2 className="text-lg font-heading font-bold text-foreground group-hover:text-primary transition-colors truncate">
-                              {loc.fields.fullLocationName || loc.fields.cityName}
+                              {loc.fullLocationName || loc.cityName}
                             </h2>
-                            <p className="text-sm text-foreground/60 mt-0.5">{loc.fields.state}</p>
+                            <p className="text-sm text-foreground/60 mt-0.5">{stateDisplayName(loc.state ?? "")}</p>
                           </div>
                           <ArrowRight className="h-4 w-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-1" />
                         </CardContent>

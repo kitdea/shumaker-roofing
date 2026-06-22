@@ -5,8 +5,8 @@ import Image from "next/image";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { CheckCircle2 } from "lucide-react";
-import { client } from "@/lib/contentful";
-import { toHttpsUrl, SITE_URL } from "@/lib/utils";
+import { fetchTeamMembers } from "@/lib/sanity";
+import { SITE_URL } from "@/lib/utils";
 import { TeamGrid } from "./team-grid";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 
@@ -61,38 +61,9 @@ const aboutPageSchema = {
 };
 
 export default async function AboutPage() {
-  type ContentfulMember = {
-    sys: {
-      id: string;
-    };
-    fields: {
-      fullName?: string;
-      jobPosition?: string;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      teamInfo?: any;
-      email?: string;
-      socialMedia?: string;
-      phoneNumber?: string | number;
-      salesmanTag?: string;
-      teamThumbnail?: {
-        fields: {
-          file: {
-            url: string;
-          };
-        };
-      };
-    };
-  };
-
-  let dynamicTeamMembers: ContentfulMember[] = [];
+  let dynamicTeamMembers: Awaited<ReturnType<typeof fetchTeamMembers>> = [];
   try {
-    const response = await client.getEntries({ content_type: 'team' });
-    if (response.items.length > 0) {
-      dynamicTeamMembers = response.items as unknown as ContentfulMember[];
-    } else {
-      const res2 = await client.getEntries({ content_type: 'teamMember' });
-      dynamicTeamMembers = res2.items as unknown as ContentfulMember[];
-    }
+    dynamicTeamMembers = await fetchTeamMembers();
   } catch (err) {
     console.error("Failed to fetch team members:", err);
   }
@@ -126,26 +97,10 @@ export default async function AboutPage() {
     });
 
   const displayTeam = sortTeam(
-    dynamicTeamMembers.length > 0
-      ? dynamicTeamMembers.map((member) => {
-          const fields = member.fields;
-          const imageUrl = toHttpsUrl(fields.teamThumbnail?.fields?.file?.url)
-            ?? "";
-          const name = fields.fullName || "Team Member";
-          return {
-            id: member.sys.id,
-            name,
-            role: fields.jobPosition || "Staff",
-            img: imageUrl,
-            teamInfo: fields.teamInfo || "A dedicated professional at Shumaker Roofing, committed to providing top-quality service, ensuring safety, and upholding our core values of integrity and excellence in every project.",
-            email: fields.email,
-            socialMedia: fields.socialMedia,
-            phoneNumber: fields.phoneNumber,
-            salesmanTag: fields.salesmanTag,
-            retired: normalizeName(name) === "terree long",
-          };
-        })
-      : []
+    dynamicTeamMembers.map((member) => ({
+      ...member,
+      teamInfo: member.teamInfo || "A dedicated professional at Shumaker Roofing, committed to providing top-quality service, ensuring safety, and upholding our core values of integrity and excellence in every project.",
+    }))
   );
 
   return (

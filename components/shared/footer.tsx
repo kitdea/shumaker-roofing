@@ -1,20 +1,16 @@
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { Home, Phone, Mail, MapPin } from "lucide-react";
-import { client } from "@/lib/contentful";
-import { slugify } from "@/lib/utils";
+import { fetchServiceSlugs } from "@/lib/sanity";
+import { shortenServiceName } from "@/lib/utils";
 
 async function getServices() {
   try {
-    const response = await client.getEntries({ content_type: "services" });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (response.items || []).map((item: any) => {
-      const title = item.fields.title as string;
-      return {
-        title: title === "Commercial Flat & Low Slope Roofing Restoration" ? "Commercial" : title,
-        slug: title ? slugify(title) : item.sys.id,
-      };
-    });
+    const items = await fetchServiceSlugs();
+    return items.map((item) => ({
+      title: shortenServiceName(item.title ?? ""),
+      slug: item.slug?.current ?? item._id,
+    }));
   } catch {
     return [];
   }
@@ -101,7 +97,9 @@ export async function Footer() {
             <ul className="flex flex-col gap-3">
               <li><Link href="/" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">Home</Link></li>
               <li><Link href="/about" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">About Us</Link></li>
+              <li><Link href="/careers" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">Careers</Link></li>
               <li><Link href="/services" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">Services</Link></li>
+              <li><Link href="/projects" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">Projects</Link></li>
               <li><Link href="/faqs" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">FAQs</Link></li>
               <li><Link href="/blog" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">Blog</Link></li>
               <li><Link href="/contact" className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">Contact Us</Link></li>

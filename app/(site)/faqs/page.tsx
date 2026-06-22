@@ -152,7 +152,7 @@ export default async function FaqsPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://images.unsplash.com/photo-1632823471565-1ecdf5c6da11?q=80&w=2070&auto=format&fit=crop"
+            src="https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg"
             alt="Roofing professionals at work"
             fill
             sizes="100vw"

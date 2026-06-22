@@ -4,8 +4,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
-import { client } from "@/lib/contentful";
-import { deriveBlogSlug, resolveBlogAuthor, toHttpsUrl, SITE_URL } from "@/lib/utils";
+import { fetchAllBlogPosts, type BlogListItem } from "@/lib/sanity";
+import { urlFor } from "@/lib/sanity-image";
+import { SITE_URL, FALLBACK_BLOG_IMAGE, formatLongDate } from "@/lib/utils";
 import { BlogFilter, type BlogPost } from "./blog-filter";
 
 export const metadata: Metadata = {
@@ -69,94 +70,27 @@ function buildBlogSchema(posts: BlogPost[]) {
   };
 }
 
-const FALLBACK_IMAGE =
-  "https://images.ctfassets.net/1daipl7z93ig/50iHJtfm4UkBWGmLs4hGLl/e585de4da3a67060c01a0478f6160df9/roof-replacement-in-frederick-md_002.jpg"
-
 export default async function BlogPage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let rawPosts: any[] = [];
+  let rawPosts: BlogListItem[] = [];
   try {
-    const response = await client.getEntries({
-      content_type: "blog",
-      order: ["-fields.date"],
-    });
-    rawPosts = response.items;
+    rawPosts = await fetchAllBlogPosts();
   } catch (err) {
     console.error("Failed to fetch blog posts:", err);
   }
 
-  // Serialize into plain objects — safe to pass to a Client Component
-  const posts: BlogPost[] = rawPosts.map((item) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const post = item.fields as any;
-
-    const imageField =
-      post.featuredImage ||
-      post.image ||
-      post.coverImage ||
-      post.heroImage ||
-      post.thumbnail ||
-      post.picture ||
-      post.cover;
-    const imageUrl =
-      toHttpsUrl(imageField?.fields?.file?.url) ?? FALLBACK_IMAGE;
-
-    const dateObj = post.publishedDate
-      ? new Date(post.publishedDate)
-      : post.date
-      ? new Date(post.date)
-      : new Date(item.sys.createdAt);
-    const formattedDate = dateObj.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    });
-
-    let categories: string[] = [];
-    const categoriesField = post.categories || post.category;
-    if (Array.isArray(categoriesField)) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      categories = categoriesField
-        .map(
-          (cat: any) =>
-            cat?.fields?.name ||
-            cat?.fields?.title ||
-            cat?.fields?.category ||
-            (typeof cat === "string" ? cat : "")
-        )
-        .filter(Boolean);
-    } else if (categoriesField) {
-      const catName =
-        categoriesField?.fields?.name ||
-        categoriesField?.fields?.title ||
-        categoriesField?.fields?.category ||
-        (typeof categoriesField === "string" ? categoriesField : "");
-      if (catName) categories.push(catName);
-    }
-
-    const authorField = resolveBlogAuthor(post);
-    const authorName =
-      authorField?.fields?.name ||
-      authorField?.fields?.fullName ||
-      authorField?.fields?.title ||
-      (typeof authorField === "string" ? authorField : "Shumaker Team");
-
-    const description =
-      typeof post.description === "string"
-        ? post.description
-        : typeof post.excerpt === "string"
-        ? post.excerpt
-        : "Click to read more about this topic in our detailed insights article.";
+  const posts: BlogPost[] = rawPosts.map((post) => {
+    const imageUrl = urlFor(post.featuredImage) ?? FALLBACK_BLOG_IMAGE;
+    const formattedDate = formatLongDate(post.publishedDate ? new Date(post.publishedDate) : new Date());
 
     return {
-      id: item.sys.id,
-      slug: deriveBlogSlug(post, item.sys.id),
-      title: (post.title as string) || "Untitled",
-      description,
+      id: post._id,
+      slug: post.slug?.current ?? post._id,
+      title: post.title || "Untitled",
+      description: post.excerpt || "Click to read more about this topic in our detailed insights article.",
       imageUrl,
       formattedDate,
-      authorName,
-      categories,
+      authorName: post.author || "Shumaker Team",
+      categories: post.categories ?? [],
     };
   });
 
@@ -179,7 +113,7 @@ export default async function BlogPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src={FALLBACK_IMAGE}
+            src={FALLBACK_BLOG_IMAGE}
             alt="Blog"
             fill
             sizes="100vw"

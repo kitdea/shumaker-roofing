@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { fetchServiceBySlug } from "@/lib/sanity";
+import { fetchServiceBySlug, mapSplitSections } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity-image";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextComponents } from "@portabletext/react";
@@ -15,20 +15,15 @@ import { TwoColumnSection } from "@/components/shared/two-column-section";
 import { WhyChooseUs } from "@/components/shared/why-choose-us";
 import { SITE_URL } from "@/lib/utils";
 import { VeluxWidget } from "@/components/shared/velux-widget";
-
-const SITE_DOMAIN = "shumakerroofing.com";
+import { PortableTextTable } from "@/components/shared/portable-text-table";
+import { portableTextLinkMark } from "@/components/shared/portable-text-link";
 
 const portableTextComponents: PortableTextComponents = {
   marks: {
-    link: ({ value, children }) => {
-      const href = value?.href ?? "";
-      const isExternal = href.startsWith("http") && !href.includes(SITE_DOMAIN);
-      return (
-        <a href={href} target={isExternal ? "_blank" : "_self"} rel={isExternal ? "noopener noreferrer" : undefined}>
-          {children}
-        </a>
-      );
-    },
+    link: portableTextLinkMark,
+  },
+  types: {
+    table: ({ value }) => <PortableTextTable rows={value?.rows} />,
   },
 };
 
@@ -63,18 +58,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
     notFound();
   }
 
-  const splitSections = (service.splitSections ?? []) as Array<{
-    _id: string;
-    splitTitle?: string;
-    splitDescription?: string | null;
-    splitImage?: unknown;
-  }>;
-  const twoColumnData = splitSections.map((item) => ({
-    id: item._id,
-    splitTitle: item.splitTitle ?? "",
-    splitDescription: item.splitDescription ?? null,
-    imageUrl: urlFor(item.splitImage as never) ?? null,
-  }));
+  const twoColumnData = mapSplitSections(service.splitSections);
 
   const additionalContent = service.additionalContent ?? null;
   const imageUrl = urlFor(service.servicesImage) ?? null;
