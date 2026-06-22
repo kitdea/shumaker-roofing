@@ -1,4 +1,4 @@
-import { fetchCertificationBadges } from "@/lib/contentful";
+import { fetchCertificationBadges } from "@/lib/sanity";
 import { LogoSlider } from "@/components/home/logo-slider";
 
 export async function CertificationsSection() {

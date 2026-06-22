@@ -20,6 +20,36 @@ export function toHttpsUrl(url: string | undefined): string | undefined {
 }
 
 export const SITE_URL = "https://shumakerroofing.com";
+export const SITE_DOMAIN = "shumakerroofing.com";
+export const FALLBACK_BLOG_IMAGE =
+  "https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg";
+
+export function isExternalLink(href: string): boolean {
+  return href.startsWith("http") && !href.includes(SITE_DOMAIN);
+}
+
+export function formatLongDate(date: Date): string {
+  return date.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+export function shortenServiceName(title: string): string {
+  return title === "Commercial Flat & Low Slope Roofing Restoration" ? "Commercial" : title;
+}
+
+const STATE_NAMES: Record<string, string> = {
+  MD: "Maryland",
+  VA: "Virginia",
+  PA: "Pennsylvania",
+  WV: "West Virginia",
+};
+
+export function stateDisplayName(state: string): string {
+  return STATE_NAMES[state] ?? state;
+}
 
 export function getServiceIcon(title: string) {
   const t = title.toLowerCase();

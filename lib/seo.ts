@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { toHttpsUrl, SITE_URL } from "@/lib/utils";
+import { urlFor as sanityUrlFor } from "@/lib/sanity-image";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -46,15 +47,18 @@ export function resolveSeoMetadata(fields: any): ResolvedSeoMetadata | null {
     }
   }
 
-  if (!seoRef?.fields) {
+  if (!seoRef) {
     return null;
   }
 
+  // Contentful nests fields under `.fields`; Sanity's seo object is already flat.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const seo: any = seoRef.fields;
+  const seo: any = seoRef.fields ?? seoRef;
 
-  const rawImageUrl: string | undefined = seo.featuredImage?.fields?.file?.url;
-  const featuredImageUrl = toHttpsUrl(rawImageUrl);
+  const rawContentfulImageUrl: string | undefined = seo.featuredImage?.fields?.file?.url;
+  const featuredImageUrl = rawContentfulImageUrl
+    ? toHttpsUrl(rawContentfulImageUrl)
+    : sanityUrlFor(seo.featuredImage);
 
   // Try multiple possible API field ID variations for boolean flags
   const noIndex = Boolean(seo.noindex ?? seo.noIndex ?? seo.hidePage ?? false);
