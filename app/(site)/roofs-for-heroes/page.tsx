@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
-import { CheckCircle2, Heart, Home, Users, ClipboardList, Phone, FileText } from "lucide-react";
+import { CheckCircle2, Heart, Home, Users, ClipboardList, Phone, Medal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { CertificationsSection } from "@/components/shared/certifications-section";
@@ -259,7 +259,7 @@ export default async function RoofsForHeroesPage() {
         <Container>
           <div className="text-center">
             <div className="bg-slate-900 rounded-2xl p-12 flex flex-col items-center gap-6 max-w-2xl mx-auto">
-              <FileText className="h-10 w-10 text-primary" />
+              <Medal className="h-10 w-10 text-primary" />
               <h3 className="text-2xl font-heading font-bold text-white">
                 Ready to Nominate a Veteran?
               </h3>
