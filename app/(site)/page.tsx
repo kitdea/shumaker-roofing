@@ -113,7 +113,9 @@ export default async function Home() {
             fill
             sizes="100vw"
             className="object-cover opacity-60 mix-blend-overlay"
+            quality={60}
             priority
+            fetchPriority="high"
           />
         </div>
 

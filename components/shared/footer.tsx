@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Script from "next/script";
 import { Container } from "@/components/shared/container";
 import { Home, Phone, Mail, MapPin } from "lucide-react";
 import { fetchServiceSlugs } from "@/lib/sanity";
@@ -173,6 +174,12 @@ export async function Footer() {
           </div>
         </div>
       </Container>
+      <Script
+        src="https://widgets.leadconnectorhq.com/loader.js"
+        data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+        data-widget-id="69b4bc502e3176149257552e"
+        strategy="lazyOnload"
+      />
     </footer>
   );
 }
