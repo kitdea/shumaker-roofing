@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { cn, SITE_URL } from "@/lib/utils";
 
@@ -69,10 +70,14 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://cdn.sanity.io" />
-        <link rel="preconnect" href="https://images.ctfassets.net" />
+        
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased flex flex-col", inter.variable, montserrat.variable)}>
         {children}
+        <Script
+          src="//cdn.callrail.com/companies/225471548/622609537a81b32b2734/12/swap.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

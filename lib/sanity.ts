@@ -303,7 +303,7 @@ export type LocationDetail = {
   phoneNumber?: string
   latitude?: number
   longitude?: number
-  seo?: { seoDescription?: string }
+  seo?: { seoDescription?: string; featuredImage?: unknown }
 }
 
 export const fetchLocationBySlug = cache(async function fetchLocationBySlug(slug: string): Promise<LocationDetail | null> {

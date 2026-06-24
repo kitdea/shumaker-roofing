@@ -86,7 +86,7 @@ export default async function ServiceAreasPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70 absolute inset-0 z-10" />
           <Image
-              src="https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg"
+              src="https://cdn.sanity.io/images/rg9pahe7/production/b9f43146aaeedf62d5e94e2b29f409f70492cf49-2052x1540.jpg"
             alt="Aerial view of a neighborhood roof Shumaker Roofing serves"
             fill
             sizes="100vw"
