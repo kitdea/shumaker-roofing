@@ -1,33 +1,31 @@
-# Technical SEO Report — 2026-06-08 06:40 UTC
+# Technical SEO Report — 2026-06-24 03:20 UTC
 
 | Check | URL | Finding | Severity |
 |-------|-----|---------|----------|
-| robots.txt | /robots.txt | Returns 200, contains `Sitemap:` directive (now correctly points to non-www `https://shumakerroofing.com/sitemap.xml`, matching the canonical domain), no Disallow on critical paths — issue from prior run resolved | — |
-| Sitemap validity | sitemap.xml | All 26 URLs return 200 and all have `<lastmod>` present | — |
-| og:image | / | Missing `<meta property="og:image">` | P2 |
-| og:image | /about | Missing `<meta property="og:image">` | P2 |
-| og:image | /services | Missing `<meta property="og:image">` | P2 |
-| og:image | /blog | Missing `<meta property="og:image">` | P2 |
-| og:image | /contact | Missing `<meta property="og:image">` | P2 |
-| og:image | /book-appointment | Missing `<meta property="og:image">` | P2 |
-| og:image | /service-areas/ | Missing `<meta property="og:image">` | P2 |
-| og:image | /service-areas/chambersburg-pa, /frederick-md, /hagerstown-md, /reston-va | Missing `<meta property="og:image">` on all 4 location pages | P2 |
-| JSON-LD schema | / | LocalBusiness/RoofingContractor schema present with name, address, telephone — valid (resolved from prior "no schema" finding) | — |
-| JSON-LD schema | /services/[slug] (all 11) | Service schema present with name + provider/description — valid | — |
-| JSON-LD schema | /blog/[slug] (all 4) | Article schema present with headline, author, datePublished — valid (resolves prior S-007 "not confirmed") | — |
-| JSON-LD schema | /service-areas/[slug] (all 4) | LocalBusiness + FAQPage (mainEntity array populated) + ItemList present and valid | — |
-| JSON-LD schema | /services, /blog, /contact, /book-appointment | BreadcrumbList + WebPage/Blog/ContactPage schema present — counts as schema present (resolves prior "no JSON-LD" findings for /services, /blog, /contact) | — |
-| JSON-LD schema | /about, /service-areas/ | No JSON-LD block detected | P2 |
-| Canonical tags | All 26 pages | Present and self-referential, matches expected path (no www/non-www mismatch; trailing-slash location & service-areas-index URLs canonicalize correctly to non-trailing-slash form) | — |
-| Duplicate titles / duplicate content | /blog/roof-replacement-tax-credit-2026 (linked, not in sitemap) vs. /blog/roof-replacement-tax-credit-2026-what-homeowners-need-to-know (in sitemap) | Both URLs serve identical content with identical `<title>` "Roof Replacement Tax Credit: What Homeowners Need To Know" but each self-canonicalizes — true duplicate-content pair, splits ranking signals | P2 |
-| Duplicate titles / duplicate content | /blog/best-roofing-contractors-in-frederick-md (linked, not in sitemap) vs. /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice (in sitemap) | Identical content/title "The Best Roofing Contractors in Frederick MD \| Roof Repair", each self-canonicalizes — duplicate-content pair | P2 |
-| Duplicate titles / duplicate content | /blog/common-winter-roof-damage-issues-and-how-to-prevent-them (linked, not in sitemap) vs. /blog/three-common-winter-roof-damage-issues-how-to-prevent-them (in sitemap) | Identical content/title "Winter Roof Damage: Three Issues & Prevention Tips", each self-canonicalizes — duplicate-content pair | P2 |
-| Orphaned pages | /blog/roof-replacement-tax-credit-2026-what-homeowners-need-to-know | Zero inbound internal links — the `/blog` listing page links to the short Contentful-`slug` URL instead, leaving this sitemap URL orphaned | P2 |
-| Orphaned pages | /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | Zero inbound internal links — same root cause (listing page links to short Contentful-`slug` URL) | P2 |
-| Orphaned pages | /blog/three-common-winter-roof-damage-issues-how-to-prevent-them | Zero inbound internal links — same root cause | P2 |
-
-**Noindex check:** No `noindex` directives detected on any of the 26 pages (all serve `index, follow`) — clean, omitted from table.
-
-**Root cause note (informational):** The blog detail route apparently resolves both the slugified-title form and the literal Contentful `slug` field to the same entry (fallback matching), and the sitemap generator uses the slugified-title form while the `/blog` listing page links use the literal `slug` field. This produces three duplicate-content URL pairs, three orphaned sitemap entries, and effectively splits SEO equity across two URLs per affected post. Recommend picking one canonical slug source (the Contentful `slug` field, since titles can change) and 301-redirecting the other variant to it.
-
-**Severity key:** P1 = critical · P2 = warning · INFO = informational only, no action needed
+| robots.txt | /robots.txt | Returns 200 (via www→non-www 308), contains `Sitemap: https://shumakerroofing.com/sitemap.xml`, `Allow: /`, no Disallow on any critical path | — |
+| Sitemap validity | /sitemap.xml | All 30 `<url>` entries have `<lastmod>` present | — |
+| Sitemap validity | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | Sitemap `<loc>` entry resolves to 404 — stale/incorrect slug, no matching Sanity document (`slug.current` for this post is `how-marylands-summer-heat-affects-roofs-in-frederick-md`, no hyphen after "maryland") | P1 |
+| Sitemap completeness | /careers, /faqs, /projects, /testimonials, /roofs-for-heroes | 5 live, internally-linked pages are absent from sitemap.xml | P2 |
+| Meta tags — og:image | /about | og:image missing | P2 |
+| Meta tags — og:image | /services | og:image missing | P2 |
+| Meta tags — og:image | /blog | og:image missing | P2 |
+| Meta tags — og:image | /contact | og:image missing | P2 |
+| Meta tags — og:image | /book-appointment | og:image missing | P2 |
+| Meta tags — og:image | /service-areas | og:image missing | P2 |
+| Meta tags — og:image | /services/commercial-flat-and-low-slope-roofing-restoration | og:image missing | P2 |
+| Meta tags — og:image | /services/gutter-installation | og:image missing | P2 |
+| Meta tags — og:image | /services/residential-roofing | og:image missing | P2 |
+| Meta tags — og:image | /services/roof-rejuvenation | og:image missing | P2 |
+| Meta tags — og:image | /services/roof-repair | og:image missing | P2 |
+| Meta tags — og:image | /services/roof-replacement | og:image missing | P2 |
+| Meta tags — og:image | /services/skylight-installation | og:image missing | P2 |
+| Meta tags — og:image | /services/solar-contractor | og:image missing | P2 |
+| Meta tags — og:image | /services/storm-damage-restoration | og:image missing | P2 |
+| Meta tags — og:image | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | og:image missing | P2 |
+| Meta tags — og:image | /blog/best-roofing-contractors-in-frederick-md | og:image missing | P2 |
+| Canonical tags | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | No canonical tag present (404 page) — consistent with noindex on this page, not actionable beyond fixing the underlying 404 | P2 |
+| JSON-LD schema | (all pages) | LocalBusiness (homepage + 4 service-area pages), Service (11 service pages), Article (8 blog posts), FAQPage (4 service-area + 5 blog posts with FAQ content) all validated — required fields present in every block. No P1 schema gaps found | — |
+| Noindex | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | `<meta name="robots" content="noindex">` detected — logged only, no action taken. This is the custom 404 page rendering for the broken sitemap URL, so noindex here is expected/correct behavior | INFO |
+| Duplicate titles | — | No duplicate `<title>` values found across the 30 inventoried URLs | — |
+| Orphaned pages | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | Sitemap URL has zero inbound internal links from any other page on the site (in addition to 404ing) | P2 |
+| Canonical domain | www vs non-www | `https://www.shumakerroofing.com/*` 308-redirects to `https://shumakerroofing.com/*` in a single hop across every URL tested — canonical domain correctly enforced | — |

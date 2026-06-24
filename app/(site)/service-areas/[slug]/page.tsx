@@ -5,10 +5,12 @@ import Link from "next/link";
 import { MapPin, Phone, ChevronLeft, CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { fetchLocationBySlug, fetchAllLocations, fetchServiceSlugs, type LocationDetail } from "@/lib/sanity";
 import { WhyChooseUs } from "@/components/shared/why-choose-us";
 import { slugify, SITE_URL, stateDisplayName } from "@/lib/utils";
 import { fetchPageSeo } from "@/lib/seo";
+import { urlFor } from "@/lib/sanity-image";
 
 const OFFICES = {
   MD: {
@@ -211,6 +213,15 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
       {/* Hero */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex flex-col justify-end pb-16 bg-secondary">
         <div className="absolute inset-0 z-0 pointer-events-none">
+          {loc.seo?.featuredImage ? (
+            <Image
+              src={urlFor(loc.seo.featuredImage) ?? ""}
+              alt={cityDisplay}
+              fill
+              priority
+              className="object-cover"
+            />
+          ) : null}
           <div className="w-full h-full bg-slate-900/75 absolute inset-0 z-10" />
         </div>
         <Container className="relative z-20">
