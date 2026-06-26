@@ -143,9 +143,9 @@ export default async function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-lg font-heading font-bold text-foreground">Our Location</h4>
-                    <p className="text-muted-foreground mt-1">- 26 Water St. Frederick, MD 21701</p>
-                    <p className="text-muted-foreground mt-1">- 6 W Washington St suite 208, Hagerstown, MD 21740</p>
-                    <p className="text-muted-foreground mt-1">- 12001 Sunrise Valley Dr, Reston, VA 20191</p>
+                    <p className="text-muted-foreground mt-1">- <a href="https://maps.app.goo.gl/LYA9oZM1sM6ap5337" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">26 Water St. Frederick, MD 21701</a></p>
+                    <p className="text-muted-foreground mt-1">- <a href="https://maps.app.goo.gl/3TfxaCbWNaia5uxp6" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">6 W Washington St suite 208, Hagerstown, MD 21740</a></p>
+                    <p className="text-muted-foreground mt-1">- <a href="https://maps.app.goo.gl/bBFaLsPS8z6VcGwd7" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">12001 Sunrise Valley Dr, Reston, VA 20191</a></p>
                   </div>
                 </div>
 
@@ -155,7 +155,7 @@ export default async function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-lg font-heading font-bold text-foreground">Phone Number</h4>
-                    <p className="text-muted-foreground mt-1">+1 301-662-0533</p>
+                    <p className="text-muted-foreground mt-1"><a href="tel:+13016620533" className="hover:text-primary transition-colors">+1 301-662-0533</a></p>
                   </div>
                 </div>
 
@@ -165,7 +165,7 @@ export default async function ContactPage() {
                   </div>
                   <div>
                     <h4 className="text-lg font-heading font-bold text-foreground">Email Address</h4>
-                    <p className="text-muted-foreground mt-1">info@shumakerroofing.com</p>
+                    <p className="text-muted-foreground mt-1"><a href="mailto:info@shumakerroofing.com" className="hover:text-primary transition-colors">info@shumakerroofing.com</a></p>
                   </div>
                 </div>
 

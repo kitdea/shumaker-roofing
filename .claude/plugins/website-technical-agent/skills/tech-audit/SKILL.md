@@ -1,6 +1,6 @@
 ---
 name: tech-audit
-description: Use to run a full website health and technical SEO audit for Shumaker Roofing. Checks HTTP status, CMS field integrity, dead links, meta tags, schema, canonicals, robots.txt, and GSC readiness (verification tag, Analytics/GTM, sitemap, canonical domain). Writes findings to memory/tech-audit/. Run on-demand or triggered by nightly cron.
+description: Use to run a full website health and technical SEO audit for Shumaker Roofing. Checks HTTP status, Sanity CMS field integrity, dead links, meta tags, schema, canonicals, robots.txt, and GSC readiness (verification tag, Analytics/GTM, sitemap, canonical domain). Writes findings to memory/tech-audit/. Run on-demand or triggered by nightly cron.
 ---
 
 # Website Technical Agent
@@ -37,15 +37,17 @@ If the sitemap fetch fails (non-200 or parse error), build the URL list manually
 - `/privacy-policy`
 - `/terms-and-conditions`
 
-**Dynamic routes — fetch slugs from Contentful Delivery API:**
+**Dynamic routes — fetch slugs from Sanity via GROQ:**
 
-For each content type below, fetch all entries and extract slugs:
+For each content type below, fetch all entries and extract `slug.current` (slugs are stored natively, not derived):
 
-- `services` → slug via `slugify(fields.title)` → `/services/{slug}`
-- `blog` → slug via `slugify(fields.title)` → `/blog/{slug}`
-- `location` → slug via `fields.slug` → `/service-areas/{slug}`
+- `services` → `*[_type == "services"]{ "slug": slug.current }` → `/services/{slug}`
+- `blog` → `*[_type == "blog"]{ "slug": slug.current }` → `/blog/{slug}`
+- `location` → `*[_type == "location"]{ "slug": slug.current }` → `/service-areas/{slug}`
 
-Contentful Delivery API base URL: `https://cdn.contentful.com/spaces/{CONTENTFUL_SPACE_ID}/entries?content_type={type}&access_token={CONTENTFUL_ACCESS_TOKEN}`
+Sanity Query API base URL: `https://{NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2024-01-01/data/query/{NEXT_PUBLIC_SANITY_DATASET}?query={URL_ENCODED_GROQ}`
+
+Read `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, and `SANITY_API_READ_TOKEN` from `.env.local`. If `SANITY_API_READ_TOKEN` is set, send it as `Authorization: Bearer {SANITY_API_READ_TOKEN}` (needed if the dataset is private; harmless to include for public datasets).
 
 ### Step 6.3: Output
 
@@ -68,17 +70,17 @@ For each URL, fetch it (follow redirects, track hop count). Record:
 
 A redirect chain is any redirect sequence with more than 1 hop (A → B → C). Flag with severity P2 and note the full chain.
 
-### Step 1.3: Contentful Field Integrity
+### Step 1.3: Sanity Field Integrity
 
 For dynamic routes only (`/services/{slug}`, `/blog/{slug}`, `/service-areas/{slug}`):
 
-Fetch the matching Contentful entry via Delivery API. Check:
+Fetch the matching Sanity document via GROQ (same Query API as Module 6.2, filtering by `slug.current == "{slug}"`). Check:
 
-| Content type | Required fields | Severity if missing |
+| Content type (`_type`) | Required fields | Severity if missing |
 |---|---|---|
-| `services` | `title`, `servicesContent`, `slug` (derived) | P1 |
-| `blog` | `title`, `date` or `publishedDate`, `featuredImage` | P1 for title; P2 for image |
-| `location` | `title`, `slug` | P1 |
+| `services` | `title`, `servicesContent`, `slug.current` | P1 |
+| `blog` | `title`, `publishedDate`, `slug.current` | P1 for title/slug; P2 for `publishedDate` |
+| `location` | `cityName`, `slug.current` | P1 — note: this document type uses `cityName`, not `title` |
 
 For `services`: also check `servicesImage` — flag null as P2.
 For `blog`: also check `featuredImage` — flag null as P2.

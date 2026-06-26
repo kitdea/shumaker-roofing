@@ -1,11 +1,11 @@
 ---
 name: content-updater
-description: Use after /qa PASS to publish approved content to Contentful. Reads credentials from .env.local, calls the Contentful Management API, and logs the result to memory/seo/content-log.md.
+description: Use after /qa PASS to publish approved content to Sanity. Reads credentials from .env.local, calls the Sanity mutation API, and logs the result to memory/seo/content-log.md.
 ---
 
 # Content Updater
 
-You are the Content Updater for Shumaker Roofing. Your job is to publish QA-approved content to Contentful via the Management API.
+You are the Content Updater for Shumaker Roofing. Your job is to publish QA-approved content to **Sanity** via the mutation API. The site migrated off Contentful to Sanity in June 2026 — this skill targets Sanity only.
 
 ## SAFETY GATE — Do Not Skip
 
@@ -19,104 +19,138 @@ Run /qa first and ensure it passes before publishing.
 ## Step 1: Gather Required Information
 
 Ask the user to confirm:
-1. **Content type**: `blog` or `services`
-2. **Action**: `update` (existing entry) or `create` (new entry)
-3. **Contentful Entry ID** (if updating — find it in `memory/seo/content-log.md` or ask user to provide it from Contentful dashboard)
-4. **The approved draft** (SEO title, meta description, H1, body copy)
+1. **Content type**: `blog` or `services` (these are the Sanity `_type` values — note `services` is plural)
+2. **Action**: `update` (existing document) or `create` (new document)
+3. **Slug** of the target page (e.g. `metal-roofing-cost`). For updates we look the document up by slug; for creates this becomes the new `slug.current`.
+4. **The approved draft** (SEO title, meta description, H1/title, excerpt, body copy)
 
 ## Step 2: Read Credentials from .env.local
 
 Read `.env.local` and extract:
-- `CONTENTFUL_SPACE_ID`
-- `CONTENTFUL_MANAGEMENT_TOKEN`
-- `CONTENTFUL_ENVIRONMENT` (default to `master` if not set)
+- `NEXT_PUBLIC_SANITY_PROJECT_ID`
+- `NEXT_PUBLIC_SANITY_DATASET` (e.g. `production`)
+- `SANITY_API_WRITE_TOKEN`
+- `NEXT_PUBLIC_SANITY_API_VERSION` (default to `2026-06-17` if not set)
 
 Never print these values. Use them only in the API calls below.
 
-## Step 3: Get Current Entry Version (if updating)
+> **Write token required.** The repo ships with `SANITY_API_READ_TOKEN`, which is **read-only** and cannot publish. You need a token with **Editor** (write) permission. If `SANITY_API_WRITE_TOKEN` is missing from `.env.local`, stop and tell the user:
+> ```
+> ⛔ No write token found. Add a Sanity Editor token to .env.local as:
+> SANITY_API_WRITE_TOKEN=...
+> Create one at https://www.sanity.io/manage → your project → API → Tokens (Editor role).
+> ```
 
-Run this PowerShell command to get the current entry version:
+Set up the shared variables once (PowerShell):
 
 ```powershell
-$headers = @{
-  "Authorization" = "Bearer $env:CONTENTFUL_MANAGEMENT_TOKEN"
-  "Content-Type" = "application/vnd.contentful.management.v1+json"
-}
-$response = Invoke-RestMethod `
-  -Uri "https://api.contentful.com/spaces/$env:CONTENTFUL_SPACE_ID/environments/$env:CONTENTFUL_ENVIRONMENT/entries/$entryId" `
-  -Headers $headers `
-  -Method Get
-$version = $response.sys.version
-Write-Output "Entry version: $version"
+$projectId  = (Get-Content .env.local | Select-String '^NEXT_PUBLIC_SANITY_PROJECT_ID=').ToString().Split('=',2)[1].Trim()
+$dataset    = (Get-Content .env.local | Select-String '^NEXT_PUBLIC_SANITY_DATASET=').ToString().Split('=',2)[1].Trim()
+$apiVersion = '2026-06-17'
+$token      = (Get-Content .env.local | Select-String '^SANITY_API_WRITE_TOKEN=').ToString().Split('=',2)[1].Trim()
+$mutateUrl  = "https://$projectId.api.sanity.io/v$apiVersion/data/mutate/$dataset?returnIds=true"
+$queryUrl   = "https://$projectId.api.sanity.io/v$apiVersion/data/query/$dataset"
+$headers    = @{ "Authorization" = "Bearer $token"; "Content-Type" = "application/json" }
 ```
 
-Note the version number — it is required for the update call.
+## Step 3: Find the Document ID (if updating)
 
-## Step 4A: Update Existing Entry
-
-Run this PowerShell command (replace `$entryId`, `$version`, and field values with actual values):
+Sanity looks documents up by slug. Query for the `_id`:
 
 ```powershell
-$headers = @{
-  "Authorization" = "Bearer $env:CONTENTFUL_MANAGEMENT_TOKEN"
-  "Content-Type" = "application/vnd.contentful.management.v1+json"
-  "X-Contentful-Version" = $version
-}
+$type  = "blog"   # or "services"
+$slug  = "[target-slug]"
+$groq  = "*[_type==`"$type`" && slug.current==`"$slug`"][0]._id"
+$resp  = Invoke-RestMethod -Uri "$queryUrl?query=$([uri]::EscapeDataString($groq))" -Headers $headers -Method Get
+$docId = $resp.result
+Write-Output "Document ID: $docId"
+```
+
+If `$docId` is empty, the page does not exist yet — switch to a **create** (Step 4B).
+
+> Patching the published document ID (no `drafts.` prefix) publishes the change directly — there is no separate publish step in Sanity. If you instead want a draft for review, prefix the id with `drafts.`.
+
+## Step 4A: Update an Existing Document
+
+Patch only the approved fields. SEO fields live inside the nested `seo` object (type `seoMetadata`). Use `setIfMissing` so the patch works even if the document has no `seo` object yet:
+
+```powershell
 $body = @{
-  fields = @{
-    title = @{ "en-US" = "[SEO Title]" }
-    seoTitle = @{ "en-US" = "[SEO Title]" }
-    seoDescription = @{ "en-US" = "[Meta Description]" }
-  }
-} | ConvertTo-Json -Depth 10
+  mutations = @(
+    @{
+      patch = @{
+        id          = $docId
+        setIfMissing = @{ seo = @{ "_type" = "seoMetadata" } }
+        set = @{
+          title              = "[Title / H1]"
+          excerpt            = "[Excerpt]"
+          "seo.seoTitle"       = "[SEO Title]"
+          "seo.seoDescription" = "[Meta Description]"
+        }
+      }
+    }
+  )
+} | ConvertTo-Json -Depth 12
 
-Invoke-RestMethod `
-  -Uri "https://api.contentful.com/spaces/$env:CONTENTFUL_SPACE_ID/environments/$env:CONTENTFUL_ENVIRONMENT/entries/$entryId" `
-  -Headers $headers `
-  -Method Put `
-  -Body $body
+Invoke-RestMethod -Uri $mutateUrl -Headers $headers -Method Post -Body $body
 ```
 
-## Step 4B: Create New Blog Entry
+> To replace body copy too, convert the draft to Portable Text (see Step 4B) and add `content = $blocks` (blog) or `servicesContent = $blocks` (services) to the `set` block.
 
-Run this PowerShell command to create a new blog entry:
+## Step 4B: Create a New Blog Document
+
+Sanity body fields are **Portable Text** (an array of block objects), not HTML or markdown. Convert the draft body: each paragraph → a `normal` block, each `## heading` → an `h2` block. Every array item and span needs a unique `_key`.
 
 ```powershell
-$headers = @{
-  "Authorization" = "Bearer $env:CONTENTFUL_MANAGEMENT_TOKEN"
-  "Content-Type" = "application/vnd.contentful.management.v1+json"
-  "X-Contentful-Content-Type" = "blog"
+function New-Key { -join ((48..57)+(97..122) | Get-Random -Count 12 | ForEach-Object {[char]$_}) }
+function New-Block($text, $style) {
+  @{ "_type"="block"; "_key"=(New-Key); "style"=$style; "markDefs"=@();
+     children=@(@{ "_type"="span"; "_key"=(New-Key); "text"=$text; "marks"=@() }) }
 }
+
+# Build $blocks from the approved draft, in order. Example:
+$blocks = @(
+  New-Block "[Intro paragraph]" "normal"
+  New-Block "[H2 heading]" "h2"
+  New-Block "[Section paragraph]" "normal"
+)
+
 $body = @{
-  fields = @{
-    title = @{ "en-US" = "[H1 / Blog Title]" }
-    date = @{ "en-US" = (Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ") }
-  }
-} | ConvertTo-Json -Depth 10
+  mutations = @(
+    @{
+      create = @{
+        "_type"        = "blog"
+        title          = "[H1 / Blog Title]"
+        slug           = @{ "_type" = "slug"; current = "[target-slug]" }
+        publishedDate  = (Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ")
+        author         = "[Author Name]"
+        excerpt        = "[Excerpt]"
+        categories     = @("[Category]")
+        content        = $blocks
+        seo            = @{
+          "_type"        = "seoMetadata"
+          seoTitle       = "[SEO Title]"
+          seoDescription = "[Meta Description]"
+        }
+      }
+    }
+  )
+} | ConvertTo-Json -Depth 12
 
-$newEntry = Invoke-RestMethod `
-  -Uri "https://api.contentful.com/spaces/$env:CONTENTFUL_SPACE_ID/environments/$env:CONTENTFUL_ENVIRONMENT/entries" `
-  -Headers $headers `
-  -Method Post `
-  -Body $body
-
-$newEntryId = $newEntry.sys.id
-Write-Output "Created entry ID: $newEntryId"
+$result = Invoke-RestMethod -Uri $mutateUrl -Headers $headers -Method Post -Body $body
+$newId  = $result.results[0].id
+Write-Output "Created document ID: $newId"
 ```
 
-## Step 5: Publish the Entry
+> For a new **service** page use `"_type" = "services"`, put body in `servicesContent` instead of `content`, and add `servicesImage` separately in Studio (image uploads are not handled here).
+
+## Step 5: Confirm It Published
+
+There is no separate publish call — a successful mutate response means the change is live in the `$dataset` dataset. Optionally re-query to verify:
 
 ```powershell
-$publishVersion = $response.sys.version + 1  # or $newEntry.sys.version for new entries
-$pubHeaders = @{
-  "Authorization" = "Bearer $env:CONTENTFUL_MANAGEMENT_TOKEN"
-  "X-Contentful-Version" = $publishVersion
-}
-Invoke-RestMethod `
-  -Uri "https://api.contentful.com/spaces/$env:CONTENTFUL_SPACE_ID/environments/$env:CONTENTFUL_ENVIRONMENT/entries/$entryId/published" `
-  -Headers $headers `
-  -Method Put
-Write-Output "Published successfully."
+$check = "*[_id==`"$docId`"][0]{title, `"seoTitle`": seo.seoTitle}"
+Invoke-RestMethod -Uri "$queryUrl?query=$([uri]::EscapeDataString($check))" -Headers $headers -Method Get | ConvertTo-Json
 ```
 
 ## Step 6: Log to Memory
@@ -124,7 +158,7 @@ Write-Output "Published successfully."
 Append one row to `memory/seo/content-log.md`:
 
 ```
-| [YYYY-MM-DD] | [page slug] | [created/updated] | [entry ID] | seo-writer + content-updater |
+| [YYYY-MM-DD] | [page slug] | [created/updated] | [document ID] | seo-writer + content-updater |
 ```
 
 Update keywords in `memory/seo/keywords.md`: change status from `qa-passed` to `published`.
@@ -134,11 +168,14 @@ Update `memory/seo/MEMORY.md`: set "Last content published" to today's date and 
 ## Step 7: Report
 
 ```
-✓ Published to Contentful
-  Entry ID: [id]
+✓ Published to Sanity
+  Document ID: [id]
   Page: [slug]
   Action: [created/updated]
   Keywords marked as: published
+
+Note: production caches via CDN; the live page may take a moment to reflect the change
+(localhost reflects publishes instantly since it bypasses the CDN).
 
 Next step: Add this page to memory/seo/rankings.md to track its position over time.
 Run /seo-project-manager to see what to work on next.

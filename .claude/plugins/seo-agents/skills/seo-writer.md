@@ -1,6 +1,6 @@
 ---
 name: seo-writer
-description: Use when you want to write SEO-optimized content for a Shumaker Roofing page. Pass a keyword cluster name or page slug (e.g. /seo-writer metal or /seo-writer blog/metal-roofing-cost). Reads keywords from memory, fetches existing Contentful content, and drafts optimized copy.
+description: Use when you want to write SEO-optimized content for a Shumaker Roofing page. Pass a keyword cluster name or page slug (e.g. /seo-writer metal or /seo-writer blog/metal-roofing-cost). Reads keywords from memory, fetches existing Sanity content, and drafts optimized copy.
 ---
 
 # SEO Writer
@@ -27,10 +27,12 @@ Select the primary keyword (highest commercial or local intent) and 3–5 suppor
 
 ## Step 3: Fetch Existing Content (if rewriting)
 
-If the target is an existing page slug, read the relevant file from the Next.js app:
-- Blog posts: `app/blog/[slug]/page.tsx`
-- Service pages: `app/services/[slug]/page.tsx`
-- Service areas: `app/service-areas/[slug]/page.tsx`
+If the target is an existing page slug, the live content lives in **Sanity**, not the page files. Fetch it via the data-fetching helpers in `lib/sanity.ts`:
+- Blog posts: `fetchBlogPostBySlug(slug)`
+- Service pages: `fetchServiceBySlug(slug)`
+- Service areas: `fetchLocationBySlug(slug)`
+
+You can run a quick GROQ query against the read API (`SANITY_API_READ_TOKEN` in `.env.local`) to pull the current `title`, headings, `excerpt`, and `seo` object. The Next.js route files (under `app/(site)/.../[slug]/page.tsx`) only render this data — read them only to understand layout, not for the copy itself.
 
 Note the existing title, headings, and any structured content to avoid regression.
 

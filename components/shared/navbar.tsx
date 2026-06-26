@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
@@ -49,6 +49,26 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/85 dark:bg-slate-900/90 dark:supports-[backdrop-filter]:bg-slate-900/85">
+      <div className="bg-primary text-primary-foreground">
+        <Container>
+          <div className="flex h-10 items-center justify-end gap-6 text-sm">
+            <a
+              href="tel:+13016620533"
+              className="flex items-center gap-2 font-medium hover:text-secondary transition-colors"
+            >
+              <Phone className="h-4 w-4 shrink-0" />
+              <span>+1 301-662-0533</span>
+            </a>
+            <a
+              href="mailto:info@shumakerroofing.com"
+              className="flex items-center gap-2 font-medium hover:text-secondary transition-colors"
+            >
+              <Mail className="h-4 w-4 shrink-0" />
+              <span className="hidden sm:inline">info@shumakerroofing.com</span>
+            </a>
+          </div>
+        </Container>
+      </div>
       <Container>
         <div className="flex h-20 items-center justify-between">
           <Link href="/" className="flex items-center">
@@ -222,7 +242,7 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
 
           <div className="hidden md:flex items-center gap-4">
             <ThemeToggle />
-            <Button size="lg" className="font-bold uppercase dark:hover:bg-white hover:bg-secondary hover:text-primary gap-2 px-6" asChild>
+            <Button size="lg" className="font-bold uppercase hover:text-white gap-2 px-6" asChild>
               <Link href="/book-appointment">Schedule Now</Link>
             </Button>
           </div>

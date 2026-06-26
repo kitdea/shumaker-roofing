@@ -127,12 +127,31 @@ export default async function Home() {
             <h1 className="text-4xl md:text-5xl lg:text-5xl font-heading font-extrabold text-foreground leading-[1.1] mb-6">
               {hero?.heading ?? "Strong Durable and Affordable Roofing"}
             </h1>
-            <p className="text-foreground/70 text-lg mb-8 max-w-lg">
+            {hero?.subheading && (
+              <p className="text-foreground/80 text-xl font-heading font-semibold mb-4 max-w-lg">
+                {hero.subheading}
+              </p>
+            )}
+            <p className="text-foreground/70 text-lg mb-8 max-w-lg whitespace-pre-line">
               {hero?.bodyText ?? "When it comes to protecting your home your roof is the first line of defense we provide top-notch roofing service designed to safeguard."}
             </p>
-            <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-bold uppercase" asChild>
-              <Link href={hero?.buttonLink ?? "/book-appointment"}>{hero?.buttonText ?? "SCHEDULE YOUR ROOF REPAIR"}</Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
+              <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-bold uppercase" asChild>
+                <Link href={hero?.buttonLink ?? "/book-appointment"}>{hero?.buttonText ?? "SCHEDULE YOUR ROOF REPAIR"}</Link>
+              </Button>
+              {hero?.phoneNumber && (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto h-14 px-8 text-base font-bold uppercase border-2 border-primary bg-transparent text-foreground hover:bg-primary hover:text-primary-foreground"
+                  asChild
+                >
+                  <a href={`tel:${hero.phoneNumber.replace(/[^\d+]/g, "")}`}>
+                    Call {hero.phoneNumber}
+                  </a>
+                </Button>
+              )}
+            </div>
           </div>
         </Container>
       </section>
@@ -231,9 +250,9 @@ export default async function Home() {
                 className="object-cover"
               />
               {/* Floating Stat Card */}
-              <div className="absolute bottom-8 left-8 bg-primary text-white p-6 rounded-xl shadow-xl max-w-[200px]">
+              <div className="absolute bottom-8 left-8 bg-primary text-white p-6 rounded-xl shadow-xl max-w-[300px]">
                   <div className="text-2xl font-heading font-bold mb-2">Call Now</div>
-                  <div className="text-white/90 font-bold">+1 301-662-0533</div>
+                  <div className="text-white/90 font-bold"><a href="tel:+13016620533">+1 301-662-0533</a></div>
               </div>
             </div>
           </div>
