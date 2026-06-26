@@ -72,4 +72,4 @@ Remote image domains allowed in `next.config.mjs`: `images.unsplash.com` (fallba
 ### Migration Notes
 
 - Contentful was fully removed from the app in June 2026 (`lib/contentful.ts`, `types/contentful.ts`, the `contentful` and `@contentful/rich-text-react-renderer` packages were deleted).
-- The `/seo-writer` and `/content-updater` slash-command skills still target the Contentful Management API (`CONTENTFUL_MANAGEMENT_TOKEN` in `.env.local`) — these need to be updated to publish to Sanity before they'll work against the live site again.
+- The `/seo-writer` and `/content-updater` slash-command skills were updated to target Sanity (June 2026). `/content-updater` now publishes via the Sanity mutation API and requires a write-scoped `SANITY_API_WRITE_TOKEN` in `.env.local` (the shipped `SANITY_API_READ_TOKEN` is read-only and cannot publish).

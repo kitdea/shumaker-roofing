@@ -285,7 +285,11 @@ export default function PrivacyPolicyPage() {
                       info@shumakerroofing.com
                     </a>
                   </p>
-                  <p className="text-foreground/70">+1 301-662-0533</p>
+                  <p className="text-foreground/70">
+                    <a href="tel:+13016620533" className="text-primary hover:underline">
+                      +1 301-662-0533
+                    </a>
+                  </p>
                 </div>
               </PolicySection>
 

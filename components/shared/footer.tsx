@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Script from "next/script";
 import { Container } from "@/components/shared/container";
-import { Home, Phone, Mail, MapPin } from "lucide-react";
+import { Home, Phone, Mail, MapPin, Clock } from "lucide-react";
 import { fetchServiceSlugs } from "@/lib/sanity";
 import { shortenServiceName } from "@/lib/utils";
 
@@ -135,15 +135,19 @@ export async function Footer() {
             <ul className="flex flex-col gap-4">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                <span className="text-secondary-foreground/70 text-sm leading-relaxed">26 Water St. Frederick, MD 21701</span>
+                <span className="text-secondary-foreground/70 text-sm leading-relaxed"><a href="https://maps.app.goo.gl/ko7pDrwKnreAF5DQ9" target="_blank">26 Water St. Frederick, MD 21701</a></span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-primary shrink-0" />
-                <span className="text-secondary-foreground/70 text-sm">+1 301-662-0533</span>
+                <span className="text-secondary-foreground/70 text-sm"><a href="tel:+13016620533">+1 301-662-0533</a></span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary shrink-0" />
-                <span className="text-secondary-foreground/70 text-sm">info@shumakerroofing.com</span>
+                <span className="text-secondary-foreground/70 text-sm"><a href="mailto:info@shumakerroofing.com">info@shumakerroofing.com</a></span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Clock className="h-5 w-5 text-primary shrink-0" />
+                <span className="text-secondary-foreground/70 text-sm">Available Mon–Fri 8am–5pm</span>
               </li>
             </ul>
             <h3 className="text-lg font-heading font-semibold text-white mt-6 mb-4 relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-1/2 after:h-0.5 after:bg-primary">

@@ -82,6 +82,7 @@ export const fetchHeroBanner = cache(async function fetchHeroBanner() {
     subheading,
     tagline,
     bodyText,
+    phoneNumber,
     buttonText,
     buttonLink,
     backgroundImage
@@ -92,6 +93,7 @@ export const fetchHeroBanner = cache(async function fetchHeroBanner() {
     subheading: banner.subheading as string | undefined,
     tagline: banner.tagline as string | undefined,
     bodyText: banner.bodyText as string | undefined,
+    phoneNumber: banner.phoneNumber as string | undefined,
     buttonText: banner.buttonText as string | undefined,
     buttonLink: banner.buttonLink as string | undefined,
     backgroundImageUrl: urlFor(banner.backgroundImage),
