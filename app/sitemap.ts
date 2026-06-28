@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { fetchAllBlogPosts, fetchServiceSlugs, fetchAllLocations } from '@/lib/sanity';
+import { fetchAllBlogPosts, fetchServiceSlugs, fetchAllLocations, fetchAllAuthors } from '@/lib/sanity';
 import { SITE_URL } from '@/lib/utils';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -9,12 +9,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let blogEntries: MetadataRoute.Sitemap = [];
   let serviceEntries: MetadataRoute.Sitemap = [];
   let locationUrls: MetadataRoute.Sitemap = [];
+  let authorEntries: MetadataRoute.Sitemap = [];
 
   try {
-    const [blogs, services, locations] = await Promise.all([
+    const [blogs, services, locations, authors] = await Promise.all([
       fetchAllBlogPosts(),
       fetchServiceSlugs(),
       fetchAllLocations(),
+      fetchAllAuthors(),
     ]);
 
     blogEntries = blogs.map((item) => ({
@@ -23,6 +25,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));
+
+    authorEntries = authors
+      .filter((a) => a.slug)
+      .map((a) => ({
+        url: `${baseUrl}/blog/author/${a.slug}`,
+        lastModified: new Date(a._updatedAt ?? Date.now()),
+        changeFrequency: 'monthly' as const,
+        priority: 0.4,
+      }));
 
     serviceEntries = services.map((item) => ({
       url: `${baseUrl}/services/${item.slug?.current ?? item._id}`,
@@ -116,6 +127,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...serviceEntries,
     ...blogEntries,
+    ...authorEntries,
     ...locationUrls,
   ];
 }

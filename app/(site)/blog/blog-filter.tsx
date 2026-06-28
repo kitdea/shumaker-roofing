@@ -16,6 +16,7 @@ export type BlogPost = {
   imageUrl: string;
   formattedDate: string;
   authorName: string;
+  authorSlug: string | null;
   categories: string[];
 };
 
@@ -116,7 +117,17 @@ export function BlogFilter({ posts, categories }: BlogFilterProps) {
                     <Calendar className="h-3.5 w-3.5" /> {post.formattedDate}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <User className="h-3.5 w-3.5" /> {post.authorName}
+                    <User className="h-3.5 w-3.5" />{" "}
+                    {post.authorSlug ? (
+                      <Link
+                        href={`/blog/author/${post.authorSlug}`}
+                        className="hover:text-primary transition-colors"
+                      >
+                        {post.authorName}
+                      </Link>
+                    ) : (
+                      post.authorName
+                    )}
                   </span>
                 </div>
                 <Link

@@ -10,6 +10,7 @@ import { certificationBadge } from './certificationBadge'
 import { projectSlide } from './projectSlide'
 import { jobPosting } from './jobPosting'
 import { teamMember } from './teamMember'
+import { author } from './author'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -23,5 +24,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     projectSlide,
     jobPosting,
     teamMember,
+    author,
   ],
 }

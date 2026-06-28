@@ -11,7 +11,14 @@ export const blog = defineType({
     defineField({ name: 'publishedDate', title: 'Published Date', type: 'datetime' }),
     defineField({ name: 'featuredImage', title: 'Featured Image', type: 'image', options: { hotspot: true } }),
     defineField({ name: 'categories', title: 'Categories', type: 'array', of: [{ type: 'string' }] }),
-    defineField({ name: 'author', title: 'Author Name', type: 'string' }),
+    defineField({
+      name: 'authorRef',
+      title: 'Author',
+      type: 'reference',
+      to: [{ type: 'author' }],
+      description: 'Referenced author document — preferred for SEO. Falls back to the legacy "Author Name" text below if empty.',
+    }),
+    defineField({ name: 'author', title: 'Author Name (legacy)', type: 'string', description: 'Legacy plain-text author. Used only when no Author reference is set above.' }),
     defineField({ name: 'excerpt', title: 'Excerpt', type: 'text', rows: 3 }),
     defineField({
       name: 'content',
