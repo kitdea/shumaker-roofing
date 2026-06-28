@@ -215,6 +215,108 @@ export const fetchTeamMembers = cache(async function fetchTeamMembers() {
   }))
 })
 
+// ─── Authors ──────────────────────────────────────────────────────────────────
+
+export type AuthorRef = {
+  _id: string
+  name?: string
+  slug?: string
+  jobTitle?: string
+  photo?: unknown
+  shortBio?: string
+  credentials?: string
+  expertise?: string[]
+  sameAs?: string[]
+  email?: string
+}
+
+// Reusable projection for the author reference embedded in blog queries.
+const authorRefProjection = `authorRef->{
+      _id,
+      name,
+      "slug": slug.current,
+      jobTitle,
+      photo,
+      shortBio,
+      credentials,
+      expertise,
+      sameAs,
+      email
+    }`
+
+// Normalized author shape for rendering. Always returns a name; prefers the
+// referenced author document and falls back to the legacy string field.
+export type ResolvedAuthor = {
+  name: string
+  slug: string | null
+  jobTitle: string | null
+  imageUrl: string | null
+  shortBio: string | null
+  credentials: string | null
+  expertise: string[]
+  sameAs: string[]
+  email: string | null
+}
+
+export function resolveAuthor(post: { authorRef?: AuthorRef | null; author?: string }): ResolvedAuthor {
+  const ref = post.authorRef
+  return {
+    name: ref?.name || post.author || 'Shumaker Team',
+    slug: ref?.slug ?? null,
+    jobTitle: ref?.jobTitle ?? null,
+    imageUrl: urlFor(ref?.photo) ?? null,
+    shortBio: ref?.shortBio ?? null,
+    credentials: ref?.credentials ?? null,
+    expertise: ref?.expertise ?? [],
+    sameAs: (ref?.sameAs ?? []).filter(Boolean),
+    email: ref?.email ?? null,
+  }
+}
+
+export type AuthorDoc = AuthorRef & {
+  _updatedAt?: string
+  bio?: unknown
+  displayOrder?: number
+}
+
+export const fetchAllAuthors = cache(async function fetchAllAuthors(): Promise<AuthorDoc[]> {
+  return sanityClient.fetch(`*[_type == "author"] | order(displayOrder asc, name asc){
+    _id,
+    _updatedAt,
+    name,
+    "slug": slug.current,
+    jobTitle,
+    photo,
+    shortBio,
+    credentials,
+    expertise,
+    sameAs,
+    email,
+    displayOrder
+  }`)
+})
+
+export const fetchAuthorSlugs = cache(async function fetchAuthorSlugs() {
+  return sanityClient.fetch(`*[_type == "author" && defined(slug.current)]{ "slug": slug.current }`)
+})
+
+export const fetchAuthorBySlug = cache(async function fetchAuthorBySlug(slug: string): Promise<AuthorDoc | null> {
+  return sanityClient.fetch(`*[_type == "author" && slug.current == $slug][0]{
+    _id,
+    _updatedAt,
+    name,
+    "slug": slug.current,
+    jobTitle,
+    photo,
+    shortBio,
+    bio,
+    credentials,
+    expertise,
+    sameAs,
+    email
+  }`, { slug })
+})
+
 // ─── Blog ─────────────────────────────────────────────────────────────────────
 
 export type BlogListItem = {
@@ -225,6 +327,7 @@ export type BlogListItem = {
   publishedDate?: string
   featuredImage?: unknown
   categories?: string[]
+  authorRef?: AuthorRef | null
   author?: string
   excerpt?: string
 }
@@ -238,6 +341,7 @@ export const fetchAllBlogPosts = cache(async function fetchAllBlogPosts(): Promi
     publishedDate,
     featuredImage,
     categories,
+    ${authorRefProjection},
     author,
     excerpt
   }`)
@@ -253,6 +357,7 @@ export const fetchBlogPostBySlug = cache(async function fetchBlogPostBySlug(slug
     publishedDate,
     featuredImage,
     categories,
+    ${authorRefProjection},
     author,
     excerpt,
     content,
@@ -264,6 +369,21 @@ export const fetchBlogPostBySlug = cache(async function fetchBlogPostBySlug(slug
 
 export const fetchAllBlogSlugs = cache(async function fetchAllBlogSlugs() {
   return sanityClient.fetch(`*[_type == "blog"]{ "slug": slug.current }`)
+})
+
+// Posts written by a given author (by author slug), newest first. Lean projection
+// for the author archive page card grid.
+export const fetchPostsByAuthorSlug = cache(async function fetchPostsByAuthorSlug(slug: string): Promise<BlogListItem[]> {
+  return sanityClient.fetch(`*[_type == "blog" && authorRef->slug.current == $slug] | order(publishedDate desc){
+    _id,
+    _updatedAt,
+    title,
+    slug,
+    publishedDate,
+    featuredImage,
+    categories,
+    excerpt
+  }`, { slug })
 })
 
 // ─── Locations (Service Areas) ────────────────────────────────────────────────

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { Calendar, User, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { fetchAllBlogSlugs, fetchBlogPostBySlug, mapSplitSections, type SplitSectionItem } from "@/lib/sanity";
+import { fetchAllBlogSlugs, fetchBlogPostBySlug, mapSplitSections, resolveAuthor, type SplitSectionItem } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity-image";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextComponents } from "@portabletext/react";
@@ -131,7 +131,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const formattedDate = formatLongDate(dateObj);
 
   const categories: string[] = post.categories ?? [];
-  const authorName = post.author || "Shumaker Team";
+  const author = resolveAuthor(post);
+  const authorName = author.name;
+  const authorUrl = author.slug ? `${SITE_URL}/blog/author/${author.slug}` : undefined;
 
   const faqItems: { question: string; answer: string }[] = (post.faqItems ?? []).filter(
     (f: { question?: string; answer?: string }) => f.question && f.answer
@@ -165,7 +167,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         "dateModified": new Date(post._updatedAt ?? dateObj).toISOString(),
         "author": {
           "@type": "Person",
+          ...(authorUrl ? { "@id": `${authorUrl}#person` } : {}),
           "name": authorName,
+          ...(authorUrl ? { "url": authorUrl } : {}),
+          ...(author.jobTitle ? { "jobTitle": author.jobTitle } : {}),
+          ...(author.imageUrl ? { "image": author.imageUrl } : {}),
+          ...(author.shortBio ? { "description": author.shortBio } : {}),
+          ...(author.expertise.length > 0 ? { "knowsAbout": author.expertise } : {}),
+          ...(author.sameAs.length > 0 ? { "sameAs": author.sameAs } : {}),
           "worksFor": {
             "@type": "Organization",
             "name": "Shumaker Roofing Company",
@@ -249,7 +258,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <Calendar className="h-4 w-4" /> {formattedDate}
             </span>
             <span className="flex items-center gap-2">
-              <User className="h-4 w-4" /> By {authorName}
+              <User className="h-4 w-4" /> By{" "}
+              {authorUrl ? (
+                <Link href={authorUrl} className="hover:text-primary transition-colors underline-offset-2 hover:underline">
+                  {authorName}
+                </Link>
+              ) : (
+                authorName
+              )}
             </span>
           </div>
         </Container>
@@ -294,21 +310,45 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <Container className="mt-16">
         <div className="bg-muted/50 p-8 rounded-2xl border border-border shadow-sm flex flex-col sm:flex-row items-start gap-6">
           <div className="flex items-center gap-4 sm:shrink-0">
-            <div className="bg-primary/10 p-3 rounded-full text-primary">
-              <User className="h-6 w-6" />
-            </div>
+            {author.imageUrl ? (
+              <Image
+                src={author.imageUrl}
+                alt={authorName}
+                width={64}
+                height={64}
+                className="h-16 w-16 rounded-full object-cover"
+              />
+            ) : (
+              <div className="bg-primary/10 p-3 rounded-full text-primary">
+                <User className="h-6 w-6" />
+              </div>
+            )}
             <div>
               <h4 className="font-bold text-foreground">{authorName}</h4>
+              {author.jobTitle && (
+                <p className="text-xs text-muted-foreground">{author.jobTitle}</p>
+              )}
+              {author.credentials && (
+                <p className="text-xs text-muted-foreground">{author.credentials}</p>
+              )}
             </div>
           </div>
           <div className="sm:border-l sm:border-border sm:pl-6">
             <h3 className="text-lg font-heading font-bold mb-2">About the Author</h3>
             <div className="text-sm text-foreground/80 leading-relaxed">
               <p>
-                With dedicated expertise in the industry, {authorName} shares valuable insights
-                and knowledge to help our readers stay informed and make confident decisions.
+                {author.shortBio ||
+                  `With dedicated expertise in the industry, ${authorName} shares valuable insights and knowledge to help our readers stay informed and make confident decisions.`}
               </p>
             </div>
+            {authorUrl && (
+              <Link
+                href={authorUrl}
+                className="inline-block mt-3 text-sm font-medium text-primary hover:underline underline-offset-2"
+              >
+                View all posts by {authorName} →
+              </Link>
+            )}
           </div>
         </div>
       </Container>

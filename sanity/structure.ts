@@ -7,6 +7,7 @@ export const structure: StructureResolver = (S) =>
     .items([
       S.documentTypeListItem('services').title('Services'),
       S.documentTypeListItem('blog').title('Blog Posts'),
+      S.documentTypeListItem('author').title('Authors'),
       S.documentTypeListItem('location').title('Service Areas'),
       S.divider(),
       S.documentTypeListItem('heroBanner').title('Hero Banner'),
@@ -22,6 +23,7 @@ export const structure: StructureResolver = (S) =>
           ![
             'services',
             'blog',
+            'author',
             'location',
             'heroBanner',
             'splitSection',

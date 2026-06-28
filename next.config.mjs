@@ -199,7 +199,11 @@ const nextConfig = {
         destination: '/services/roof-repair',
         permanent: true,
       },
-
+      {
+        source: '/location/roofers-in-ijamsville-md',
+        destination: '/service-areas/frederick-md',
+        permanent: true,
+      },
       
 
 
@@ -270,7 +274,9 @@ const nextConfig = {
         destination: '/blog',
         permanent: true,
       },
+      
 
+    
       // Old service path
       {
         source: '/residential-services/skylights-and-suntunnels',

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
-import { fetchAllBlogPosts, type BlogListItem } from "@/lib/sanity";
+import { fetchAllBlogPosts, resolveAuthor, type BlogListItem } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity-image";
 import { SITE_URL, FALLBACK_BLOG_IMAGE, formatLongDate } from "@/lib/utils";
 import { BlogFilter, type BlogPost } from "./blog-filter";
@@ -63,6 +63,7 @@ function buildBlogSchema(posts: BlogPost[]) {
           "author": {
             "@type": "Person",
             "name": p.authorName,
+            ...(p.authorSlug ? { "url": `${SITE_URL}/blog/author/${p.authorSlug}` } : {}),
           },
         })),
       },
@@ -81,6 +82,7 @@ export default async function BlogPage() {
   const posts: BlogPost[] = rawPosts.map((post) => {
     const imageUrl = urlFor(post.featuredImage) ?? FALLBACK_BLOG_IMAGE;
     const formattedDate = formatLongDate(post.publishedDate ? new Date(post.publishedDate) : new Date());
+    const author = resolveAuthor(post);
 
     return {
       id: post._id,
@@ -89,7 +91,8 @@ export default async function BlogPage() {
       description: post.excerpt || "Click to read more about this topic in our detailed insights article.",
       imageUrl,
       formattedDate,
-      authorName: post.author || "Shumaker Team",
+      authorName: author.name,
+      authorSlug: author.slug,
       categories: post.categories ?? [],
     };
   });
