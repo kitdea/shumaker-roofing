@@ -32,3 +32,12 @@
 - GSC findings: 0 total (module run for first time this cycle — all clean)
 - Open P1 issues: 2
 - Open P2 issues: 47
+
+## 2026-06-28 22:07 UTC
+- URLs checked: 37 (sitemap.xml) + /blog/roof-repair-frederick-md (non-sitemap orphan blog doc, still 404)
+- Health findings: 12 total (0 new, 5 resolved)
+- SEO findings: 26 total (9 new, 5 resolved)
+- Performance findings: 16 total (16 new, 10 resolved)
+- Open P1 issues: 1
+- Open P2 issues: 53
+- Note: performance P1 cleared this run (/book-appointment CLS 0.481→0.214); all 5 prior sitemap-absence findings (H-034–H-038, S-029–S-033) resolved — pages now in sitemap. 9 new SEO findings are first-time meta checks on the newly-sitemapped pages (og:image ×5, JSON-LD ×2, orphan ×2). Mid-run local DNS outage required PageSpeed retries; final dataset complete for all 37 URLs.
