@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Container } from "@/components/shared/container";
 import { GhlCalendar } from "@/components/shared/ghl-calendar";
 import { Phone, Mail, Clock } from "lucide-react";
-import { SITE_URL } from "@/lib/utils";
+import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: { absolute: "Book an Appointment | Shumaker Roofing Company" },
@@ -62,7 +62,7 @@ export default function BookPage() {
           <div className="absolute inset-0 z-0">
             <div className="w-full h-full bg-slate-900/70" />
             <Image
-              src="https://images.ctfassets.net/1daipl7z93ig/50iHJtfm4UkBWGmLs4hGLl/e585de4da3a67060c01a0478f6160df9/roof-replacement-in-frederick-md_002.jpg"
+              src={FALLBACK_BLOG_IMAGE}
               alt="Book an appointment with Shumaker Roofing"
               fill
               sizes="100vw"

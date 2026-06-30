@@ -124,7 +124,7 @@ function ServicesGridSkeleton() {
 }
 
 
-// Page is NOT async so hero flushes immediately without waiting for Contentful
+// Page is NOT async so hero flushes immediately without waiting for Sanity
 export default function ServicesPage() {
   return (
     <>

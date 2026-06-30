@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { toHttpsUrl, SITE_URL } from "@/lib/utils";
+import { SITE_URL } from "@/lib/utils";
 import { urlFor as sanityUrlFor } from "@/lib/sanity-image";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -16,61 +16,25 @@ export interface ResolvedSeoMetadata {
 // ─── Core resolver ────────────────────────────────────────────────────────────
 
 /**
- * Reads a linked seoMetadata entry from any Contentful entry's fields.
+ * Reads the `seo` object off an already-fetched Sanity document.
  *
- * Strategy:
- *  1. Try common field names (seoMetadata, seoMeta, seo)
- *  2. Scan ALL fields for any linked entry whose content type is 'seoMetadata'
- *
- * Returns null when no SEO Metadata entry is linked so callers can
+ * Returns null when no SEO object is present so callers can
  * distinguish "not found" from "found but empty".
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function resolveSeoMetadata(fields: any): ResolvedSeoMetadata | null {
-  // Try known field names first
-  let seoRef =
-    fields?.seoMetadata ||
-    fields?.seoMeta ||
-    fields?.seo;
-  if (Array.isArray(seoRef)) seoRef = seoRef[0];
-
-  // Fallback: scan ALL fields for any linked entry with contentType 'seoMetadata'
-  // This handles any custom field name the editor chose in Contentful
-  if (!seoRef?.fields) {
-    for (const key of Object.keys(fields || {})) {
-      const val = fields[key];
-      const candidate = Array.isArray(val) ? val[0] : val;
-      if (candidate?.sys?.contentType?.sys?.id === "seoMetadata") {
-        seoRef = candidate;
-        break;
-      }
-    }
-  }
-
-  if (!seoRef) {
+  const seo = fields?.seo;
+  if (!seo) {
     return null;
   }
-
-  // Contentful nests fields under `.fields`; Sanity's seo object is already flat.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const seo: any = seoRef.fields ?? seoRef;
-
-  const rawContentfulImageUrl: string | undefined = seo.featuredImage?.fields?.file?.url;
-  const featuredImageUrl = rawContentfulImageUrl
-    ? toHttpsUrl(rawContentfulImageUrl)
-    : sanityUrlFor(seo.featuredImage);
-
-  // Try multiple possible API field ID variations for boolean flags
-  const noIndex = Boolean(seo.noindex ?? seo.noIndex ?? seo.hidePage ?? false);
-  const noFollow = Boolean(seo.nofollow ?? seo.noFollow ?? seo.excludeLinksRanking ?? seo.excludeLinks ?? false);
 
   return {
     seoTitle: seo.seoTitle ?? undefined,
     seoDescription: seo.seoDescription ?? undefined,
-    featuredImageUrl,
+    featuredImageUrl: sanityUrlFor(seo.featuredImage),
     canonicalUrl: seo.canonicalUrl ?? undefined,
-    noIndex,
-    noFollow,
+    noIndex: Boolean(seo.noindex ?? false),
+    noFollow: Boolean(seo.nofollow ?? false),
   };
 }
 
@@ -130,10 +94,8 @@ export function buildNextMetadata(
  * Resolves Next.js Metadata for a dynamic page.
  *
  * Priority order:
- *  1. Linked seoMetadata entry on the Contentful page entry (if entryFields provided)
+ *  1. The `seo` object on the Sanity document (if entryFields provided)
  *  2. Provided fallback strings
- *
- * Dynamic pages: pass entryFields fetched with include >= 2.
  */
 export async function fetchPageSeo({
   entryFields,
@@ -143,7 +105,7 @@ export async function fetchPageSeo({
   ogType = "website",
   canonicalPath,
 }: {
-  /** Fields from an already-fetched Contentful entry (fetch with include >= 2) */
+  /** Fields from an already-fetched Sanity document, including its `seo` object */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   entryFields?: any;
   fallbackTitle: string;
@@ -151,11 +113,11 @@ export async function fetchPageSeo({
   /** Fallback OG image when no SEO entry provides one */
   fallbackImage?: string;
   ogType?: "website" | "article";
-  /** The page's own path (e.g. "/blog/my-post") used as canonical when Contentful doesn't override it */
+  /** The page's own path (e.g. "/blog/my-post") used as canonical when the CMS doesn't override it */
   canonicalPath?: string;
 }): Promise<Metadata> {
   try {
-    // ── Strategy 1: linked seoMetadata entry on the page entry ──────────────
+    // ── Strategy 1: seo object on the Sanity document ────────────────────────
     if (entryFields) {
       const seo = resolveSeoMetadata(entryFields);
       if (seo) {

@@ -253,6 +253,7 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
               className="p-2 text-foreground"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
+              aria-expanded={isOpen}
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -283,6 +284,7 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
                 <button
                   onClick={() => toggleMobileSection("about")}
                   aria-label="Toggle about menu"
+                  aria-expanded={openMobileSection === "about"}
                   className="hover:text-primary transition-colors p-1"
                 >
                   <ChevronDown
@@ -343,6 +345,7 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
                 <button
                   onClick={() => toggleMobileSection("services")}
                   aria-label="Toggle services menu"
+                  aria-expanded={openMobileSection === "services"}
                   className="hover:text-primary transition-colors p-1"
                 >
                   <ChevronDown
@@ -378,6 +381,7 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
                 <button
                   onClick={() => toggleMobileSection("locations")}
                   aria-label="Toggle service areas menu"
+                  aria-expanded={openMobileSection === "locations"}
                   className="hover:text-primary transition-colors p-1"
                 >
                   <ChevronDown
