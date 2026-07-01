@@ -61,7 +61,7 @@ Sanity documents have a native `slug.current` field (set via Sanity's slug input
 
 ### Images
 
-Remote image domains allowed in `next.config.mjs`: `images.unsplash.com` (fallbacks), `images.ctfassets.net` (legacy Contentful assets still referenced in some indexed pages), `cdn.sanity.io` (current CMS images). Use `urlFor()` from `lib/sanity-image.ts` to build Sanity image URLs — it returns an absolute `https://` URL ready for `<Image>`.
+Remote image domains allowed in `next.config.mjs`: `images.unsplash.com` (fallbacks), `cdn.sanity.io` (current CMS images). Use `urlFor()` from `lib/sanity-image.ts` to build Sanity image URLs — it returns an absolute `https://` URL ready for `<Image>`.
 
 ### Styling
 
@@ -71,5 +71,5 @@ Remote image domains allowed in `next.config.mjs`: `images.unsplash.com` (fallba
 
 ### Migration Notes
 
-- Contentful was fully removed from the app in June 2026 (`lib/contentful.ts`, `types/contentful.ts`, the `contentful` and `@contentful/rich-text-react-renderer` packages were deleted).
+- Contentful was fully removed from the app in June 2026 (`lib/contentful.ts`, `types/contentful.ts`, the `contentful` and `@contentful/rich-text-react-renderer` packages were deleted). The remaining hardcoded `images.ctfassets.net` fallback image URLs were swapped for the Sanity-hosted `FALLBACK_BLOG_IMAGE` and the domain removed from `next.config.mjs`.
 - The `/seo-writer` and `/content-updater` slash-command skills were updated to target Sanity (June 2026). `/content-updater` now publishes via the Sanity mutation API and requires a write-scoped `SANITY_API_WRITE_TOKEN` in `.env.local` (the shipped `SANITY_API_READ_TOKEN` is read-only and cannot publish).

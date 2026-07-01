@@ -34,10 +34,22 @@ Check every item below. Record PASS or FAIL for each.
 | 10 | Schema type | Blog drafts should note Article schema; service drafts should note Service schema |
 | 11 | Local signal | At least one mention of a state (Maryland, Virginia, Pennsylvania, West Virginia) or city |
 | 12 | CTA present | Last paragraph includes a call to action (contact, call, get a quote) |
+| 13 | Credibility signal | At least one proof point (cited stat/spec/source) AND one experience signal (years in business, roofs completed, certification, or service footprint) |
+| 14 | Author / expertise attribution | An author or expert reviewer is named with a role (individual or team) |
+| 15 | Quality score | Holistic quality score ≥ 7/10 (see Step 3.5). No unresolved `[VERIFY: …]` placeholders remain |
+
+## Step 3.5: Score Quality (for check 15)
+
+Read the draft as a human would and assign a 1–10 quality score based on:
+- **Readability** — short sentences, smooth transitions, scannable structure
+- **Depth & value** — answers the search intent better than a thin/generic page; no filler
+- **No fluff or repetition** — no padded sentences, no repeated claims, no restated headings
+
+Score < 7 is a FAIL on check 15. When it fails, state the score, the top 2–3 reasons, and the specific lines to cut or tighten. Also fail check 15 if any `[VERIFY: …]` placeholder from the writer is still unresolved.
 
 ## Step 4: Determine Result
 
-- **PASS**: All 12 checks pass
+- **PASS**: All 15 checks pass
 - **FAIL**: Any check fails
 
 ## Step 5: Log to Memory
@@ -45,7 +57,7 @@ Check every item below. Record PASS or FAIL for each.
 Append one row to `memory/seo/qa-log.md`:
 
 ```
-| [YYYY-MM-DD] | [page slug or topic] | [PASS/FAIL] | [comma-separated list of failed check numbers, or "none"] | [one-sentence notes] |
+| [YYYY-MM-DD] | [page slug or topic] | [PASS/FAIL] | [comma-separated list of failed check numbers, or "none"] | [quality score]/10 | [one-sentence notes] |
 ```
 
 If PASS: update matching keywords in `memory/seo/keywords.md` from `written` to `qa-passed`.
@@ -59,18 +71,20 @@ Show a table with every check and its result. Then:
 
 **If PASS:**
 ```
-✓ QA PASSED — [N]/12 checks passed
+✓ QA PASSED — [N]/15 checks passed (quality [score]/10)
 Keywords updated to status 'qa-passed'.
 Next step: /content-updater
 ```
 
 **If FAIL:**
 ```
-✗ QA FAILED — [N]/12 checks passed
+✗ QA FAILED — [N]/15 checks passed
 Failed checks: [list with specific fix instructions for each]
 Next step: Revise the draft and re-run /qa, or run /seo-writer to regenerate.
 ```
 
 For each failed check, provide the specific fix. For example:
 - Check 4 fail: "Meta description is 172 characters. Remove: '[exact phrase to cut]' to reach 160."
-- Check 6 fail: "Keyword 'roof replacement Maryland' appears 8 times in 400 words (2.0% — OK). Wait, recalculate."
+- Check 13 fail: "No proof point found. Add a cited stat (e.g. shingle wind rating, warranty term) and an experience signal (years in business or certification)."
+- Check 14 fail: "No author attribution. Add 'Reviewed by the Shumaker Roofing install team' or a named expert."
+- Check 15 fail: "Quality 5/10 — intro repeats the H1 verbatim and paragraph 3 restates paragraph 1. Cut [lines] and tighten transitions."

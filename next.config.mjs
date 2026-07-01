@@ -20,12 +20,6 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'images.ctfassets.net',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
         hostname: 'cdn.sanity.io',
         port: '',
         pathname: '/**',
@@ -286,6 +280,18 @@ const nextConfig = {
     ];
   },
   async headers() {
+    const csp = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://www.clarity.ms https://cdn.callrail.com https://app.roofle.com https://link.msgsndr.com https://widgets.leadconnectorhq.com https://projectmapit.com https://veluxsolutions.com https://reputationhub.site",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: https://cdn.sanity.io https://images.unsplash.com https://www.facebook.com https://www.google-analytics.com https://www.googletagmanager.com https://projectmapit.com https://reputationhub.site",
+      "font-src 'self' data:",
+      "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://www.clarity.ms https://*.clarity.ms https://cdn.callrail.com https://app.callrail.com https://app.roofle.com https://api.roofle.com https://projectmapit.com https://api.leadconnectorhq.com https://widgets.leadconnectorhq.com https://reputationhub.site",
+      "frame-src 'self' https://www.facebook.com https://app.roofle.com https://api.leadconnectorhq.com https://widgets.leadconnectorhq.com https://www.youtube.com https://www.google.com https://veluxsolutions.com https://reputationhub.site",
+      "object-src 'none'",
+      "base-uri 'self'",
+    ].join('; ');
+
     return [
       {
         source: '/:path*',
@@ -296,6 +302,12 @@ const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
         ],
+      },
+      {
+        // Exclude /studio — the embedded Sanity Studio needs broader
+        // script/connect access than the public site's policy allows.
+        source: '/((?!studio).*)',
+        headers: [{ key: 'Content-Security-Policy', value: csp }],
       },
     ];
   },

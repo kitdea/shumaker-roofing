@@ -11,10 +11,10 @@ import { fetchPageSeo } from "@/lib/seo";
 import { ProjectSlider } from "@/components/home/project-slider";
 import { fetchServicesForListing, fetchHeroBanner, fetchProjectSlides } from "@/lib/sanity";
 import { CertificationsSection } from "@/components/shared/certifications-section";
-import { getServiceIcon, SITE_URL } from "@/lib/utils";
+import { TestimonialsSection } from "@/components/home/testimonials-section";
+import { getServiceIcon, SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 
-const FALLBACK_HERO_IMAGE_URL =
-  "https://images.ctfassets.net/1daipl7z93ig/6Zx6z8OUj0MmaemuNBh4YE/337ca30394ff8cfbcf10defc0325c709/residential-roof-replacement-in-frederick-md_001_.jpg";
+const FALLBACK_HERO_IMAGE_URL = FALLBACK_BLOG_IMAGE;
 
 export async function generateMetadata() {
   const hero = await fetchHeroBanner().catch(() => null);
@@ -36,7 +36,7 @@ const organizationSchema = {
   "name": "Shumaker Roofing Company",
   "url": SITE_URL,
   "logo": `${SITE_URL}/logo.png`,
-  "image": "https://images.ctfassets.net/1daipl7z93ig/ZKSfLysHgXPAYYPfbDqT9/1a87cf72f401cdd63349b9c1f7750187/shumaker-roofing-company.jpg",
+  "image": FALLBACK_BLOG_IMAGE,
   "description": "Expert roofing contractor in Frederick, MD. Shumaker Roofing provides top-tier residential and commercial roofing services, installation, and  repair.",
   "telephone": "+1-301-662-0533",
   "email": "info@shumakerroofing.com",
@@ -262,6 +262,25 @@ export default async function Home() {
 
 
       <CertificationsSection />
+
+      {/* Testimonials Snippet */}
+      <section className="py-24 bg-muted/30">
+        <Container>
+          <SectionHeader
+            title="What Our Customers Are Saying"
+            subtitle="Testimonials"
+            align="center"
+          />
+          <TestimonialsSection />
+          <div className="flex justify-center mt-10">
+            <Button size="lg" asChild>
+              <Link href="/testimonials" className="uppercase font-bold">
+                Read More Testimonials
+              </Link>
+            </Button>
+          </div>
+        </Container>
+      </section>
 
       {/* CTA Section */}
       <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">

@@ -74,7 +74,6 @@ export const fetchServiceBySlug = cache(async function fetchServiceBySlug(slug: 
 })
 
 // ─── Hero Banner ──────────────────────────────────────────────────────────────
-// Shape matches lib/contentful.ts fetchHeroBanner() so page code doesn't need to change.
 
 export const fetchHeroBanner = cache(async function fetchHeroBanner() {
   const banner = await sanityClient.fetch(`*[_type == "heroBanner"][0]{
@@ -101,7 +100,6 @@ export const fetchHeroBanner = cache(async function fetchHeroBanner() {
 })
 
 // ─── Certification Badges ─────────────────────────────────────────────────────
-// Shape matches lib/contentful.ts fetchCertificationBadges(): { id, name, logoUrl }[]
 
 export const fetchCertificationBadges = cache(async function fetchCertificationBadges() {
   const badges = await sanityClient.fetch(`*[_type == "certificationBadge"] | order(displayOrder asc){
@@ -120,7 +118,6 @@ export const fetchCertificationBadges = cache(async function fetchCertificationB
 })
 
 // ─── Project Slides ───────────────────────────────────────────────────────────
-// Shape matches lib/contentful.ts fetchProjectSlides(): { id, src, alt, caption }[]
 
 export const fetchProjectSlides = cache(async function fetchProjectSlides() {
   const slides = await sanityClient.fetch(`*[_type == "projectSlide"] | order(displayOrder asc){
@@ -139,7 +136,6 @@ export const fetchProjectSlides = cache(async function fetchProjectSlides() {
 })
 
 // ─── Job Postings ─────────────────────────────────────────────────────────────
-// Shape matches lib/contentful.ts fetchJobPostings()
 
 export const fetchJobPostings = cache(async function fetchJobPostings() {
   const postings = await sanityClient.fetch(`*[_type == "jobPosting" && isActive == true] | order(datePosted desc){
@@ -174,7 +170,6 @@ export const fetchJobPostings = cache(async function fetchJobPostings() {
 })
 
 // ─── Team Members ─────────────────────────────────────────────────────────────
-// Shape matches lib/contentful.ts team fetch in app/about/page.tsx
 
 export const fetchTeamMembers = cache(async function fetchTeamMembers() {
   const members = await sanityClient.fetch(`*[_type == "teamMember"] | order(displayOrder asc){
@@ -387,7 +382,6 @@ export const fetchPostsByAuthorSlug = cache(async function fetchPostsByAuthorSlu
 })
 
 // ─── Locations (Service Areas) ────────────────────────────────────────────────
-// Shape matches lib/contentful.ts fetchAllLocations() / fetchLocation()
 
 export type LocationListItem = {
   _id: string

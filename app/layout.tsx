@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { cn, SITE_URL } from "@/lib/utils";
+import { cn, SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const montserrat = Montserrat({
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     siteName: "Shumaker Roofing",
     images: [
       {
-        url: "https://images.ctfassets.net/1daipl7z93ig/ZKSfLysHgXPAYYPfbDqT9/1a87cf72f401cdd63349b9c1f7750187/shumaker-roofing-company.jpg",
+        url: FALLBACK_BLOG_IMAGE,
         width: 1200,
         height: 630,
         alt: "Shumaker Roofing Services",
@@ -48,9 +48,7 @@ export const metadata: Metadata = {
     title: "Roofing Contractor in Frederick MD | Shumaker Roofing",
     description:
       "Shumaker Roofing provides top-notch residential and commercial roofing services.",
-    images: [
-      "https://images.ctfassets.net/1daipl7z93ig/ZKSfLysHgXPAYYPfbDqT9/1a87cf72f401cdd63349b9c1f7750187/shumaker-roofing-company.jpg",
-    ],
+    images: [FALLBACK_BLOG_IMAGE],
   },
   robots: {
     index: true,

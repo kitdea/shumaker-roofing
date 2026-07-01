@@ -72,23 +72,25 @@ function renderBareUrls(text: string, keyOffset: number): React.ReactNode[] {
   });
 }
 
-const portableTextComponents: PortableTextComponents = {
-  marks: {
-    link: portableTextLinkMark,
-  },
-  types: {
-    image: ({ value }) => {
-      const url = urlFor(value);
-      if (!url) return null;
-      return (
-        <div className="my-8 rounded-xl overflow-hidden shadow-md">
-          <Image src={url} alt={value.alt ?? ""} width={800} height={500} className="w-full h-auto object-cover" />
-        </div>
-      );
+function getPortableTextComponents(fallbackAlt: string): PortableTextComponents {
+  return {
+    marks: {
+      link: portableTextLinkMark,
     },
-    table: ({ value }) => <PortableTextTable rows={value?.rows} />,
-  },
-};
+    types: {
+      image: ({ value }) => {
+        const url = urlFor(value);
+        if (!url) return null;
+        return (
+          <div className="my-8 rounded-xl overflow-hidden shadow-md">
+            <Image src={url} alt={value.alt || fallbackAlt} width={800} height={500} className="w-full h-auto object-cover" />
+          </div>
+        );
+      },
+      table: ({ value }) => <PortableTextTable rows={value?.rows} />,
+    },
+  };
+}
 
 export async function generateStaticParams() {
   const slugs = await fetchAllBlogSlugs();
@@ -127,7 +129,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const imageUrl = urlFor(post.featuredImage) ?? FALLBACK_BLOG_IMAGE;
 
-  const dateObj = post.publishedDate ? new Date(post.publishedDate) : new Date(post._createdAt ?? Date.now());
+  const dateObj = new Date(post.publishedDate ?? post._createdAt);
   const formattedDate = formatLongDate(dateObj);
 
   const categories: string[] = post.categories ?? [];
@@ -275,7 +277,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <Container className="mt-12">
         <article className="prose prose-lg md:prose-xl dark:prose-invert max-w-none prose-p:text-foreground/90 [&_h2]:text-[1.8rem] [&_h2]:font-extrabold [&_h2]:mt-0 [&_h2]:mb-4 [&_h3]:text-[1.4rem] [&_h3]:font-bold [&_h3]:mt-0 [&_h3]:mb-0 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-6 [&_li]:mb-2 [&_p]:mb-6 [&_p]:leading-relaxed">
           {post.content && (
-            <PortableText value={post.content} components={portableTextComponents} />
+            <PortableText value={post.content} components={getPortableTextComponents(post.title || "Blog post image")} />
           )}
         </article>
       </Container>

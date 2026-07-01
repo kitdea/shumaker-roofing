@@ -92,6 +92,15 @@ Produce the following elements. Follow every rule exactly.
 [CTA paragraph — 40–50 words.]
 ```
 
+### E-E-A-T & Proof (required)
+Roofing is a trust-sensitive, YMYL-adjacent topic, so Google weighs Experience, Expertise, Authoritativeness, and Trustworthiness heavily. Every draft must include all three signals below, woven naturally into the body (not bolted on):
+
+- **Proof point** — at least one concrete statistic, spec, or factual claim with a citable source (e.g. a manufacturer warranty term, a GAF/CertainTeed certification standard, a dated industry figure). State the source inline in natural language ("According to [source]…").
+- **Experience signal** — a first-hand authority cue specific to Shumaker Roofing: years in business, number of roofs completed, the MD/VA/PA/WV service footprint, or a real certification. Pull from `certificationBadge` content in Sanity where available rather than inventing figures.
+- **Author / reviewer attribution** — name the author or expert reviewer and their role (e.g. "Reviewed by the Shumaker Roofing install team"). If no named individual is provided, use a team/role attribution. Never fabricate a named person.
+
+**Do not invent** statistics, certifications, credentials, or review counts. If a needed fact isn't available, insert a `[VERIFY: …]` placeholder in the draft instead of guessing, and list these placeholders for the user when you present the draft.
+
 ### Internal Links
 Include at least 2 internal links using natural anchor text pointing to real pages on the site:
 - `/services/[slug]`
@@ -104,7 +113,10 @@ State clearly at the top of the draft: `Content-Type: blog` or `Content-Type: se
 
 ## Step 5: Present Draft
 
-Show the full draft to the user with a word count and character count for title and meta.
+Show the full draft to the user with:
+- Word count
+- Character counts for the SEO title and meta description
+- A list of any `[VERIFY: …]` placeholders the user needs to confirm or fill before publishing
 
 ## Step 6: Update Memory
 
