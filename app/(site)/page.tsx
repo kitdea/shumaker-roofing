@@ -11,6 +11,7 @@ import { fetchPageSeo } from "@/lib/seo";
 import { ProjectSlider } from "@/components/home/project-slider";
 import { fetchServicesForListing, fetchHeroBanner, fetchProjectSlides } from "@/lib/sanity";
 import { CertificationsSection } from "@/components/shared/certifications-section";
+import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { getServiceIcon, SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 
 const FALLBACK_HERO_IMAGE_URL = FALLBACK_BLOG_IMAGE;
@@ -261,6 +262,25 @@ export default async function Home() {
 
 
       <CertificationsSection />
+
+      {/* Testimonials Snippet */}
+      <section className="py-24 bg-muted/30">
+        <Container>
+          <SectionHeader
+            title="What Our Customers Are Saying"
+            subtitle="Testimonials"
+            align="center"
+          />
+          <TestimonialsSection />
+          <div className="flex justify-center mt-10">
+            <Button size="lg" asChild>
+              <Link href="/testimonials" className="uppercase font-bold">
+                Read More Testimonials
+              </Link>
+            </Button>
+          </div>
+        </Container>
+      </section>
 
       {/* CTA Section */}
       <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
