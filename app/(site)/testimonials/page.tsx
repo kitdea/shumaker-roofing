@@ -9,6 +9,37 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { ReviewWidget } from "@/components/shared/review-widget";
 import { CertificationsSection } from "@/components/shared/certifications-section";
+import { SITE_URL } from "@/lib/utils";
+
+const testimonialsPageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": SITE_URL + "/testimonials#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/" },
+        { "@type": "ListItem", "position": 2, "name": "Testimonials", "item": SITE_URL + "/testimonials" },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": SITE_URL + "/testimonials#webpage",
+      "url": SITE_URL + "/testimonials",
+      "name": "Customer Testimonials | Shumaker Roofing Company",
+      "description":
+        "Read real reviews from satisfied Shumaker Roofing customers across Maryland, Virginia, West Virginia, and Pennsylvania. See why homeowners trust us for over 70 years.",
+      "isPartOf": { "@id": SITE_URL + "/#website" },
+      "breadcrumb": { "@id": SITE_URL + "/testimonials#breadcrumb" },
+      "about": { "@id": SITE_URL + "/#organization" },
+      "publisher": {
+        "@type": "Organization",
+        "@id": SITE_URL + "/#organization",
+        "name": "Shumaker Roofing Company",
+      },
+    },
+  ],
+};
 
 export const metadata: Metadata = {
   title: { absolute: "Customer Testimonials | Shumaker Roofing Company" },
@@ -33,6 +64,11 @@ export const metadata: Metadata = {
 export default async function TestimonialsPage() {
   return (
     <div className="flex flex-col w-full">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(testimonialsPageSchema) }}
+      />
+
       {/* Page Header */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">
         <div className="absolute inset-0 z-0">

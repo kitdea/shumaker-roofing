@@ -36,10 +36,10 @@
 | S-050 | SEO | /projects | Missing og:image meta tag | P2 | 2026-06-28 | open |
 | S-051 | SEO | /testimonials | Missing og:image meta tag | P2 | 2026-06-28 | open |
 | S-052 | SEO | /roofs-for-heroes | Missing og:image meta tag | P2 | 2026-06-28 | open |
-| S-053 | SEO | /testimonials | No JSON-LD schema block detected | P2 | 2026-06-28 | open |
-| S-054 | SEO | /roofs-for-heroes | No JSON-LD schema block detected | P2 | 2026-06-28 | open |
-| S-055 | SEO | /testimonials | Orphaned page — zero inbound internal links | P2 | 2026-06-28 | open |
-| S-056 | SEO | /roofs-for-heroes | Orphaned page — zero inbound internal links | P2 | 2026-06-28 | open |
+| S-053 | SEO | /testimonials | No JSON-LD schema block detected | P2 | 2026-06-28 | closed (2026-07-03: added WebPage+BreadcrumbList @graph schema) |
+| S-054 | SEO | /roofs-for-heroes | No JSON-LD schema block detected | P2 | 2026-06-28 | closed (2026-07-03: added WebPage+BreadcrumbList @graph schema) |
+| S-055 | SEO | /testimonials | Orphaned page — zero inbound internal links | P2 | 2026-06-28 | closed (2026-07-03: homepage already had a static "Read More Testimonials" link; added to Footer Quick Links too) |
+| S-056 | SEO | /roofs-for-heroes | Orphaned page — zero inbound internal links | P2 | 2026-06-28 | closed (2026-07-03: root cause was the only link living inside the navbar's client-side hover dropdown, absent from server-rendered HTML; added a static link in Footer Quick Links) |
 | P-049 | Performance | /about | LCP needs work: 2701ms | P2 | 2026-06-28 | open |
 | P-050 | Performance | /services | LCP needs work: 2551ms | P2 | 2026-06-28 | open |
 | P-051 | Performance | /contact | Performance score needs work: 59 | P2 | 2026-06-28 | open |
