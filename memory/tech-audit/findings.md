@@ -2,7 +2,7 @@
 
 | ID | Module | URL | Issue | Severity | First Seen | Status |
 |----|--------|-----|-------|----------|------------|--------|
-| H-039 | Health | /blog/roof-repair-frederick-md | Sanity blog document exists (missing `publishedDate` and `featuredImage`) but route 404s on live site and is absent from sitemap.xml — orphaned/broken CMS content | P1 | 2026-06-24 | open |
+| H-039 | Health | /blog/roof-repair-frederick-md | Sanity blog document exists (missing `publishedDate` and `featuredImage`) but route 404s on live site and is absent from sitemap.xml — orphaned/broken CMS content | P1 | 2026-06-24 | closed (2026-07-03: route now 200 live; root cause was `app/sitemap.ts` missing `revalidate` export so it never refreshed post-deploy — added `revalidate = 3600`; also patched+published missing `publishedDate`. `featuredImage` still missing, tracked separately) |
 | H-017 | Health | /services/commercial-flat-and-low-slope-roofing-restoration | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | open |
 | H-018 | Health | /services/gutter-installation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | open |
 | H-019 | Health | /services/residential-roofing | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | open |
