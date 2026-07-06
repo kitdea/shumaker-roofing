@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next';
 import { fetchAllBlogPosts, fetchServiceSlugs, fetchAllLocations, fetchAllAuthors } from '@/lib/sanity';
 import { SITE_URL } from '@/lib/utils';
 
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_URL;
 
