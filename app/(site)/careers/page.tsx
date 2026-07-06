@@ -3,6 +3,7 @@ export const revalidate = 3600;
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import {
   Phone,
   Mail,
@@ -82,6 +83,21 @@ export default async function CareersPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(careerSchema) }}
       />
+
+      {/* Google tag (gtag.js) */}
+      <Script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=AW-716364762"
+        strategy="afterInteractive"
+      />
+      <Script id="google-tag-careers" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-716364762');
+        `}
+      </Script>
 
       {/* Page Header */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">

@@ -10,7 +10,8 @@
       "mcp__claude_ai_MCP_Contentful_Model__search_entries",
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\franc\\\\Documents\\\\shumaker-roofing\\\\app\" -Filter \"*faq*\" -Recurse)",
       "Bash(npx next *)",
-      "Bash(npx eslint *)"
+      "Bash(npx eslint *)",
+      "Bash(timeout 20 npm run dev)"
     ],
     "additionalDirectories": [
       "c:\\Users\\franc\\.claude\\projects\\c--Users-franc-Documents-shumaker-roofing\\memory",
