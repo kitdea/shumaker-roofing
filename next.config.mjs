@@ -10,7 +10,7 @@ const nextConfig = {
     // Cap at 1920 — removes 2048 & 3840 from default srcset,
     // avoiding unnecessarily large image downloads.
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
-    qualities: [60, 75],
+    qualities: [60, 75, 85],
     remotePatterns: [
       {
         protocol: 'https',
