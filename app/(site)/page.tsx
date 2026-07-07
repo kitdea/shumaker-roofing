@@ -23,7 +23,7 @@ export async function generateMetadata() {
   return fetchPageSeo({
     fallbackTitle: "Roofing Contractor in Frederick MD | Shumaker Roofing",
     fallbackDesc:
-      "Expert roofing contractor in Frederick, MD. Shumaker Roofing provides top-tier residential and commercial roofing services, installation, and  repair.",
+      "Expert roofing contractor in Frederick, MD. Shumaker Roofing handles residential and commercial installation, replacement, and repair. Get a free estimate.",
     fallbackImage: heroImageUrl,
     canonicalPath: "/",
   });
@@ -37,7 +37,7 @@ const organizationSchema = {
   "url": SITE_URL,
   "logo": `${SITE_URL}/logo.png`,
   "image": FALLBACK_BLOG_IMAGE,
-  "description": "Expert roofing contractor in Frederick, MD. Shumaker Roofing provides top-tier residential and commercial roofing services, installation, and  repair.",
+  "description": "Expert roofing contractor in Frederick, MD. Shumaker Roofing handles residential and commercial installation, replacement, and repair. Get a free estimate.",
   "telephone": "+1-301-662-0533",
   "email": "info@shumakerroofing.com",
   "address": [
@@ -125,7 +125,7 @@ export default async function Home() {
               {hero?.tagline ?? "Affordable, Reliable, and Built to Last."}
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-5xl font-heading font-extrabold text-foreground leading-[1.1] mb-6">
-              {hero?.heading ?? "Strong Durable and Affordable Roofing"}
+              {hero?.heading ?? "Roofing Contractor in Frederick, MD"}
             </h1>
             {hero?.subheading && (
               <p className="text-foreground/80 text-xl font-heading font-semibold mb-4 max-w-lg">
@@ -228,7 +228,7 @@ export default async function Home() {
               </p>
 
               <ul className="flex flex-col gap-4 mb-10">
-                {["Over 78 Years of Experience", "Licensed and Insured Professionals", "High-Quality Materials Warranty", "Free No-Obligation Estimates"].map((item) => (
+                {["Over 80 Years of Experience", "Licensed and Insured Professionals", "High-Quality Materials Warranty", "Free No-Obligation Estimates"].map((item) => (
                   <li key={item} className="flex items-center gap-3">
                     <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0" />
                     <span className="text-foreground font-medium">{item}</span>
