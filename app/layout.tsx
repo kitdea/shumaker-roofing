@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { cn, SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 
@@ -72,6 +74,8 @@ export default function RootLayout({
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased flex flex-col", inter.variable, montserrat.variable)}>
         {children}
+        <Analytics />
+        <SpeedInsights />
         <Script
           src="//cdn.callrail.com/companies/225471548/622609537a81b32b2734/12/swap.js"
           strategy="afterInteractive"
