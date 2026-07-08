@@ -1,8 +1,8 @@
 # Competitor Tracker
 
 ## Last Snapshots
-- frederickroofrepair.com: 2026-05-13 (30 keywords, 29 gaps)
-- pjsroofing.com: 2026-05-13 (22 keywords, 21 gaps)
+- frederickroofrepair.com: 2026-05-13 (31 keywords, 29 gaps)
+- pjsroofing.com: 2026-05-13 (22 keywords, 22 gaps)
 
 | Domain | Keyword | Position | Volume | URL | Gap | Date |
 |--------|---------|----------|--------|-----|-----|------|

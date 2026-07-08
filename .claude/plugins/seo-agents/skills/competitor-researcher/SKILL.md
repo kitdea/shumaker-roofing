@@ -58,17 +58,19 @@ Mark each retained keyword as `gap` or `targeted` based on this check.
 
 ## Step 6: Write Snapshot to Memory
 
-Update the `## Last Snapshots` section — replace the existing line for this domain (or add if new):
-```
-- [domain]: [today's date YYYY-MM-DD] ([N] keywords, [G] gaps)
-```
-
 Append new rows for all roofing-relevant keywords from this run:
 ```
 | [domain] | [keyword] | [position] | [volume] | [url] | gap/targeted | [today's date] |
 ```
 
 Do NOT delete old rows — they are historical snapshots.
+
+Then update the `## Last Snapshots` section — replace the existing line for this domain (or add if new):
+```
+- [domain]: [today's date YYYY-MM-DD] ([N] keywords, [G] gaps)
+```
+
+**N and G must be exact row counts, not estimates.** After appending the new rows, count directly from the table: N = the total number of rows in the table for this domain (across all snapshot dates, since old rows are never deleted), G = the number of those rows with `gap` in the last column. Do not carry over a running tally from earlier in the conversation — recount the table itself so the header can never drift from the data it summarizes.
 
 ## Step 7: Report
 

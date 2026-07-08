@@ -198,9 +198,31 @@ const nextConfig = {
         destination: '/service-areas/frederick-md',
         permanent: true,
       },
-      
-
-
+      {
+        source: '/wp-content/uploads/2024/07/DIY-Vs.-Professional-Hiring-600x400.jpg',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/metal-roofs-screw-down-vs-standing-seam',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/metal-roofing-in-bethesda-md',
+        destination: '/services',
+        permanent: true,
+      },
+      {
+        source: '/what-is-the-cost-of-installing-soffit-ridge-and-roof-vents',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/which-should-be-done-first-siding-windows-or-roofing',
+        destination: '/blog',
+        permanent: true,
+      },
 
       // Blog posts previously linked without /blog/ prefix
       {

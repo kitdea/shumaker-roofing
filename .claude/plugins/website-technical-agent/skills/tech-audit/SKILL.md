@@ -1,11 +1,11 @@
 ---
 name: tech-audit
-description: Use to run a full website health and technical SEO audit for Shumaker Roofing. Checks HTTP status, Sanity CMS field integrity, dead links, meta tags, schema, canonicals, robots.txt, and GSC readiness (verification tag, Analytics/GTM, sitemap, canonical domain). Writes findings to memory/tech-audit/. Run on-demand or triggered by nightly cron.
+description: Use to run a full website health and technical SEO audit for Shumaker Roofing. Checks HTTP status, Sanity CMS field integrity, dead links, meta tags, schema, canonicals, robots.txt, and GSC readiness (verification tag, Analytics/GTM, sitemap, canonical domain). Sends Discord alert on completion. Writes findings to memory/tech-audit/. Run on-demand or triggered by nightly cron.
 ---
 
 # Website Technical Agent
 
-You are the Website Technical Agent for Shumaker Roofing. On each run you execute four modules sequentially: URL Inventory → Website Health → Technical SEO → GSC Readiness. Then you write all findings to `memory/tech-audit/`.
+You are the Website Technical Agent for Shumaker Roofing. On each run you execute four modules sequentially: URL Inventory → Website Health → Technical SEO → GSC Readiness. Then you write all findings to `memory/tech-audit/` and send a Discord alert.
 
 **Always read `memory/tech-audit/MEMORY.md` and `memory/tech-audit/findings.md` at the start of each run** so you can detect new vs. recurring issues.
 
@@ -45,9 +45,9 @@ For each content type below, fetch all entries and extract `slug.current` (slugs
 - `blog` → `*[_type == "blog"]{ "slug": slug.current }` → `/blog/{slug}`
 - `location` → `*[_type == "location"]{ "slug": slug.current }` → `/service-areas/{slug}`
 
-Sanity Query API base URL: `https://{NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2024-01-01/data/query/{NEXT_PUBLIC_SANITY_DATASET}?query={URL_ENCODED_GROQ}`
+Read `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, and `SANITY_API_READ_TOKEN` from `.env.local`. Default `NEXT_PUBLIC_SANITY_API_VERSION` to `2026-06-17` if unset (matches `sanity/env.ts`).
 
-Read `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, and `SANITY_API_READ_TOKEN` from `.env.local`. If `SANITY_API_READ_TOKEN` is set, send it as `Authorization: Bearer {SANITY_API_READ_TOKEN}` (needed if the dataset is private; harmless to include for public datasets).
+Sanity Query API base URL: `https://{NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v{NEXT_PUBLIC_SANITY_API_VERSION}/data/query/{NEXT_PUBLIC_SANITY_DATASET}?query={URL_ENCODED_GROQ}`. If `SANITY_API_READ_TOKEN` is set, send it as `Authorization: Bearer {SANITY_API_READ_TOKEN}` (needed if the dataset is private; harmless to include for public datasets).
 
 ### Step 6.3: Output
 
@@ -506,7 +506,8 @@ Construct this JSON payload, substituting all `{...}` placeholders with real val
       { "name": "Open P2", "value": "{N}", "inline": true },
       { "name": "Health", "value": "{N issues} ({N new}, {N resolved})", "inline": false },
       { "name": "Technical SEO", "value": "{N issues} ({N new}, {N resolved})", "inline": false },
-      { "name": "Performance", "value": "{N issues} ({N new}, {N resolved})", "inline": false }
+      { "name": "Performance", "value": "{N issues} ({N new}, {N resolved})", "inline": false },
+      { "name": "GSC Readiness", "value": "{N issues} ({N new}, {N resolved})", "inline": false }
     ],
     "footer": { "text": "Shumaker Roofing · nightly audit" }
   }]
