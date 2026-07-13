@@ -62,9 +62,10 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
             <a
               href="mailto:info@shumakerroofing.com"
               className="flex items-center gap-2 font-medium hover:text-secondary transition-colors"
+              aria-label="Email info@shumakerroofing.com"
             >
               <Mail className="h-4 w-4 shrink-0" />
-              <span className="hidden sm:inline">info@shumakerroofing.com</span>
+              <span className="hidden sm:inline" aria-hidden="true">info@shumakerroofing.com</span>
             </a>
           </div>
         </Container>

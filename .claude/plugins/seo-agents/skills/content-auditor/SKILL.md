@@ -1,6 +1,6 @@
 ---
 name: content-auditor
-description: Use when you want a ground-truth audit of every page on the site — Sanity-backed content (blog posts, service pages, service-area pages) AND the static/hardcoded routes (homepage, about, faqs, careers, projects, testimonials, roofs-for-heroes, contact, and the /services, /service-areas, /blog listing pages). Pulls live data directly from Sanity plus greps route files for hardcoded metadata (not memory), clusters posts by duplicate search intent, flags keyword cannibalization across the whole site, checks SEO metadata completeness everywhere including pages Sanity doesn't cover, and cross-references blog coverage against service/location pages. Writes findings to memory/seo/audit-log.md. Pass nothing to audit everything, or a scope ("blog", "services", "locations", "static") to narrow it.
+description: Use when you want a ground-truth audit of every page on the site — Sanity-backed content (blog posts, service pages, service-area pages) AND the static/hardcoded routes (homepage, about, faqs, careers, projects, testimonials, roofs-for-heroes, contact, and the /services, /service-areas, /blog listing pages). Pulls live data directly from Sanity plus greps route files for hardcoded metadata (not memory), clusters posts by duplicate search intent, flags keyword cannibalization across the whole site, checks SEO metadata completeness everywhere including pages Sanity doesn't cover, and cross-references blog coverage against service/location pages. Diffs this run's findings against the last audit (per finding, not just aggregate counts) to catch stale/recurring/regressed issues, and writes results to memory/seo/audit-log.md and memory/seo/audit-findings-log.md. Pass nothing to audit everything, or a scope ("blog", "services", "locations", "static") to narrow it.
 ---
 
 # Content Auditor
@@ -73,7 +73,7 @@ internal link target in one query so clustering and link-graph analysis don't ne
 ```groq
 *[_type=="blog"]{
   _id, title, "slug": slug.current, publishedDate, categories, excerpt,
-  "seoTitle": seo.metaTitle, "seoDesc": seo.metaDescription,
+  "seoTitle": seo.seoTitle, "seoDesc": seo.seoDescription,
   "wordCount": length(pt::text(content)),
   "links": content[].markDefs[].href
 } | order(publishedDate desc)
@@ -84,10 +84,16 @@ internal link target in one query so clustering and link-graph analysis don't ne
 ```groq
 *[_type=="services"]{
   _id, title, "slug": slug.current,
-  "seoTitle": seo.metaTitle, "seoDesc": seo.metaDescription,
+  "seoTitle": seo.seoTitle, "seoDesc": seo.seoDescription,
   "excerpt": servicesContent[0].children[0].text
 } | order(title asc)
 ```
+
+> The `seoMetadata` object's real field names are `seoTitle`/`seoDescription` (see
+> `sanity/schemaTypes/seoMetadata.ts`), not `metaTitle`/`metaDescription`. An earlier version of
+> this query used the wrong names, which silently returned `null` for every document regardless of
+> actual content and produced a false "15/15 posts missing SEO metadata" finding in the 2026-07-13
+> audits. Confirmed and fixed 2026-07-14 by checking the live schema file directly.
 
 **Location pages:**
 
@@ -116,6 +122,8 @@ STATIC_ROUTES=(
   "app/(site)/service-areas/page.tsx"   # /service-areas (listing page, not individual location pages)
   "app/(site)/blog/page.tsx"            # /blog (listing page, not individual posts)
   "app/(site)/book-appointment/page.tsx" # /book-appointment
+  "app/(site)/book/page.tsx"            # /book — separate route from /book-appointment, found 2026-07-14
+                                         # to be a near-duplicate; both must stay in this list
 )
 
 for f in "${STATIC_ROUTES[@]}"; do
@@ -248,10 +256,60 @@ that pipeline only ever logged Sanity-published content. Don't flag their absenc
 it once as a structural fact instead ("static routes aren't tracked by the publish pipeline —
 this audit's grep pass in Step 2b/4/6 is the only check they get").
 
-## Step 8: Write Findings to Memory
+## Step 8: Audit-over-Audit Verification (self-check — mandatory)
 
-Append a dated entry to `memory/seo/audit-log.md` (create the file with a header if it doesn't
-exist):
+Steps 3-6 produce findings grounded in live data, but a single run in isolation can't tell you
+whether a problem is new, still unresolved from last time, or was fixed and has now come back.
+Without this step, the same cannibalization cluster can sit in the report for six audits in a row
+and read exactly as urgent — or as easy to ignore — each time, indistinguishable from a brand-new
+issue. Close that loop the same way a publish gets re-verified against the live document: diff
+this run's findings against the last run's, per finding, not just as aggregate counts.
+
+**Assign a stable Finding ID to every finding from Steps 3-6**, so the same real-world issue
+produces the same ID across runs:
+
+- Cluster (Step 3): `cluster:[slug1]+[slug2]+...` (slugs sorted alphabetically)
+- Cannibalization (Step 6): `cannibal:[blog-slug]->[service-or-static-target]`
+- Metadata gap (Step 4): `metadata:[doc-type]:[slug]:[field]` (e.g. `metadata:blog:roof-cost:seoDesc`)
+- Coverage gap (Step 5): `coverage:[service-or-location]:[slug]`
+
+Read the most recent per-finding rows from `memory/seo/audit-findings-log.md` (Step 9 below
+creates it if this is the first run — treat every finding as `new` in that case). For each
+Finding ID produced this run, classify against the prior entry for that same ID:
+
+| Status | Meaning |
+|---|---|
+| `new` | No prior entry for this ID |
+| `still-open` | Prior entry existed with status `new`/`still-open`/`regressed` and this ID is present again |
+| `resolved` | Prior entry existed and was open, but this ID is **absent** from this run's findings |
+| `regressed` | Prior entry was marked `resolved` in an earlier run, and this ID is present again |
+
+Compute `resolved` by checking every **prior open ID** (from the last run's log rows) against
+this run's full finding set — an ID missing this time is a fix, not silence.
+
+**Escalate stale findings.** If an ID has been `still-open` for **3 or more consecutive audits**,
+it's not a fresh finding the user can triage later — it's been surfaced and ignored (or blocked).
+Flag these prominently and separately in the report (Step 10), and name what's likely blocking it
+(e.g. "flagged in the last 3 audits, no corresponding /seo-writer or content-updater activity in
+content-log.md for this slug — looks stuck, not just deprioritized").
+
+## Step 9: Write Findings to Memory
+
+**Per-finding log (new, enables Step 8):** append one row per finding to
+`memory/seo/audit-findings-log.md` (create with a header if it doesn't exist):
+
+```markdown
+# Audit Findings Log
+
+| Date | Finding ID | Type | Severity | Pages/slugs involved | Status | Consecutive still-open count | Notes |
+|------|-----------|------|----------|------------------------|--------|-------------------------------|-------|
+```
+
+Append one row for every finding from Steps 3-6, including `resolved` ones (so the resolution is
+itself a permanent record, not just an absence).
+
+**Aggregate log (unchanged):** append a dated entry to `memory/seo/audit-log.md` (create the file
+with a header if it doesn't exist):
 
 ```markdown
 # Content Audit Log
@@ -266,20 +324,27 @@ Append one row per run:
 | [today's date] | [blog/services/locations/static/all] | [N Sanity docs + N static routes] | [N clusters, list slugs] | [N posts missing seoTitle/seoDesc] | [N services / N locations with zero coverage] | [N static routes with dupe/missing metadata, list routes] | [1-line summary] |
 ```
 
-Do NOT delete old rows — they are historical snapshots showing whether findings from the last
-audit were actually fixed.
+Do NOT delete old rows in either log — they are historical snapshots, and `audit-findings-log.md`
+specifically is what Step 8 reads on the next run to compute status transitions.
 
-## Step 9: Report
+## Step 10: Report
 
 Present findings to the user in this order, most actionable first:
 
-1. **Duplicate-intent clusters** (Step 3) — grouped, with severity, word counts, and a specific
-   recommendation per cluster (consolidate vs. build pillar hierarchy).
-2. **Unresolved cannibalization against service/homepage/static pages** (Step 6).
-3. **Coverage gaps** (Step 5) — services and locations with zero supporting blog content.
-4. **Metadata hygiene issues** (Step 4) — Sanity content and static routes together, since a
+1. **Escalated / stale findings** (Step 8) — anything `still-open` for 3+ consecutive audits.
+   These go first: they're not new information, they're evidence the normal report ordering below
+   hasn't been enough to get them fixed.
+2. **Duplicate-intent clusters** (Step 3) — grouped, with severity, word counts, status
+   (new/still-open/regressed from Step 8), and a specific recommendation per cluster (consolidate
+   vs. build pillar hierarchy).
+3. **Unresolved cannibalization against service/homepage/static pages** (Step 6) — with status.
+4. **Coverage gaps** (Step 5) — services and locations with zero supporting blog content.
+5. **Metadata hygiene issues** (Step 4) — Sanity content and static routes together, since a
    duplicated title/description is the same class of problem regardless of which system owns it.
-5. **Memory drift** (Step 7).
+6. **Memory drift** (Step 7).
+7. **Resolved since last audit** (Step 8) — a short "wins" list. Findings that disappeared are
+   easy to lose track of; naming them confirms the fix actually landed and closes the loop for
+   whoever acted on the prior report.
 
 For a large or highly visual finding set, prefer publishing an Artifact (HTML report) over a long
 chat wall of text — this audit produces enough tabular/clustered data that a formatted report is
@@ -289,7 +354,8 @@ enough that a direct summary suffices instead.
 End with a handoff line, e.g.:
 
 ```
-✓ Findings logged to memory/seo/audit-log.md
+✓ Findings logged to memory/seo/audit-log.md and memory/seo/audit-findings-log.md
+[N] findings resolved since last audit. [N] still open, [N] newly escalated (3+ audits unresolved).
 Resolve cannibalization per docs/seo/keyword-cannibalization-sop.md, or:
 Next step: /seo-project-manager to sequence fixes across agents
 ```
@@ -310,6 +376,8 @@ Next step: /seo-project-manager to sequence fixes across agents
 - Always pull live from Sanity **and** the current `app/(site)/` route tree. `memory/seo/*.md` is
   a cross-check target (Step 7), never the primary source of truth for this agent — and static
   routes were never in memory's scope to begin with, so Step 2b's file reads are the only ground
-  truth for them.
+  truth for them. `memory/seo/audit-findings-log.md` is the one exception: it's this skill's own
+  output, read back in Step 8 purely to compute status transitions (new/still-open/resolved/
+  regressed) across runs — it is never used as a substitute for re-pulling live data in Steps 2-6.
 - The route list in Step 2b will drift as pages are added/removed — always re-run the `find`
   command there rather than trusting the hardcoded list as permanently accurate.

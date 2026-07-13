@@ -34,6 +34,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/book',
+        destination: '/book-appointment',
+        permanent: true,
+      },
+      {
         source: '/schedule-now',
         destination: '/contact',
         permanent: true,
@@ -304,11 +309,11 @@ const nextConfig = {
   async headers() {
     const csp = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google.com https://googleads.g.doubleclick.net https://connect.facebook.net https://www.clarity.ms https://cdn.callrail.com https://app.roofle.com https://link.msgsndr.com https://widgets.leadconnectorhq.com https://projectmapit.com https://veluxsolutions.com https://reputationhub.site",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: https://cdn.sanity.io https://images.unsplash.com https://www.facebook.com https://www.google-analytics.com https://www.googletagmanager.com https://projectmapit.com https://reputationhub.site",
-      "font-src 'self' data:",
-      "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://www.google.com https://ad.doubleclick.net https://googleads.g.doubleclick.net https://www.facebook.com https://www.clarity.ms https://*.clarity.ms https://cdn.callrail.com https://app.callrail.com https://app.roofle.com https://api.roofle.com https://projectmapit.com https://api.leadconnectorhq.com https://widgets.leadconnectorhq.com https://reputationhub.site",
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google.com https://googleads.g.doubleclick.net https://connect.facebook.net https://www.clarity.ms https://scripts.clarity.ms https://cdn.callrail.com https://js.callrail.com https://app.roofle.com https://link.msgsndr.com https://widgets.leadconnectorhq.com https://stcdn.leadconnectorhq.com https://services.leadconnectorhq.com https://backend.leadconnectorhq.com https://projectmapit.com https://veluxsolutions.com https://reputationhub.site",
+      "style-src 'self' 'unsafe-inline' https://stcdn.leadconnectorhq.com https://fonts.bunny.net",
+      "img-src 'self' data: https://cdn.sanity.io https://images.unsplash.com https://www.facebook.com https://www.google-analytics.com https://www.googletagmanager.com https://www.google.com https://c.clarity.ms https://projectmapit.com https://reputationhub.site https://widgets.leadconnectorhq.com https://assets.app.roofle.com https://app.roofle.com",
+      "font-src 'self' data: https://assets.app.roofle.com https://fonts.bunny.net",
+      "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://www.google.com https://ad.doubleclick.net https://googleads.g.doubleclick.net https://stats.g.doubleclick.net https://www.facebook.com https://www.clarity.ms https://*.clarity.ms https://cdn.callrail.com https://app.callrail.com https://app.roofle.com https://api.roofle.com https://api.app.roofle.com https://projectmapit.com https://api.leadconnectorhq.com https://widgets.leadconnectorhq.com https://services.leadconnectorhq.com https://backend.leadconnectorhq.com https://services.msgsndr.com https://reputationhub.site",
       "frame-src 'self' https://www.facebook.com https://app.roofle.com https://api.leadconnectorhq.com https://widgets.leadconnectorhq.com https://www.youtube.com https://www.google.com https://veluxsolutions.com https://reputationhub.site",
       "object-src 'none'",
       "base-uri 'self'",
@@ -323,6 +328,7 @@ const nextConfig = {
           { key: 'X-XSS-Protection', value: '1; mode=block' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
         ],
       },
       {
