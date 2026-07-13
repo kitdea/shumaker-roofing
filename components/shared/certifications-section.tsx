@@ -13,7 +13,7 @@ export async function CertificationsSection() {
           Certifications &amp; Partnerships
         </span>
         <h2 className="text-2xl md:text-3xl font-heading font-extrabold text-white">
-          Trusted Roofing Contractor in Frederick, MD
+          Trusted Frederick Roofing Company
         </h2>
         <p className="text-slate-400 mt-3 max-w-xl mx-auto text-sm md:text-base">
           Backed by the industry&apos;s most respected certifications and manufacturer partnerships.

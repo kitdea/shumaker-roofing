@@ -16,6 +16,23 @@ Before doing anything, check `memory/seo/qa-log.md`. The most recent entry for t
 Run /qa first and ensure it passes before publishing.
 ```
 
+**Cannibalization re-check.** QA check 29 already verified no cluster/keyword overlap
+existed at QA time, but another page can publish in the gap between QA and this publish
+run. Re-verify immediately before writing:
+
+1. Look up the target page's `Cluster` and primary keyword in `memory/seo/keywords.md`.
+2. Check `memory/seo/content-log.md` for any page published **after** the QA PASS
+   timestamp that falls in the same cluster or targets the same/near-synonym primary
+   keyword.
+3. If found, stop and tell the user:
+   ```
+   ⛔ Cannot publish. A page targeting the same cluster/keyword ([cluster/keyword])
+   was published after this content's QA PASS: [other page slug], published [date].
+   Re-run /qa to confirm this draft still has a distinct angle before publishing.
+   See docs/seo/keyword-cannibalization-sop.md §3 for resolution options.
+   ```
+4. If no new conflicting publish is found, proceed.
+
 ## Step 1: Gather Required Information
 
 Ask the user to confirm:
