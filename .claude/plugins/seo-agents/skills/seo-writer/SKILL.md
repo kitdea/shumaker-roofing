@@ -25,6 +25,40 @@ If no matching keywords exist, tell the user: "No researched keywords found for 
 
 Select the primary keyword (highest commercial or local intent) and 3–5 supporting keywords.
 
+**Cannibalization guard — run before writing a single word** (full rules in
+`docs/seo/keyword-cannibalization-sop.md` §2-3; this is the mandatory pre-draft pass §5
+requires):
+
+1. Search `memory/seo/keywords.md` for any **other** row with the same `Cluster` as the
+   one you just selected, or with the exact primary keyword / a close variant, whose
+   `Status` is `published`. Note which page(s) that cluster already lives on (cross-
+   reference `memory/seo/content-log.md`).
+2. Grep live title/H1 text for the core term across page types:
+   ```bash
+   grep -rn "<core term>" "app/(site)"/**/page.tsx
+   ```
+   and check Sanity `seo.seoTitle` for existing docs in the same cluster if rewriting.
+3. If step 1 or 2 surfaces a match on a **different** page than the one you're about to
+   write/edit, stop drafting and classify by intent per the SOP's §1 ownership table
+   (brand → homepage, commercial/service → `/services/[slug]`, city+service local →
+   `/service-areas/[slug]`, informational/how-to → `/blog/[slug]`):
+   - **New blog post whose primary keyword is a bare commercial/service term** that
+     matches or nearly matches an existing `/services/[slug]` page's title: do not
+     title/H1 the post on that exact commercial phrase. Angle the post's SEO Title/H1
+     toward the informational side of the same topic instead (e.g. "How to Tell If Your
+     Roof Needs Repair" / "Roof Repair vs. Replacement: How to Decide") and make one of
+     the required internal links (Step 4) point to the corresponding `/services/[slug]`
+     page using the commercial phrase as anchor text.
+   - **Any other overlap** (homepage vs. service page, location vs. location, listing vs.
+     individual service): resolve per SOP §3 before drafting — do not proceed with a
+     title/H1/meta that duplicates another live page's target phrase.
+4. If the target is a **service/area page** and no other page already owns that
+   cluster/keyword, no guard needed — service/area pages are the correct canonical owner
+   of commercial and local terms.
+
+State in the draft presentation (Step 5) which cluster/keyword you checked and confirm no
+conflict was found (or note how the conflict was resolved).
+
 ## Step 3: Fetch Existing Content (if rewriting)
 
 If the target is an existing page slug, the live content lives in **Sanity**, not the page files. Fetch it via the data-fetching helpers in `lib/sanity.ts`:
@@ -44,12 +78,14 @@ Produce the following elements. Follow every rule exactly.
 - 50–60 characters
 - Primary keyword near the front
 - Include "Shumaker Roofing" or a location signal (MD, Maryland, Hagerstown)
+- Flag any over 60 characters, under 50 characters, missing the primary keyword, or with weak click-through intent. Rewrite every weak one. Keep each under 60 characters."
 
 ### Meta Description
-- 120–160 characters exactly (count them)
+- 120–160 characters (count them)
 - Primary keyword included once
 - Clear value proposition + call to action
 - No keyword stuffing
+- Audit these meta descriptions. Flag any that are: over 160 characters, missing a call to action, too vague, or duplicated. Rewrite each flagged one with the keyword included and a clear CTA.
 
 ### H1
 - Same topic as title but different phrasing
@@ -101,12 +137,26 @@ Roofing is a trust-sensitive, YMYL-adjacent topic, so Google weighs Experience, 
 
 **Do not invent** statistics, certifications, credentials, or review counts. If a needed fact isn't available, insert a `[VERIFY: …]` placeholder in the draft instead of guessing, and list these placeholders for the user when you present the draft.
 
+### Voice & Tone (optional)
+For blog posts where a lighter tone fits the topic (homeowner pain points, listicles) — not service/pricing/safety/emergency pages — you may draw on `docs/content-style/humor-writing-reference.md` for restrained, light-touch humor techniques. Never let humor touch proof points, stats, or E-E-A-T claims. Default to a straight, trustworthy tone when in doubt.
+
 ### Internal Links
-Include at least 2 internal links using natural anchor text pointing to real pages on the site:
+Include at least **3 internal links** using natural anchor text pointing to real pages on the site:
 - `/services/[slug]`
 - `/service-areas/[slug]`
 - `/contact`
 - `/blog/[slug]`
+
+### External Links (required)
+Include at least **3 high-authority external links** to reputable, non-competing sources. These support the E-E-A-T proof points from the section above and signal trustworthiness to Google.
+
+Rules:
+- Must be **high-authority** sources: .gov sites, established industry standards bodies, national trade associations, universities, or major reference organizations (e.g. NOAA/National Weather Service for storm data, FEMA or Insurance Institute for Business & Home Safety for building/safety guidance, ENERGY STAR/DOE for energy-efficiency claims, EPA for environmental claims, manufacturer standards bodies like GAF/CertainTeed *only* when citing their own published warranty/spec documents).
+- Must **not** link to competitor roofing companies or roofing-industry lead-gen/directory sites. No other roofing contractors, no roofing marketplaces, no "best roofers in [city]" listicle sites.
+- Must be **relevant** to the specific claim being made — don't bolt on a generic link just to hit the count. Each link should support a proof point, statistic, or factual claim made in the body.
+- Use natural anchor text woven into the sentence, not a bare URL or a "Sources:" list dump.
+- Prefer linking to the specific page/document with the cited fact, not just a homepage.
+- If you cannot find 3 genuinely relevant high-authority sources for the topic, insert a `[VERIFY: need external source for — <claim>]` placeholder instead of forcing an irrelevant link, and list it with the other placeholders in Step 5.
 
 ### Content Type Tag
 State clearly at the top of the draft: `Content-Type: blog` or `Content-Type: services`

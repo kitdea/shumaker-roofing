@@ -17,6 +17,17 @@ Target customers: homeowners and property managers searching locally.
 
 Read `memory/seo/keywords.md` in full. Note which clusters already exist so you don't create duplicates.
 
+**Cannibalization check** (see `docs/seo/keyword-cannibalization-sop.md` for full detail):
+existing site pages already implicitly own certain terms even if `keywords.md` has no row
+for them — the homepage owns brand/category intent, each `/services/[slug]` page owns its
+exact service term (e.g. "roof repair", "roof replacement"), and `/service-areas/[slug]`
+pages own city+service combinations. Before adding a candidate keyword whose core phrase
+(ignoring city/state modifiers) matches a service page's title or an existing cluster
+assigned to a *different* page/intent, do not add it as a new/separate cluster — either
+assign it to the page that already owns that intent, or explicitly note in the keyword's
+row that it targets a different (informational) angle of that term. Flag any ambiguous
+case to the user instead of silently creating a competing cluster.
+
 ## Step 2: Identify the Topic
 
 The topic is the argument passed to this skill (e.g. "metal roofing", "roof repair", "storm damage").
@@ -52,23 +63,37 @@ Add all matching gap keywords to the candidate list. These proceed into Step 4 (
 
 Use the Semrush MCP to enrich each candidate keyword with real search data.
 
-Call `mcp__claude_ai_Semrush_MCP_server__keyword_research` for the topic seed phrase, database `us`:
+Call `mcp__claude_ai_Semrush_MCP_server__keyword_research` for the topic seed phrase, database `us`, applying this standard filter set:
+
+- **Match type**: All > Broad Match
+- **Intent**: Commercial and Transactional
+- **KD**: Easy
+- **Volume**: 500 to 50,000
 
 ```
 mcp__claude_ai_Semrush_MCP_server__keyword_research({
   keyword: "[topic seed]",
-  database: "us"
+  database: "us",
+  match_type: "broad",
+  intent: ["commercial", "transactional"],
+  kd: "easy",
+  volume_min: 500,
+  volume_max: 50000
 })
 ```
 
-For any high-priority candidates not returned by the seed lookup, call individually. Extract for each keyword:
+Check `get_report_schema` for this tool's exact filter parameter names/values before calling if they differ from above — the filters (match type, intent, KD, volume range) are the fixed requirement regardless of exact param naming.
+
+For any high-priority candidates not returned by the seed lookup, call individually with the same filters. Extract for each keyword:
 - **Volume**: monthly US search volume (use 0 if not found)
 - **KD**: keyword difficulty score 0–100 (use `—` if not found)
 - **CPC**: cost-per-click in USD (informational only)
 
 **Filtering rules** (apply after enrichment):
+- Enforce the standard filter set above: Broad Match, Commercial/Transactional intent, Easy KD, Volume 500–50,000
 - Drop any keyword with Volume = 0 AND no local modifier — these are speculative
-- Keep all local-modifier keywords regardless of volume (local search data is underreported in national databases)
+- Keep all local-modifier keywords regardless of volume (local search data is underreported in national databases) — local keywords are exempt from the 500–50,000 volume band since local search is underreported
+- Informational-intent keywords (Step 3's required minimum of 4) are also exempt from the Commercial/Transactional filter — the intent/KD/volume filters apply to the broader candidate pool, not to the mandatory informational keywords
 - Sort retained keywords: highest Volume first within each intent group
 - Final list: 12–16 keywords (top performers from candidates)
 

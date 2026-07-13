@@ -137,7 +137,7 @@ export default async function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
               <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base font-bold uppercase" asChild>
-                <Link href={hero?.buttonLink ?? "/book-appointment"}>{hero?.buttonText ?? "SCHEDULE YOUR ROOF REPAIR"}</Link>
+                <Link href={hero?.buttonLink ?? "/book-appointment"}>{hero?.buttonText ?? "SCHEDULE A FREE ESTIMATE"}</Link>
               </Button>
               {hero?.phoneNumber && (
                 <Button
