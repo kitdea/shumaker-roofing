@@ -3,9 +3,9 @@
 **Summary**
 - Total keywords tracked: 16
 - Clusters: repair-frederick (16 keywords, published)
-- Last content published: 2026-07-13 (blog/roof-repair-frederick-md, cannibalization-fix update, doc 405612f5-66e9-48f4-afd5-c03173f1275c)
+- Last content published: 2026-07-14 (/book deleted as a duplicate of /book-appointment + permanent redirect added in next.config.mjs; before that, services/roof-installation metadata-fix, doc 12da024e-ea8e-452c-9109-529ed21e2865)
 - Last QA run: 2026-07-13 (blog/roof-repair-frederick-md — PASS, 15/15, quality 8/10)
-- Last content audit: 2026-07-13 — 2 unresolved duplicate-intent clusters (8 of 15 live blog posts), 15/15 posts missing SEO metadata, 7/11 services with zero blog coverage. Static routes (about/faqs/careers/projects/testimonials/roofs-for-heroes/contact/book-appointment + services/service-areas/blog listings) audited same day — clean, no findings.
+- Last content audit: 2026-07-14 (run 3, same day) — /book vs /book-appointment duplicate confirmed RESOLVED (deleted + redirect added). Everything else still open has now ESCALATED at 3 consecutive audits: 2 duplicate-intent clusters ("summer heat damage", "roof rejuvenation"), tax-credit-2026's wrong excerpt, 2 title-whitespace posts, 1 empty-category post, 14/15 absolute internal links, 4/4 locations with empty faqItems, 6/11 services with zero blog coverage, chambersburg-pa with 0 blog links. These need action before the next audit. See audit-findings-log.md for full per-finding status.
 
 ## Files
 
@@ -15,3 +15,5 @@
 - [rankings.md](rankings.md) — SEO position snapshots
 - [competitors.md](competitors.md) — Competitor organic keyword snapshots and gap analysis
 - [audit-log.md](audit-log.md) — Content audit history (live Sanity ground-truth vs. memory drift, duplicate-intent clusters, coverage gaps)
+- [audit-findings-log.md](audit-findings-log.md) — Per-finding audit-over-audit tracking (new/still-open/resolved/regressed status per finding ID, enables staleness escalation)
+- [publish-verification-log.md](publish-verification-log.md) — Post-publish verification results per content-updater run (live-document checks, not draft checks)

@@ -1,6 +1,6 @@
 ---
 name: content-updater
-description: Use after /qa PASS to publish approved content to Sanity. Reads credentials from .env.local, calls the Sanity mutation API, and logs the result to memory/seo/content-log.md.
+description: Use after /qa PASS to publish approved content to Sanity. Reads credentials from .env.local, calls the Sanity mutation API, re-verifies the live document against the QA checklist (catching write-time defects QA on the draft can't see), and logs the result to memory/seo/content-log.md and memory/seo/publish-verification-log.md.
 ---
 
 # Content Updater
@@ -161,18 +161,67 @@ Write-Output "Created document ID: $newId"
 
 > For a new **service** page use `"_type" = "services"`, put body in `servicesContent` instead of `content`, and add `servicesImage` separately in Studio (image uploads are not handled here).
 
-## Step 5: Confirm It Published
+## Step 5: Post-Publish Verification (mandatory — do not skip)
 
-There is no separate publish call — a successful mutate response means the change is live in the `$dataset` dataset. Optionally re-query to verify:
+There is no separate publish call — a successful mutate response means the change is live in
+the `$dataset` dataset. But a 200 response does not guarantee the *content* is correct: PowerShell
+JSON escaping can mangle smart quotes, the Portable Text conversion in Step 4B can drop or
+truncate text, and a mistyped patch path (e.g. `seo.seotitle`) fails silently instead of erroring.
+QA (check 12-29) validated the **draft** — it never saw what actually got written. Re-query the
+live document and check it, not the draft, against the checklist:
 
 ```powershell
-$check = "*[_id==`"$docId`"][0]{title, `"seoTitle`": seo.seoTitle}"
-Invoke-RestMethod -Uri "$queryUrl?query=$([uri]::EscapeDataString($check))" -Headers $headers -Method Get | ConvertTo-Json
+$live = "*[_id==`"$docId`"][0]{title, excerpt, slug, publishedDate, seo, content, servicesContent}"
+$doc  = Invoke-RestMethod -Uri "$queryUrl?query=$([uri]::EscapeDataString($live))" -Headers $headers -Method Get
+$doc  = $doc.result
 ```
+
+Run these checks against `$doc` (not the draft you sent):
+
+| # | Check | Rule |
+|---|-------|------|
+| V1 | Field fidelity | `$doc.title`, `$doc.excerpt`, `$doc.seo.seoTitle`, `$doc.seo.seoDescription` match the approved draft **exactly** (trim whitespace, but no other normalization) — a mismatch means the write was truncated, mis-escaped, or hit the wrong path |
+| V2 | Body present | `$doc.content` (blog) or `$doc.servicesContent` (services) is non-empty and its block count roughly matches what you sent — a silent drop means Step 4B's `$blocks` array didn't serialize |
+| V3 | SEO title length | `$doc.seo.seoTitle` is 50–60 characters (QA check 13, re-run on live data) |
+| V4 | Meta description length | `$doc.seo.seoDescription` is 120–160 characters (QA check 14) |
+| V5 | Keyword still present | Primary keyword (looked up from `memory/seo/keywords.md`, same lookup as the cannibalization check) still appears in `$doc.seo.seoDescription` (QA check 15) |
+| V6 | noindex/nofollow | Neither is `true` unless explicitly intended (QA check 18 — hard-stop) |
+| V7 | Canonical matches path | If `$doc.seo.canonicalUrl` is set, it matches this page's own path (QA check 19 — hard-stop) |
+| V8 | No live duplicate | GROQ query for another document (`_id != $docId`) with an exact-match `seo.seoTitle` or `seo.seoDescription` across `blog`, `services`, `location` returns none (QA check 20) |
+
+If **any** check fails: do not proceed to Step 6 as a normal publish. Report it immediately:
+
+```
+⚠ PUBLISH VERIFICATION FAILED — [page slug] (doc [docId])
+Failed: [check ID(s) and what's wrong, e.g. "V1: seo.seoDescription live value is 89 chars,
+draft was 148 chars — looks truncated at an escaped quote"]
+The document is live with this defect right now. Options:
+1. Re-patch immediately with the corrected value (I can do this now), or
+2. Unpublish (prefix doc id with drafts. is not reversible for already-published docs —
+   use a corrective patch instead)
+```
+
+Then fix (re-patch) and re-verify before moving on. Log the failure regardless of whether it
+was fixed — see Step 6.
 
 ## Step 6: Log to Memory
 
-Append one row to `memory/seo/content-log.md`:
+**Verification log (always, even if Step 5 passed clean):** append one row to
+`memory/seo/publish-verification-log.md` (create with a header row if it doesn't exist):
+
+```
+| [YYYY-MM-DD] | [page slug] | [doc ID] | [pass / check IDs that failed] | [root cause if known] | [fixed-by-repatch: yes/no] |
+```
+
+This is the learning mechanism for this skill — before publishing, skim the last ~10 rows of
+this file. If the **same check ID or root cause** appears 2+ times, it's a systemic problem, not
+a one-off typo. Say so explicitly in the report (Step 7) and name the likely fix (e.g. "V1
+failures have hit seoDescription 3 times when it contains an apostrophe — PowerShell's
+`ConvertTo-Json` needs the value single-quoted before interpolation, not the mutation logic
+itself") rather than just re-patching and moving on.
+
+**Content log (only after verification passes clean or a failure was corrected):** append one
+row to `memory/seo/content-log.md`:
 
 ```
 | [YYYY-MM-DD] | [page slug] | [created/updated] | [document ID] | seo-writer + content-updater |
@@ -185,10 +234,11 @@ Update `memory/seo/MEMORY.md`: set "Last content published" to today's date and 
 ## Step 7: Report
 
 ```
-✓ Published to Sanity
+✓ Published to Sanity — verified against live document
   Document ID: [id]
   Page: [slug]
   Action: [created/updated]
+  Post-publish checks: [N]/8 passed
   Keywords marked as: published
 
 Note: production caches via CDN; the live page may take a moment to reflect the change
@@ -196,4 +246,13 @@ Note: production caches via CDN; the live page may take a moment to reflect the 
 
 Next step: Add this page to memory/seo/rankings.md to track its position over time.
 Run /seo-project-manager to see what to work on next.
+```
+
+If a systemic pattern was found in the verification log (2+ repeats of the same check/root
+cause), lead the report with that instead:
+
+```
+⚠ Recurring publish defect detected: [check ID] has failed [N] times in the last 10 publishes,
+  most recently on [slug] ([date]). Likely cause: [root cause]. Recommend fixing this before
+  the next publish rather than continuing to catch it at verification time.
 ```

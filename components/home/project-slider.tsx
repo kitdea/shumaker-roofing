@@ -227,12 +227,16 @@ export function ProjectSlider({ slides: propSlides }: ProjectSliderProps) {
             aria-selected={i === current}
             aria-label={`Go to slide ${i + 1}: ${slide.caption}`}
             onClick={() => setCurrent(i)}
-            className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-              i === current
-                ? "w-6 bg-primary"
-                : "w-2 bg-white/60 hover:bg-white"
-            }`}
-          />
+            className="p-2.5 flex items-center justify-center cursor-pointer"
+          >
+            <span
+              className={`h-2 rounded-full transition-all duration-300 block ${
+                i === current
+                  ? "w-6 bg-primary"
+                  : "w-2 bg-white/60 hover:bg-white"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

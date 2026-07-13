@@ -68,10 +68,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://cdn.sanity.io" />
-        
-      </head>
+      <head></head>
       <body className={cn("min-h-screen bg-background font-sans antialiased flex flex-col", inter.variable, montserrat.variable)}>
         {children}
         <Analytics />
