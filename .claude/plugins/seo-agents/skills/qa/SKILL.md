@@ -37,8 +37,8 @@ Check every item below. Record PASS or FAIL for each.
 | 3 | Keyword in first 100 words | Primary keyword appears in the opening paragraph |
 | 4 | No keyword stuffing | Primary keyword density < 3% (count occurrences / total words × 100) |
 | 5 | H2s present | At least 2 H2 headings in the body |
-| 6 | Heading hierarchy valid | Exactly one H1; no heading level is skipped (e.g. H2 → H4 with no H3) |
-| 7 | Word count | Blog posts ≥ 600 words; service/area pages ≥ 300 words (per Content-Type from Step 0) |
+| 6 | Heading hierarchy valid | Exactly one H1; no heading level is skipped (e.g. H2 → H4 with no H3); every H3 sits under an H2 (never opens a section); no lone H3 — a section either has two or more H3s or none, per `/seo-writer` Heading Hierarchy. Print the outline indented to verify |
+| 7 | Word count | Blog posts **1000–1500 words** — this is a range, not a floor: under 1000 or over 1500 fails (per `/seo-writer` Body Structure). Service/area pages ≥ 300 words (per Content-Type from Step 0) |
 | 8 | Local signal | At least one mention of a state (Maryland, Virginia, Pennsylvania, West Virginia) or city |
 | 9 | CTA present | Last paragraph includes a call to action (contact, call, get a quote) |
 | 10 | Credibility signal | At least one proof point (cited stat/spec/source) AND one experience signal (years in business, roofs completed, certification, or service footprint) |
@@ -92,24 +92,49 @@ same commercial "roof repair" intent. Full rules: `docs/seo/keyword-cannibalizat
 |---|-------|------|
 | 29 | No cluster/keyword cannibalization | Look up the draft's `Cluster` and primary keyword in `memory/seo/keywords.md`. Cross-reference `memory/seo/content-log.md` for any **other already-published page** in the same cluster or targeting the same/near-synonym primary keyword. Classify intent per the SOP §1 ownership table (brand→homepage, commercial→`/services/[slug]`, local→`/service-areas/[slug]`, informational→`/blog/[slug]`) and confirm this draft's angle matches the intent its page type should own. If another live page already owns this cluster/keyword's intent and this draft targets the same angle, FAIL — do not pass a draft that duplicates another page's target intent, even with a differently-worded title |
 
+### Brand Policy (DIY & Pricing)
+
+Two business rules `/seo-writer` enforces at draft time. They are checked here because they
+are the ones with real-world cost: DIY content puts a homeowner on a roof and competes with
+the service being sold; an unqualified price gets read as a quote. Both are **hard-stops** —
+they don't trade off against a good quality score.
+
+| # | Check | Rule |
+|---|-------|------|
+| 30 | No DIY content | The draft contains no DIY instructions (step-by-step repair/installation, tool or material shopping lists, ladder/roof-access guidance) and does not frame DIY as a reasonable option — including as the cheap route, a quick fix, an "if you're handy" aside, a temporary patch, or a DIY-vs-pro comparison treating both as valid paths. Scan for imperatives telling the reader to climb, patch, seal, nail, caulk, or replace anything themselves. **Allowed:** ground-level observation (what to look for from the ground), ground-level upkeep between professional visits (keeping gutters clear, trimming branches, watching the attic) provided it involves no ladder or roof access, and telling a reader their roof does *not* need work — the honest trade-off per `/seo-writer` Voice & Tone is scoping professional work, not DIY. FAIL on any instructional content; note the exact lines |
+| 31 | Routes to the experts | At every point a reader would ask "what do I do about this?", the answer routes to a Shumaker inspection/estimate via `/contact` or a relevant `/services/[slug]`, in natural anchor text. A draft that diagnoses a problem and leaves the reader with no professional next step fails |
+| 32 | Pricing is justified | If the draft contains any price, range, or dollar figure, the primary keyword must be an explicit cost term that demands it. A price bolted onto a non-cost post (a material guide, a maintenance post) fails — cost content is deprioritized per `/seo-writer` Step 4, and Shumaker doesn't publish fixed pricing. If the draft has no pricing, this check passes automatically |
+| 33 | Pricing is sourced and qualified | For any figure present: it is a **sourced, dated industry range** with the source named inline (e.g. "2026 industry ranges of $6–15/ft"), never invented, and never presented as a Shumaker-specific quote unless the user explicitly supplied it. An unsourced or undated number fails. A Shumaker-specific price with no user-supplied origin fails |
+| 34 | Pricing disclaimer present and adjacent | For any figure present: a disclaimer appears **immediately adjacent to the first pricing figure** — same section, not buried in the closer or a footnote. It must convey, in natural prose, that these are general industry estimates and not a quote, that actual cost depends on the specific roof, and that only an on-site estimate gives a real number — and it must link to `/contact`. Placement is part of the check: a correct disclaimer in the wrong place still fails, because a reader who skims the figure never reaches it. Match the pattern the gutter post established (`memory/seo/content-log.md`, 2026-07-16). If the draft has no pricing, this check passes automatically |
+
 ## Step 3.5: Score Quality (for check 12)
 
 Read the draft as a human would and assign a 1–10 quality score based on:
 - **Readability** — short sentences, smooth transitions, scannable structure
 - **Depth & value** — answers the search intent better than a thin/generic page; no filler
 - **No fluff or repetition** — no padded sentences, no repeated claims, no restated headings
+- **Lists used honestly** — any bulleted/numbered list is genuinely a set or a sequence, with parallel items (numbered only where order matters). Prose chopped into bullets to break up a long section is a defect. Zero lists is fine when nothing in the topic is enumerable; a list under every H2 is padding. Roughly 1–3 per blog post
+- **Trade voice** — reads like a contractor who has been on a roof, not a search result. Correct, in-passing use of the vocabulary (drip edge, flashing, pipe boots, decking, ridge vent); at least one thing a homeowner would get wrong; regional specificity (Mid-Atlantic freeze-thaw, ice dams, spring hail) where the topic allows. Generic-but-accurate content that any contractor anywhere could have published caps the score at 6
+- **No content-mill tells** — none of the banned patterns from `/seo-writer` Voice & Tone: throat-clearing openers ("In today's world…", "When it comes to…"), LLM connective tissue ("Moreover", "Furthermore", "In conclusion") as paragraph-opening tics, the triad reflex ("durable, affordable, and reliable"), hollow hedging ("varies depending on a variety of factors" with no factors named), a section's first sentence restating its H2, or a closer that summarizes instead of directing. Each instance costs a point; three or more caps the score at 6
+- **Humor, where used** — reads as wry recognition, not a joke: no roof puns, no dad-joke setups, nothing punching down at the homeowner's ignorance, nothing at all on storm damage. Confined to intro/closer/asides, never touching a proof point, statistic, or price. Humor that fails this test is a defect, not a neutral — but its *absence* is never a defect
 
-Score < 7 is a FAIL on check 12. When it fails, state the score, the top 2–3 reasons, and the specific lines to cut or tighten. Also fail check 12 if any `[VERIFY: …]` placeholder from the writer is still unresolved.
+Score < 7 is a FAIL on check 12. When it fails, state the score, the top 2–3 reasons, and the specific lines to cut or tighten. Quote the offending line for voice/list findings — "this reads like a template" is not actionable; "cut 'When it comes to roofing materials, there are many factors' — start with the specific" is. Also fail check 12 if any `[VERIFY: …]` placeholder from the writer is still unresolved.
 
 ## Step 4: Determine Result
 
-- **PASS**: All 29 checks pass
+- **PASS**: All 34 checks pass
 - **FAIL**: Any check fails
 
-Checks 18 (noindex/nofollow), 19 (canonical mismatch), and 29 (cannibalization) are
-hard-stops: even if everything else passes, flag these prominently in the report. 18/19
-silently remove the page from search; 29 splits ranking signal between two of the site's
-own pages instead of either one winning clearly.
+Checks 18 (noindex/nofollow), 19 (canonical mismatch), 29 (cannibalization), 30 (DIY
+content), and 34 (missing pricing disclaimer) are hard-stops: even if everything else
+passes, flag these prominently in the report. 18/19 silently remove the page from search;
+29 splits ranking signal between two of the site's own pages instead of either one winning
+clearly; 30 puts a homeowner on a roof and competes with the service being sold; 34 lets a
+published number be read as a firm quote.
+
+Checks 30–34 are **business rules, not SEO preferences** — a draft that would rank well and
+scores 9/10 on quality still fails if it teaches DIY or prices without a disclaimer. Do not
+trade these off against quality or let a strong draft argue its way past them.
 
 ## Step 5: Log to Memory
 
@@ -126,18 +151,18 @@ Update the "Last QA run" line in `memory/seo/MEMORY.md`.
 
 ## Step 6: Report
 
-Show a table with every check and its result, grouped by section (Content / Meta Tags & SEO Object / Structured Data / Links). Then:
+Show a table with every check and its result, grouped by section (Content / Meta Tags & SEO Object / Structured Data / Links / Brand Policy). Then:
 
 **If PASS:**
 ```
-✓ QA PASSED — [N]/29 checks passed (quality [score]/10)
+✓ QA PASSED — [N]/34 checks passed (quality [score]/10)
 Keywords updated to status 'qa-passed'.
 Next step: /content-updater
 ```
 
 **If FAIL:**
 ```
-✗ QA FAILED — [N]/29 checks passed
+✗ QA FAILED — [N]/34 checks passed
 Failed checks: [list with specific fix instructions for each]
 Next step: Revise the draft and re-run /qa, or run /seo-writer to regenerate new content and refer to humor writing reference.
 ```
@@ -153,3 +178,10 @@ For each failed check, provide the specific fix. For example:
 - Check 10 fail: "No proof point found. Add a cited stat (e.g. shingle wind rating, warranty term) and an experience signal (years in business or certification)."
 - Check 11 fail: "No author attribution. Add 'Reviewed by the Shumaker Roofing install team' or a named expert."
 - Check 12 fail: "Quality 5/10 — intro repeats the H1 verbatim and paragraph 3 restates paragraph 1. Cut [lines] and tighten transitions."
+- Check 6 fail: "H2 'What Drives the Cost' is followed by a single H3 'Aluminum' with no sibling. Either add the other material H3s (Copper, Steel) or drop the lone H3 and keep the section as prose."
+- Check 7 fail: "Draft is 780 words — under the 1000-word standard. Add substance (a deeper angle on [topic] or an extra FAQ pair), not filler."
+- Check 30 fail: "Lines [x–y] give step-by-step instructions for sealing a pipe boot, and the 'If you're handy' aside frames DIY as a valid option. Cut both. Replace with what the reader can observe from the ground (staining, granules in the gutter), what it likely means, and a link to /services/roof-repair for the inspection."
+- Check 31 fail: "The post diagnoses three failure signs but never routes to an inspection. Add a natural-anchor link to /contact or the relevant /services/[slug] where the reader would ask 'what now?'"
+- Check 32 fail: "Primary keyword is 'types of gutters for homes' — an informational term — but the draft includes a $6–15/ft price range. Cost content is deprioritized; cut the pricing section entirely rather than adding a disclaimer to a post that didn't need a price."
+- Check 33 fail: "'$8,000–$12,000 for a typical replacement' has no source or date, and reads as a Shumaker figure. Replace with a sourced, dated industry range with the source named inline, or cut it."
+- Check 34 fail: "Price range appears in the second H2 section but the disclaimer is in the closing paragraph, six sections later. Move it immediately adjacent to the first figure — a reader who skims the number never reaches the closer."
