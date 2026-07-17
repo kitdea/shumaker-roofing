@@ -229,6 +229,7 @@ const nextConfig = {
         permanent: true,
       },
 
+
       // Blog posts previously linked without /blog/ prefix
       {
         source: '/do-commercial-silicone-roof-coatings-offer-tax-advantages',
@@ -295,8 +296,11 @@ const nextConfig = {
         destination: '/blog',
         permanent: true,
       },
-      
-
+      {
+        source: '/roof-rejuvenation-cost-guide-factors-estimates-explained',
+        destination: '/roof-rejuvenation-cost-frederick-md',
+        permanent: true,
+      },
     
       // Old service path
       {
