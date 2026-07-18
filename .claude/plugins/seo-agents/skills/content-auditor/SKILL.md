@@ -71,18 +71,29 @@ all four — `static` is covered separately in Step 2b since it's file-based, no
 internal link target in one query so clustering and link-graph analysis don't need a second pass:
 
 ```groq
-*[_type=="blog"]{
+*[_type=="blog" && !(_id in path("drafts.**"))]{
   _id, title, "slug": slug.current, publishedDate, categories, excerpt,
   "seoTitle": seo.seoTitle, "seoDesc": seo.seoDescription,
   "wordCount": length(pt::text(content)),
-  "links": content[].markDefs[].href
+  "links": array::compact(content[].markDefs[].href)
 } | order(publishedDate desc)
 ```
+
+> **`array::compact()` here is load-bearing — do not remove it.** In `content[].markDefs[].href`,
+> any block that has no `markDefs` array at all contributes a `null` to the flattened result. On
+> 2026-07-18 that produced 4 phantom entries across 4 posts (116 raw values vs 112 real ones) in
+> `roof-rejuvenation-cost-frederick-md`, `7-signs-roof-needs-rejuvenation-not-replacement`,
+> `how-marylands-summer-heat-affects-roofs-in-frederick-md`, and `what-is-roof-rejuvenation`.
+>
+> Note that filtering at the element level does **not** fix this: `content[].markDefs[defined(href)].href`
+> still returns the nulls, because the null is produced by the block traversal before any
+> element-level filter runs. Verified against live data — only `array::compact(...)` (or a
+> block-level `content[defined(markDefs)]` filter) returns a clean list.
 
 **Service pages:**
 
 ```groq
-*[_type=="services"]{
+*[_type=="services" && !(_id in path("drafts.**"))]{
   _id, title, "slug": slug.current,
   "seoTitle": seo.seoTitle, "seoDesc": seo.seoDescription,
   "excerpt": servicesContent[0].children[0].text
@@ -98,11 +109,59 @@ internal link target in one query so clustering and link-graph analysis don't ne
 **Location pages:**
 
 ```groq
-*[_type=="location" && isActive==true]{
+*[_type=="location" && isActive==true && !(_id in path("drafts.**"))]{
   _id, cityName, "slug": slug.current, state, fullLocationName, servicesOffered,
   introText, faqItems
 } | order(cityName asc)
 ```
+
+### Step 2c: Validate the queries before deriving any finding (mandatory)
+
+Every false finding this skill has produced traces to **a query result that was wrong for a
+reason unrelated to the content, then read as evidence about the content.** Two shapes:
+
+- **Silent nulls.** GROQ does not error on a wrong field name or an over-flattened traversal — it
+  returns `null`, which is indistinguishable from a real gap.
+- **Inferring from shape instead of resolving.** Judging a link dead by how its URL looks rather
+  than checking it against the route tree.
+
+Both produce confident, specific, entirely fictional findings.
+
+Four occurrences to date:
+
+| Date | Bad output | Actual cause |
+|---|---|---|
+| 2026-07-13 | "15/15 posts missing SEO metadata" (false) | queried `seo.metaTitle`; real field is `seo.seoTitle` |
+| 2026-07-14 (run 4) | "18 dead internal links across 5 posts" (false) | absolute-but-valid URLs judged by shape; see Step 4 |
+| 2026-07-18 | 4 posts with "null-href link marks" (false) | `content[].markDefs[]` null-flattening; see Step 2 |
+| 2026-07-18 | every prior audit's counts inflated | drafts returned alongside published; see below |
+
+**Every Step 2 query must exclude drafts** with `!(_id in path("drafts.**"))`. The `run_query`
+helper in Step 1 hits the raw API with no perspective parameter, which returns drafts *and*
+published documents. Discovered 2026-07-18: the blog query returned 20 documents, not 17 — three
+drafts (`how-much-do-new-gutters-cost-maryland`, plus draft copies of `what-is-roof-rejuvenation`
+and `skylight-repair-vs-replacement-how-to-decide-save-money`). The latter two exist as both
+published and draft, so **those posts were counted twice in every prior audit**, inflating the
+link graph (138 link values vs 112 real) and double-weighting them in Step 3 clustering — which
+matters, since `what-is-roof-rejuvenation` is a member of the escalated "roof rejuvenation"
+cluster. This audit reports on what is *live*; a draft is not live.
+
+Before deriving findings, run these two checks:
+
+1. **Non-null sanity check.** For each field a finding could be based on (`seoTitle`, `seoDesc`,
+   `excerpt`, `categories`, `links`, `faqItems`), confirm *at least one* document returns a
+   non-null value. A field that is null for **every** document is a query bug until proven
+   otherwise — verify the field name against `sanity/schemaTypes/` before reporting anything.
+2. **Spot-check one raw document.** Fetch one full document with no projection and read the
+   nested object directly. A projection that disagrees with the raw document is wrong.
+
+If a check fails, fix the query and re-run Step 2. Do not report a finding derived from a field
+that failed either check.
+
+> Document types are **`services`** (plural), `blog`, `location`, `author`. Note `CLAUDE.md`
+> currently lists this as `service` (singular) in its schema list — that is a doc error;
+> `lib/sanity.ts` correctly queries `services`. Querying `_type=="service"` returns zero
+> documents, silently.
 
 ## Step 2b: Pull Static Route Inventory
 
@@ -179,14 +238,38 @@ For each cluster found, classify severity:
 
 For every blog post, service page, and location page pulled in Step 2, flag:
 
-- `seoTitle` / `seoDesc` (Sanity `seo.metaTitle` / `seo.metaDescription`) null or empty — falls
+- `seoTitle` / `seoDesc` (Sanity `seo.seoTitle` / `seo.seoDescription`) null or empty — falls
   back to raw title/excerpt per `lib/seo.ts` `buildNextMetadata()`, which is not a bug, but means
   nothing was deliberately written for search/social.
 - Titles or excerpts with leading/trailing whitespace, or an excerpt that repeats the same
   sentence twice (duplicated string within the field).
 - Empty-string entries inside array fields (e.g. `categories: ["Roof Maintenance", ""]`).
 - Internal links using the absolute `https://shumakerroofing.com/...` form instead of relative
-  paths — not broken, but inconsistent and worth flagging as a house-style issue.
+  paths — **not broken**, and never to be reported as dead. This is a house-style issue only.
+
+**Dead-link validation — resolve, never pattern-match.** A link is dead only if its path fails to
+resolve against the live route tree. Build the valid path set first, from data already pulled in
+Step 2 plus the real route files:
+
+- `/services/<slug>` for every slug in the Step 2 services query (11 as of 2026-07-18)
+- `/service-areas/<slug>` for every active location slug (4)
+- `/blog/<slug>` for every blog slug (17)
+- every static route in Step 2b's list, plus `/` and any `source` in `next.config.mjs` `redirects()`
+  (a link to a redirect source is alive — it 301s, it does not 404)
+
+Then, for each link: strip the `https://shumakerroofing.com` prefix if present, and check the
+remaining path against that set. Report a link as dead **only** on a miss. External hosts
+(anything not `shumakerroofing.com`) are out of scope for this check — do not resolve them here.
+
+> **Do not infer deadness from URL shape.** On 2026-07-14 (run 4) this step did not exist and the
+> check was improvised: absolute internal URLs were read as "pre-migration URL patterns" and
+> reported as 18 dead links across 5 posts, with 9 attributed to
+> `best-roofing-contractors-in-frederick-md`. That post's 9 absolute links all resolve — the count
+> was exactly its absolute-link count. Re-validated 2026-07-18 against the live route tree: **zero
+> dead links exist across all 17 posts.** The only genuinely broken link found was in
+> `roof-rejuvenation-cost-frederick-md`, pointing at `google.com/search?q=/blog/...` — a wrong
+> *destination*, not a stale path, which no URL-shape heuristic would have caught. Fixed and
+> published 2026-07-18.
 - For location pages specifically: `introText` or `faqItems` empty triggers the generic
   city-parameterized JSON-LD fallback described in `docs/seo/keyword-cannibalization-sop.md` §3
   — flag as a location-page duplicate-content risk, not a broken page.

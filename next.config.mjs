@@ -298,7 +298,7 @@ const nextConfig = {
       },
       {
         source: '/roof-rejuvenation-cost-guide-factors-estimates-explained',
-        destination: '/roof-rejuvenation-cost-frederick-md',
+        destination: '/blog/roof-rejuvenation-cost-frederick-md',
         permanent: true,
       },
     
