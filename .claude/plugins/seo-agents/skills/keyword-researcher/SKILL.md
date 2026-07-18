@@ -42,10 +42,33 @@ Generate 20–25 candidate keywords for the topic. For each keyword include:
 
 Rules:
 - Prioritize local intent keywords (include city/state modifiers like "Maryland", "MD", "Hagerstown", "PA", "VA")
-- Include at least 6 commercial-intent keywords (buyer-ready: "cost", "near me", "company", "contractor")
-- Include at least 4 informational keywords (research-phase: "how to", "signs of", "types of")
+- Include at least 6 commercial-intent keywords (buyer-ready: "near me", "company", "contractor", "replacement", "installation")
+- Include at least 4 informational keywords (research-phase: "signs of", "types of", "how long does", "what causes")
 - No keyword should exceed 6 words
 - No duplicate keywords that already exist in memory/seo/keywords.md
+
+**Brand-policy filters — apply while generating, not after.** These mirror the rules
+`/seo-writer` and `/qa` enforce downstream. A keyword that can't be written about without
+breaking them is waste: it will be researched, then skipped at draft time.
+
+- **No DIY keywords.** Drop "how to fix/patch/install/replace … yourself", "DIY roof …",
+  "roof repair yourself", and similar. Shumaker's experts do the work — the content never
+  teaches a homeowner to do it instead (`/seo-writer` → No DIY; `/qa` check 30). Prefer the
+  diagnostic sibling of the same query, which reaches the same searcher and is writable:
+  "signs your roof needs repair" over "how to patch a roof". Note that a bare "how to"
+  keyword is only safe when the answer isn't *instructions to the homeowner* — "how to
+  choose a roofing contractor" is fine, "how to seal a pipe boot" is not.
+- **Deprioritize cost keywords.** Shumaker doesn't publish fixed pricing, so cost content
+  is deprioritized and any figure needs a sourced range plus a disclaimer (`/seo-writer` →
+  Cost & Pricing; `/qa` checks 32–34). Still capture them where the volume is real — they're
+  legitimate demand and the writer has a defined path for them — but don't seed them to
+  fill the commercial quota. Prefer cost-adjacent phrasings that satisfy the same intent
+  without becoming a price list: "what affects roof replacement cost", "how to compare
+  roofing quotes". **Cap cost keywords at 2 per research run**, and never let one be the
+  only commercial option in a cluster.
+
+Mark dropped candidates in your Step 6 report (see Reporting) rather than discarding them
+silently — the user should see what the policy filtered and why.
 
 ## Step 3.5: Competitor Gap Injection
 
@@ -56,6 +79,13 @@ Find rows where:
 - The keyword text overlaps with the current topic (e.g. topic "metal roofing" → look for rows containing "metal" or "roof")
 
 Add all matching gap keywords to the candidate list. These proceed into Step 4 (Semrush validation) alongside the LLM-generated candidates.
+
+**Apply the Step 3 brand-policy filters to gap keywords too.** A competitor ranking for a
+DIY term is not a reason to target it — competitors publish DIY content because they have a
+different content strategy, and a gap Shumaker deliberately won't fill isn't a gap. Drop
+DIY gap keywords outright and hold cost gap keywords to the same 2-per-run cap. Report what
+was dropped in Step 6 so the user can see the policy is what excluded them, not an
+oversight.
 
 **Filter override:** Competitor-sourced gap keywords bypass the "drop if Volume=0 with no local modifier" rule in Step 4. If a competitor ranks for it, the traffic signal is real regardless of national database reporting.
 
@@ -118,9 +148,19 @@ Then update `memory/seo/MEMORY.md`:
 
 ## Step 6: Report
 
-Show the user a summary table of what was added, grouped by cluster, including Volume and KD columns. End with:
+Show the user a summary table of what was added, grouped by cluster, including Volume and KD columns.
+
+If the brand-policy filters (Step 3 / Step 3.5) dropped any candidate or gap keyword, list
+them with the reason — DIY or cost-cap — and name the diagnostic or cost-adjacent
+alternative you kept in place of each, where one exists. A silently shortened list looks
+like thin research; an explicit "dropped 'how to patch a roof' (DIY policy), kept 'signs
+your roof needs repair' instead" shows the filter working. Say so explicitly when nothing
+was dropped.
+
+End with:
 
 ```
 ✓ Added [N] keywords to memory/seo/keywords.md (Semrush-validated)
+  [M] dropped by brand policy (DIY / cost cap) — listed above
 Next step: /seo-writer [cluster-name]
 ```
