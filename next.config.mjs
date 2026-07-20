@@ -288,6 +288,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/roof-rejuvenation-cost-frederick-md',
+        destination: '/blog/roof-rejuvenation-cost-frederick-md',
+        permanent: true,
+      },
+      {
         source: '/metal-roofs-screw-down-vs-standing-seam',
         destination: '/blog',
         permanent: true,
