@@ -10,7 +10,8 @@ const nextConfig = {
     // Cap at 1920 — removes 2048 & 3840 from default srcset,
     // avoiding unnecessarily large image downloads.
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
-    qualities: [60, 75, 85],
+    // Every `quality={n}` used in the app must be listed here or the image 400s.
+    qualities: [50, 60, 75, 85],
     remotePatterns: [
       {
         protocol: 'https',
@@ -204,31 +205,16 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/wp-content/uploads/2024/07/DIY-Vs.-Professional-Hiring-600x400.jpg',
-        destination: '/',
-        permanent: true,
-      },
-      {
-        source: '/metal-roofs-screw-down-vs-standing-seam',
-        destination: '/blog',
-        permanent: true,
-      },
-      {
         source: '/metal-roofing-in-bethesda-md',
         destination: '/services',
         permanent: true,
       },
+      // Leftover WordPress upload paths — no live route lives under /wp-content
       {
-        source: '/what-is-the-cost-of-installing-soffit-ridge-and-roof-vents',
-        destination: '/blog',
+        source: '/wp-content/:path*',
+        destination: '/',
         permanent: true,
       },
-      {
-        source: '/which-should-be-done-first-siding-windows-or-roofing',
-        destination: '/blog',
-        permanent: true,
-      },
-
 
       // Blog posts previously linked without /blog/ prefix
       {
@@ -298,10 +284,25 @@ const nextConfig = {
       },
       {
         source: '/roof-rejuvenation-cost-guide-factors-estimates-explained',
-        destination: '/roof-rejuvenation-cost-frederick-md',
+        destination: '/blog/roof-rejuvenation-cost-frederick-md',
         permanent: true,
       },
-    
+      {
+        source: '/metal-roofs-screw-down-vs-standing-seam',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/what-is-the-cost-of-installing-soffit-ridge-and-roof-vents',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/which-should-be-done-first-siding-windows-or-roofing',
+        destination: '/blog',
+        permanent: true,
+      },
+
       // Old service path
       {
         source: '/residential-services/skylights-and-suntunnels',

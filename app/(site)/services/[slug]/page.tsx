@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { fetchServiceBySlug, mapSplitSections } from "@/lib/sanity";
+import { fetchServiceBySlug, fetchServiceSlugs, mapSplitSections } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity-image";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextComponents } from "@portabletext/react";
@@ -49,6 +49,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   });
 }
 
+
+export async function generateStaticParams() {
+  const services = await fetchServiceSlugs();
+  return services
+    .filter((s) => s.slug?.current)
+    .map((s) => ({ slug: s.slug!.current as string }));
+}
 
 export default async function ServiceDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

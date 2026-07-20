@@ -14,13 +14,13 @@
     --secondary-foreground: #f8fafc;
 
     --accent: #ffedd5; /* Orange 100 */
-    --accent-foreground: #c2410c;
+    --accent-foreground: var(--primary);
 
     --muted: #f1f5f9; /* Slate 100 */
     --muted-foreground: #64748b; /* Slate 500 */
 
     --border: #e2e8f0; /* Slate 200 */
-    --ring: #c2410c;
+    --ring: var(--primary);
     
     --radius: 0.5rem;
   }
@@ -42,7 +42,7 @@
     --muted-foreground: #94a3b8;
 
     --border: #334155;
-    --ring: #c2410c;
+    --ring: var(--primary);
   }
 }
 

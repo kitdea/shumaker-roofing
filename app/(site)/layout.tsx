@@ -1,4 +1,6 @@
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NavbarServer } from "@/components/shared/navbar-server";
 import { Footer } from "@/components/shared/footer";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -40,6 +42,9 @@ export default function SiteLayout({
         </main>
         <Footer />
       </ThemeProvider>
+      {/* Site pages only — keeps Studio traffic out of the analytics dataset */}
+      <Analytics />
+      <SpeedInsights />
     </>
   );
 }

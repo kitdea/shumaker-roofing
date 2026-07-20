@@ -88,6 +88,61 @@ export function buildNextMetadata(
   };
 }
 
+// ─── Structured data (JSON-LD) builder ───────────────────────────────────────
+
+/**
+ * Builds the standard BreadcrumbList + WebPage `@graph` used by the site's
+ * static pages: Home → this page, with the WebPage node wired to the
+ * `#website` and `#organization` nodes declared on the homepage.
+ *
+ * Render the result with <JsonLd> from components/shared/json-ld.
+ */
+export function buildPageSchema({
+  path,
+  breadcrumbLabel,
+  name,
+  description,
+}: {
+  /** The page's path, leading slash, no trailing slash (e.g. "/testimonials") */
+  path: string;
+  /** Label for the page's breadcrumb crumb (e.g. "Testimonials") */
+  breadcrumbLabel: string;
+  /** The WebPage `name` — usually the page title */
+  name: string;
+  description: string;
+}) {
+  const url = `${SITE_URL}${path}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: breadcrumbLabel, item: url },
+        ],
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name,
+        description,
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        about: { "@id": `${SITE_URL}/#organization` },
+        publisher: {
+          "@type": "Organization",
+          "@id": `${SITE_URL}/#organization`,
+          name: "Shumaker Roofing Company",
+        },
+      },
+    ],
+  };
+}
+
 // ─── Unified SEO resolver for every page ─────────────────────────────────────
 
 /**

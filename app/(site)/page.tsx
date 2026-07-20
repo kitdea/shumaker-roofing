@@ -16,14 +16,18 @@ import { getServiceIcon, SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 
 const FALLBACK_HERO_IMAGE_URL = FALLBACK_BLOG_IMAGE;
 
+// Shared by the page metadata and the LocalBusiness schema below so the
+// description Google renders and the one it ingests can't drift apart.
+const HOME_DESCRIPTION =
+  "Expert roofing contractor in Frederick, MD. Shumaker Roofing handles residential and commercial installation, replacement, and repair. Get a free estimate.";
+
 export async function generateMetadata() {
   const hero = await fetchHeroBanner().catch(() => null);
   const heroImageUrl = hero?.backgroundImageUrl ?? FALLBACK_HERO_IMAGE_URL;
 
   return fetchPageSeo({
     fallbackTitle: "Roofing Contractor in Frederick MD | Shumaker Roofing",
-    fallbackDesc:
-      "Expert roofing contractor in Frederick, MD. Shumaker Roofing handles residential and commercial installation, replacement, and repair. Get a free estimate.",
+    fallbackDesc: HOME_DESCRIPTION,
     fallbackImage: heroImageUrl,
     canonicalPath: "/",
   });
@@ -37,7 +41,7 @@ const organizationSchema = {
   "url": SITE_URL,
   "logo": `${SITE_URL}/logo.png`,
   "image": FALLBACK_BLOG_IMAGE,
-  "description": "Expert roofing contractor in Frederick, MD. Shumaker Roofing handles residential and commercial installation, replacement, and repair. Get a free estimate.",
+  "description": HOME_DESCRIPTION,
   "telephone": "+1-301-662-0533",
   "email": "info@shumakerroofing.com",
   "address": [
