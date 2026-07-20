@@ -10,6 +10,10 @@ import { cn } from "@/lib/utils";
 
 const POSTS_PER_PAGE = 12;
 
+/** Inactive pagination control: outline Button + this page's hover treatment. */
+const PAGE_BUTTON_CLASS =
+  "text-foreground/70 hover:bg-background hover:border-primary hover:text-primary";
+
 export type BlogPost = {
   id: string;
   slug: string;
@@ -28,9 +32,18 @@ interface BlogFilterProps {
 }
 
 export function BlogFilter({ posts, categories }: BlogFilterProps) {
-  const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [{ search, activeCategory }, setFilters] = useState({
+    search: "",
+    activeCategory: "All",
+  });
   const [page, setPage] = useState(1);
+
+  // Any filter change resets to page 1 — keeping the reset here means a future
+  // filter can't forget it.
+  const updateFilters = (patch: Partial<{ search: string; activeCategory: string }>) => {
+    setFilters((f) => ({ ...f, ...patch }));
+    setPage(1);
+  };
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -43,10 +56,9 @@ export function BlogFilter({ posts, categories }: BlogFilterProps) {
   }, [posts, search, activeCategory]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / POSTS_PER_PAGE));
-  const currentPage = Math.min(page, totalPages);
   const paginated = filtered.slice(
-    (currentPage - 1) * POSTS_PER_PAGE,
-    currentPage * POSTS_PER_PAGE
+    (page - 1) * POSTS_PER_PAGE,
+    page * POSTS_PER_PAGE
   );
 
   return (
@@ -57,13 +69,13 @@ export function BlogFilter({ posts, categories }: BlogFilterProps) {
           <input
             type="text"
             value={search}
-            onChange={(e) => { setSearch(e.target.value); setPage(1); }}
+            onChange={(e) => updateFilters({ search: e.target.value })}
             placeholder="Search articles..."
             className="h-12 w-full rounded-md border border-input bg-background pl-11 pr-10 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           />
           {search && (
             <button
-              onClick={() => { setSearch(""); setPage(1); }}
+              onClick={() => updateFilters({ search: "" })}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Clear search"
             >
@@ -77,7 +89,7 @@ export function BlogFilter({ posts, categories }: BlogFilterProps) {
             {["All", ...categories].map((cat) => (
               <button
                 key={cat}
-                onClick={() => { setActiveCategory(cat); setPage(1); }}
+                onClick={() => updateFilters({ activeCategory: cat })}
                 className={cn(
                   "px-4 py-1.5 rounded-full text-sm font-semibold border transition-colors",
                   activeCategory === cat
@@ -170,7 +182,7 @@ export function BlogFilter({ posts, categories }: BlogFilterProps) {
             No articles found{search ? ` for "${search}"` : ""}.
           </p>
           <button
-            onClick={() => { setSearch(""); setActiveCategory("All"); setPage(1); }}
+            onClick={() => updateFilters({ search: "", activeCategory: "All" })}
             className="mt-4 text-primary font-semibold hover:underline text-sm"
           >
             Clear filters
@@ -180,39 +192,40 @@ export function BlogFilter({ posts, categories }: BlogFilterProps) {
 
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 mt-12">
-          <button
+          <Button
+            variant="outline"
+            size="icon"
             onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={currentPage === 1}
+            disabled={page === 1}
             aria-label="Previous page"
-            className="flex items-center justify-center h-10 w-10 rounded-md border border-border text-foreground/70 hover:border-primary hover:text-primary transition-colors disabled:opacity-40 disabled:pointer-events-none"
+            className={PAGE_BUTTON_CLASS}
           >
             <ChevronLeft className="h-4 w-4" />
-          </button>
+          </Button>
 
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
-            <button
+            <Button
               key={n}
+              variant={page === n ? "default" : "outline"}
+              size="icon"
               onClick={() => setPage(n)}
-              aria-current={currentPage === n ? "page" : undefined}
-              className={cn(
-                "h-10 w-10 rounded-md text-sm font-semibold border transition-colors",
-                currentPage === n
-                  ? "bg-primary text-white border-primary"
-                  : "bg-background text-foreground/70 border-border hover:border-primary hover:text-primary"
-              )}
+              aria-current={page === n ? "page" : undefined}
+              className={cn("font-semibold", page !== n && PAGE_BUTTON_CLASS)}
             >
               {n}
-            </button>
+            </Button>
           ))}
 
-          <button
+          <Button
+            variant="outline"
+            size="icon"
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={currentPage === totalPages}
+            disabled={page === totalPages}
             aria-label="Next page"
-            className="flex items-center justify-center h-10 w-10 rounded-md border border-border text-foreground/70 hover:border-primary hover:text-primary transition-colors disabled:opacity-40 disabled:pointer-events-none"
+            className={PAGE_BUTTON_CLASS}
           >
             <ChevronRight className="h-4 w-4" />
-          </button>
+          </Button>
         </div>
       )}
     </div>

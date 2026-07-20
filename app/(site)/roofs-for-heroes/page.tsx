@@ -8,55 +8,34 @@ import { CheckCircle2, Heart, Home, Users, ClipboardList, Phone, Medal } from "l
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { CertificationsSection } from "@/components/shared/certifications-section";
-import { SITE_URL } from "@/lib/utils";
+import { JsonLd } from "@/components/shared/json-ld";
+import { buildPageSchema } from "@/lib/seo";
 
-const roofsForHeroesPageSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BreadcrumbList",
-      "@id": SITE_URL + "/roofs-for-heroes#breadcrumb",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/" },
-        { "@type": "ListItem", "position": 2, "name": "Roofs for Heroes", "item": SITE_URL + "/roofs-for-heroes" },
-      ],
-    },
-    {
-      "@type": "WebPage",
-      "@id": SITE_URL + "/roofs-for-heroes#webpage",
-      "url": SITE_URL + "/roofs-for-heroes",
-      "name": "Roofs for Heroes | Shumaker Roofing Company",
-      "description":
-        "Shumaker Roofing Co. donates roofs to veterans in need. Nominate a veteran today and help us honor those who served our country.",
-      "isPartOf": { "@id": SITE_URL + "/#website" },
-      "breadcrumb": { "@id": SITE_URL + "/roofs-for-heroes#breadcrumb" },
-      "about": { "@id": SITE_URL + "/#organization" },
-      "publisher": {
-        "@type": "Organization",
-        "@id": SITE_URL + "/#organization",
-        "name": "Shumaker Roofing Company",
-      },
-    },
-  ],
-};
+const TITLE = "Roofs for Heroes | Shumaker Roofing Company";
+const DESCRIPTION =
+  "Shumaker Roofing Co. donates roofs to veterans in need. Nominate a veteran today and help us honor those who served our country.";
+
+const roofsForHeroesPageSchema = buildPageSchema({
+  path: "/roofs-for-heroes",
+  breadcrumbLabel: "Roofs for Heroes",
+  name: TITLE,
+  description: DESCRIPTION,
+});
 
 export const metadata: Metadata = {
-  title: { absolute: "Roofs for Heroes | Shumaker Roofing Company" },
-  description:
-    "Shumaker Roofing Co. donates roofs to veterans in need. Nominate a veteran today and help us honor those who served our country.",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: { canonical: "/roofs-for-heroes" },
   openGraph: {
-    title: "Roofs for Heroes | Shumaker Roofing Company",
-    description:
-      "Shumaker Roofing Co. donates roofs to veterans in need. Nominate a veteran today and help us honor those who served our country.",
+    title: TITLE,
+    description: DESCRIPTION,
     url: "/roofs-for-heroes",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Roofs for Heroes | Shumaker Roofing Company",
-    description:
-      "Shumaker Roofing Co. donates roofs to veterans in need. Nominate a veteran today and help us honor those who served our country.",
+    title: TITLE,
+    description: DESCRIPTION,
   },
 };
 
@@ -112,10 +91,7 @@ const steps = [
 export default async function RoofsForHeroesPage() {
   return (
     <div className="flex flex-col w-full">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(roofsForHeroesPageSchema) }}
-      />
+      <JsonLd schema={roofsForHeroesPageSchema} />
 
       {/* Page Header */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-slate-900">
