@@ -324,7 +324,7 @@ const nextConfig = {
       "img-src 'self' data: https://cdn.sanity.io https://images.unsplash.com https://www.facebook.com https://www.google-analytics.com https://www.googletagmanager.com https://www.google.com https://c.clarity.ms https://projectmapit.com https://reputationhub.site https://widgets.leadconnectorhq.com https://assets.app.roofle.com https://app.roofle.com",
       "font-src 'self' data: https://assets.app.roofle.com https://fonts.bunny.net",
       "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://www.google.com https://ad.doubleclick.net https://googleads.g.doubleclick.net https://stats.g.doubleclick.net https://www.facebook.com https://www.clarity.ms https://*.clarity.ms https://cdn.callrail.com https://app.callrail.com https://app.roofle.com https://api.roofle.com https://api.app.roofle.com https://projectmapit.com https://api.leadconnectorhq.com https://widgets.leadconnectorhq.com https://services.leadconnectorhq.com https://backend.leadconnectorhq.com https://services.msgsndr.com https://reputationhub.site",
-      "frame-src 'self' https://www.facebook.com https://app.roofle.com https://api.leadconnectorhq.com https://widgets.leadconnectorhq.com https://www.youtube.com https://www.google.com https://veluxsolutions.com https://reputationhub.site",
+      "frame-src 'self' https://www.facebook.com https://app.roofle.com https://api.leadconnectorhq.com https://widgets.leadconnectorhq.com https://www.youtube.com https://www.google.com https://veluxsolutions.com https://reputationhub.site https://projectmapit.com",
       "object-src 'none'",
       "base-uri 'self'",
     ].join('; ');
