@@ -307,7 +307,31 @@ const nextConfig = {
         destination: '/blog',
         permanent: true,
       },
-
+      {
+        source: '/blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md',
+        destination: '/blog/how-marylands-summer-heat-affects-roofs-in-frederick-md',
+        permanent: true,
+      },
+      {
+        source: '/blog/common-winter-roof-damage-issues-and-how-to-prevent-them',
+        destination: '/blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them',
+        permanent: true,
+      },
+      {
+        source: '/blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice',
+        destination: '/blog/best-roofing-contractors-in-frederick-md',
+        permanent: true,
+      },
+      {
+        source: '/blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice',
+        destination: '/blog/best-roofing-contractors-in-frederick-md',
+        permanent: true,
+      },
+      {
+        source: '/blog/roof-repair-in-frederick-md-fast-reliable',
+        destination: '/blog/roof-repair-frederick-md',
+        permanent: true,
+      },
       // Old service path
       {
         source: '/residential-services/skylights-and-suntunnels',
