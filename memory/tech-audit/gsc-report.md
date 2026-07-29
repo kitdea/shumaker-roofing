@@ -1,4 +1,4 @@
-# GSC Readiness Report — 2026-07-21 14:00 UTC
+# GSC Readiness Report — 2026-07-29 03:38 UTC
 
 | Check | Target | Finding | Severity |
 |-------|--------|---------|----------|
@@ -10,5 +10,3 @@
 **Severity key:** P1 = critical · P2 = warning · INFO = informational · — = clean
 
 All GSC readiness checks are clean this run — no change from the prior audit.
-
-**Note:** An initial pass using WebFetch's summarizing fetch reported the verification tag and GA/GTM as absent. This was a false negative — the tags are embedded inside a Next.js RSC streaming payload rather than plain `<meta>`/`<script>` markup, which the summarizing fetch missed. Verified directly against raw HTML via `curl` before reporting; both are confirmed present. Future runs of this check should fetch raw HTML (not a summarizing tool) for this specific check.
