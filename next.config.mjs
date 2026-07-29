@@ -323,11 +323,6 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice',
-        destination: '/blog/best-roofing-contractors-in-frederick-md',
-        permanent: true,
-      },
-      {
         source: '/blog/roof-repair-in-frederick-md-fast-reliable',
         destination: '/blog/roof-repair-frederick-md',
         permanent: true,
