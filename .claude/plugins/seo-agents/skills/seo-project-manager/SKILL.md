@@ -16,10 +16,38 @@ Read these files in full:
 - `memory/seo/rankings.md`
 - `memory/seo/competitors.md` (skip if absent)
 - `memory/seo/audit-log.md` (skip if absent)
+- `memory/seo/audit-findings-log.md` (skip if absent)
 
 ## Step 2: Identify Gaps
 
 Check for each of the following issues and list every instance you find:
+
+**Priority -1 — Stalled work (surface before anything else).**
+This agent is read-only and only *names* actions — nothing forces them to actually happen
+between runs. That gap has caused real stuck items before (a QA-FAIL sat unresolved for 11+
+days; escalated audit findings sat unactioned for 4+ consecutive audits). So before generating
+new recommendations, check whether **the same blocking item existed last time this agent ran**
+and is still blocking:
+
+- **Stuck QA-FAIL.** For every `qa-log.md` row with `Result = FAIL`, check whether a later row
+  exists for the same page/slug with `PASS` or a newer `FAIL` (i.e. it was re-run). If the most
+  recent entry for a slug is a `FAIL` and its date is more than **3 days** old, call it out by
+  name as **stuck**, not just "needs /qa re-run":
+  > "STUCK [N] days: [slug] failed QA on [date] (checks [list]) and has not been revised or
+  > re-run since → run /seo-writer on [slug] to fix checks [list], then /qa"
+- **Stuck qa-passed content.** For every keyword row in `keywords.md` with status `qa-passed`,
+  check `content-log.md` for a matching publish entry. If none exists and the QA pass is more
+  than **3 days** old, call it out as stuck:
+  > "STUCK [N] days: [slug] passed QA on [date] but was never published → run /content-updater"
+- **Repeated escalation with no owner action.** In `audit-findings-log.md`, if a Finding ID
+  that was named as an immediate action in a *prior* run of this skill (check whether
+  `MEMORY.md`'s last-updated summary already named it) still shows `still-open` with the same
+  or higher consecutive-count now, say so explicitly — don't just re-list it as if it were new:
+  > "NO PROGRESS: [Finding ID] was flagged in the last action plan and is still still-open
+  > ([N] consecutive audits) → this needs to actually be run, not re-planned"
+
+If nothing is stuck, state "No stalled items since the last plan" — don't skip this section
+silently, since its absence is exactly what let items go stale before.
 
 **Priority 0 — Bootstrap (do before anything else):**
 - If `memory/seo/competitors.md` does not exist or has no data rows → recommend bootstrapping:
@@ -31,6 +59,20 @@ Check for each of the following issues and list every instance you find:
 - If `audit-log.md`'s latest row lists high-severity clusters or coverage gaps that aren't yet
   reflected as resolved in `content-log.md` → surface as an immediate action:
   > "[N] unresolved duplicate-intent clusters from the [date] audit → resolve per docs/seo/keyword-cannibalization-sop.md before running /seo-writer on related topics"
+- **Escalated findings (per-finding, not aggregate).** In `audit-findings-log.md`, find every row
+  whose most recent `Status` is `still-open` with a `Consecutive still-open count` of 3 or more.
+  `/content-auditor` is a detector, not a fixer — it surfaces these every run, but nothing acts on
+  them unless this step names them individually here. List **each one by its Finding ID and
+  slug(s)**, not as a rolled-up count, and route it to the correct next agent by ID type:
+  - `cluster:...` → `/seo-writer` to consolidate or build a pillar hierarchy, per
+    `docs/seo/keyword-cannibalization-sop.md`
+  - `cannibal:...` → `/seo-writer` + `/content-updater` to re-link/re-title against the named
+    canonical target
+  - `coverage:...` → `/keyword-researcher` then `/seo-writer` for the named service/location
+  - `metadata:...` → `/seo-writer` to backfill the named field on the named slug
+  Put these ahead of the generic "unresolved clusters" line above — an escalated finding is one
+  the normal report ordering has already failed to get fixed, so it needs a named owner and a
+  named next command, not just a count.
 
 **Priority 4 additions — Competitor maintenance:**
 - If any domain's Last Snapshot in `competitors.md` is older than 30 days from today → flag as stale:
@@ -70,6 +112,9 @@ Format your output exactly like this:
 ```
 ## SEO Action Plan — [today's date]
 
+### Stalled Since Last Plan
+- [STUCK/NO PROGRESS items from Priority -1, or "None — nothing stalled since the last plan"]
+
 ### Immediate Actions (do these first)
 1. [Command to run] — [specific target] — [reason]
 
@@ -87,6 +132,7 @@ Format your output exactly like this:
 - Competitor snapshots: [list domains + last snapshot date, or "none"]
 - Unactioned gaps: [N keywords, or "none"]
 - Last content audit: [date or "never"], [N] unresolved clusters
+- Escalated findings (3+ consecutive audits unresolved): [N], or "none" — list Finding IDs
 ```
 
 If all queues are empty and everything is up to date, say so clearly and suggest running `/keyword-researcher` with a new roofing topic relevant to Shumaker Roofing's service areas (Maryland, Virginia, Pennsylvania, West Virginia).

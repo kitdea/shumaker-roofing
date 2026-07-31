@@ -408,6 +408,17 @@ ID assignment:
 
 3. Do not modify findings with status `wont-fix` — leave them as-is regardless of current run results.
 
+### Step A.2.5: Compute Staleness
+
+For each `open` finding (P1 or P2), compute `Age` = current run date − `First Seen` date, in whole days.
+
+Classify:
+- `Age ≥ 3 days` **and** severity `P1` → **stale-P1** (unresolved critical issue, not just newly detected)
+- `Age ≥ 7 days` **and** severity `P2` → **stale-P2**
+- Otherwise → not stale
+
+Staleness is a display/alert property, not a stored status — do not add a "stale" value to the `Status` column; compute it fresh each run from `First Seen`.
+
 ### Step A.3: Write findings.md
 
 Overwrite `memory/tech-audit/findings.md` with the merged table:
@@ -415,11 +426,13 @@ Overwrite `memory/tech-audit/findings.md` with the merged table:
 ```
 # Open Findings — updated {YYYY-MM-DD HH:MM UTC}
 
-| ID | Module | URL | Issue | Severity | First Seen | Status |
-|----|--------|-----|-------|----------|------------|--------|
+| ID | Module | URL | Issue | Severity | First Seen | Age (days) | Status |
+|----|--------|-----|-------|----------|------------|------------|--------|
 ```
 
-Sort order: P1 open → P2 open → INFO open → closed → wont-fix.
+Add an `Age (days)` column (current run date − `First Seen`) so anyone reading the raw table can see how long an issue has been open without cross-referencing dates by hand. Append `⚠ STALE` after the age for any finding meeting the Step A.2.5 staleness threshold.
+
+Sort order: stale-P1 → P1 open → stale-P2 → P2 open → INFO open → closed → wont-fix. Stale findings sort ahead of same-severity fresh ones — a week-old P1 is a bigger problem than one found tonight.
 
 ### Step A.4: Append to audit-log.md
 
@@ -480,6 +493,14 @@ If there are any P1 issues, list them explicitly after the summary table:
 - [S-001] /services/gutters — Missing meta description
 ```
 
+If any P1 or P2 findings are stale (per Step A.2.5), list them in a separate block immediately after, so a week-old unresolved issue doesn't blend in with tonight's new findings:
+
+```
+🔴 STALE — Open {N}+ days with no fix applied:
+- [P-004] /contact — LCP poor: 11491ms (open 8 days)
+- [H-012] /services/gutters — servicesImage missing (open 35 days)
+```
+
 ### Step A.7: Send Discord Alert
 
 **7.1 — Read webhook URL**
@@ -514,15 +535,22 @@ Construct this JSON payload, substituting all `{...}` placeholders with real val
 }
 ```
 
-**COLOR:** `3258260` (green `#31B257`) if zero P1 issues · `15158332` (red `#E74C3C`) if one or more P1 issues. Use the integer directly — do not quote it.
+**COLOR:** `3258260` (green `#31B257`) if zero P1 issues · `15158332` (red `#E74C3C`) if one or more P1 issues, of which none are stale · `10038562` (dark red `#992D22`) if one or more **stale** P1 issues exist (per Step A.2.5). Use the integer directly — do not quote it.
 
 **P1_LIST:**
 - Zero P1s → `"✅ All checks passed"`
-- One or more P1s → one line per P1 finding:
+- One or more P1s, none stale → one line per P1 finding:
   ```
   ⚠ [H-003] /about — 404 Not Found
   ⚠ [S-002] /services/gutters — Missing meta description
   ```
+- One or more **stale** P1s → list stale findings first with a distinct marker and age, then remaining fresh P1s:
+  ```
+  🔴 [P-004] /contact — LCP poor: 11491ms — OPEN 8 DAYS, UNRESOLVED
+  🔴 [P-005] /book-appointment — LCP poor: 10504ms — OPEN 8 DAYS, UNRESOLVED
+  ⚠ [H-003] /about — 404 Not Found
+  ```
+  A stale P1 has already been reported in a prior alert without action — repeating the identical plain `⚠` line every night trains the reader to ignore it. The escalated marker and explicit day count exist so a week-old regression reads as urgent even on the Nth consecutive alert.
 
 **7.3 — POST to webhook**
 
