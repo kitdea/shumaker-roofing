@@ -1,6 +1,6 @@
 # Content Publish Log
 
-| Date | Page | Action | Contentful Entry ID | Agent Run |
+| Date | Page | Action | Sanity Document ID | Agent Run |
 |------|------|--------|---------------------|-----------|
 | 2026-05-13 | blog/roof-repair-frederick-md | created | 7EevzOK3FopPXfnYuDD2U9 | seo-writer + content-updater |
 | 2026-07-13 | / (homepage) | cannibalization-fix — hero CTA fallback text changed from "SCHEDULE YOUR ROOF REPAIR" to "SCHEDULE A FREE ESTIMATE" to stop homepage competing with /services/roof-repair for the "roof repair" term | n/a (code change, app/(site)/page.tsx) | manual |

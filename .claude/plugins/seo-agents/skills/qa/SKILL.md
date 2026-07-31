@@ -107,6 +107,22 @@ they don't trade off against a good quality score.
 | 33 | Pricing is sourced and qualified | For any figure present: it is a **sourced, dated industry range** with the source named inline (e.g. "2026 industry ranges of $6–15/ft"), never invented, and never presented as a Shumaker-specific quote unless the user explicitly supplied it. An unsourced or undated number fails. A Shumaker-specific price with no user-supplied origin fails |
 | 34 | Pricing disclaimer present and adjacent | For any figure present: a disclaimer appears **immediately adjacent to the first pricing figure** — same section, not buried in the closer or a footnote. It must convey, in natural prose, that these are general industry estimates and not a quote, that actual cost depends on the specific roof, and that only an on-site estimate gives a real number — and it must link to `/contact`. Placement is part of the check: a correct disclaimer in the wrong place still fails, because a reader who skims the figure never reaches it. Match the pattern the gutter post established (`memory/seo/content-log.md`, 2026-07-16). If the draft has no pricing, this check passes automatically |
 
+### Banned AI Words
+
+Distinct from check 12's quality score (where content-mill tells cost points toward a 7/10
+floor). This check is a **hard-stop**, not a score input — a draft can score 8/10 on Voice &
+Tone's own criteria and still fail here if it contains a HARD BAN word or banned structure.
+Run the full self-check from `docs/content-style/banned-ai-words.md` (its own "Ban-specific
+self-check" section) against the complete draft, not just the summary carried in `/seo-writer`.
+
+| # | Check | Rule |
+|---|-------|------|
+| 35 | No HARD BAN words | Zero instances of any HARD BAN word/phrase from `docs/content-style/banned-ai-words.md` (all variants: tense, plural, hyphenation, -er, -ing, -ity, -ful, -ly). Quotes, brand names, product names, and literal (non-figurative) technical use are exempt — verify any flagged instance isn't a carve-out before failing it |
+| 36 | EARN IT words used correctly | Any EARN IT word (ensure, efficient, optimal, key, thrive, enhance, etc.) is literally accurate and no plainer word would fit better. Flag lazy use, not the word itself |
+| 37 | No banned phrases or sentence structures | No filler/empathy/service-template openers, no hype phrases or idioms from the banned-phrases list, and none of the banned sentence structures (participial -ing benefit-closer, "not only X but also Y", staccato triads, "from X to Y" false ranges, rhetorical-question-then-short-answer, "more than just X") |
+| 38 | No formatting/punctuation tells | Zero em dashes or en dashes anywhere in the draft. No mid-sentence bold for emphasis, no emoji, no leaked markdown in CMS-bound fields |
+| 39 | Interchangeability test | For at least the intro and one body section, confirm no sentence is generic enough that a competitor roofing site could paste it verbatim — cite the specific local/numeric/named detail that makes it Shumaker's |
+
 ## Step 3.5: Score Quality (for check 12)
 
 Read the draft as a human would and assign a 1–10 quality score based on:
@@ -122,19 +138,21 @@ Score < 7 is a FAIL on check 12. When it fails, state the score, the top 2–3 r
 
 ## Step 4: Determine Result
 
-- **PASS**: All 34 checks pass
+- **PASS**: All 39 checks pass
 - **FAIL**: Any check fails
 
 Checks 18 (noindex/nofollow), 19 (canonical mismatch), 29 (cannibalization), 30 (DIY
-content), and 34 (missing pricing disclaimer) are hard-stops: even if everything else
-passes, flag these prominently in the report. 18/19 silently remove the page from search;
-29 splits ranking signal between two of the site's own pages instead of either one winning
-clearly; 30 puts a homeowner on a roof and competes with the service being sold; 34 lets a
-published number be read as a firm quote.
+content), 34 (missing pricing disclaimer), and 35 (HARD BAN words) are hard-stops: even if
+everything else passes, flag these prominently in the report. 18/19 silently remove the page
+from search; 29 splits ranking signal between two of the site's own pages instead of either
+one winning clearly; 30 puts a homeowner on a roof and competes with the service being sold;
+34 lets a published number be read as a firm quote; 35 is the single strongest AI-generated
+tell and undermines trust in the whole page regardless of how good the content underneath it is.
 
-Checks 30–34 are **business rules, not SEO preferences** — a draft that would rank well and
-scores 9/10 on quality still fails if it teaches DIY or prices without a disclaimer. Do not
-trade these off against quality or let a strong draft argue its way past them.
+Checks 30–35 are **business rules and brand-voice rules, not SEO preferences or style
+suggestions** — a draft that would rank well and scores 9/10 on quality still fails if it
+teaches DIY, prices without a disclaimer, or contains a single HARD BAN word. Do not trade
+these off against quality or let a strong draft argue its way past them.
 
 ## Step 5: Log to Memory
 
@@ -151,18 +169,18 @@ Update the "Last QA run" line in `memory/seo/MEMORY.md`.
 
 ## Step 6: Report
 
-Show a table with every check and its result, grouped by section (Content / Meta Tags & SEO Object / Structured Data / Links / Brand Policy). Then:
+Show a table with every check and its result, grouped by section (Content / Meta Tags & SEO Object / Structured Data / Links / Brand Policy / Banned AI Words). Then:
 
 **If PASS:**
 ```
-✓ QA PASSED — [N]/34 checks passed (quality [score]/10)
+✓ QA PASSED — [N]/39 checks passed (quality [score]/10)
 Keywords updated to status 'qa-passed'.
 Next step: /content-updater
 ```
 
 **If FAIL:**
 ```
-✗ QA FAILED — [N]/34 checks passed
+✗ QA FAILED — [N]/39 checks passed
 Failed checks: [list with specific fix instructions for each]
 Next step: Revise the draft and re-run /qa, or run /seo-writer to regenerate new content and refer to humor writing reference.
 ```
@@ -185,3 +203,7 @@ For each failed check, provide the specific fix. For example:
 - Check 32 fail: "Primary keyword is 'types of gutters for homes' — an informational term — but the draft includes a $6–15/ft price range. Cost content is deprioritized; cut the pricing section entirely rather than adding a disclaimer to a post that didn't need a price."
 - Check 33 fail: "'$8,000–$12,000 for a typical replacement' has no source or date, and reads as a Shumaker figure. Replace with a sourced, dated industry range with the source named inline, or cut it."
 - Check 34 fail: "Price range appears in the second H2 section but the disclaimer is in the closing paragraph, six sections later. Move it immediately adjacent to the first figure — a reader who skims the number never reaches the closer."
+- Check 35 fail: "Paragraph 2 uses 'seamless' and the closer uses 'unparalleled craftsmanship' — both HARD BAN words per docs/content-style/banned-ai-words.md. Cut both; the closer already has the disclaimer's real detail to lean on."
+- Check 37 fail: "Intro opens with 'When it comes to roof repairs in Frederick,' — a banned filler opener. Cut it and start with the specific situation (a leak, a sagging line) instead. Also flags a participial benefit-closer at the end of H2 3: '…, giving you peace of mind.' Rewrite as a direct sentence or cut."
+- Check 38 fail: "Three em dashes in the body (paragraph 4, FAQ answer 2, closer). Replace each with a comma, period, or parenthetical per the ban list — this is the single strongest AI tell and reads as a mechanical fail regardless of content quality."
+- Check 39 fail: "The local-angle H2 reads 'We proudly serve homeowners throughout the region with quality roofing services' — this sentence could be pasted onto any roofing site's page with a find-and-replace on the city name. Replace with the actual detail: which neighborhoods, what's specific about older housing stock there, a named recent job."

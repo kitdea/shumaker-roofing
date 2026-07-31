@@ -72,6 +72,24 @@ requires):
 State in the draft presentation (Step 5) which cluster/keyword you checked and confirm no
 conflict was found (or note how the conflict was resolved).
 
+## Step 2.5: Check Recent QA History
+
+This skill has no memory of its own — the only record of what it got wrong last time lives in
+`memory/seo/qa-log.md`, written by `/qa`. Read the **last 5 entries** before drafting (not just
+for this cluster/slug — recurring mistake classes show up across unrelated pages too, e.g. an
+H1 that breaks exact keyword match, or missing publishing fields like slug/image/date/schema
+type). For each FAIL entry, note the specific check that failed and why.
+
+If any FAIL in that window shares a root cause with something this draft is about to do (e.g. a
+past FAIL was "H1 inserted a modifier word that breaks the primary keyword's exact match" and
+this draft's planned H1 does the same thing), fix it before presenting the draft, not after QA
+catches it again. Do not treat a past FAIL as cluster-specific unless the checklist item itself
+is content-specific (e.g. a wrong fact) — most FAILs (formatting, missing fields, structural
+rules) are systemic and apply to every draft regardless of topic.
+
+If `qa-log.md` doesn't exist yet or has fewer than 5 entries, read whatever exists — this step
+is never blocking, only informative.
+
 ## Step 3: Fetch Existing Content (if rewriting)
 
 If the target is an existing page slug, the live content lives in **Sanity**, not the page files. Fetch it via the data-fetching helpers in `lib/sanity.ts`:
@@ -347,21 +365,39 @@ actually knows:
 customers, or job stories. If you'd need a fact you don't have, use `[VERIFY: …]` — a
 generic-but-true line beats a vivid invented one.
 
-**Ban the content-mill tells.** These mark a draft as AI template output; a draft
-containing them is a defect, not a stylistic choice:
+**Ban the content-mill tells (required — read `docs/content-style/banned-ai-words.md` in full
+before writing a single sentence, not just this summary).** That file is the authoritative
+ban list: HARD BAN words (zero tolerance, all variants), EARN IT words (only when literally
+accurate and no plainer word fits), banned phrases, banned sentence structures, formatting/
+punctuation bans (no em/en dashes anywhere, no mid-sentence bold, no emoji), and the noun
+replacement table. A draft containing any of it is a defect, not a stylistic choice. Highlights
+that recur most in roofing content:
 
-- Throat-clearing openers: "In today's world…", "When it comes to…", "Your roof is one of
-  the most important parts of your home."
-- Empty intensifiers and filler: "very important", "it's crucial to note that", "plays a
-  vital role", "when it comes to".
-- LLM connective tissue: "Moreover", "Furthermore", "Additionally", "In conclusion",
-  "That said" as a paragraph-opening tic.
+- HARD BAN verbs/adjectives: delve, leverage, streamline, elevate, unlock, robust, seamless,
+  comprehensive, meticulous, unparalleled, cutting-edge, and their -er/-ing/-ly/-ity variants.
+- Authority superlatives with claims risk: premier, trusted (as a claim), leading, top-rated,
+  best-in-class, unmatched, award-winning, full-service (as filler). Roofing content leans on
+  these constantly — cut every one; back the claim with a real number or certification instead.
+- Filler openers: "In today's world…", "When it comes to…", "It's important to note that…".
+- Empathy/trust openers: "We understand that…", "Rest assured", "You deserve", "Trust us to…".
+- Service templates: "Your trusted partner", "Peace of mind", "Hassle-free/stress-free",
+  "Look no further", "Backed by years of experience", "No job too big or too small".
+- Banned sentence structures: the participial -ing benefit-closer ("…, ensuring a smooth
+  process"), "Not only X, but also Y", "It's not just X, it's Y", staccato triads ("Fast.
+  Affordable. Done."), "From X to Y" false ranges, "more than just X", rhetorical-question
+  openers ("The result? Y.").
+- LLM connective tissue: "Moreover", "Furthermore", "Additionally", "In conclusion", "That
+  said" as a paragraph-opening tic.
 - The triad reflex — everything arriving in threes ("durable, affordable, and reliable").
 - Hollow hedging: "may vary depending on a variety of factors" with no actual factors named.
 - Restating the H2 as the section's first sentence.
-- Em-dash overuse and "It's not just X — it's Y" constructions.
+- Em/en dash overuse anywhere in the draft — use commas, periods, parentheses, or hyphens.
 - A closing paragraph that summarizes what the reader just read instead of telling them
   what to do next.
+
+**Carve-outs still apply**: a real customer quote, a brand/product name, a citation title, or
+a literal (non-figurative) technical use of a banned word is exempt — don't mangle a quote or
+a brand name to dodge the list.
 
 Open with something *concrete* — a specific situation, a number, a mistake homeowners
 make. Not a definition of what a roof is.
@@ -439,6 +475,11 @@ The rules above cover these; this is the pre-flight list so none is missed:
     `/contact` link.
 12. **No DIY** — no instructions, tool lists, or DIY-as-an-option framing. Every "what do I
     do about this?" routes to Shumaker's experts via `/contact` or a `/services/[slug]`.
+13. **Banned AI words/phrases/structures** — run the full self-check in
+    `docs/content-style/banned-ai-words.md` (ban-specific self-check section) against the
+    complete draft: no HARD BAN words, no banned phrases or sentence structures, no em/en
+    dashes, no model tics, sentence length and openers vary, and the draft passes the
+    interchangeability test (no sentence a competitor could paste verbatim).
 
 ### Content Type Tag
 State clearly at the top of the draft: `Content-Type: blog` or `Content-Type: services`
@@ -456,6 +497,7 @@ Show the full draft to the user with:
 - A list of any `[VERIFY: …]` placeholders the user needs to confirm or fill before publishing
 - **Repetition check**: state how many times the service-area city list and the state footprint each appear (target: city list once, state footprint ≤ twice). If either exceeds the Anti-Template limits, fix the draft before presenting — don't present a template.
 - **Voice check**: confirm the draft doesn't open multiple sentences in a row with "Shumaker Roofing…", contains none of the banned content-mill tells, and (for eligible blog topics) note whether any light-touch humor per the Voice & Tone reference was used.
+- **Banned AI words check**: confirm you ran the full self-check against `docs/content-style/banned-ai-words.md` — no HARD BAN words, no banned phrases/structures, no em/en dashes, no model tics. State any EARN IT words used and why they were literally accurate. If this check wasn't run, run it now before presenting — don't present a draft that hasn't been scanned.
 
 ## Step 6: Update Memory
 

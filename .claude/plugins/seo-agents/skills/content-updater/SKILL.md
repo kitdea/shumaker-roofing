@@ -221,7 +221,10 @@ failures have hit seoDescription 3 times when it contains an apostrophe — Powe
 itself") rather than just re-patching and moving on.
 
 **Content log (only after verification passes clean or a failure was corrected):** append one
-row to `memory/seo/content-log.md`:
+row to `memory/seo/content-log.md`, matching its header exactly — `Date | Page | Action |
+Sanity Document ID | Agent Run` (this file predates the June 2026 Contentful→Sanity migration and
+its header used to read `Contentful Entry ID`; every row has held a Sanity document ID since the
+migration, so the header was corrected to match — don't reintroduce the old name):
 
 ```
 | [YYYY-MM-DD] | [page slug] | [created/updated] | [document ID] | seo-writer + content-updater |

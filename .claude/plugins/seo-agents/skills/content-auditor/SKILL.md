@@ -30,15 +30,18 @@ Canonical ownership model (full detail in `docs/seo/keyword-cannibalization-sop.
 
 **Two source-of-truth kinds exist on this site, and both must be audited:**
 
-1. **Sanity-backed** — `blog`, `services`, `location` documents (fetched via GROQ, Step 2), plus
-   the homepage, which sources its SEO from a Sanity `seo` doc via `fetchPageSeo()` (see
-   `app/(site)/page.tsx`).
-2. **Static/hardcoded** — every other route (`about`, `faqs`, `careers`, `projects`,
-   `testimonials`, `roofs-for-heroes`, `contact`, the `/services` listing, `/service-areas`
-   listing, and `/blog` listing) sets `title`/`description`/OG copy as literal strings directly in
-   its `page.tsx` via a static `export const metadata` or hardcoded `generateMetadata()` return —
-   there is no Sanity doc backing these, so a GROQ query will never see them. These must be
-   audited by reading the route files directly (Step 2b).
+1. **Sanity-backed** — `blog`, `services`, `location` documents (fetched via GROQ, Step 2).
+2. **Static/hardcoded** — every other route, including the **homepage**, plus `about`, `faqs`,
+   `careers`, `projects`, `testimonials`, `roofs-for-heroes`, `contact`, the `/services` listing,
+   `/service-areas` listing, and `/blog` listing, sets `title`/`description`/OG copy as literal
+   strings directly in its `page.tsx` via a static `export const metadata` or hardcoded
+   `generateMetadata()` return — there is no Sanity doc backing these, so a GROQ query will never
+   see them. These must be audited by reading the route files directly (Step 2b).
+   The homepage (`app/(site)/page.tsx`) calls `fetchPageSeo()` but never passes `entryFields`
+   (see `lib/seo.ts`'s Strategy 1 vs. fallback logic), so Strategy 1 (CMS `seo` object) can never
+   trigger — it always renders the hardcoded fallback title/description. There is also no Sanity
+   schema for a homepage/siteSettings SEO singleton. Treat the homepage as static, not
+   Sanity-backed, until that wiring changes.
 
 ## Step 1: Read Credentials
 
@@ -169,7 +172,7 @@ These routes have no Sanity document — read the file directly and extract the 
 
 ```bash
 STATIC_ROUTES=(
-  "app/(site)/page.tsx"                 # / — homepage, actually Sanity-backed via fetchPageSeo(), included here for completeness
+  "app/(site)/page.tsx"                 # / — homepage; calls fetchPageSeo() but never passes entryFields, so it always renders the hardcoded fallback, not the CMS seo object — treat as static
   "app/(site)/about/page.tsx"           # /about
   "app/(site)/faqs/page.tsx"            # /faqs
   "app/(site)/careers/page.tsx"         # /careers
