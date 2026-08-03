@@ -42,6 +42,16 @@
 - Open P2 issues: 53
 - Note: performance P1 cleared this run (/book-appointment CLS 0.481→0.214); all 5 prior sitemap-absence findings (H-034–H-038, S-029–S-033) resolved — pages now in sitemap. 9 new SEO findings are first-time meta checks on the newly-sitemapped pages (og:image ×5, JSON-LD ×2, orphan ×2). Mid-run local DNS outage required PageSpeed retries; final dataset complete for all 37 URLs.
 
+## 2026-08-03 02:29 UTC
+- URLs checked: 46 (sitemap.xml — 1 new page since last run, `/blog/author/tyler-schisler` author archive; blog post count unchanged)
+- Health findings: 12 total (3 new, 5 resolved)
+- SEO findings: 30 total (4 new, 8 resolved)
+- Performance findings: 45 total (45 new, 41 resolved)
+- GSC findings: 0 total (all clean, unchanged)
+- Open P1 issues: 11
+- Open P2 issues: 76
+- Note: Canonical domain flipped since the last observed state — `www.shumakerroofing.com` now 308-redirects to `shumakerroofing.com` (non-www), still a single hop, GSC canonical-domain check remains clean. All 5 blog posts previously missing `featuredImage` (H-026, H-027, H-040, H-041, H-042) now have it; all 5 posts previously missing `og:description` (S-058–S-062) and 3 posts missing `og:image` (S-043, S-044, S-057) are now fixed — the largest single-run resolution batch to date. New: `/blog/best-roofing-contractors-in-frederick-md` has `publishedDate: null` in Sanity (H-043); `/privacy-policy` and `/terms-and-conditions` are live but absent from sitemap.xml, same pattern previously seen and fixed for 5 other static routes (H-044/S-070, H-045/S-071); `/blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them` picked up a trailing-space title defect (S-069). Performance P1 count eased slightly (13→11) but remains elevated — `/roofs-for-heroes` LCP got markedly worse (10351ms→15980ms) and remains the worst page on the site, `/contact` also worsened (9065ms→12613ms). Every open Health/SEO P2 finding this run is 13–56 days old (⚠ STALE per Step A.2.5) — none have been remediated since first detection; performance findings can't accumulate the same staleness signal because their issue text (and therefore ID) changes every run as metrics shift.
+
 ## 2026-07-21 14:00 UTC
 - URLs checked: 45 (sitemap.xml — 8 new blog posts and the `/blog/author/tyler-schisler` archive page published since last run)
 - Health findings: 14 total (3 new, 0 resolved)

@@ -1,4 +1,4 @@
-# Technical SEO Report — 2026-07-29 03:38 UTC
+# Technical SEO Report — 2026-08-03 02:29 UTC
 
 | Check | URL | Finding | Severity |
 |-------|-----|---------|----------|
@@ -22,12 +22,14 @@
 | og:image | /services/skylight-installation | Missing og:image meta tag | P2 |
 | og:image | /services/solar-contractor | Missing og:image meta tag | P2 |
 | og:image | /services/storm-damage-restoration | Missing og:image meta tag | P2 |
-| og:image | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | Missing og:image meta tag | P2 |
-| og:image | /blog/roof-repair-frederick-md | Missing og:image meta tag | P2 |
-| og:image | /blog/best-roofing-contractors-in-frederick-md | Missing og:image meta tag | P2 |
+| title | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | `<title>` has a trailing space — cosmetic Sanity data defect | P2 |
+| title | /blog/when-to-get-roof-rejuvenation-frederick-md | `<title>` has a trailing space — cosmetic Sanity data defect (recurring) | P2 |
+| orphan | /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | Zero inbound internal links from crawled pages; URL is a stale sitemap entry that 308-redirects to /blog/best-roofing-contractors-in-frederick-md (its own canonical target) — consider removing it from sitemap.xml | P2 |
+| sitemap coverage | /privacy-policy | Live page (200), linked from footer on every page, but absent from sitemap.xml | P2 |
+| sitemap coverage | /terms-and-conditions | Live page (200), linked from footer on every page, but absent from sitemap.xml | P2 |
 
-**Checks that came back clean across all 45 sitemap URLs (omitted from table per no-issue convention):** robots.txt (200, `Sitemap:` directive present, no critical paths blocked), sitemap `<lastmod>` on all 45 `<url>` entries, `<title>` tags, meta descriptions, `og:title`, `og:description`, canonical tags (present and matching expected path on every page), JSON-LD schema required fields (`LocalBusiness`/`Service`/`Article`/`FAQPage` on pages that carry schema — none missing required fields), noindex flags (none detected), duplicate `<title>` values (none), orphaned pages (none — every sitemap URL has at least one inbound internal `<a href>` link from another page).
+**Resolved since last run:** `og:image` now present on `/blog/skylight-repair-vs-replacement-how-to-decide-save-money`, `/blog/roof-repair-frederick-md`, `/blog/best-roofing-contractors-in-frederick-md`. `og:description` now present on all pages previously missing it (maryland-roof-rejuvenation-contractor-frederick-md, when-to-get-roof-rejuvenation-frederick-md, roof-replacement-tax-credit-2026, summer-roof-inspection-checklist-frederick-md, why-attic-ventilation-matters-in-summer-frederick-md).
 
-Note: `/privacy-policy` and `/terms-and-conditions` are live (200) but absent from `sitemap.xml`; consistent with prior audit runs they are tracked as off-sitemap static routes in the Health Report and excluded from the SEO-tag/schema checks above (not part of the CMS-managed or primary route inventory).
+**Checks that came back clean across all 46 sitemap URLs:** robots.txt (200, `Sitemap:` directive present, no critical paths blocked, matches canonical non-www domain), sitemap `<lastmod>` on all 46 `<url>` entries, `<title>` tags and meta descriptions (all present, non-empty), `og:title` and `og:description` (all present), canonical tags (present on every page; the one apparent mismatch — the redirecting duplicate-title URL below — is not a real defect since the page 308s to that exact canonical target before any crawler sees the tag), JSON-LD schema required fields (`LocalBusiness`/`RoofingContractor`, `Service`, `Article`/`BlogPosting`, `FAQPage` — none missing required fields; 26 pages also carry `BreadcrumbList`), noindex flags (none detected), duplicate `<title>` values (the one duplicate pair is the same redirect situation above, not two distinct indexable pages).
 
 **Severity key:** P1 = critical · P2 = warning · INFO = informational only, no action needed

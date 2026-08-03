@@ -13,7 +13,7 @@ import type { PortableTextComponents } from "@portabletext/react";
 import { fetchPageSeo } from "@/lib/seo";
 import { TwoColumnSection } from "@/components/shared/two-column-section";
 import { WhyChooseUs } from "@/components/shared/why-choose-us";
-import { SITE_URL } from "@/lib/utils";
+import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 import { VeluxWidget } from "@/components/shared/velux-widget";
 import { PortableTextTable } from "@/components/shared/portable-text-table";
 import { portableTextLinkMark } from "@/components/shared/portable-text-link";
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     entryFields: service,
     fallbackTitle,
     fallbackDesc,
-    fallbackImage: urlFor(service.servicesImage),
+    fallbackImage: urlFor(service.servicesImage) || FALLBACK_BLOG_IMAGE,
     canonicalPath: `/services/${slug}`,
   });
 }

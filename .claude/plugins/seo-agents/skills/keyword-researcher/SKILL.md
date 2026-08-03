@@ -1,6 +1,6 @@
 ---
 name: keyword-researcher
-description: Use when you want to research keywords for a roofing topic. Pass a topic or page slug as an argument (e.g. /keyword-researcher metal roofing). Generates keyword clusters validated with Semrush data and writes results to memory/seo/keywords.md.
+description: Use when you want to research keywords for a roofing topic. Pass a topic or page slug as an argument (e.g. /keyword-researcher metal roofing). With no argument, targets the oldest open coverage-gap finding from content-auditor instead of asking. Generates keyword clusters validated with Semrush data and writes results to memory/seo/keywords.md.
 ---
 
 # Keyword Researcher
@@ -31,7 +31,22 @@ case to the user instead of silently creating a competing cluster.
 ## Step 2: Identify the Topic
 
 The topic is the argument passed to this skill (e.g. "metal roofing", "roof repair", "storm damage").
-If no argument was given, ask the user: "What roofing topic should I research keywords for?"
+
+If no argument was given, **check for open coverage gaps before asking the user**. Read
+`memory/seo/audit-findings-log.md` (skip this check if the file doesn't exist) and look for
+rows with a `coverage:service:...` or `coverage:location:...` Finding ID whose most recent
+`Status` is `still-open` or `new`. These are services/locations `content-auditor` has already
+identified as having zero or near-zero blog coverage — exactly the topic this skill exists to
+fill. If any exist:
+- Pick the one with the highest `Consecutive still-open count` (oldest unaddressed gap first;
+  tie-break by Severity, then by Finding ID).
+- Tell the user which gap you're targeting and why before proceeding:
+  > "No topic given — targeting coverage gap [Finding ID] ([N] consecutive audits unresolved):
+  > [service/location name]. Researching keywords for it now."
+- Use that service/location name as the topic and continue to Step 3.
+
+Only ask the user "What roofing topic should I research keywords for?" if no coverage gaps are
+open (or the findings log doesn't exist yet).
 
 ## Step 3: Generate Candidate Keywords
 

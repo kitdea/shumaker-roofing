@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Container } from "@/components/shared/container";
 import { GhlCalendar } from "@/components/shared/ghl-calendar";
 import { Phone, Mail, Clock } from "lucide-react";
-import { SITE_URL } from "@/lib/utils";
+import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: { absolute: "Book an Appointment | Shumaker Roofing Company" },
@@ -18,12 +18,14 @@ export const metadata: Metadata = {
       "Schedule a free roofing estimate with Shumaker Roofing Company. Pick a date and time that works for you — our team will come to you.",
     url: "/book-appointment",
     type: "website",
+    images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Book an Appointment | Shumaker Roofing Company",
     description:
       "Schedule a free roofing estimate with Shumaker Roofing Company. Pick a date and time that works for you — our team will come to you.",
+    images: [FALLBACK_BLOG_IMAGE],
   },
 };
 
