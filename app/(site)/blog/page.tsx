@@ -20,12 +20,14 @@ export const metadata: Metadata = {
       "Follow Shumaker Roofing for the latest roofing tips, maintenance guides, company news, and industry insights. Keep your roof in top shape! Contact us now!",
     url: "/blog",
     type: "website",
+    images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Shumaker Roofing Blog | Expert Roofing Advice & Updates",
     description:
       "Follow Shumaker Roofing for the latest roofing tips, maintenance guides, company news, and industry insights. Keep your roof in top shape! Contact us now!",
+    images: [FALLBACK_BLOG_IMAGE],
   },
 };
 

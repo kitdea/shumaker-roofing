@@ -11,6 +11,7 @@ import { ReviewWidget } from "@/components/shared/review-widget";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 import { JsonLd } from "@/components/shared/json-ld";
 import { buildPageSchema } from "@/lib/seo";
+import { FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 
 const TITLE = "Customer Testimonials | Shumaker Roofing Company";
 const DESCRIPTION =
@@ -32,11 +33,13 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: "/testimonials",
     type: "website",
+    images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    images: [FALLBACK_BLOG_IMAGE],
   },
 };
 

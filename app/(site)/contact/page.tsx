@@ -7,7 +7,7 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { GhlForm } from "@/components/shared/ghl-form";
 import { CertificationsSection } from "@/components/shared/certifications-section";
-import { SITE_URL } from "@/lib/utils";
+import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: { absolute: "Contact Us | Get in Touch with Shumaker Roofing Company" },
@@ -20,12 +20,14 @@ export const metadata: Metadata = {
       "Get in touch with Shumaker Roofing Company for reliable roofing services. Contact us today for free estimates, expert advice, and top-quality roofing solution.",
     url: "/contact",
     type: "website",
+    images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Contact Us | Get in Touch with Shumaker Roofing Company",
     description:
       "Get in touch with Shumaker Roofing Company for reliable roofing services. Contact us today for free estimates, expert advice, and top-quality roofing solution.",
+    images: [FALLBACK_BLOG_IMAGE],
   },
 };
 

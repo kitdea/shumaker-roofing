@@ -19,7 +19,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { fetchJobPostings } from "@/lib/sanity";
-import { SITE_URL } from "@/lib/utils";
+import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
@@ -33,12 +33,14 @@ export const metadata: Metadata = {
       "Explore career opportunities at Shumaker Roofing Co. Inc. We're hiring experienced roofing professionals in Maryland, Virginia, West Virginia, and Pennsylvania. Apply today.",
     url: "/careers",
     type: "website",
+    images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Careers | Join the Shumaker Roofing Team",
     description:
       "Explore career opportunities at Shumaker Roofing Co. Inc. We're hiring experienced roofing professionals in Maryland, Virginia, West Virginia, and Pennsylvania. Apply today.",
+    images: [FALLBACK_BLOG_IMAGE],
   },
 };
 

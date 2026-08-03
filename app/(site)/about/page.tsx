@@ -6,7 +6,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { CheckCircle2 } from "lucide-react";
 import { fetchTeamMembers } from "@/lib/sanity";
-import { SITE_URL } from "@/lib/utils";
+import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 import { TeamGrid } from "./team-grid";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 
@@ -21,12 +21,14 @@ export const metadata: Metadata = {
       "Learn about Shumaker Roofing Company's mission, vision, and highly skilled licensed team! Experience top-notch roofing services from trusted professionals.",
     url: "/about",
     type: "website",
+    images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "About Us | Shumaker Roofing Company",
     description:
       "Learn about Shumaker Roofing Company's mission, vision, and highly skilled licensed team! Experience top-notch roofing services from trusted professionals.",
+    images: [FALLBACK_BLOG_IMAGE],
   },
 };
 

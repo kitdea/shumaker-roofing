@@ -8,7 +8,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { ProjectMap } from "./project-map";
-import { SITE_URL } from "@/lib/utils";
+import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 
 export const metadata: Metadata = {
@@ -22,12 +22,14 @@ export const metadata: Metadata = {
       "Explore Shumaker Roofing's completed projects across Maryland, Virginia, West Virginia, and Pennsylvania. See our roofing work on an interactive map.",
     url: "/projects",
     type: "website",
+    images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Our Projects | Shumaker Roofing Company",
     description:
       "Explore Shumaker Roofing's completed projects across Maryland, Virginia, West Virginia, and Pennsylvania. See our roofing work on an interactive map.",
+    images: [FALLBACK_BLOG_IMAGE],
   },
 };
 

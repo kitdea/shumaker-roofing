@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "./faq-accordion";
 import type { FaqCategory } from "./faq-accordion";
 import { CertificationsSection } from "@/components/shared/certifications-section";
+import { FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: { absolute: "Frequently Asked Questions | Shumaker Roofing Company" },
@@ -22,12 +23,14 @@ export const metadata: Metadata = {
       "Have questions about roofing? Browse Shumaker Roofing's FAQ page for answers on services, pricing, warranties, storm damage, and more.",
     url: "/faqs",
     type: "website",
+    images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Frequently Asked Questions | Shumaker Roofing Company",
     description:
       "Have questions about roofing? Browse Shumaker Roofing's FAQ page for answers on services, pricing, warranties, storm damage, and more.",
+    images: [FALLBACK_BLOG_IMAGE],
   },
 };
 

@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { fetchServicesForListing, type ServiceListItem } from "@/lib/sanity";
 import { CertificationsSection } from "@/components/shared/certifications-section";
-import { getServiceIcon, SITE_URL } from "@/lib/utils";
+import { getServiceIcon, SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: { absolute: "Professional Roofing Services | Shumaker Roofing Company" },
@@ -24,12 +24,14 @@ export const metadata: Metadata = {
       "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and roof inspections.",
     url: "/services",
     type: "website",
+    images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Professional Roofing Services | Shumaker Roofing Company",
     description:
       "Explore our comprehensive roofing services including residential roofing, commercial roofing, roof repairs, storm damage restoration, and roof inspections.",
+    images: [FALLBACK_BLOG_IMAGE],
   },
 };
 
