@@ -3,24 +3,37 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { Shield, Eye, Lock, Users, Cookie, Bell, Mail } from "lucide-react";
+import { JsonLd } from "@/components/shared/json-ld";
+import { buildPageSchema } from "@/lib/seo";
+import { FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+
+const TITLE = "Privacy Policy | Shumaker Roofing Company";
+const DESCRIPTION =
+  "Learn how Shumaker Roofing always protects your privacy. Read our full policy on data collection, use, and security when you use our professional services.";
+
+const privacyPolicyPageSchema = buildPageSchema({
+  path: "/privacy-policy",
+  breadcrumbLabel: "Privacy Policy",
+  name: TITLE,
+  description: DESCRIPTION,
+});
 
 export const metadata: Metadata = {
-  title: { absolute: "Privacy Policy | Shumaker Roofing Company" },
-  description:
-    "Learn how Shumaker Roofing always protects your privacy. Read our full policy on data collection, use, and security when you use our professional services.",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: { canonical: "/privacy-policy" },
   openGraph: {
-    title: "Privacy Policy | Shumaker Roofing Company",
-    description:
-      "Learn how Shumaker Roofing always protects your privacy. Read our full policy on data collection, use, and security when you use our professional services.",
+    title: TITLE,
+    description: DESCRIPTION,
     url: "/privacy-policy",
     type: "website",
+    images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Privacy Policy | Shumaker Roofing Company",
-    description:
-      "Learn how Shumaker Roofing always protects your privacy. Read our full policy on data collection, use, and security when you use our professional services.",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [FALLBACK_BLOG_IMAGE],
   },
 };
 
@@ -37,6 +50,7 @@ const sections = [
 export default function PrivacyPolicyPage() {
   return (
     <div className="flex flex-col w-full">
+      <JsonLd schema={privacyPolicyPageSchema} />
       {/* Page Header */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">
         <div className="absolute inset-0 z-0">
