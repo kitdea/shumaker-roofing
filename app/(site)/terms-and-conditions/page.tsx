@@ -2,24 +2,37 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { FileText, AlertTriangle, Scale, RefreshCw, Ban, Gavel, Mail } from "lucide-react";
+import { JsonLd } from "@/components/shared/json-ld";
+import { buildPageSchema } from "@/lib/seo";
+import { FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+
+const TITLE = "Terms & Conditions | Shumaker Roofing Company";
+const DESCRIPTION =
+  "Carefully review Shumaker Roofing's Terms and Conditions governing the use of our website and services. Understanding these terms protects both you and us.";
+
+const termsAndConditionsPageSchema = buildPageSchema({
+  path: "/terms-and-conditions",
+  breadcrumbLabel: "Terms & Conditions",
+  name: TITLE,
+  description: DESCRIPTION,
+});
 
 export const metadata: Metadata = {
-  title: { absolute: "Terms & Conditions | Shumaker Roofing Company" },
-  description:
-    "Carefully review Shumaker Roofing's Terms and Conditions governing the use of our website and services. Understanding these terms protects both you and us.",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: { canonical: "/terms-and-conditions" },
   openGraph: {
-    title: "Terms & Conditions | Shumaker Roofing Company",
-    description:
-      "Carefully review Shumaker Roofing's Terms and Conditions governing the use of our website and services. Understanding these terms protects both you and us.",
+    title: TITLE,
+    description: DESCRIPTION,
     url: "/terms-and-conditions",
     type: "website",
+    images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Terms & Conditions | Shumaker Roofing Company",
-    description:
-      "Carefully review Shumaker Roofing's Terms and Conditions governing the use of our website and services. Understanding these terms protects both you and us.",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [FALLBACK_BLOG_IMAGE],
   },
 };
 
@@ -38,6 +51,7 @@ const sections = [
 export default function TermsAndConditionsPage() {
   return (
     <div className="flex flex-col w-full">
+      <JsonLd schema={termsAndConditionsPageSchema} />
       {/* Page Header */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">
         <div className="absolute inset-0 z-0 bg-slate-900/70" />

@@ -1,7 +1,7 @@
 # Competitor Tracker
 
 ## Last Snapshots
-- frederickroofrepair.com: 2026-07-14 (130 keywords, 126 gaps)
+- frederickroofrepair.com: 2026-08-03 (229 keywords, 223 gaps)
 - pjsroofing.com: 2026-07-14 (108 keywords, 106 gaps)
 
 | Domain | Keyword | Position | Volume | URL | Gap | Date |
@@ -244,3 +244,102 @@
 | pjsroofing.com | frederick md siding contractors | 4 | 70 | https://pjsroofing.com/ | gap | 2026-07-14 |
 | pjsroofing.com | siding contractor frederick md | 3 | 70 | https://pjsroofing.com/ | gap | 2026-07-14 |
 | pjsroofing.com | roofing company in frederick | 1 | 40 | https://pjsroofing.com/ | gap | 2026-07-14 |
+| frederickroofrepair.com | roof repair service | 1 | 4400 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing roof repairs | 1 | 14800 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair company | 2 | 4400 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair contractor | 2 | 3600 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing repairs company | 1 | 1300 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | frederick roof repair | 1 | 110 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | fix roof near me | 7 | 8100 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing repair company | 2 | 1900 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair companies near me | 4 | 2400 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repairs service | 1 | 1300 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing repair companies | 2 | 1600 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof replacement frederick | 1 | 210 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing repair services | 7 | 2400 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof service | 2 | 1300 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing repair contractor | 4 | 1900 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repairs contractor | 1 | 590 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing repair contractors near me | 4 | 1300 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing repair companies near me | 8 | 2400 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing and repair | 1 | 480 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | typical roof pitch | 4 | 880 | https://www.frederickroofrepair.com/understanding-roof-pitch | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair company near me | 7 | 1600 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | local roof repair | 6 | 1300 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | frederick county roofing company | 1 | 390 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | residential roof repairs | 1 | 590 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | frederick county roof repair | 1 | 390 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing repair contractors | 6 | 2400 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair frederick md | 1 | 320 | https://www.frederickroofrepair.com/ | targeted | 2026-08-03 |
+| frederickroofrepair.com | frederick county roofing contractor | 2 | 390 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing frederick md | 3 | 480 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | frederick roofing | 3 | 480 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | local roof repairs | 7 | 720 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing frederick | 2 | 320 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing company frederick md | 2 | 320 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | normal roof pitch | 6 | 720 | https://www.frederickroofrepair.com/understanding-roof-pitch | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing repair companies near me | 11 | 2400 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | frederick roof replacement | 1 | 90 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair company frederick md | 1 | 170 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof maintenance frederick md | 1 | 170 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing companies frederick md | 3 | 320 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing installation frederick md | 1 | 170 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing frederick county | 2 | 260 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | frederick md roofing | 2 | 90 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair frederick | 1 | 170 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof pitches | 8 | 3600 | https://www.frederickroofrepair.com/understanding-roof-pitch | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repairs services | 4 | 390 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing handyman | 8 | 720 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing contractor frederick md | 2 | 260 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | frederick roofing companies | 1 | 140 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof replacement frederick md | 3 | 260 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof pitch | 10 | 6600 | https://www.frederickroofrepair.com/understanding-roof-pitch | gap | 2026-08-03 |
+| frederickroofrepair.com | local roofer damascus | 1 | 40 | https://www.frederickroofrepair.com/Roofing-in-Damascus-Maryland | gap | 2026-08-03 |
+| frederickroofrepair.com | 10/12 roof pitch | 6 | 390 | https://www.frederickroofrepair.com/understanding-roof-pitch | gap | 2026-08-03 |
+| frederickroofrepair.com | roofer frederick | 1 | 110 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repairman near me | 6 | 390 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing contractor damascus | 1 | 90 | https://www.frederickroofrepair.com/Roofing-in-Damascus-Maryland | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair damascus | 1 | 90 | https://www.frederickroofrepair.com/Roofing-in-Damascus-Maryland | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair maryland | 2 | 210 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof maintenance companies | 2 | 210 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing repairs companies near me | 2 | 210 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | frederick roofing company | 4 | 260 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing contractors frederick md | 5 | 320 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing contractor frederick | 1 | 110 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair in the winter | 1 | 90 | https://www.frederickroofrepair.com/can-roofing-be-done-in-the-winter | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair in winter | 1 | 90 | https://www.frederickroofrepair.com/can-roofing-be-done-in-the-winter | gap | 2026-08-03 |
+| frederickroofrepair.com | roof installation frederick md | 1 | 140 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof maintenance contractors | 8 | 480 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing maintenance near me | 3 | 140 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofer repair | 2 | 260 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | repair roof near me | 6 | 320 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | what is a pitch of a roof | 5 | 320 | https://www.frederickroofrepair.com/understanding-roof-pitch | gap | 2026-08-03 |
+| frederickroofrepair.com | local roof repair companies | 4 | 260 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof service repair | 1 | 140 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof replacement financing maryland | 1 | 140 | https://www.frederickroofrepair.com/financing | gap | 2026-08-03 |
+| frederickroofrepair.com | frederick synthetic roof replacement | 1 | 50 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof replacement damascus | 1 | 50 | https://www.frederickroofrepair.com/Roofing-in-Damascus-Maryland | gap | 2026-08-03 |
+| frederickroofrepair.com | roofers in frederick md | 4 | 210 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | new shingle roof frederick | 1 | 50 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing company frederick | 1 | 90 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing in frederick | 1 | 90 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof replacement frederick | 6 | 210 | https://www.frederickroofrepair.com/contact | gap | 2026-08-03 |
+| frederickroofrepair.com | residential roof repair frederick md | 1 | 90 | https://www.frederickroofrepair.com/ | targeted | 2026-08-03 |
+| frederickroofrepair.com | can a new roof be put on in winter | 3 | 210 | https://www.frederickroofrepair.com/can-roofing-be-done-in-the-winter | gap | 2026-08-03 |
+| frederickroofrepair.com | roofer damascus | 1 | 40 | https://www.frederickroofrepair.com/Roofing-in-Damascus-Maryland | gap | 2026-08-03 |
+| frederickroofrepair.com | residential roofing repairs | 1 | 210 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repairs near me | 17 | 3600 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing contractor in frederick md | 4 | 90 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofers frederick md | 4 | 170 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof pitches | 9 | 3600 | https://www.frederickroofrepair.com/understanding-roof-pitch | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair service frederick md | 1 | 90 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair frederick | 4 | 170 | https://www.frederickroofrepair.com/contact | gap | 2026-08-03 |
+| frederickroofrepair.com | local roof repair near me | 6 | 260 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof inspection in frederick | 1 | 70 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | residential+roof+repairs | 1 | 110 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repairs company | 1 | 110 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair co | 1 | 110 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | fix roofing | 6 | 210 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | frederick county roof repair services | 1 | 70 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roof repair shop | 1 | 70 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
+| frederickroofrepair.com | roofing and repairs | 2 | 140 | https://www.frederickroofrepair.com/ | gap | 2026-08-03 |
