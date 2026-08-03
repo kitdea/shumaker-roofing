@@ -1,4 +1,4 @@
-# Health Report — 2026-07-29 03:38 UTC
+# Health Report — 2026-08-03 02:29 UTC
 
 | URL | HTTP Status | Redirect Hops | Issue | Severity |
 |-----|-------------|---------------|-------|----------|
@@ -25,18 +25,19 @@
 | /services/skylight-installation | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
 | /services/solar-contractor | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
 | /services/storm-damage-restoration | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
+| /blog/best-roofing-contractors-in-frederick-md | 200 | 0 | Sanity field integrity: publishedDate missing | P2 |
+| /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | 200 | 1 | OK (308 → canonical /blog/best-roofing-contractors-in-frederick-md, single hop) | — |
 | /blog/maryland-roof-rejuvenation-contractor-frederick-md | 200 | 0 | OK | — |
 | /blog/roof-rejuvenation-cost-frederick-md | 200 | 0 | OK | — |
 | /blog/7-signs-roof-needs-rejuvenation-not-replacement | 200 | 0 | OK | — |
-| /blog/roof-rejuvenation-vs-replacement-frederick-md | 200 | 0 | Sanity field integrity: featuredImage missing | P2 |
-| /blog/when-to-get-roof-rejuvenation-frederick-md | 200 | 0 | Sanity field integrity: featuredImage missing | P2 |
+| /blog/roof-rejuvenation-vs-replacement-frederick-md | 200 | 0 | OK | — |
+| /blog/when-to-get-roof-rejuvenation-frederick-md | 200 | 0 | OK | — |
 | /blog/what-is-roof-rejuvenation | 200 | 0 | OK | — |
 | /blog/roof-replacement-tax-credit-2026 | 200 | 0 | OK | — |
 | /blog/summer-roof-inspection-checklist-frederick-md | 200 | 0 | OK | — |
 | /blog/why-attic-ventilation-matters-in-summer-frederick-md | 200 | 0 | OK | — |
-| /blog/skylight-repair-vs-replacement-how-to-decide-save-money | 200 | 0 | Sanity field integrity: featuredImage missing | P2 |
-| /blog/roof-repair-frederick-md | 200 | 0 | Sanity field integrity: featuredImage missing | P2 |
-| /blog/best-roofing-contractors-in-frederick-md | 200 | 0 | Sanity field integrity: featuredImage missing | P2 |
+| /blog/skylight-repair-vs-replacement-how-to-decide-save-money | 200 | 0 | OK | — |
+| /blog/roof-repair-frederick-md | 200 | 0 | OK | — |
 | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | 200 | 0 | OK | — |
 | /blog/preparing-your-roof-for-summer-storms-in-frederick-md | 200 | 0 | OK | — |
 | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | 200 | 0 | OK | — |
@@ -47,9 +48,9 @@
 | /service-areas/frederick-md/ | 200 | 1 | OK (trailing-slash canonical redirect, 1 hop — expected) | — |
 | /service-areas/hagerstown-md/ | 200 | 1 | OK (trailing-slash canonical redirect, 1 hop — expected) | — |
 | /service-areas/reston-va/ | 200 | 1 | OK (trailing-slash canonical redirect, 1 hop — expected) | — |
-| /privacy-policy | 200 | 0 | OK (off-sitemap static route, verified live) | — |
-| /terms-and-conditions | 200 | 0 | OK (off-sitemap static route, verified live) | — |
+| /privacy-policy | 200 | 0 | Live page (linked in footer on every page), not present in sitemap.xml | P2 |
+| /terms-and-conditions | 200 | 0 | Live page (linked in footer on every page), not present in sitemap.xml | P2 |
 
-**Summary:** No 404s, 500s, or dead internal links found. No redirect chains exceeding 1 hop. All `services`/`blog`/`location` Sanity documents have required fields (`title`, `servicesContent`/`publishedDate`, `slug.current`, `cityName`) present. 9 `services` documents missing `servicesImage` and 5 `blog` documents missing `featuredImage` — both recurring from prior runs. Off-sitemap static routes (`/privacy-policy`, `/terms-and-conditions`) verified 200, consistent with prior runs.
+**Summary:** No 404s, 500s, or dead internal links found. No redirect chains exceeding 1 hop. `location` documents (4/4) clean. 9 `services` documents missing `servicesImage` (recurring, unchanged). All 17 `blog` documents now have `featuredImage` — the 5 previously-open findings are resolved this run. New: `/blog/best-roofing-contractors-in-frederick-md` has `publishedDate: null`. New: `/privacy-policy` and `/terms-and-conditions` are live (200) but absent from sitemap.xml — same pattern previously seen and fixed for careers/faqs/projects/testimonials/roofs-for-heroes.
 
 **Severity key:** P1 = critical (404, 500, missing required CMS field) · P2 = warning (redirect chain, missing image, dead internal link) · — = clean
