@@ -35,6 +35,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/blog/maryland-roof-rejuvenation-contractor-frederick-md',
+        destination: '/blog/what-is-roof-rejuvenation',
+        permanent: true,
+      },
+      {
         source: '/book',
         destination: '/book-appointment',
         permanent: true,

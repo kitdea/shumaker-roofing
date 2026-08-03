@@ -40,8 +40,31 @@ drafting instructions.
 
 **Cannibalization guard — run before writing a single word** (full rules in
 `docs/seo/keyword-cannibalization-sop.md` §2-3; this is the mandatory pre-draft pass §5
-requires):
+requires). This guard exists because it has already failed silently once: the "summer heat
+damage" and "roof rejuvenation" clusters (4 near-duplicate blog posts each, flagged by
+`/content-auditor` and still unresolved after 4+ consecutive audits) were each written
+without ever being caught here — `keywords.md` never had a `published` row for the exact
+phrase, and grepping `page.tsx` finds nothing because blog copy lives in Sanity, not in the
+route files. Steps 1-2 below are necessary but **not sufficient**; step 0 is the one that
+would have caught both real incidents and is not optional:
 
+0. **Query live Sanity blog content directly — this is the check that actually catches
+   duplicate-intent posts.** `keywords.md` only reflects what this pipeline logged;
+   `content-log.md` only reflects what got published *through* this pipeline. Neither is
+   ground truth for what's actually live. Run a GROQ query against every published blog
+   document's `title`, `seoTitle`, and `excerpt` (via the Sanity read API,
+   `SANITY_API_READ_TOKEN`), not just the one slug you expect to conflict with:
+   ```
+   *[_type == "blog" && defined(slug.current)]{title, "seoTitle": seo.seoTitle, "seoDescription": seo.seoDescription, "excerpt": excerpt, "slug": slug.current}
+   ```
+   Compare every returned `title`/`seoTitle`/`excerpt` against your candidate primary
+   keyword **and its close variants** (synonyms, singular/plural, "summer heat damage" vs.
+   "heat damage on roof", "roof rejuvenation" vs. "roof restoration") — not just an exact
+   string match. Two posts answering the same underlying question for the same reader count
+   as a conflict even if the phrasing differs. If two or more *existing* live posts already
+   overlap each other (a pre-existing cluster, whether or not you're adding a third), flag
+   that to the user before proceeding — don't add a fifth post to a cluster that already
+   needs consolidation.
 1. Search `memory/seo/keywords.md` for any **other** row with the same `Cluster` as the
    one you just selected, or with the exact primary keyword / a close variant, whose
    `Status` is `published`. Note which page(s) that cluster already lives on (cross-
@@ -51,7 +74,7 @@ requires):
    grep -rn "<core term>" "app/(site)"/**/page.tsx
    ```
    and check Sanity `seo.seoTitle` for existing docs in the same cluster if rewriting.
-3. If step 1 or 2 surfaces a match on a **different** page than the one you're about to
+3. If step 0, 1, or 2 surfaces a match on a **different** page than the one you're about to
    write/edit, stop drafting and classify by intent per the SOP's §1 ownership table
    (brand → homepage, commercial/service → `/services/[slug]`, city+service local →
    `/service-areas/[slug]`, informational/how-to → `/blog/[slug]`):
@@ -69,8 +92,10 @@ requires):
    cluster/keyword, no guard needed — service/area pages are the correct canonical owner
    of commercial and local terms.
 
-State in the draft presentation (Step 5) which cluster/keyword you checked and confirm no
-conflict was found (or note how the conflict was resolved).
+State in the draft presentation (Step 5) which cluster/keyword you checked, **how many live
+blog documents step 0's Sanity query returned and compared against**, and confirm no conflict
+was found (or note how the conflict was resolved). "I checked keywords.md" is not sufficient —
+state explicitly that the live-Sanity title/seoTitle/excerpt comparison (step 0) ran.
 
 ## Step 2.5: Check Recent QA History
 
@@ -501,6 +526,12 @@ Show the full draft to the user with:
 - **Heading outline** — print the H1/H2/H3 structure indented, so hierarchy is verifiable at a glance. Confirm: one H1, no skipped levels, no lone H3 under an H2.
 - **Publishing fields** — slug, featured image ref + alt text, publishedDate, schema type, canonical (if any), noindex/nofollow. State each explicitly; these are QA checks 16–19, 21, and 23.
 - **Keyword check** — confirm the exact primary keyword phrase appears unbroken in the SEO title, H1, first 100 words, and meta description, and state the keyword density (target < 3%).
+- **Duplicate-content check** — state that the Step 2 cannibalization guard's step 0 (live
+  Sanity `title`/`seoTitle`/`excerpt` query across every blog document) ran, how many existing
+  posts it compared against, and that none of them target the same keyword/title/intent as
+  this draft. If a close match was found and resolved (angle change, consolidation into an
+  existing post instead of a new one, etc.), say what was done. Do not present a draft where
+  this line just says "no conflict" with no evidence the query was actually run.
 - **Pricing check** — if any price, range, or dollar figure appears: list the figures, name their source and date, and confirm the disclaimer is present and adjacent to the first figure with a `/contact` link. If the post has no pricing, say so — that's the preferred outcome, not an omission.
 - **DIY check** — confirm the draft contains no DIY instructions, tool/material lists, or DIY-as-an-option framing, and that each point where a reader would ask "what do I do?" routes to Shumaker's experts. Note any ground-level maintenance mentioned (per the edge case) and confirm it involves no ladder or roof access.
 - A list of any `[VERIFY: …]` placeholders the user needs to confirm or fill before publishing
