@@ -70,6 +70,13 @@ silently, since its absence is exactly what let items go stale before.
     canonical target
   - `coverage:...` → `/keyword-researcher` then `/seo-writer` for the named service/location
   - `metadata:...` → `/seo-writer` to backfill the named field on the named slug
+  - `linking:thin:...` / `linking:orphan:...` → `/seo-writer` to add the missing internal
+    links to the named post (pillar/sibling links per the cluster, or a link from another
+    page for an orphan) + `/content-updater` to publish the link fix
+  - `linking:cluster-fragmented:...` → `/seo-writer` to add cross-links between the named
+    cluster's sibling posts and its pillar page, per `docs/seo/keyword-cannibalization-sop.md`
+  - `linking:overload:...` → note as lower urgency than the above; surface in Next Steps, not
+    Immediate Actions, since it's a distribution imbalance rather than a broken or missing link
   Put these ahead of the generic "unresolved clusters" line above — an escalated finding is one
   the normal report ordering has already failed to get fixed, so it needs a named owner and a
   named next command, not just a count.

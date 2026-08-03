@@ -90,6 +90,15 @@ rules) are systemic and apply to every draft regardless of topic.
 If `qa-log.md` doesn't exist yet or has fewer than 5 entries, read whatever exists — this step
 is never blocking, only informative.
 
+**Carry the list forward, don't just read it.** Write down the specific systemic root causes
+found in this pass (e.g. "H1 breaks exact keyword match by inserting a modifier word") as a
+short checklist. This step has previously been read and then not applied — the same H1 defect
+recurred on a second, unrelated post 3 days after it first failed QA, because noting the past
+FAIL didn't translate into checking the new draft against it. Before Step 5 presents the draft,
+re-check the draft against every item on this list one more time, the same way Step 5 checks
+word count or heading hierarchy — not as a one-time read at draft-start that can be forgotten
+by the time the draft is finished.
+
 ## Step 3: Fetch Existing Content (if rewriting)
 
 If the target is an existing page slug, the live content lives in **Sanity**, not the page files. Fetch it via the data-fetching helpers in `lib/sanity.ts`:
@@ -498,6 +507,7 @@ Show the full draft to the user with:
 - **Repetition check**: state how many times the service-area city list and the state footprint each appear (target: city list once, state footprint ≤ twice). If either exceeds the Anti-Template limits, fix the draft before presenting — don't present a template.
 - **Voice check**: confirm the draft doesn't open multiple sentences in a row with "Shumaker Roofing…", contains none of the banned content-mill tells, and (for eligible blog topics) note whether any light-touch humor per the Voice & Tone reference was used.
 - **Banned AI words check**: confirm you ran the full self-check against `docs/content-style/banned-ai-words.md` — no HARD BAN words, no banned phrases/structures, no em/en dashes, no model tics. State any EARN IT words used and why they were literally accurate. If this check wasn't run, run it now before presenting — don't present a draft that hasn't been scanned.
+- **Recent-QA-history check**: re-check the finished draft against the systemic root-cause checklist built in Step 2.5 — don't rely on having avoided it while drafting. State explicitly which past FAIL root causes were checked and that none recurred (or name the fix made just now if one did).
 
 ## Step 6: Update Memory
 

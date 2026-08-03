@@ -134,6 +134,16 @@ Flag missing `<lastmod>` as P2.
 
 ### Step 2.3: Meta Tags
 
+**Division of labor with `/content-auditor` (seo-agents plugin).** That skill checks
+title/description/canonical/JSON-LD completeness too, but from Sanity source data and static
+route files rather than rendered HTML, logging to `memory/seo/audit-findings-log.md` with a
+High/Medium/Low severity scale. Before logging a P1/P2 finding in Steps 2.3-2.7 below, check
+whether `memory/seo/audit-findings-log.md` already has an open `metadata:...` finding for the
+same URL/field (skip if that file doesn't exist). If so, don't duplicate it — reference the
+existing Finding ID in this report instead. This skill owns what only live HTML reveals:
+actual rendered tag output, OG/Twitter card presence, redirect chains, HTTP status, and
+Core Web Vitals — none of which content-auditor can see without fetching pages itself.
+
 For each fetched page HTML (reuse from Module 1 Step 1.1), check:
 
 | Tag | Condition | Severity |

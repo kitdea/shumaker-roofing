@@ -1,6 +1,6 @@
 ---
 name: content-auditor
-description: Use when you want a ground-truth audit of every page on the site — Sanity-backed content (blog posts, service pages, service-area pages) AND the static/hardcoded routes (homepage, about, faqs, careers, projects, testimonials, roofs-for-heroes, contact, and the /services, /service-areas, /blog listing pages). Pulls live data directly from Sanity plus greps route files for hardcoded metadata (not memory), clusters posts by duplicate search intent, flags keyword cannibalization across the whole site, checks SEO metadata completeness everywhere including pages Sanity doesn't cover, and cross-references blog coverage against service/location pages. Diffs this run's findings against the last audit (per finding, not just aggregate counts) to catch stale/recurring/regressed issues, and writes results to memory/seo/audit-log.md and memory/seo/audit-findings-log.md. Pass nothing to audit everything, or a scope ("blog", "services", "locations", "static") to narrow it.
+description: Use when you want a ground-truth audit of every page on the site — Sanity-backed content (blog posts, service pages, service-area pages) AND the static/hardcoded routes (homepage, about, faqs, careers, projects, testimonials, roofs-for-heroes, contact, and the /services, /service-areas, /blog listing pages). Pulls live data directly from Sanity plus greps route files for hardcoded metadata (not memory), clusters posts by duplicate search intent, flags keyword cannibalization across the whole site, checks SEO metadata completeness everywhere including pages Sanity doesn't cover, cross-references blog coverage against service/location pages, and checks sitewide internal-linking health (thin/zero-linked posts, orphaned posts, fragmented clusters, overloaded link targets). Diffs this run's findings against the last audit (per finding, not just aggregate counts) to catch stale/recurring/regressed issues, and writes results to memory/seo/audit-log.md and memory/seo/audit-findings-log.md. Pass nothing to audit everything, or a scope ("blog", "services", "locations", "static") to narrow it.
 ---
 
 # Content Auditor
@@ -239,6 +239,21 @@ For each cluster found, classify severity:
 
 ## Step 4: Check Metadata Hygiene
 
+**Division of labor with `/tech-audit` (website-technical-agent plugin).** That skill checks
+the same surface area from live rendered HTML (`<title>`, `<meta name="description">`,
+canonical tags, JSON-LD `@type` fields, duplicate `<title>` values) and logs to
+`memory/tech-audit/findings.md` with its own P1/P2 severity scale — a different file and a
+different severity vocabulary than this skill's `High`/`Medium`/`Low` and
+`memory/seo/audit-findings-log.md`. To avoid the same defect getting logged twice under two
+IDs: before flagging a title/meta-description/canonical/JSON-LD presence issue below, check
+whether `memory/tech-audit/findings.md` already has an open finding for the same URL and
+field (skip this check if that file doesn't exist — tech-audit may not have run yet). If it's
+already tracked there, don't re-log it here; instead note in this audit's report "see
+tech-audit finding [ID]" so a reader of either log knows the other has it. This skill still
+owns everything tech-audit *can't* see from rendered HTML — Sanity field-level hygiene
+(whitespace, duplicated excerpt text, empty-string array entries), duplicate-intent/
+cannibalization clustering, and coverage-gap analysis — none of that overlaps.
+
 For every blog post, service page, and location page pulled in Step 2, flag:
 
 - `seoTitle` / `seoDesc` (Sanity `seo.seoTitle` / `seo.seoDescription`) null or empty — falls
@@ -303,6 +318,34 @@ Build two coverage tables:
    location offers all 11 services), a lopsided link distribution across locations is a signal
    worth surfacing, not an artifact of differing service menus.
 
+**Site-wide internal-linking health (distinct from coverage above and dead-link validation in
+Step 4).** No skill in this pipeline checks link *health* across the whole site — `/seo-writer`
+only enforces "at least 3 links" on the single draft it's writing, and Step 4's dead-link check
+only catches links that fail to resolve. Using the per-post `links` array already pulled in
+Step 2, check every published blog post for:
+
+- **Link density.** Fewer than 3 internal links per 1,000 words (below the target range) — flag
+  as thin-linked. A post with 0 internal links entirely is a High severity finding on its own,
+  not folded into the density count.
+- **Pillar/sibling linking within a cluster.** For posts sharing a `Cluster` (cross-reference
+  `memory/seo/keywords.md` where available, or the cluster groupings from Step 3), check whether
+  each post links to at least one sibling in the same cluster and, if a pillar/cornerstone page
+  exists for that cluster, to it specifically. A cluster where posts don't cross-link fragments
+  topical authority instead of reinforcing it — flag the cluster, not just individual posts.
+- **Orphaned published posts.** A blog post with zero *inbound* internal links from any other
+  page (blog, service, or location) — cross-reference every page's outbound links from Step 2/2b
+  against this post's slug. An orphan can't be reached by a reader browsing the site and dilutes
+  its own ranking signal.
+- **Duplicate-target overload.** The same destination slug linked from an unusually high number
+  of posts (e.g. every post links `/contact` and one specific service, nothing else) is a sign
+  drafts are defaulting to the same 3 links rather than linking to the specific sibling/pillar
+  content that actually fits — flag if a small handful of slugs account for the large majority of
+  all internal link targets sitewide, since that pattern under-links pillar pages and other
+  services that deserve real link equity.
+
+This does not replace `/seo-writer`'s per-draft link requirement or Step 4's dead-link check —
+it's the sitewide pattern those two can't see one post at a time.
+
 ## Step 6: Check for Existing Cannibalization Against Service/Homepage/Static Pages
 
 For every blog post, grep whether its target phrase (inferred from title) also appears in a live
@@ -358,6 +401,10 @@ produces the same ID across runs:
 - Cannibalization (Step 6): `cannibal:[blog-slug]->[service-or-static-target]`
 - Metadata gap (Step 4): `metadata:[doc-type]:[slug]:[field]` (e.g. `metadata:blog:roof-cost:seoDesc`)
 - Coverage gap (Step 5): `coverage:[service-or-location]:[slug]`
+- Internal-linking health (Step 5): `linking:thin:[blog-slug]` (density/zero-link), `linking:orphan:[blog-slug]`
+  (no inbound links), `linking:cluster-fragmented:[cluster-name]` (sibling/pillar posts not
+  cross-linking), `linking:overload:[target-slug]` (one destination absorbing a disproportionate
+  share of sitewide internal links)
 
 Read the most recent per-finding rows from `memory/seo/audit-findings-log.md` (Step 9 below
 creates it if this is the first run — treat every finding as `new` in that case). For each
