@@ -17,9 +17,9 @@ Build the full URL list that Modules 1 and 2 will check.
 
 ### Step 6.1: Fetch Sitemap
 
-Use WebFetch to fetch `{SITE_BASE_URL}/sitemap.xml`. Parse all `<loc>` entries. Store as the working URL list.
+Fetch `{SITE_BASE_URL}/sitemap.xml` with a raw HTTP GET (e.g. `curl`) and parse `<loc>` entries with a literal regex/XML parse — do NOT use WebFetch for this step. WebFetch runs fetched content through a summarizing model, which can silently normalize or reconstruct URLs (e.g. rewriting a `<loc>` back to the domain it was fetched from) instead of preserving the exact literal string, corrupting hop-count and redirect-chain checks downstream. Store the `<loc>` values verbatim, byte-for-byte, as the working URL list — including whatever domain (www or non-www) and trailing-slash form each entry actually uses, even if it differs from `SITE_BASE_URL`.
 
-Determine `SITE_BASE_URL`:
+Determine `SITE_BASE_URL` (used only to locate `/sitemap.xml`, `/robots.txt`, and the homepage — never to reconstruct a URL that already came from the sitemap):
 1. Use `NEXT_PUBLIC_SITE_URL` env var if set
 2. Otherwise use `https://www.shumakerroofing.com`
 
@@ -61,7 +61,7 @@ Run all checks against every URL in the inventory. Collect all findings into a l
 
 ### Step 1.1: HTTP Status Check
 
-For each URL, fetch it (follow redirects, track hop count). Record:
+For each URL exactly as stored in the inventory (Module 6) — never rebuilt from `SITE_BASE_URL` + path — fetch it with a raw HTTP request (e.g. `curl -sIL`), following redirects and recording each hop's `Location` header so the actual redirect path is auditable. Do not use WebFetch for this step, for the same literal-fidelity reason as Step 6.1. Record:
 - Final HTTP status code
 - Number of redirect hops (flag as P2 if > 1 hop)
 - Flag 404 and 5xx as P1
