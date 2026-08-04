@@ -1,4 +1,4 @@
-# Open Findings — updated 2026-08-04 09:15 UTC
+# Open Findings — updated 2026-08-04 09:35 UTC
 
 | ID | Module | URL | Issue | Severity | First Seen | Age (days) | Status |
 |----|--------|-----|-------|----------|------------|------------|--------|
@@ -18,8 +18,6 @@
 | H-023 | Health | /services/skylight-installation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 41 ⚠ STALE | open |
 | H-024 | Health | /services/solar-contractor | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 41 ⚠ STALE | open |
 | H-025 | Health | /services/storm-damage-restoration | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 41 ⚠ STALE | open |
-| H-043 | Health | /blog/best-roofing-contractors-in-frederick-md | Sanity field integrity: publishedDate missing | P2 | 2026-08-03 | 1 | open |
-| H-046 | Health | /blog/roof-rejuvenation-cost-frederick-md | Sanity field integrity: publishedDate missing | P2 | 2026-08-03 | 1 | open |
 | P-278 | Performance | / | LCP needs work: 3759ms · Performance score needs work: 70 | P2 | 2026-08-04 | 0 | open |
 | P-279 | Performance | /about | LCP needs work: 3013ms · Performance score needs work: 85 | P2 | 2026-08-04 | 0 | open |
 | P-280 | Performance | /services | LCP needs work: 3976ms · Performance score needs work: 65 | P2 | 2026-08-04 | 0 | open |
@@ -88,8 +86,10 @@
 | H-040 | Health | /blog/roof-rejuvenation-vs-replacement-frederick-md | Sanity field integrity: featuredImage missing | P2 | 2026-07-21 | 13 | closed (2026-08-03: featuredImage now present) |
 | H-041 | Health | /blog/roof-repair-frederick-md | Sanity field integrity: featuredImage missing | P2 | 2026-07-21 | 13 | closed (2026-08-03: featuredImage now present) |
 | H-042 | Health | /blog/when-to-get-roof-rejuvenation-frederick-md | Sanity field integrity: featuredImage missing | P2 | 2026-07-21 | 13 | closed (2026-08-03: featuredImage now present) |
+| H-043 | Health | /blog/best-roofing-contractors-in-frederick-md | Sanity field integrity: publishedDate missing | P2 | 2026-08-03 | 1 | closed (2026-08-04: resolved — publishedDate patched in Sanity via mutation API) |
 | H-044 | Health | /privacy-policy | Live page, not present in sitemap.xml | P2 | 2026-08-03 | 0 | closed (2026-08-03: now present in sitemap.xml (commit a1b369e)) |
 | H-045 | Health | /terms-and-conditions | Live page, not present in sitemap.xml | P2 | 2026-08-03 | 0 | closed (2026-08-03: now present in sitemap.xml (commit a1b369e)) |
+| H-046 | Health | /blog/roof-rejuvenation-cost-frederick-md | Sanity field integrity: publishedDate missing | P2 | 2026-08-03 | 1 | closed (2026-08-04: resolved — publishedDate patched in Sanity via mutation API) |
 | P-001 | Performance | /services | LCP poor: 10156ms (threshold 4000ms) | P1 | 2026-05-21 | 74 | closed |
 | P-002 | Performance | / | CLS needs work: 0.139 (threshold 0.25) | P2 | 2026-05-21 | 74 | closed |
 | P-003 | Performance | /blog | LCP needs work: 2914ms · CLS needs work: 0.132 | P2 | 2026-05-21 | 74 | closed |
