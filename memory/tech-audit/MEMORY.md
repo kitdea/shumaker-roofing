@@ -1,5 +1,5 @@
 # Tech Audit Memory
 
-- Last run: 2026-08-04 00:35 UTC
-- Open issues: 59 total (11 P1, 48 P2)
+- Last run: 2026-08-04 09:15 UTC
+- Open issues: 51 total (7 P1, 44 P2)
 - Last clean run: never
