@@ -45,7 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     locationUrls = locations.map((loc) => ({
-      url: `${baseUrl}/service-areas/${loc.slug}/`,
+      url: `${baseUrl}/service-areas/${loc.slug}`,
       lastModified: new Date(loc._updatedAt ?? Date.now()),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
@@ -92,7 +92,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/service-areas/`,
+      url: `${baseUrl}/service-areas`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.9,

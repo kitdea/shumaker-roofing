@@ -1,142 +1,240 @@
-# Open Findings — updated 2026-08-03 08:16 UTC
+# Open Findings — updated 2026-08-04 00:35 UTC
 
 | ID | Module | URL | Issue | Severity | First Seen | Age (days) | Status |
 |----|--------|-----|-------|----------|------------|------------|--------|
-| P-153 | Performance | /blog | LCP poor: 4752ms (threshold 4000ms) · Performance score needs work: 62 | P1 | 2026-08-03 | 0 | open |
-| P-166 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | LCP poor: 4501ms (threshold 4000ms) · Performance score needs work: 62 | P1 | 2026-08-03 | 0 | open |
-| P-168 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | LCP poor: 4276ms (threshold 4000ms) · Performance score needs work: 75 | P1 | 2026-08-03 | 0 | open |
-| P-172 | Performance | /book-appointment | LCP poor: 10881ms (threshold 4000ms) · CLS poor: 0.406 (threshold 0.25) · Performance score poor: 23 | P1 | 2026-08-03 | 0 | open |
-| P-174 | Performance | /contact | LCP poor: 15942ms (threshold 4000ms) · Performance score poor: 47 | P1 | 2026-08-03 | 0 | open |
-| P-177 | Performance | /roofs-for-heroes | LCP poor: 10223ms (threshold 4000ms) · Performance score poor: 35 | P1 | 2026-08-03 | 0 | open |
-| P-182 | Performance | /service-areas/reston-va/ | LCP poor: 4645ms (threshold 4000ms) · Performance score needs work: 67 | P1 | 2026-08-03 | 0 | open |
-| P-189 | Performance | /services/roof-replacement | LCP poor: 4051ms (threshold 4000ms) · Performance score needs work: 65 | P1 | 2026-08-03 | 0 | open |
-| H-017 | Health | /services/commercial-flat-and-low-slope-roofing-restoration | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 40 ⚠ STALE | open |
-| H-018 | Health | /services/gutter-installation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 40 ⚠ STALE | open |
-| H-019 | Health | /services/residential-roofing | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 40 ⚠ STALE | open |
-| H-020 | Health | /services/roof-rejuvenation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 40 ⚠ STALE | open |
-| H-021 | Health | /services/roof-repair | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 40 ⚠ STALE | open |
-| H-022 | Health | /services/roof-replacement | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 40 ⚠ STALE | open |
-| H-023 | Health | /services/skylight-installation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 40 ⚠ STALE | open |
-| H-024 | Health | /services/solar-contractor | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 40 ⚠ STALE | open |
-| H-025 | Health | /services/storm-damage-restoration | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 40 ⚠ STALE | open |
-| S-063 | SEO | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | Keyword cannibalization vs. two sibling "summer heat damage" posts | P2 | 2026-07-21 | 13 ⚠ STALE | open |
-| S-064 | SEO | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | Keyword cannibalization vs. sibling posts; duplicate og:image with /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | P2 | 2026-07-21 | 13 ⚠ STALE | open |
-| S-065 | SEO | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | Keyword cannibalization vs. sibling posts; duplicate og:image with /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | P2 | 2026-07-21 | 13 ⚠ STALE | open |
-| H-043 | Health | /blog/best-roofing-contractors-in-frederick-md | Sanity field integrity: publishedDate missing | P2 | 2026-08-03 | 0 | open |
-| H-044 | Health | /privacy-policy | Live page, not present in sitemap.xml | P2 | 2026-08-03 | 0 | open |
-| H-045 | Health | /terms-and-conditions | Live page, not present in sitemap.xml | P2 | 2026-08-03 | 0 | open |
-| S-070 | SEO | /privacy-policy | Live page absent from sitemap.xml | P2 | 2026-08-03 | 0 | open |
-| S-071 | SEO | /terms-and-conditions | Live page absent from sitemap.xml | P2 | 2026-08-03 | 0 | open |
-| S-073 | SEO | /privacy-policy | Missing og:image meta tag | P2 | 2026-08-03 | 0 | open |
-| S-074 | SEO | /terms-and-conditions | Missing og:image meta tag | P2 | 2026-08-03 | 0 | open |
-| S-075 | SEO | /privacy-policy | No JSON-LD schema block detected | P2 | 2026-08-03 | 0 | open |
-| S-076 | SEO | /terms-and-conditions | No JSON-LD schema block detected | P2 | 2026-08-03 | 0 | open |
-| P-151 | Performance | / | Performance score needs work: 81 | P2 | 2026-08-03 | 0 | open |
-| P-152 | Performance | /about | LCP needs work: 2776ms · Performance score needs work: 82 | P2 | 2026-08-03 | 0 | open |
-| P-154 | Performance | /blog/7-signs-roof-needs-rejuvenation-not-replacement | LCP needs work: 2926ms · Performance score needs work: 68 | P2 | 2026-08-03 | 0 | open |
-| P-155 | Performance | /blog/author/tyler-schisler | LCP needs work: 2551ms · Performance score needs work: 85 | P2 | 2026-08-03 | 0 | open |
-| P-156 | Performance | /blog/best-roofing-contractors-in-frederick-md | LCP needs work: 3630ms · Performance score needs work: 78 | P2 | 2026-08-03 | 0 | open |
-| P-157 | Performance | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | Performance score needs work: 82 | P2 | 2026-08-03 | 0 | open |
-| P-158 | Performance | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | Performance score needs work: 84 | P2 | 2026-08-03 | 0 | open |
-| P-159 | Performance | /blog/maryland-roof-rejuvenation-contractor-frederick-md | LCP needs work: 3860ms · Performance score needs work: 69 | P2 | 2026-08-03 | 0 | open |
-| P-160 | Performance | /blog/preparing-your-roof-for-summer-storms-in-frederick-md | LCP needs work: 2776ms · Performance score needs work: 75 | P2 | 2026-08-03 | 0 | open |
-| P-161 | Performance | /blog/roof-rejuvenation-cost-frederick-md | LCP needs work: 3756ms · Performance score needs work: 72 | P2 | 2026-08-03 | 0 | open |
-| P-162 | Performance | /blog/roof-rejuvenation-vs-replacement-frederick-md | Performance score needs work: 84 | P2 | 2026-08-03 | 0 | open |
-| P-163 | Performance | /blog/roof-repair-frederick-md | Performance score needs work: 77 | P2 | 2026-08-03 | 0 | open |
-| P-164 | Performance | /blog/roof-replacement-tax-credit-2026 | LCP needs work: 3745ms · Performance score needs work: 72 | P2 | 2026-08-03 | 0 | open |
-| P-165 | Performance | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | Performance score needs work: 89 | P2 | 2026-08-03 | 0 | open |
-| P-167 | Performance | /blog/summer-roof-inspection-checklist-frederick-md | Performance score needs work: 79 | P2 | 2026-08-03 | 0 | open |
-| P-169 | Performance | /blog/what-is-roof-rejuvenation | Performance score needs work: 84 | P2 | 2026-08-03 | 0 | open |
-| P-170 | Performance | /blog/when-to-get-roof-rejuvenation-frederick-md | Performance score needs work: 88 | P2 | 2026-08-03 | 0 | open |
-| P-171 | Performance | /blog/why-attic-ventilation-matters-in-summer-frederick-md | LCP needs work: 2776ms · Performance score needs work: 69 | P2 | 2026-08-03 | 0 | open |
-| P-173 | Performance | /careers | LCP needs work: 3976ms · Performance score needs work: 60 | P2 | 2026-08-03 | 0 | open |
-| P-175 | Performance | /faqs | LCP needs work: 3730ms · Performance score needs work: 71 | P2 | 2026-08-03 | 0 | open |
-| P-176 | Performance | /projects | LCP needs work: 3905ms · Performance score needs work: 50 | P2 | 2026-08-03 | 0 | open |
-| P-178 | Performance | /service-areas/ | LCP needs work: 3882ms · CLS needs work: 0.153 · Performance score needs work: 58 | P2 | 2026-08-03 | 0 | open |
-| P-179 | Performance | /service-areas/chambersburg-pa/ | LCP needs work: 3660ms · Performance score needs work: 79 | P2 | 2026-08-03 | 0 | open |
-| P-180 | Performance | /service-areas/frederick-md/ | LCP needs work: 3371ms · Performance score needs work: 75 | P2 | 2026-08-03 | 0 | open |
-| P-181 | Performance | /service-areas/hagerstown-md/ | LCP needs work: 2968ms · Performance score needs work: 84 | P2 | 2026-08-03 | 0 | open |
-| P-183 | Performance | /services | LCP needs work: 3724ms · Performance score needs work: 75 | P2 | 2026-08-03 | 0 | open |
-| P-184 | Performance | /services/chimney-maintenance | LCP needs work: 2701ms · Performance score needs work: 85 | P2 | 2026-08-03 | 0 | open |
-| P-185 | Performance | /services/gutter-installation | Performance score needs work: 81 | P2 | 2026-08-03 | 0 | open |
-| P-186 | Performance | /services/residential-roofing | LCP needs work: 3545ms · Performance score needs work: 75 | P2 | 2026-08-03 | 0 | open |
-| P-187 | Performance | /services/roof-rejuvenation | LCP needs work: 3901ms · Performance score needs work: 67 | P2 | 2026-08-03 | 0 | open |
-| P-188 | Performance | /services/roof-repair | LCP needs work: 3576ms · Performance score needs work: 74 | P2 | 2026-08-03 | 0 | open |
-| P-190 | Performance | /services/skylight-installation | LCP needs work: 3533ms · Performance score needs work: 79 | P2 | 2026-08-03 | 0 | open |
-| P-191 | Performance | /services/solar-contractor | LCP needs work: 3648ms · Performance score needs work: 76 | P2 | 2026-08-03 | 0 | open |
-| P-192 | Performance | /testimonials | LCP needs work: 3913ms · Performance score needs work: 64 | P2 | 2026-08-03 | 0 | open || P-106 | Performance | / | LCP needs work: 2626ms · Performance score needs work: 75 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-151) |
-| P-107 | Performance | /about | LCP poor: 4276ms (threshold 4000ms) · Performance score needs work: 69 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-152) |
-| P-108 | Performance | /services | LCP needs work: 3976ms · Performance score needs work: 64 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-183) |
-| P-109 | Performance | /contact | LCP poor: 12613ms (threshold 4000ms) · Performance score poor: 36 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-174) |
-| P-110 | Performance | /book-appointment | CLS needs work: 0.214 · Performance score needs work: 63 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-172) |
-| P-111 | Performance | /service-areas/ | LCP poor: 4942ms (threshold 4000ms) · Performance score needs work: 66 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-178) |
-| P-112 | Performance | /careers | LCP needs work: 3752ms · Performance score needs work: 74 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-173) |
-| P-113 | Performance | /faqs | LCP needs work: 2551ms · Performance score needs work: 85 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-175) |
-| P-114 | Performance | /projects | LCP needs work: 3864ms · Performance score needs work: 54 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-176) |
-| P-115 | Performance | /testimonials | LCP needs work: 3815ms · Performance score needs work: 71 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-192) |
-| P-116 | Performance | /roofs-for-heroes | LCP poor: 15980ms (threshold 4000ms) · Performance score poor: 33 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-177) |
-| P-117 | Performance | /services/chimney-maintenance | LCP needs work: 3827ms · Performance score needs work: 78 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-184) |
-| P-118 | Performance | /services/commercial-flat-and-low-slope-roofing-restoration | LCP needs work: 2701ms · Performance score needs work: 68 | P2 | (see prior log) | — | closed (2026-08-03: URL removed from sitemap.xml this run — no longer tracked) |
-| P-119 | Performance | /services/gutter-installation | LCP needs work: 3539ms · Performance score needs work: 78 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-185) |
-| P-120 | Performance | /services/residential-roofing | LCP needs work: 3655ms · Performance score needs work: 77 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-186) |
-| P-121 | Performance | /services/roof-installation | LCP poor: 4051ms (threshold 4000ms) · Performance score needs work: 71 | P1 | (see prior log) | — | closed (2026-08-03: URL removed from sitemap.xml this run — no longer tracked) |
-| P-122 | Performance | /services/roof-rejuvenation | LCP needs work: 3649ms · Performance score needs work: 77 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-187) |
-| P-123 | Performance | /services/roof-repair | LCP needs work: 3901ms · Performance score needs work: 70 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-188) |
-| P-124 | Performance | /services/roof-replacement | LCP needs work: 3534ms · Performance score needs work: 79 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-189) |
-| P-125 | Performance | /services/skylight-installation | LCP needs work: 3566ms · Performance score needs work: 69 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-190) |
-| P-126 | Performance | /services/solar-contractor | LCP needs work: 3563ms · Performance score needs work: 73 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-191) |
-| P-127 | Performance | /services/storm-damage-restoration | LCP needs work: 3901ms · Performance score needs work: 71 | P2 | (see prior log) | — | closed (2026-08-03: URL removed from sitemap.xml this run — no longer tracked) |
-| P-128 | Performance | /blog/best-roofing-contractors-in-frederick-md | LCP needs work: 3732ms · Performance score needs work: 76 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-156) |
-| P-129 | Performance | /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | LCP poor: 4675ms (threshold 4000ms) · Performance score needs work: 60 | P1 | (see prior log) | — | closed (2026-08-03: URL removed from sitemap.xml this run — no longer tracked) |
-| P-130 | Performance | /blog/maryland-roof-rejuvenation-contractor-frederick-md | LCP poor: 4204ms (threshold 4000ms) · Performance score needs work: 75 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-159) |
-| P-131 | Performance | /blog/roof-rejuvenation-cost-frederick-md | LCP needs work: 3641ms · Performance score needs work: 70 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-161) |
-| P-132 | Performance | /blog/7-signs-roof-needs-rejuvenation-not-replacement | LCP needs work: 2851ms · Performance score needs work: 84 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-154) |
-| P-133 | Performance | /blog/roof-rejuvenation-vs-replacement-frederick-md | LCP needs work: 2626ms · Performance score needs work: 81 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-162) |
-| P-134 | Performance | /blog/when-to-get-roof-rejuvenation-frederick-md | LCP needs work: 2851ms · Performance score needs work: 84 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-170) |
-| P-135 | Performance | /blog/what-is-roof-rejuvenation | LCP needs work: 3763ms · Performance score needs work: 76 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-169) |
-| P-136 | Performance | /blog/roof-replacement-tax-credit-2026 | LCP needs work: 3976ms · Performance score needs work: 61 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-164) |
-| P-137 | Performance | /blog/summer-roof-inspection-checklist-frederick-md | LCP needs work: 3879ms · Performance score needs work: 70 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-167) |
-| P-138 | Performance | /blog/why-attic-ventilation-matters-in-summer-frederick-md | LCP needs work: 3602ms · Performance score needs work: 75 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-171) |
-| P-139 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | LCP needs work: 3001ms · Performance score needs work: 77 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-166) |
-| P-140 | Performance | /blog/roof-repair-frederick-md | LCP needs work: 3725ms · Performance score needs work: 77 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-163) |
-| P-141 | Performance | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | LCP needs work: 3151ms · Performance score needs work: 73 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-158) |
-| P-142 | Performance | /blog/preparing-your-roof-for-summer-storms-in-frederick-md | LCP needs work: 2701ms · Performance score needs work: 78 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-160) |
-| P-143 | Performance | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | Performance score needs work: 85 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-165) |
-| P-144 | Performance | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | LCP needs work: 2701ms · Performance score needs work: 84 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-157) |
-| P-145 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | LCP needs work: 2626ms · Performance score needs work: 77 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-168) |
-| P-146 | Performance | /blog/author/tyler-schisler | LCP needs work: 4659ms · Performance score needs work: 70 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-155) |
-| P-147 | Performance | /service-areas/chambersburg-pa/ | LCP needs work: 4754ms · Performance score needs work: 61 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-179) |
-| P-148 | Performance | /service-areas/frederick-md/ | LCP needs work: 4475ms · Performance score needs work: 70 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-180) |
-| P-149 | Performance | /service-areas/hagerstown-md/ | LCP needs work: 4254ms · Performance score needs work: 82 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-181) |
-| P-150 | Performance | /service-areas/reston-va/ | LCP needs work: 3678ms · Performance score needs work: 76 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-182) |
-| S-010 | SEO | /about | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-011 | SEO | /services | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-012 | SEO | /blog | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-013 | SEO | /contact | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-014 | SEO | /book-appointment | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-015 | SEO | /service-areas/ | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-034 | SEO | /services/commercial-flat-and-low-slope-roofing-restoration | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-035 | SEO | /services/gutter-installation | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-036 | SEO | /services/residential-roofing | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-037 | SEO | /services/roof-rejuvenation | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-038 | SEO | /services/roof-repair | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-039 | SEO | /services/roof-replacement | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-040 | SEO | /services/skylight-installation | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-041 | SEO | /services/solar-contractor | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-042 | SEO | /services/storm-damage-restoration | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-048 | SEO | /careers | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-049 | SEO | /faqs | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-050 | SEO | /projects | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-051 | SEO | /testimonials | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-052 | SEO | /roofs-for-heroes | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
-| S-066 | SEO | /blog/when-to-get-roof-rejuvenation-frederick-md | Title/og:title has a trailing space — cosmetic Sanity data defect | P2 | (see prior log) | — | closed (2026-08-03: whitespace defect fixed, title/description now clean) |
-| S-067 | SEO | /blog/maryland-roof-rejuvenation-contractor-frederick-md | Meta description has leading whitespace | P2 | (see prior log) | — | closed (2026-08-03: whitespace defect fixed, title/description now clean) |
-| S-068 | SEO | /blog/why-attic-ventilation-matters-in-summer-frederick-md | Meta description has leading whitespace | P2 | (see prior log) | — | closed (2026-08-03: whitespace defect fixed, title/description now clean) |
-| S-069 | SEO | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | Title has a trailing space — cosmetic Sanity data defect | P2 | (see prior log) | — | closed (2026-08-03: whitespace defect fixed, title/description now clean) |
-| S-072 | SEO | /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | Orphaned — zero inbound internal links (stale sitemap entry that 308-redirects to its own canonical target /blog/best-roofing-contractors-in-frederick-md) | P2 | (see prior log) | — | closed (2026-08-03: URL removed from sitemap.xml entirely — no longer trackable, redirects cleanly to canonical target) || H-026 | Health | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | Sanity field integrity: featuredImage missing | P2 | 2026-06-24 | 40 | closed (2026-08-03: featuredImage now present) |
+| P-236 | Performance | /about | LCP poor: 4052ms (threshold 4000ms) · Performance score needs work: 77 | P1 | 2026-08-04 | 0 | open |
+| P-238 | Performance | /blog | LCP poor: 4536ms (threshold 4000ms) · Performance score needs work: 65 | P1 | 2026-08-04 | 0 | open |
+| P-239 | Performance | /contact | LCP poor: 15053ms (threshold 4000ms) · Performance score poor: 42 | P1 | 2026-08-04 | 0 | open |
+| P-240 | Performance | /book-appointment | LCP poor: 10577ms (threshold 4000ms) · CLS poor: 0.406 (threshold 0.25) · Performance score poor: 23 | P1 | 2026-08-04 | 0 | open |
+| P-246 | Performance | /roofs-for-heroes | LCP poor: 10278ms (threshold 4000ms) · Performance score poor: 39 | P1 | 2026-08-04 | 0 | open |
+| P-263 | Performance | /blog/what-is-roof-rejuvenation | LCP poor: 4051ms (threshold 4000ms) · Performance score needs work: 69 | P1 | 2026-08-04 | 0 | open |
+| P-272 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | LCP poor: 4351ms (threshold 4000ms) · Performance score needs work: 63 | P1 | 2026-08-04 | 0 | open |
+| P-273 | Performance | /blog/author/tyler-schisler | LCP poor: 4325ms (threshold 4000ms) · Performance score needs work: 73 | P1 | 2026-08-04 | 0 | open |
+| P-274 | Performance | /service-areas/chambersburg-pa/ | LCP poor: 4561ms (threshold 4000ms) · Performance score needs work: 67 | P1 | 2026-08-04 | 0 | open |
+| P-275 | Performance | /service-areas/frederick-md/ | LCP poor: 4523ms (threshold 4000ms) · Performance score needs work: 71 | P1 | 2026-08-04 | 0 | open |
+| P-276 | Performance | /service-areas/hagerstown-md/ | LCP poor: 4598ms (threshold 4000ms) · Performance score needs work: 67 | P1 | 2026-08-04 | 0 | open |
+| H-017 | Health | /services/commercial-flat-and-low-slope-roofing-restoration | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 41 ⚠ STALE | open |
+| H-018 | Health | /services/gutter-installation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 41 ⚠ STALE | open |
+| H-019 | Health | /services/residential-roofing | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 41 ⚠ STALE | open |
+| H-020 | Health | /services/roof-rejuvenation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 41 ⚠ STALE | open |
+| H-021 | Health | /services/roof-repair | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 41 ⚠ STALE | open |
+| H-022 | Health | /services/roof-replacement | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 41 ⚠ STALE | open |
+| H-023 | Health | /services/skylight-installation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 41 ⚠ STALE | open |
+| H-024 | Health | /services/solar-contractor | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 41 ⚠ STALE | open |
+| H-025 | Health | /services/storm-damage-restoration | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 41 ⚠ STALE | open |
+| H-016 | Health | /service-areas/ | Redirect chain: www→non-www, then trailing-slash strip | P2 | 2026-08-04 | 0 | open |
+| H-030 | Health | /service-areas/chambersburg-pa/ | Redirect chain (2 hops): www→non-www, then trailing-slash strip | P2 | 2026-08-04 | 0 | open |
+| H-031 | Health | /service-areas/frederick-md/ | Redirect chain (2 hops) | P2 | 2026-08-04 | 0 | open |
+| H-032 | Health | /service-areas/hagerstown-md/ | Redirect chain (2 hops) | P2 | 2026-08-04 | 0 | open |
+| H-033 | Health | /service-areas/reston-va/ | Redirect chain (2 hops) | P2 | 2026-08-04 | 0 | open |
+| H-043 | Health | /blog/best-roofing-contractors-in-frederick-md | Sanity field integrity: publishedDate missing | P2 | 2026-08-03 | 1 | open |
+| H-046 | Health | /blog/roof-rejuvenation-cost-frederick-md | Sanity field integrity: publishedDate missing | P2 | 2026-08-03 | 1 | open |
+| P-235 | Performance | / | LCP needs work: 2626ms · Performance score needs work: 87 | P2 | 2026-08-04 | 0 | open |
+| P-237 | Performance | /services | LCP needs work: 3976ms · Performance score needs work: 70 | P2 | 2026-08-04 | 0 | open |
+| P-241 | Performance | /service-areas/ | LCP needs work: 3198ms · Performance score needs work: 85 | P2 | 2026-08-04 | 0 | open |
+| P-242 | Performance | /careers | LCP needs work: 3627ms · Performance score needs work: 78 | P2 | 2026-08-04 | 0 | open |
+| P-243 | Performance | /faqs | LCP needs work: 3604ms · Performance score needs work: 76 | P2 | 2026-08-04 | 0 | open |
+| P-244 | Performance | /projects | LCP needs work: 3943ms · Performance score needs work: 51 | P2 | 2026-08-04 | 0 | open |
+| P-245 | Performance | /testimonials | LCP needs work: 3777ms · Performance score needs work: 72 | P2 | 2026-08-04 | 0 | open |
+| P-247 | Performance | /terms-and-conditions | Performance score needs work: 86 | P2 | 2026-08-04 | 0 | open |
+| P-248 | Performance | /services/chimney-maintenance | LCP needs work: 3701ms · Performance score needs work: 72 | P2 | 2026-08-04 | 0 | open |
+| P-249 | Performance | /services/commercial-flat-and-low-slope-roofing-restoration | Performance score needs work: 89 | P2 | 2026-08-04 | 0 | open |
+| P-250 | Performance | /services/gutter-installation | LCP needs work: 3534ms · Performance score needs work: 80 | P2 | 2026-08-04 | 0 | open |
+| P-251 | Performance | /services/residential-roofing | LCP needs work: 3654ms · Performance score needs work: 70 | P2 | 2026-08-04 | 0 | open |
+| P-252 | Performance | /services/roof-installation | LCP needs work: 3716ms · Performance score needs work: 76 | P2 | 2026-08-04 | 0 | open |
+| P-253 | Performance | /services/roof-rejuvenation | LCP needs work: 3541ms · Performance score needs work: 71 | P2 | 2026-08-04 | 0 | open |
+| P-254 | Performance | /services/roof-repair | LCP needs work: 3901ms · Performance score needs work: 71 | P2 | 2026-08-04 | 0 | open |
+| P-255 | Performance | /services/roof-replacement | LCP needs work: 3674ms · Performance score needs work: 68 | P2 | 2026-08-04 | 0 | open |
+| P-256 | Performance | /services/skylight-installation | LCP needs work: 3653ms · Performance score needs work: 71 | P2 | 2026-08-04 | 0 | open |
+| P-257 | Performance | /services/solar-contractor | LCP needs work: 2701ms · Performance score needs work: 82 | P2 | 2026-08-04 | 0 | open |
+| P-258 | Performance | /blog/roof-rejuvenation-cost-frederick-md | LCP needs work: 3623ms · Performance score needs work: 79 | P2 | 2026-08-04 | 0 | open |
+| P-259 | Performance | /blog/best-roofing-contractors-in-frederick-md | LCP needs work: 3615ms · Performance score needs work: 78 | P2 | 2026-08-04 | 0 | open |
+| P-260 | Performance | /blog/7-signs-roof-needs-rejuvenation-not-replacement | Performance score needs work: 77 | P2 | 2026-08-04 | 0 | open |
+| P-261 | Performance | /blog/roof-rejuvenation-vs-replacement-frederick-md | PageSpeed API unreachable (HTTP 500) | P2 | 2026-08-04 | 0 | open |
+| P-262 | Performance | /blog/when-to-get-roof-rejuvenation-frederick-md | LCP needs work: 3716ms · Performance score needs work: 74 | P2 | 2026-08-04 | 0 | open |
+| P-264 | Performance | /blog/roof-replacement-tax-credit-2026 | LCP needs work: 3671ms · Performance score needs work: 80 | P2 | 2026-08-04 | 0 | open |
+| P-265 | Performance | /blog/summer-roof-inspection-checklist-frederick-md | LCP needs work: 3858ms · Performance score needs work: 72 | P2 | 2026-08-04 | 0 | open |
+| P-266 | Performance | /blog/why-attic-ventilation-matters-in-summer-frederick-md | LCP needs work: 3746ms · Performance score needs work: 76 | P2 | 2026-08-04 | 0 | open |
+| P-267 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | LCP needs work: 2926ms | P2 | 2026-08-04 | 0 | open |
+| P-268 | Performance | /blog/roof-repair-frederick-md | LCP needs work: 3606ms · Performance score needs work: 79 | P2 | 2026-08-04 | 0 | open |
+| P-269 | Performance | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | LCP needs work: 3695ms · Performance score needs work: 73 | P2 | 2026-08-04 | 0 | open |
+| P-270 | Performance | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | LCP needs work: 3669ms · Performance score needs work: 76 | P2 | 2026-08-04 | 0 | open |
+| P-271 | Performance | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | LCP needs work: 3642ms · Performance score needs work: 76 | P2 | 2026-08-04 | 0 | open |
+| P-277 | Performance | /service-areas/reston-va/ | LCP needs work: 3122ms · Performance score needs work: 82 | P2 | 2026-08-04 | 0 | open |
+| P-193 | Performance | / | LCP needs work: 3707ms · Performance score needs work: 78 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-235) |
+| P-194 | Performance | /about | Performance score needs work: 88 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-236 (regressed to P1)) |
+| P-195 | Performance | /services | Performance score needs work: 86 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-237) |
+| P-196 | Performance | /blog | Performance score needs work: 83 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-238 (regressed to P1)) |
+| P-197 | Performance | /contact | LCP needs work: 2626ms · Performance score needs work: 67 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-239 (regressed to P1)) |
+| P-198 | Performance | /book-appointment | LCP poor: 10506ms (threshold 4000ms) · CLS poor: 0.406 (threshold 0.25) · Performance score poor: 25 | P1 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-240) |
+| P-199 | Performance | /service-areas/ | LCP poor: 4760ms (threshold 4000ms) · Performance score needs work: 66 | P1 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-241 (improved to P2)) |
+| P-200 | Performance | /careers | Performance score needs work: 86 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-242) |
+| P-201 | Performance | /faqs | Performance score needs work: 81 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-243) |
+| P-202 | Performance | /projects | LCP poor: 4101ms (threshold 4000ms) · Performance score poor: 49 | P1 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-244 (improved to P2)) |
+| P-203 | Performance | /testimonials | LCP needs work: 3919ms · Performance score needs work: 68 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-245) |
+| P-204 | Performance | /roofs-for-heroes | LCP poor: 11120ms (threshold 4000ms) · Performance score poor: 38 | P1 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-246) |
+| P-205 | Performance | /privacy-policy | LCP needs work: 2626ms · Performance score needs work: 86 | P2 | 2026-08-03 | 0 | closed (2026-08-04: resolved — all metrics clean this run) |
+| P-206 | Performance | /services/chimney-maintenance | Performance score needs work: 86 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-248) |
+| P-207 | Performance | /services/gutter-installation | LCP needs work: 3584ms · Performance score needs work: 79 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-250) |
+| P-208 | Performance | /services/residential-roofing | LCP needs work: 3561ms · Performance score needs work: 78 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-251) |
+| P-209 | Performance | /services/roof-installation | LCP poor: 4052ms (threshold 4000ms) · Performance score needs work: 70 | P1 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-252 (improved to P2)) |
+| P-210 | Performance | /services/roof-rejuvenation | LCP needs work: 3558ms · Performance score needs work: 80 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-253) |
+| P-211 | Performance | /services/roof-repair | Performance score needs work: 88 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-254) |
+| P-212 | Performance | /services/roof-replacement | LCP needs work: 2551ms · Performance score needs work: 85 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-255) |
+| P-213 | Performance | /services/skylight-installation | LCP needs work: 3657ms · Performance score needs work: 63 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-256) |
+| P-214 | Performance | /services/solar-contractor | Performance score needs work: 88 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-257) |
+| P-215 | Performance | /blog/roof-rejuvenation-cost-frederick-md | Performance score needs work: 86 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-258) |
+| P-216 | Performance | /blog/best-roofing-contractors-in-frederick-md | LCP needs work: 3605ms · Performance score needs work: 77 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-259) |
+| P-217 | Performance | /blog/7-signs-roof-needs-rejuvenation-not-replacement | LCP needs work: 3881ms · Performance score needs work: 74 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-260) |
+| P-218 | Performance | /blog/roof-rejuvenation-vs-replacement-frederick-md | LCP needs work: 2551ms · Performance score needs work: 80 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-261) |
+| P-219 | Performance | /blog/when-to-get-roof-rejuvenation-frederick-md | Performance score needs work: 87 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-262) |
+| P-220 | Performance | /blog/what-is-roof-rejuvenation | LCP needs work: 3606ms · Performance score needs work: 81 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-263 (regressed to P1)) |
+| P-221 | Performance | /blog/roof-replacement-tax-credit-2026 | LCP needs work: 3752ms · Performance score needs work: 72 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-264) |
+| P-222 | Performance | /blog/summer-roof-inspection-checklist-frederick-md | LCP needs work: 3801ms · Performance score needs work: 76 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-265) |
+| P-223 | Performance | /blog/why-attic-ventilation-matters-in-summer-frederick-md | LCP needs work: 2776ms · Performance score needs work: 86 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-266) |
+| P-224 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | Performance score needs work: 88 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-267) |
+| P-225 | Performance | /blog/roof-repair-frederick-md | LCP needs work: 3677ms · Performance score needs work: 78 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-268) |
+| P-226 | Performance | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | LCP needs work: 2626ms · Performance score needs work: 87 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-269) |
+| P-227 | Performance | /blog/preparing-your-roof-for-summer-storms-in-frederick-md | LCP needs work: 2551ms | P2 | 2026-08-03 | 0 | closed (2026-08-04: resolved — all metrics clean this run) |
+| P-228 | Performance | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | Performance score needs work: 88 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-271) |
+| P-229 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | Performance score needs work: 86 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-272 (regressed to P1)) |
+| P-230 | Performance | /blog/author/tyler-schisler | LCP poor: 4392ms (threshold 4000ms) · Performance score needs work: 66 | P1 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-273) |
+| P-231 | Performance | /service-areas/chambersburg-pa/ | LCP needs work: 3131ms · Performance score needs work: 84 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-274 (regressed to P1)) |
+| P-232 | Performance | /service-areas/frederick-md/ | LCP needs work: 3664ms · Performance score needs work: 79 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-275 (regressed to P1)) |
+| P-233 | Performance | /service-areas/hagerstown-md/ | LCP needs work: 3672ms · Performance score needs work: 76 | P2 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-276 (regressed to P1)) |
+| P-234 | Performance | /service-areas/reston-va/ | LCP poor: 4559ms (threshold 4000ms) · Performance score needs work: 67 | P1 | 2026-08-03 | 0 | closed (2026-08-04: superseded by P-277 (improved to P2)) |
+| S-060 | SEO | /blog/roof-replacement-tax-credit-2026 | Missing og:description meta tag | P2 | 2026-08-03 | 0 | closed (2026-08-04: resolved — og:description tag IS present this run (correct multi-line-aware parsing). Same caveat as S-077/078.) |
+| S-061 | SEO | /blog/summer-roof-inspection-checklist-frederick-md | Missing og:description meta tag | P2 | 2026-08-03 | 0 | closed (2026-08-04: resolved — og:description tag IS present this run (correct multi-line-aware parsing). Same caveat as S-077/078.) |
+| S-063 | SEO | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | Keyword cannibalization vs. two sibling "summer heat damage" posts | P2 | 2026-07-21 | 13 ⚠ STALE | closed (2026-08-04: resolved (2026-08-03: confirmed independently by content-auditor's audit-findings-log.md — 'summer heat damage' cluster fully cross-linked, no retitling needed; commit 5c3d25d)) |
+| S-064 | SEO | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | Keyword cannibalization vs. sibling posts; duplicate og:image with /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | P2 | 2026-07-21 | 13 ⚠ STALE | closed (2026-08-04: resolved (2026-08-03: confirmed independently by content-auditor's audit-findings-log.md — cluster cross-linked, duplicate og:image no longer an open issue)) |
+| S-065 | SEO | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | Keyword cannibalization vs. sibling posts; duplicate og:image with /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | P2 | 2026-07-21 | 13 ⚠ STALE | closed (2026-08-04: resolved (2026-08-03: confirmed independently by content-auditor's audit-findings-log.md — cluster cross-linked, duplicate og:image no longer an open issue)) |
+| S-077 | SEO | /blog/roof-replacement-tax-credit-2026 | Missing meta description | P1 | 2026-08-03 | 0 | closed (2026-08-04: resolved — meta description tag IS present this run (correct multi-line-aware parsing); prior 'missing' was a false negative from line-based HTML parsing. Content still has cosmetic trailing-newline defect and may be showing stale pre-fix ISR cache — see technical-seo.md caveat.) |
+| S-078 | SEO | /blog/summer-roof-inspection-checklist-frederick-md | Missing meta description | P1 | 2026-08-03 | 0 | closed (2026-08-04: resolved — meta description tag IS present this run (correct multi-line-aware parsing); prior 'missing' was a false negative. Same caveat as S-077 — see technical-seo.md.) |
+| H-001 | Health | /about | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
+| H-002 | Health | /service-areas | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
+| H-003 | Health | /service-areas/adamstown-md | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
+| H-004 | Health | /service-areas/hagerstown-md | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
+| H-005 | Health | /service-areas/frederick-md | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
+| H-006 | Health | /service-areas/chambersburg-pa | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
+| H-007 | Health | /service-areas/reston-va | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
+| H-008 | Health | /services/residential-roofing | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
+| H-009 | Health | /services/storm-damage-restoration | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
+| H-010 | Health | /blog/roof-repair-in-frederick-md-fast-reliable | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
+| H-011 | Health | /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | 404 Not Found (not verified — consistent with pattern) | P1 | 2026-05-21 | 74 | closed |
+| H-012 | Health | /blog/three-common-winter-roof-damage-issues-how-to-prevent-them | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
+| H-013 | Health | /blog/roof-replacement-tax-credit-2026-what-homeowners-need-to-know | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
+| H-014 | Health | /services/roof-rejuvenation | Binary/JPEG response instead of HTML — possible image redirect | P2 | 2026-05-21 | 74 | closed |
+| H-015 | Health | /services/chimney-maintenance | Binary/JPEG response instead of HTML — possible image redirect | P2 | 2026-05-21 | 74 | closed |
+| P-001 | Performance | /services | LCP poor: 10156ms (threshold 4000ms) | P1 | 2026-05-21 | 74 | closed |
+| P-002 | Performance | / | CLS needs work: 0.139 (threshold 0.25) | P2 | 2026-05-21 | 74 | closed |
+| P-003 | Performance | /blog | LCP needs work: 2914ms · CLS needs work: 0.132 | P2 | 2026-05-21 | 74 | closed |
+| S-001 | SEO | lib/utils.ts:22 | SITE_URL typo: "shumakeroofing.com" missing 'er' — may corrupt canonical URL generation | P2 | 2026-05-21 | 74 | closed |
+| S-002 | SEO | /robots.txt | Sitemap directive uses no-www (shumakerroofing.com) while canonical domain is www.shumakerroofing.com | P2 | 2026-05-21 | 74 | closed |
+| S-003 | SEO | / | No JSON-LD schema detected | P2 | 2026-05-21 | 74 | closed |
+| S-004 | SEO | /services | No JSON-LD schema detected | P2 | 2026-05-21 | 74 | closed |
+| S-005 | SEO | /blog | No JSON-LD schema detected | P2 | 2026-05-21 | 74 | closed |
+| S-006 | SEO | /contact | No JSON-LD schema detected | P2 | 2026-05-21 | 74 | closed |
+| S-007 | SEO | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | Article/BlogPosting JSON-LD schema not confirmed | P2 | 2026-05-21 | 74 | closed |
+| S-008 | SEO | Multiple live pages | Meta description, canonical, og tags not verifiable via automated check — manual review needed | P2 | 2026-05-21 | 74 | closed |
+| P-004 | Performance | / | Performance score needs work: 68 | P2 | 2026-06-08 | 56 | closed |
+| P-005 | Performance | /contact | CLS needs work: 0.121 · Performance score needs work: 62 | P2 | 2026-06-08 | 56 | closed |
+| P-006 | Performance | /book-appointment | CLS needs work: 0.220 · Performance score needs work: 73 | P2 | 2026-06-08 | 56 | closed |
+| P-007 | Performance | /service-areas/ | LCP needs work: 3908ms · Performance score needs work: 84 | P2 | 2026-06-08 | 56 | closed |
+| P-008 | Performance | /services/roof-rejuvenation | LCP needs work: 2852ms · Performance score needs work: 88 | P2 | 2026-06-08 | 56 | closed |
+| P-009 | Performance | /services/chimney-maintenance | LCP needs work: 2591ms | P2 | 2026-06-08 | 56 | closed |
+| P-010 | Performance | /services/roof-repair | LCP needs work: 2553ms · Performance score needs work: 86 | P2 | 2026-06-08 | 56 | closed |
+| P-011 | Performance | /services/storm-damage-restoration | Performance score needs work: 86 | P2 | 2026-06-08 | 56 | closed |
+| P-012 | Performance | /services/residential-roofing | LCP needs work: 2583ms | P2 | 2026-06-08 | 56 | closed |
+| P-013 | Performance | /services/solar-contractor | Performance score needs work: 87 | P2 | 2026-06-08 | 56 | closed |
+| P-014 | Performance | /service-areas/chambersburg-pa | LCP needs work: 2570ms · Performance score needs work: 88 | P2 | 2026-06-08 | 56 | closed |
+| P-015 | Performance | /service-areas/hagerstown-md | LCP needs work: 2884ms | P2 | 2026-06-08 | 56 | closed |
+| P-016 | Performance | /service-areas/reston-va | LCP needs work: 2975ms | P2 | 2026-06-08 | 56 | closed |
+| S-009 | SEO | / | Missing og:image meta tag | P2 | 2026-06-08 | 56 | closed |
+| S-016 | SEO | /service-areas/chambersburg-pa | Missing og:image meta tag | P2 | 2026-06-08 | 56 | closed |
+| S-017 | SEO | /service-areas/frederick-md | Missing og:image meta tag | P2 | 2026-06-08 | 56 | closed |
+| S-018 | SEO | /service-areas/hagerstown-md | Missing og:image meta tag | P2 | 2026-06-08 | 56 | closed |
+| S-019 | SEO | /service-areas/reston-va | Missing og:image meta tag | P2 | 2026-06-08 | 56 | closed |
+| S-020 | SEO | /about | No JSON-LD schema detected | P2 | 2026-06-08 | 56 | closed |
+| S-021 | SEO | /service-areas/ | No JSON-LD schema detected | P2 | 2026-06-08 | 56 | closed |
+| S-022 | SEO | /blog/roof-replacement-tax-credit-2026-what-homeowners-need-to-know | Duplicate content/title vs. linked-but-unsitemapped /blog/roof-replacement-tax-credit-2026 | P2 | 2026-06-08 | 56 | closed |
+| S-023 | SEO | /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | Duplicate content/title vs. linked-but-unsitemapped /blog/best-roofing-contractors-in-frederick-md | P2 | 2026-06-08 | 56 | closed |
+| S-024 | SEO | /blog/three-common-winter-roof-damage-issues-how-to-prevent-them | Duplicate content/title vs. linked-but-unsitemapped /blog/common-winter-roof-damage-issues-and-how-to-prevent-them | P2 | 2026-06-08 | 56 | closed |
+| S-025 | SEO | /blog/roof-replacement-tax-credit-2026-what-homeowners-need-to-know | Orphaned page — zero inbound internal links | P2 | 2026-06-08 | 56 | closed |
+| S-026 | SEO | /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | Orphaned page — zero inbound internal links | P2 | 2026-06-08 | 56 | closed |
+| S-027 | SEO | /blog/three-common-winter-roof-damage-issues-how-to-prevent-them | Orphaned page — zero inbound internal links | P2 | 2026-06-08 | 56 | closed |
+| H-026 | Health | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | Sanity field integrity: featuredImage missing | P2 | 2026-06-24 | 40 | closed (2026-08-03: featuredImage now present) |
 | H-027 | Health | /blog/best-roofing-contractors-in-frederick-md | Sanity field integrity: featuredImage missing | P2 | 2026-06-24 | 40 | closed (2026-08-03: featuredImage now present) |
+| H-028 | Health | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | Sitemap entry returns 404 Not Found — stale slug | P1 | 2026-06-24 | 40 | closed |
+| H-029 | Health | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | Zero inbound internal links (orphaned in addition to dead) | P2 | 2026-06-24 | 40 | closed |
+| H-034 | Health | /careers | Live page, not present in sitemap.xml | P2 | 2026-06-24 | 40 | closed |
+| H-035 | Health | /faqs | Live page, not present in sitemap.xml | P2 | 2026-06-24 | 40 | closed |
+| H-036 | Health | /projects | Live page, not present in sitemap.xml | P2 | 2026-06-24 | 40 | closed |
+| H-037 | Health | /testimonials | Live page, not present in sitemap.xml | P2 | 2026-06-24 | 40 | closed |
+| H-038 | Health | /roofs-for-heroes | Live page, not present in sitemap.xml | P2 | 2026-06-24 | 40 | closed |
+| H-039 | Health | /blog/roof-repair-frederick-md | Sanity blog document exists (missing `publishedDate` and `featuredImage`) but route 404s on live site and is absent from sitemap.xml — orphaned/broken CMS content | P1 | 2026-06-24 | 40 | closed (2026-07-03: route now 200 live; root cause was `app/sitemap.ts` missing `revalidate` export so it never refreshed post-deploy — added `revalidate = 3600`; also patched+published missing `publishedDate`. `featuredImage` still missing — now tracked as H-041) |
+| P-017 | Performance | / | LCP needs work: 3481ms · Performance score needs work: 88 | P2 | 2026-06-24 | 40 | closed |
+| P-018 | Performance | /about | LCP poor: 4156ms (threshold 4000ms) · Performance score needs work: 82 | P1 | 2026-06-24 | 40 | closed |
+| P-019 | Performance | /services | LCP needs work: 3331ms | P2 | 2026-06-24 | 40 | closed |
+| P-020 | Performance | /blog | LCP needs work: 3256ms | P2 | 2026-06-24 | 40 | closed |
+| P-021 | Performance | /contact | CLS needs work: 0.102 · Performance score needs work: 64 | P2 | 2026-06-24 | 40 | closed |
+| P-022 | Performance | /book-appointment | CLS poor: 0.481 (threshold 0.25) · Performance score needs work: 64 | P1 | 2026-06-24 | 40 | closed |
+| P-023 | Performance | /service-areas | LCP needs work: 2551ms | P2 | 2026-06-24 | 40 | closed |
+| P-024 | Performance | /privacy-policy | LCP needs work: 2656ms | P2 | 2026-06-24 | 40 | closed |
+| P-025 | Performance | /terms-and-conditions | LCP needs work: 2731ms | P2 | 2026-06-24 | 40 | closed |
+| P-026 | Performance | /services/chimney-maintenance | LCP poor: 5024ms (threshold 4000ms) · Performance score needs work: 78 | P1 | 2026-06-24 | 40 | closed |
+| P-027 | Performance | /services/commercial-flat-and-low-slope-roofing-restoration | LCP needs work: 2731ms | P2 | 2026-06-24 | 40 | closed |
+| P-028 | Performance | /services/gutter-installation | LCP needs work: 2581ms | P2 | 2026-06-24 | 40 | closed |
+| P-029 | Performance | /services/residential-roofing | LCP needs work: 2731ms | P2 | 2026-06-24 | 40 | closed |
+| P-030 | Performance | /services/roof-installation | LCP needs work: 3509ms | P2 | 2026-06-24 | 40 | closed |
+| P-031 | Performance | /services/roof-rejuvenation | LCP needs work: 2581ms | P2 | 2026-06-24 | 40 | closed |
+| P-032 | Performance | /services/roof-repair | LCP needs work: 2731ms | P2 | 2026-06-24 | 40 | closed |
+| P-033 | Performance | /services/roof-replacement | LCP needs work: 2731ms | P2 | 2026-06-24 | 40 | closed |
+| P-034 | Performance | /services/skylight-installation | LCP needs work: 2581ms · Performance score needs work: 88 | P2 | 2026-06-24 | 40 | closed |
+| P-035 | Performance | /services/solar-contractor | LCP needs work: 2581ms | P2 | 2026-06-24 | 40 | closed |
+| P-036 | Performance | /services/storm-damage-restoration | LCP needs work: 2731ms | P2 | 2026-06-24 | 40 | closed |
+| P-037 | Performance | /blog/roof-replacement-tax-credit-2026 | LCP needs work: 3331ms · Performance score needs work: 85 | P2 | 2026-06-24 | 40 | closed |
+| P-038 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | LCP needs work: 2581ms | P2 | 2026-06-24 | 40 | closed |
+| P-039 | Performance | /blog/best-roofing-contractors-in-frederick-md | LCP needs work: 2656ms | P2 | 2026-06-24 | 40 | closed |
+| P-040 | Performance | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | LCP needs work: 3256ms | P2 | 2026-06-24 | 40 | closed |
+| P-041 | Performance | /blog/preparing-your-roof-for-summer-storms-in-frederick-md | LCP needs work: 3031ms | P2 | 2026-06-24 | 40 | closed |
+| P-042 | Performance | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | LCP needs work: 3256ms · Performance score needs work: 88 | P2 | 2026-06-24 | 40 | closed |
+| P-043 | Performance | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | LCP needs work: 3212ms | P2 | 2026-06-24 | 40 | closed |
+| P-044 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | LCP needs work: 2956ms | P2 | 2026-06-24 | 40 | closed |
+| P-045 | Performance | /service-areas/chambersburg-pa | LCP needs work: 2551ms | P2 | 2026-06-24 | 40 | closed |
+| P-046 | Performance | /service-areas/frederick-md | LCP poor: 4223ms (threshold 4000ms) · Performance score needs work: 80 | P1 | 2026-06-24 | 40 | closed |
+| P-047 | Performance | /service-areas/hagerstown-md | LCP needs work: 3925ms · Performance score needs work: 83 | P2 | 2026-06-24 | 40 | closed |
+| P-048 | Performance | /service-areas/reston-va | LCP poor: 4232ms (threshold 4000ms) · Performance score needs work: 82 | P1 | 2026-06-24 | 40 | closed |
+| S-028 | SEO | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | Sitemap `<loc>` resolves to 404 — stale slug, no matching Sanity document | P1 | 2026-06-24 | 40 | closed |
+| S-029 | SEO | /careers | Live page absent from sitemap.xml | P2 | 2026-06-24 | 40 | closed |
+| S-030 | SEO | /faqs | Live page absent from sitemap.xml | P2 | 2026-06-24 | 40 | closed |
+| S-031 | SEO | /projects | Live page absent from sitemap.xml | P2 | 2026-06-24 | 40 | closed |
+| S-032 | SEO | /testimonials | Live page absent from sitemap.xml | P2 | 2026-06-24 | 40 | closed |
+| S-033 | SEO | /roofs-for-heroes | Live page absent from sitemap.xml | P2 | 2026-06-24 | 40 | closed |
 | S-043 | SEO | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | Missing og:image meta tag | P2 | 2026-06-24 | 40 | closed (2026-08-03: og tag now present) |
 | S-044 | SEO | /blog/best-roofing-contractors-in-frederick-md | Missing og:image meta tag | P2 | 2026-06-24 | 40 | closed (2026-08-03: og tag now present) |
+| S-045 | SEO | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | No canonical tag present (404 page) | P2 | 2026-06-24 | 40 | closed |
+| S-046 | SEO | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | noindex detected — logged only, no action taken | INFO | 2026-06-24 | 40 | closed |
+| S-047 | SEO | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | Orphaned — zero inbound internal links | P2 | 2026-06-24 | 40 | closed |
+| P-049 | Performance | /about | LCP needs work: 2701ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-066, LCP regressed to P1) |
+| P-050 | Performance | /services | LCP needs work: 2551ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-067) |
+| P-051 | Performance | /contact | Performance score needs work: 59 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-069, regressed to P1) |
+| P-052 | Performance | /book-appointment | CLS needs work: 0.214 · Performance score needs work: 76 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-070, regressed to P1) |
+| P-053 | Performance | /service-areas | LCP needs work: 3871ms · Performance score needs work: 88 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-071, regressed to P1) |
+| P-054 | Performance | /projects | Performance score needs work: 77 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-074, regressed to P1) |
+| P-055 | Performance | /testimonials | LCP needs work: 2776ms · Performance score needs work: 88 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-075) |
+| P-056 | Performance | /roofs-for-heroes | LCP needs work: 2851ms · Performance score needs work: 73 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-076, regressed to P1) |
+| P-057 | Performance | /services/chimney-maintenance | LCP needs work: 3001ms · Performance score needs work: 89 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-077) |
+| P-058 | Performance | /services/roof-installation | LCP needs work: 2551ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-080) |
+| P-059 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | LCP needs work: 2926ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-099) |
+| P-060 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | LCP needs work: 3601ms · Performance score needs work: 83 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-105) |
+| P-061 | Performance | /service-areas/chambersburg-pa | LCP needs work: 2893ms · Performance score needs work: 80 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-086) |
+| P-062 | Performance | /service-areas/frederick-md | LCP needs work: 2738ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-087) |
+| P-063 | Performance | /service-areas/hagerstown-md | LCP needs work: 2892ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-088, regressed to P1) |
+| P-064 | Performance | /service-areas/reston-va | LCP needs work: 2890ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-089, regressed to P1) |
+| S-053 | SEO | /testimonials | No JSON-LD schema block detected | P2 | 2026-06-28 | 36 | closed (2026-07-03: added WebPage+BreadcrumbList @graph schema) |
+| S-054 | SEO | /roofs-for-heroes | No JSON-LD schema block detected | P2 | 2026-06-28 | 36 | closed (2026-07-03: added WebPage+BreadcrumbList @graph schema) |
+| S-055 | SEO | /testimonials | Orphaned page — zero inbound internal links | P2 | 2026-06-28 | 36 | closed (2026-07-03: homepage already had a static "Read More Testimonials" link; added to Footer Quick Links too) |
+| S-056 | SEO | /roofs-for-heroes | Orphaned page — zero inbound internal links | P2 | 2026-06-28 | 36 | closed (2026-07-03: root cause was the only link living inside the navbar's client-side hover dropdown, absent from server-rendered HTML; added a static link in Footer Quick Links) |
 | H-040 | Health | /blog/roof-rejuvenation-vs-replacement-frederick-md | Sanity field integrity: featuredImage missing | P2 | 2026-07-21 | 13 | closed (2026-08-03: featuredImage now present) |
 | H-041 | Health | /blog/roof-repair-frederick-md | Sanity field integrity: featuredImage missing | P2 | 2026-07-21 | 13 | closed (2026-08-03: featuredImage now present) |
 | H-042 | Health | /blog/when-to-get-roof-rejuvenation-frederick-md | Sanity field integrity: featuredImage missing | P2 | 2026-07-21 | 13 | closed (2026-08-03: featuredImage now present) |
@@ -184,132 +282,124 @@
 | S-057 | SEO | /blog/roof-repair-frederick-md | Missing og:image meta tag | P2 | 2026-07-21 | 13 | closed (2026-08-03: og tag now present) |
 | S-058 | SEO | /blog/maryland-roof-rejuvenation-contractor-frederick-md | Missing og:description meta tag | P2 | 2026-07-21 | 13 | closed (2026-08-03: og tag now present) |
 | S-059 | SEO | /blog/when-to-get-roof-rejuvenation-frederick-md | Missing og:description meta tag | P2 | 2026-07-21 | 13 | closed (2026-08-03: og tag now present) |
-| S-060 | SEO | /blog/roof-replacement-tax-credit-2026 | Missing og:description meta tag | P2 | 2026-07-21 | 13 | closed (2026-08-03: og tag now present) |
-| S-061 | SEO | /blog/summer-roof-inspection-checklist-frederick-md | Missing og:description meta tag | P2 | 2026-07-21 | 13 | closed (2026-08-03: og tag now present) |
 | S-062 | SEO | /blog/why-attic-ventilation-matters-in-summer-frederick-md | Missing og:description meta tag | P2 | 2026-07-21 | 13 | closed (2026-08-03: og tag now present) |
-| P-049 | Performance | /about | LCP needs work: 2701ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-066, LCP regressed to P1) |
-| P-050 | Performance | /services | LCP needs work: 2551ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-067) |
-| P-051 | Performance | /contact | Performance score needs work: 59 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-069, regressed to P1) |
-| P-052 | Performance | /book-appointment | CLS needs work: 0.214 · Performance score needs work: 76 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-070, regressed to P1) |
-| P-053 | Performance | /service-areas | LCP needs work: 3871ms · Performance score needs work: 88 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-071, regressed to P1) |
-| P-054 | Performance | /projects | Performance score needs work: 77 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-074, regressed to P1) |
-| P-055 | Performance | /testimonials | LCP needs work: 2776ms · Performance score needs work: 88 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-075) |
-| P-056 | Performance | /roofs-for-heroes | LCP needs work: 2851ms · Performance score needs work: 73 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-076, regressed to P1) |
-| P-057 | Performance | /services/chimney-maintenance | LCP needs work: 3001ms · Performance score needs work: 89 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-077) |
-| P-058 | Performance | /services/roof-installation | LCP needs work: 2551ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-080) |
-| P-059 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | LCP needs work: 2926ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-099) |
-| P-060 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | LCP needs work: 3601ms · Performance score needs work: 83 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-105) |
-| P-061 | Performance | /service-areas/chambersburg-pa | LCP needs work: 2893ms · Performance score needs work: 80 | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-086) |
-| P-062 | Performance | /service-areas/frederick-md | LCP needs work: 2738ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-087) |
-| P-063 | Performance | /service-areas/hagerstown-md | LCP needs work: 2892ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-088, regressed to P1) |
-| P-064 | Performance | /service-areas/reston-va | LCP needs work: 2890ms | P2 | 2026-06-28 | 36 | closed (2026-07-21: superseded by P-089, regressed to P1) |
-| H-034 | Health | /careers | Live page, not present in sitemap.xml | P2 | 2026-06-24 | 40 | closed |
-| H-035 | Health | /faqs | Live page, not present in sitemap.xml | P2 | 2026-06-24 | 40 | closed |
-| H-036 | Health | /projects | Live page, not present in sitemap.xml | P2 | 2026-06-24 | 40 | closed |
-| H-037 | Health | /testimonials | Live page, not present in sitemap.xml | P2 | 2026-06-24 | 40 | closed |
-| H-038 | Health | /roofs-for-heroes | Live page, not present in sitemap.xml | P2 | 2026-06-24 | 40 | closed |
-| H-039 | Health | /blog/roof-repair-frederick-md | Sanity blog document exists (missing `publishedDate` and `featuredImage`) but route 404s on live site and is absent from sitemap.xml — orphaned/broken CMS content | P1 | 2026-06-24 | 40 | closed (2026-07-03: route now 200 live; root cause was `app/sitemap.ts` missing `revalidate` export so it never refreshed post-deploy — added `revalidate = 3600`; also patched+published missing `publishedDate`. `featuredImage` still missing — now tracked as H-041) |
-| S-029 | SEO | /careers | Live page absent from sitemap.xml | P2 | 2026-06-24 | 40 | closed |
-| S-030 | SEO | /faqs | Live page absent from sitemap.xml | P2 | 2026-06-24 | 40 | closed |
-| S-031 | SEO | /projects | Live page absent from sitemap.xml | P2 | 2026-06-24 | 40 | closed |
-| S-032 | SEO | /testimonials | Live page absent from sitemap.xml | P2 | 2026-06-24 | 40 | closed |
-| S-033 | SEO | /roofs-for-heroes | Live page absent from sitemap.xml | P2 | 2026-06-24 | 40 | closed |
-| P-021 | Performance | /contact | CLS needs work: 0.102 · Performance score needs work: 64 | P2 | 2026-06-24 | 40 | closed |
-| P-022 | Performance | /book-appointment | CLS poor: 0.481 (threshold 0.25) · Performance score needs work: 64 | P1 | 2026-06-24 | 40 | closed |
-| P-023 | Performance | /service-areas | LCP needs work: 2551ms | P2 | 2026-06-24 | 40 | closed |
-| P-037 | Performance | /blog/roof-replacement-tax-credit-2026 | LCP needs work: 3331ms · Performance score needs work: 85 | P2 | 2026-06-24 | 40 | closed |
-| P-040 | Performance | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | LCP needs work: 3256ms | P2 | 2026-06-24 | 40 | closed |
-| P-041 | Performance | /blog/preparing-your-roof-for-summer-storms-in-frederick-md | LCP needs work: 3031ms | P2 | 2026-06-24 | 40 | closed |
-| P-042 | Performance | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | LCP needs work: 3256ms · Performance score needs work: 88 | P2 | 2026-06-24 | 40 | closed |
-| P-043 | Performance | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | LCP needs work: 3212ms | P2 | 2026-06-24 | 40 | closed |
-| P-045 | Performance | /service-areas/chambersburg-pa | LCP needs work: 2551ms | P2 | 2026-06-24 | 40 | closed |
-| P-047 | Performance | /service-areas/hagerstown-md | LCP needs work: 3925ms · Performance score needs work: 83 | P2 | 2026-06-24 | 40 | closed |
-| H-001 | Health | /about | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
-| H-002 | Health | /service-areas | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
-| H-003 | Health | /service-areas/adamstown-md | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
-| H-004 | Health | /service-areas/hagerstown-md | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
-| H-005 | Health | /service-areas/frederick-md | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
-| H-006 | Health | /service-areas/chambersburg-pa | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
-| H-007 | Health | /service-areas/reston-va | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
-| H-008 | Health | /services/residential-roofing | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
-| H-009 | Health | /services/storm-damage-restoration | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
-| H-010 | Health | /blog/roof-repair-in-frederick-md-fast-reliable | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
-| H-011 | Health | /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | 404 Not Found (not verified — consistent with pattern) | P1 | 2026-05-21 | 74 | closed |
-| H-012 | Health | /blog/three-common-winter-roof-damage-issues-how-to-prevent-them | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
-| H-013 | Health | /blog/roof-replacement-tax-credit-2026-what-homeowners-need-to-know | 404 Not Found | P1 | 2026-05-21 | 74 | closed |
-| P-001 | Performance | /services | LCP poor: 10156ms (threshold 4000ms) | P1 | 2026-05-21 | 74 | closed |
-| H-028 | Health | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | Sitemap entry returns 404 Not Found — stale slug | P1 | 2026-06-24 | 40 | closed |
-| S-028 | SEO | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | Sitemap `<loc>` resolves to 404 — stale slug, no matching Sanity document | P1 | 2026-06-24 | 40 | closed |
-| P-018 | Performance | /about | LCP poor: 4156ms (threshold 4000ms) · Performance score needs work: 82 | P1 | 2026-06-24 | 40 | closed |
-| P-026 | Performance | /services/chimney-maintenance | LCP poor: 5024ms (threshold 4000ms) · Performance score needs work: 78 | P1 | 2026-06-24 | 40 | closed |
-| P-046 | Performance | /service-areas/frederick-md | LCP poor: 4223ms (threshold 4000ms) · Performance score needs work: 80 | P1 | 2026-06-24 | 40 | closed |
-| P-048 | Performance | /service-areas/reston-va | LCP poor: 4232ms (threshold 4000ms) · Performance score needs work: 82 | P1 | 2026-06-24 | 40 | closed |
-| H-014 | Health | /services/roof-rejuvenation | Binary/JPEG response instead of HTML — possible image redirect | P2 | 2026-05-21 | 74 | closed |
-| H-015 | Health | /services/chimney-maintenance | Binary/JPEG response instead of HTML — possible image redirect | P2 | 2026-05-21 | 74 | closed |
-| S-001 | SEO | lib/utils.ts:22 | SITE_URL typo: "shumakeroofing.com" missing 'er' — may corrupt canonical URL generation | P2 | 2026-05-21 | 74 | closed |
-| S-002 | SEO | /robots.txt | Sitemap directive uses no-www (shumakerroofing.com) while canonical domain is www.shumakerroofing.com | P2 | 2026-05-21 | 74 | closed |
-| S-003 | SEO | / | No JSON-LD schema detected | P2 | 2026-05-21 | 74 | closed |
-| S-004 | SEO | /services | No JSON-LD schema detected | P2 | 2026-05-21 | 74 | closed |
-| S-005 | SEO | /blog | No JSON-LD schema detected | P2 | 2026-05-21 | 74 | closed |
-| S-006 | SEO | /contact | No JSON-LD schema detected | P2 | 2026-05-21 | 74 | closed |
-| S-007 | SEO | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | Article/BlogPosting JSON-LD schema not confirmed | P2 | 2026-05-21 | 74 | closed |
-| S-008 | SEO | Multiple live pages | Meta description, canonical, og tags not verifiable via automated check — manual review needed | P2 | 2026-05-21 | 74 | closed |
-| P-002 | Performance | / | CLS needs work: 0.139 (threshold 0.25) | P2 | 2026-05-21 | 74 | closed |
-| P-003 | Performance | /blog | LCP needs work: 2914ms · CLS needs work: 0.132 | P2 | 2026-05-21 | 74 | closed |
-| S-009 | SEO | / | Missing og:image meta tag | P2 | 2026-06-08 | 56 | closed |
-| S-016 | SEO | /service-areas/chambersburg-pa | Missing og:image meta tag | P2 | 2026-06-08 | 56 | closed |
-| S-017 | SEO | /service-areas/frederick-md | Missing og:image meta tag | P2 | 2026-06-08 | 56 | closed |
-| S-018 | SEO | /service-areas/hagerstown-md | Missing og:image meta tag | P2 | 2026-06-08 | 56 | closed |
-| S-019 | SEO | /service-areas/reston-va | Missing og:image meta tag | P2 | 2026-06-08 | 56 | closed |
-| S-020 | SEO | /about | No JSON-LD schema detected | P2 | 2026-06-08 | 56 | closed |
-| S-021 | SEO | /service-areas/ | No JSON-LD schema detected | P2 | 2026-06-08 | 56 | closed |
-| S-022 | SEO | /blog/roof-replacement-tax-credit-2026-what-homeowners-need-to-know | Duplicate content/title vs. linked-but-unsitemapped /blog/roof-replacement-tax-credit-2026 | P2 | 2026-06-08 | 56 | closed |
-| S-023 | SEO | /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | Duplicate content/title vs. linked-but-unsitemapped /blog/best-roofing-contractors-in-frederick-md | P2 | 2026-06-08 | 56 | closed |
-| S-024 | SEO | /blog/three-common-winter-roof-damage-issues-how-to-prevent-them | Duplicate content/title vs. linked-but-unsitemapped /blog/common-winter-roof-damage-issues-and-how-to-prevent-them | P2 | 2026-06-08 | 56 | closed |
-| S-025 | SEO | /blog/roof-replacement-tax-credit-2026-what-homeowners-need-to-know | Orphaned page — zero inbound internal links | P2 | 2026-06-08 | 56 | closed |
-| S-026 | SEO | /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | Orphaned page — zero inbound internal links | P2 | 2026-06-08 | 56 | closed |
-| S-027 | SEO | /blog/three-common-winter-roof-damage-issues-how-to-prevent-them | Orphaned page — zero inbound internal links | P2 | 2026-06-08 | 56 | closed |
-| P-004 | Performance | / | Performance score needs work: 68 | P2 | 2026-06-08 | 56 | closed |
-| P-005 | Performance | /contact | CLS needs work: 0.121 · Performance score needs work: 62 | P2 | 2026-06-08 | 56 | closed |
-| P-006 | Performance | /book-appointment | CLS needs work: 0.220 · Performance score needs work: 73 | P2 | 2026-06-08 | 56 | closed |
-| P-007 | Performance | /service-areas/ | LCP needs work: 3908ms · Performance score needs work: 84 | P2 | 2026-06-08 | 56 | closed |
-| P-008 | Performance | /services/roof-rejuvenation | LCP needs work: 2852ms · Performance score needs work: 88 | P2 | 2026-06-08 | 56 | closed |
-| P-009 | Performance | /services/chimney-maintenance | LCP needs work: 2591ms | P2 | 2026-06-08 | 56 | closed |
-| P-010 | Performance | /services/roof-repair | LCP needs work: 2553ms · Performance score needs work: 86 | P2 | 2026-06-08 | 56 | closed |
-| P-011 | Performance | /services/storm-damage-restoration | Performance score needs work: 86 | P2 | 2026-06-08 | 56 | closed |
-| P-012 | Performance | /services/residential-roofing | LCP needs work: 2583ms | P2 | 2026-06-08 | 56 | closed |
-| P-013 | Performance | /services/solar-contractor | Performance score needs work: 87 | P2 | 2026-06-08 | 56 | closed |
-| P-014 | Performance | /service-areas/chambersburg-pa | LCP needs work: 2570ms · Performance score needs work: 88 | P2 | 2026-06-08 | 56 | closed |
-| P-015 | Performance | /service-areas/hagerstown-md | LCP needs work: 2884ms | P2 | 2026-06-08 | 56 | closed |
-| P-016 | Performance | /service-areas/reston-va | LCP needs work: 2975ms | P2 | 2026-06-08 | 56 | closed |
-| H-016 | Health | /service-areas/ | Redirect chain: www→non-www, then trailing-slash strip | P2 | 2026-06-24 | 40 | closed |
-| H-029 | Health | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | Zero inbound internal links (orphaned in addition to dead) | P2 | 2026-06-24 | 40 | closed |
-| H-030 | Health | /service-areas/chambersburg-pa | Redirect chain (2 hops): www→non-www, then trailing-slash strip | P2 | 2026-06-24 | 40 | closed |
-| H-031 | Health | /service-areas/frederick-md | Redirect chain (2 hops) | P2 | 2026-06-24 | 40 | closed |
-| H-032 | Health | /service-areas/hagerstown-md | Redirect chain (2 hops) | P2 | 2026-06-24 | 40 | closed |
-| H-033 | Health | /service-areas/reston-va | Redirect chain (2 hops) | P2 | 2026-06-24 | 40 | closed |
-| S-045 | SEO | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | No canonical tag present (404 page) | P2 | 2026-06-24 | 40 | closed |
-| S-047 | SEO | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | Orphaned — zero inbound internal links | P2 | 2026-06-24 | 40 | closed |
-| P-017 | Performance | / | LCP needs work: 3481ms · Performance score needs work: 88 | P2 | 2026-06-24 | 40 | closed |
-| P-019 | Performance | /services | LCP needs work: 3331ms | P2 | 2026-06-24 | 40 | closed |
-| P-020 | Performance | /blog | LCP needs work: 3256ms | P2 | 2026-06-24 | 40 | closed |
-| P-024 | Performance | /privacy-policy | LCP needs work: 2656ms | P2 | 2026-06-24 | 40 | closed |
-| P-025 | Performance | /terms-and-conditions | LCP needs work: 2731ms | P2 | 2026-06-24 | 40 | closed |
-| P-027 | Performance | /services/commercial-flat-and-low-slope-roofing-restoration | LCP needs work: 2731ms | P2 | 2026-06-24 | 40 | closed |
-| P-028 | Performance | /services/gutter-installation | LCP needs work: 2581ms | P2 | 2026-06-24 | 40 | closed |
-| P-029 | Performance | /services/residential-roofing | LCP needs work: 2731ms | P2 | 2026-06-24 | 40 | closed |
-| P-030 | Performance | /services/roof-installation | LCP needs work: 3509ms | P2 | 2026-06-24 | 40 | closed |
-| P-031 | Performance | /services/roof-rejuvenation | LCP needs work: 2581ms | P2 | 2026-06-24 | 40 | closed |
-| P-032 | Performance | /services/roof-repair | LCP needs work: 2731ms | P2 | 2026-06-24 | 40 | closed |
-| P-033 | Performance | /services/roof-replacement | LCP needs work: 2731ms | P2 | 2026-06-24 | 40 | closed |
-| P-034 | Performance | /services/skylight-installation | LCP needs work: 2581ms · Performance score needs work: 88 | P2 | 2026-06-24 | 40 | closed |
-| P-035 | Performance | /services/solar-contractor | LCP needs work: 2581ms | P2 | 2026-06-24 | 40 | closed |
-| P-036 | Performance | /services/storm-damage-restoration | LCP needs work: 2731ms | P2 | 2026-06-24 | 40 | closed |
-| P-038 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | LCP needs work: 2581ms | P2 | 2026-06-24 | 40 | closed |
-| P-039 | Performance | /blog/best-roofing-contractors-in-frederick-md | LCP needs work: 2656ms | P2 | 2026-06-24 | 40 | closed |
-| P-044 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | LCP needs work: 2956ms | P2 | 2026-06-24 | 40 | closed |
-| S-046 | SEO | /blog/how-maryland-s-summer-heat-affects-roofs-in-frederick-md | noindex detected — logged only, no action taken | INFO | 2026-06-24 | 40 | closed |
-| S-053 | SEO | /testimonials | No JSON-LD schema block detected | P2 | 2026-06-28 | 36 | closed (2026-07-03: added WebPage+BreadcrumbList @graph schema) |
-| S-054 | SEO | /roofs-for-heroes | No JSON-LD schema block detected | P2 | 2026-06-28 | 36 | closed (2026-07-03: added WebPage+BreadcrumbList @graph schema) |
-| S-055 | SEO | /testimonials | Orphaned page — zero inbound internal links | P2 | 2026-06-28 | 36 | closed (2026-07-03: homepage already had a static "Read More Testimonials" link; added to Footer Quick Links too) |
-| S-056 | SEO | /roofs-for-heroes | Orphaned page — zero inbound internal links | P2 | 2026-06-28 | 36 | closed (2026-07-03: root cause was the only link living inside the navbar's client-side hover dropdown, absent from server-rendered HTML; added a static link in Footer Quick Links) |
+| H-044 | Health | /privacy-policy | Live page, not present in sitemap.xml | P2 | 2026-08-03 | 0 | closed (2026-08-03: now present in sitemap.xml (commit a1b369e)) |
+| H-045 | Health | /terms-and-conditions | Live page, not present in sitemap.xml | P2 | 2026-08-03 | 0 | closed (2026-08-03: now present in sitemap.xml (commit a1b369e)) |
+| P-106 | Performance | / | LCP needs work: 2626ms · Performance score needs work: 75 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-151) |
+| P-107 | Performance | /about | LCP poor: 4276ms (threshold 4000ms) · Performance score needs work: 69 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-152) |
+| P-108 | Performance | /services | LCP needs work: 3976ms · Performance score needs work: 64 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-183) |
+| P-109 | Performance | /contact | LCP poor: 12613ms (threshold 4000ms) · Performance score poor: 36 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-174) |
+| P-110 | Performance | /book-appointment | CLS needs work: 0.214 · Performance score needs work: 63 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-172) |
+| P-111 | Performance | /service-areas/ | LCP poor: 4942ms (threshold 4000ms) · Performance score needs work: 66 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-178) |
+| P-112 | Performance | /careers | LCP needs work: 3752ms · Performance score needs work: 74 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-173) |
+| P-113 | Performance | /faqs | LCP needs work: 2551ms · Performance score needs work: 85 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-175) |
+| P-114 | Performance | /projects | LCP needs work: 3864ms · Performance score needs work: 54 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-176) |
+| P-115 | Performance | /testimonials | LCP needs work: 3815ms · Performance score needs work: 71 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-192) |
+| P-116 | Performance | /roofs-for-heroes | LCP poor: 15980ms (threshold 4000ms) · Performance score poor: 33 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-177) |
+| P-117 | Performance | /services/chimney-maintenance | LCP needs work: 3827ms · Performance score needs work: 78 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-184) |
+| P-118 | Performance | /services/commercial-flat-and-low-slope-roofing-restoration | LCP needs work: 2701ms · Performance score needs work: 68 | P2 | (see prior log) | — | closed (2026-08-03: URL removed from sitemap.xml this run — no longer tracked) |
+| P-119 | Performance | /services/gutter-installation | LCP needs work: 3539ms · Performance score needs work: 78 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-185) |
+| P-120 | Performance | /services/residential-roofing | LCP needs work: 3655ms · Performance score needs work: 77 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-186) |
+| P-121 | Performance | /services/roof-installation | LCP poor: 4051ms (threshold 4000ms) · Performance score needs work: 71 | P1 | (see prior log) | — | closed (2026-08-03: URL removed from sitemap.xml this run — no longer tracked) |
+| P-122 | Performance | /services/roof-rejuvenation | LCP needs work: 3649ms · Performance score needs work: 77 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-187) |
+| P-123 | Performance | /services/roof-repair | LCP needs work: 3901ms · Performance score needs work: 70 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-188) |
+| P-124 | Performance | /services/roof-replacement | LCP needs work: 3534ms · Performance score needs work: 79 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-189) |
+| P-125 | Performance | /services/skylight-installation | LCP needs work: 3566ms · Performance score needs work: 69 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-190) |
+| P-126 | Performance | /services/solar-contractor | LCP needs work: 3563ms · Performance score needs work: 73 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-191) |
+| P-127 | Performance | /services/storm-damage-restoration | LCP needs work: 3901ms · Performance score needs work: 71 | P2 | (see prior log) | — | closed (2026-08-03: URL removed from sitemap.xml this run — no longer tracked) |
+| P-128 | Performance | /blog/best-roofing-contractors-in-frederick-md | LCP needs work: 3732ms · Performance score needs work: 76 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-156) |
+| P-129 | Performance | /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | LCP poor: 4675ms (threshold 4000ms) · Performance score needs work: 60 | P1 | (see prior log) | — | closed (2026-08-03: URL removed from sitemap.xml this run — no longer tracked) |
+| P-130 | Performance | /blog/maryland-roof-rejuvenation-contractor-frederick-md | LCP poor: 4204ms (threshold 4000ms) · Performance score needs work: 75 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-159) |
+| P-131 | Performance | /blog/roof-rejuvenation-cost-frederick-md | LCP needs work: 3641ms · Performance score needs work: 70 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-161) |
+| P-132 | Performance | /blog/7-signs-roof-needs-rejuvenation-not-replacement | LCP needs work: 2851ms · Performance score needs work: 84 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-154) |
+| P-133 | Performance | /blog/roof-rejuvenation-vs-replacement-frederick-md | LCP needs work: 2626ms · Performance score needs work: 81 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-162) |
+| P-134 | Performance | /blog/when-to-get-roof-rejuvenation-frederick-md | LCP needs work: 2851ms · Performance score needs work: 84 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-170) |
+| P-135 | Performance | /blog/what-is-roof-rejuvenation | LCP needs work: 3763ms · Performance score needs work: 76 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-169) |
+| P-136 | Performance | /blog/roof-replacement-tax-credit-2026 | LCP needs work: 3976ms · Performance score needs work: 61 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-164) |
+| P-137 | Performance | /blog/summer-roof-inspection-checklist-frederick-md | LCP needs work: 3879ms · Performance score needs work: 70 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-167) |
+| P-138 | Performance | /blog/why-attic-ventilation-matters-in-summer-frederick-md | LCP needs work: 3602ms · Performance score needs work: 75 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-171) |
+| P-139 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | LCP needs work: 3001ms · Performance score needs work: 77 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-166) |
+| P-140 | Performance | /blog/roof-repair-frederick-md | LCP needs work: 3725ms · Performance score needs work: 77 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-163) |
+| P-141 | Performance | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | LCP needs work: 3151ms · Performance score needs work: 73 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-158) |
+| P-142 | Performance | /blog/preparing-your-roof-for-summer-storms-in-frederick-md | LCP needs work: 2701ms · Performance score needs work: 78 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-160) |
+| P-143 | Performance | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | Performance score needs work: 85 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-165) |
+| P-144 | Performance | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | LCP needs work: 2701ms · Performance score needs work: 84 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-157) |
+| P-145 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | LCP needs work: 2626ms · Performance score needs work: 77 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-168) |
+| P-146 | Performance | /blog/author/tyler-schisler | LCP needs work: 4659ms · Performance score needs work: 70 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-155) |
+| P-147 | Performance | /service-areas/chambersburg-pa/ | LCP needs work: 4754ms · Performance score needs work: 61 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-179) |
+| P-148 | Performance | /service-areas/frederick-md/ | LCP needs work: 4475ms · Performance score needs work: 70 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-180) |
+| P-149 | Performance | /service-areas/hagerstown-md/ | LCP needs work: 4254ms · Performance score needs work: 82 | P1 | (see prior log) | — | closed (2026-08-03: superseded by P-181) |
+| P-150 | Performance | /service-areas/reston-va/ | LCP needs work: 3678ms · Performance score needs work: 76 | P2 | (see prior log) | — | closed (2026-08-03: superseded by P-182) |
+| P-151 | Performance | / | Performance score needs work: 81 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-193) |
+| P-152 | Performance | /about | LCP needs work: 2776ms · Performance score needs work: 82 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-194) |
+| P-153 | Performance | /blog | LCP poor: 4752ms (threshold 4000ms) · Performance score needs work: 62 | P1 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-196) |
+| P-154 | Performance | /blog/7-signs-roof-needs-rejuvenation-not-replacement | LCP needs work: 2926ms · Performance score needs work: 68 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-217) |
+| P-155 | Performance | /blog/author/tyler-schisler | LCP needs work: 2551ms · Performance score needs work: 85 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-230) |
+| P-156 | Performance | /blog/best-roofing-contractors-in-frederick-md | LCP needs work: 3630ms · Performance score needs work: 78 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-216) |
+| P-157 | Performance | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | Performance score needs work: 82 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-228) |
+| P-158 | Performance | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | Performance score needs work: 84 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-226) |
+| P-159 | Performance | /blog/maryland-roof-rejuvenation-contractor-frederick-md | LCP needs work: 3860ms · Performance score needs work: 69 | P2 | 2026-08-03 | 0 | closed (2026-08-03: URL removed from sitemap.xml this run — no longer tracked (redirects cleanly to canonical target)) |
+| P-160 | Performance | /blog/preparing-your-roof-for-summer-storms-in-frederick-md | LCP needs work: 2776ms · Performance score needs work: 75 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-227) |
+| P-161 | Performance | /blog/roof-rejuvenation-cost-frederick-md | LCP needs work: 3756ms · Performance score needs work: 72 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-215) |
+| P-162 | Performance | /blog/roof-rejuvenation-vs-replacement-frederick-md | Performance score needs work: 84 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-218) |
+| P-163 | Performance | /blog/roof-repair-frederick-md | Performance score needs work: 77 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-225) |
+| P-164 | Performance | /blog/roof-replacement-tax-credit-2026 | LCP needs work: 3745ms · Performance score needs work: 72 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-221) |
+| P-165 | Performance | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | Performance score needs work: 89 | P2 | 2026-08-03 | 0 | closed (2026-08-03: URL removed from sitemap.xml this run — no longer tracked (redirects cleanly to canonical target)) |
+| P-166 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | LCP poor: 4501ms (threshold 4000ms) · Performance score needs work: 62 | P1 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-224) |
+| P-167 | Performance | /blog/summer-roof-inspection-checklist-frederick-md | Performance score needs work: 79 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-222) |
+| P-168 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | LCP poor: 4276ms (threshold 4000ms) · Performance score needs work: 75 | P1 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-229) |
+| P-169 | Performance | /blog/what-is-roof-rejuvenation | Performance score needs work: 84 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-220) |
+| P-170 | Performance | /blog/when-to-get-roof-rejuvenation-frederick-md | Performance score needs work: 88 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-219) |
+| P-171 | Performance | /blog/why-attic-ventilation-matters-in-summer-frederick-md | LCP needs work: 2776ms · Performance score needs work: 69 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-223) |
+| P-172 | Performance | /book-appointment | LCP poor: 10881ms (threshold 4000ms) · CLS poor: 0.406 (threshold 0.25) · Performance score poor: 23 | P1 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-198) |
+| P-173 | Performance | /careers | LCP needs work: 3976ms · Performance score needs work: 60 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-200) |
+| P-174 | Performance | /contact | LCP poor: 15942ms (threshold 4000ms) · Performance score poor: 47 | P1 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-197) |
+| P-175 | Performance | /faqs | LCP needs work: 3730ms · Performance score needs work: 71 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-201) |
+| P-176 | Performance | /projects | LCP needs work: 3905ms · Performance score needs work: 50 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-202) |
+| P-177 | Performance | /roofs-for-heroes | LCP poor: 10223ms (threshold 4000ms) · Performance score poor: 35 | P1 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-204) |
+| P-178 | Performance | /service-areas/ | LCP needs work: 3882ms · CLS needs work: 0.153 · Performance score needs work: 58 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-199) |
+| P-179 | Performance | /service-areas/chambersburg-pa/ | LCP needs work: 3660ms · Performance score needs work: 79 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-231) |
+| P-180 | Performance | /service-areas/frederick-md/ | LCP needs work: 3371ms · Performance score needs work: 75 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-232) |
+| P-181 | Performance | /service-areas/hagerstown-md/ | LCP needs work: 2968ms · Performance score needs work: 84 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-233) |
+| P-182 | Performance | /service-areas/reston-va/ | LCP poor: 4645ms (threshold 4000ms) · Performance score needs work: 67 | P1 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-234) |
+| P-183 | Performance | /services | LCP needs work: 3724ms · Performance score needs work: 75 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-195) |
+| P-184 | Performance | /services/chimney-maintenance | LCP needs work: 2701ms · Performance score needs work: 85 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-206) |
+| P-185 | Performance | /services/gutter-installation | Performance score needs work: 81 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-207) |
+| P-186 | Performance | /services/residential-roofing | LCP needs work: 3545ms · Performance score needs work: 75 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-208) |
+| P-187 | Performance | /services/roof-rejuvenation | LCP needs work: 3901ms · Performance score needs work: 67 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-210) |
+| P-188 | Performance | /services/roof-repair | LCP needs work: 3576ms · Performance score needs work: 74 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-211) |
+| P-189 | Performance | /services/roof-replacement | LCP poor: 4051ms (threshold 4000ms) · Performance score needs work: 65 | P1 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-212) |
+| P-190 | Performance | /services/skylight-installation | LCP needs work: 3533ms · Performance score needs work: 79 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-213) |
+| P-191 | Performance | /services/solar-contractor | LCP needs work: 3648ms · Performance score needs work: 76 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-214) |
+| P-192 | Performance | /testimonials | LCP needs work: 3913ms · Performance score needs work: 64 | P2 | 2026-08-03 | 0 | closed (2026-08-03: superseded by P-203) |
+| S-010 | SEO | /about | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-011 | SEO | /services | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-012 | SEO | /blog | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-013 | SEO | /contact | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-014 | SEO | /book-appointment | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-015 | SEO | /service-areas/ | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-034 | SEO | /services/commercial-flat-and-low-slope-roofing-restoration | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-035 | SEO | /services/gutter-installation | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-036 | SEO | /services/residential-roofing | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-037 | SEO | /services/roof-rejuvenation | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-038 | SEO | /services/roof-repair | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-039 | SEO | /services/roof-replacement | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-040 | SEO | /services/skylight-installation | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-041 | SEO | /services/solar-contractor | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-042 | SEO | /services/storm-damage-restoration | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-048 | SEO | /careers | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-049 | SEO | /faqs | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-050 | SEO | /projects | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-051 | SEO | /testimonials | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-052 | SEO | /roofs-for-heroes | Missing og:image meta tag | P2 | (see prior log) | — | closed (2026-08-03: og:image tag now present) |
+| S-066 | SEO | /blog/when-to-get-roof-rejuvenation-frederick-md | Title/og:title has a trailing space — cosmetic Sanity data defect | P2 | (see prior log) | — | closed (2026-08-03: whitespace defect fixed, title/description now clean) |
+| S-067 | SEO | /blog/maryland-roof-rejuvenation-contractor-frederick-md | Meta description has leading whitespace | P2 | (see prior log) | — | closed (2026-08-03: whitespace defect fixed, title/description now clean) |
+| S-068 | SEO | /blog/why-attic-ventilation-matters-in-summer-frederick-md | Meta description has leading whitespace | P2 | (see prior log) | — | closed (2026-08-03: whitespace defect fixed, title/description now clean) |
+| S-069 | SEO | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | Title has a trailing space — cosmetic Sanity data defect | P2 | (see prior log) | — | closed (2026-08-03: whitespace defect fixed, title/description now clean) |
+| S-070 | SEO | /privacy-policy | Live page absent from sitemap.xml | P2 | 2026-08-03 | 0 | closed (2026-08-03: now present in sitemap.xml (commit a1b369e)) |
+| S-071 | SEO | /terms-and-conditions | Live page absent from sitemap.xml | P2 | 2026-08-03 | 0 | closed (2026-08-03: now present in sitemap.xml (commit a1b369e)) |
+| S-072 | SEO | /blog/the-best-roofing-contractors-in-frederick-md-why-shumaker-roofing-is-your-1-choice | Orphaned — zero inbound internal links (stale sitemap entry that 308-redirects to its own canonical target /blog/best-roofing-contractors-in-frederick-md) | P2 | (see prior log) | — | closed (2026-08-03: URL removed from sitemap.xml entirely — no longer trackable, redirects cleanly to canonical target) |
+| S-073 | SEO | /privacy-policy | Missing og:image meta tag | P2 | 2026-08-03 | 0 | closed (2026-08-03: og:image tag now present (commit a1b369e)) |
+| S-074 | SEO | /terms-and-conditions | Missing og:image meta tag | P2 | 2026-08-03 | 0 | closed (2026-08-03: og:image tag now present (commit a1b369e)) |
+| S-075 | SEO | /privacy-policy | No JSON-LD schema block detected | P2 | 2026-08-03 | 0 | closed (2026-08-03: JSON-LD schema block now present (commit a1b369e)) |
+| S-076 | SEO | /terms-and-conditions | No JSON-LD schema block detected | P2 | 2026-08-03 | 0 | closed (2026-08-03: JSON-LD schema block now present (commit a1b369e)) |
