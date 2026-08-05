@@ -63,11 +63,13 @@ or inferred** — it is a factual claim about the business's offerings, and nami
 LP SmartSide unconfirmed would put a false product claim on a live commercial page. Asked the
 user 2026-08-05; they will confirm within a few days.
 
-**Lesson for the next service-page publish:** the metal-roofing draft was authored with 7
-absolute `https://shumakerroofing.com/...` internal links, the pre-2026-08-03 house style.
-Publishing as-is would have regressed `metadata:blog:absolute-internal-links` (resolved
-2026-08-03 at "0 sitewide"). Converted to relative before publishing. **The siding draft was
-authored in the same run — check and convert its links before publishing it.**
+**Link house style — handled on both pages, no action left.** Both drafts were authored with
+absolute `https://shumakerroofing.com/...` internal links (the pre-2026-08-03 style), which would
+have regressed `metadata:blog:absolute-internal-links` (resolved 2026-08-03 at "0 sitewide").
+metal-roofing's 7 were converted before publishing; siding's 6 were converted 2026-08-05 while it
+was still a draft — verified 0 absolute links remaining, page still unpublished. **Siding's only
+remaining blocker is the manufacturer-lines `[VERIFY]`.** When that answer arrives it is a
+two-step publish: insert the confirmed lines, then publish.
 
 Neither page has a `servicesImage` or `splitSection` reference (the existing gutter-installation
 page has no hero image either, so this matches convention rather than falling short of it).
