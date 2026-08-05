@@ -254,27 +254,54 @@ For each successful API response, extract:
 
 ### Step 3.4: Evaluate thresholds and assign severity
 
-Apply these thresholds per metric. Generate one finding per failing metric per URL.
+Apply these thresholds per metric. Generate **one finding per failing metric per URL** — never bundle
+several metrics into a single finding.
 
 **LCP:**
 - ≤ 2500ms → clean (no finding)
-- 2501–4000ms → P2, issue: `LCP needs work: {value}ms`
-- > 4000ms → P1, issue: `LCP poor: {value}ms (threshold 4000ms)`
+- 2501–4000ms → P2, issue: `LCP above threshold`
+- > 4000ms → P1, issue: `LCP above threshold`
 
 **CLS:**
 - ≤ 0.1 → clean
-- 0.101–0.25 → P2, issue: `CLS needs work: {value}`
-- > 0.25 → P1, issue: `CLS poor: {value} (threshold 0.25)`
+- 0.101–0.25 → P2, issue: `CLS above threshold`
+- > 0.25 → P1, issue: `CLS above threshold`
 
 **INP:**
 - ≤ 200ms → clean
-- 201–500ms → P2, issue: `INP needs work: {value}ms`
-- > 500ms → P1, issue: `INP poor: {value}ms (threshold 500ms)`
+- 201–500ms → P2, issue: `INP above threshold`
+- > 500ms → P1, issue: `INP above threshold`
 
 **Performance Score:**
 - ≥ 90 → clean
-- 50–89 → P2, issue: `Performance score needs work: {value}`
-- < 50 → P1, issue: `Performance score poor: {value}`
+- 50–89 → P2, issue: `Performance score below target`
+- < 50 → P1, issue: `Performance score below target`
+
+#### Issue text carries no measurement — this is load-bearing
+
+The issue string for a performance finding is its **identity**, and the aggregator (Step A.2) matches
+findings on `Module + URL + Issue`. So the issue text must contain **no metric value, no threshold
+number, and no severity word** — those all change run to run while the underlying problem stays the
+same. Concretely, every one of these is forbidden as issue text:
+
+- ❌ `LCP poor: 11005ms (threshold 4000ms)` — value changes every run
+- ❌ `LCP needs work: 3759ms` — value *and* severity band change
+- ❌ `LCP poor` / `LCP needs work` — band flips P1↔P2 as the metric drifts
+- ❌ `LCP above threshold · Performance score below target` — bundling two metrics means either one
+  moving regenerates the identity of both
+- ✅ `LCP above threshold` — stable for as long as the page is slow
+
+Why this matters: before this rule existed, a page could be P1 for weeks and never once show
+`⚠ STALE`, because its literal ID was reissued on every run. **319 performance findings** were
+generated across ~13 runs that way — a page's LCP shifting by 1ms retired one ID and minted another,
+so `First Seen` reset to today every night and the Step A.2.5 staleness computation could never fire
+for this module. The whole point of the Performance module's alerting is to escalate a problem that
+*isn't getting fixed*; value-in-the-identity silently disabled that.
+
+Severity, the measured value, and the threshold are all **mutable attributes** of a finding, not part
+of its identity. They live in the `Severity` column and in `performance-report.md`. A metric moving
+from `P1` to `P2` is the *same* finding improving — keep the ID and `First Seen`, change only the
+`Severity` cell.
 
 **Suggested fix mapping** (append to each finding's row in the report):
 
@@ -301,6 +328,11 @@ Overwrite `memory/tech-audit/performance-report.md` with:
 ```
 
 One row per **failing** URL. Pages where all metrics are clean are omitted.
+
+This report — not `findings.md` — is the home for the actual numbers. `findings.md` tracks *that*
+a metric is failing and *how long* it has been failing; this file tracks *how badly* it is failing
+right now. When you need to quote a current measurement (final report, Discord alert), read it from
+here rather than embedding it into a finding's issue text.
 
 Format values as:
 - LCP and INP: `{value}ms` (round to nearest integer)
@@ -400,12 +432,25 @@ If the file does not exist yet, start with an empty list.
 
 ### Step A.2: Merge New Findings
 
+**Match key = `Module` + `URL` + `Issue`.** These three fields are a finding's *identity*. Everything
+else on the row — `Severity`, `Age`, `Status`, and any measured value — is a *mutable attribute* that
+gets refreshed in place. An identity field must never contain a value that changes while the
+underlying problem persists (see the Step 3.4 note on why: value-in-identity silently disabled
+staleness tracking for the entire Performance module and produced 319 throwaway IDs).
+
 For each new finding from Module 1, Module 2, and Module 3:
 
 1. Check if a finding with the same `Module` + `URL` + `Issue` combination already exists in the list.
-   - **If it exists and is `open`:** keep it as-is (it's a recurring issue — do not change First Seen).
-   - **If it exists and is `closed`:** reopen it — set status back to `open`, keep original ID.
+   - **If it exists and is `open`:** keep the original ID and `First Seen` (it's a recurring issue).
+     Update `Severity` in place if the current run's severity differs — a finding whose metric moved
+     from P1 to P2 is the same finding improving, not a new finding plus a resolved one.
+   - **If it exists and is `closed`:** reopen it — set status back to `open`, keep original ID and
+     original `First Seen`.
    - **If it does not exist:** assign a new ID and add it.
+
+   Before minting a new ID, sanity-check the count: if a single run would create new IDs for most of
+   the URLs in the inventory while an equal number of same-URL findings close, that is the
+   value-in-identity bug resurfacing, not a real sitewide regression. Stop and re-read Step 3.4.
 
 ID assignment:
 - Health module findings: `H-{NNN}` where NNN is the next available 3-digit integer (e.g. `H-001`, `H-002`)
@@ -417,6 +462,42 @@ ID assignment:
 2. For each existing `open` finding NOT present in the current run's results: mark it `closed` (the issue resolved itself).
 
 3. Do not modify findings with status `wont-fix` — leave them as-is regardless of current run results.
+
+### Step A.2.4: One-Time Performance Finding Migration
+
+`findings.md` contains legacy Performance rows written under the old value-in-identity scheme —
+bundled, value-laden issue text like `LCP poor: 4801ms (threshold 4000ms) · Performance score needs
+work: 60`. Run this migration **once**, on the first run after this step was added, then skip it
+forever after.
+
+Detect whether migration is still needed: if any row with `Module = Performance` has issue text
+containing a digit, or containing ` · `, or containing the words `poor` / `needs work`, migration
+has not run yet.
+
+Migrate as follows:
+
+1. For every **open** Performance row, split its bundled issue into one finding per metric and
+   rewrite each to the stable Step 3.4 text (`LCP above threshold`, `CLS above threshold`,
+   `INP above threshold`, `Performance score below target`).
+2. For each resulting `URL` + metric pair, recover its true `First Seen` by scanning **all** rows in
+   the file — closed ones included — for that same URL whose legacy issue text mentions that same
+   metric, and taking the **earliest** `First Seen` among them. This is the whole point of the
+   migration: `/contact` has been failing LCP since June, and the current table claims `2026-08-04,
+   Age 0` only because the ID churned nightly. Resetting everything to today would erase months of
+   real staleness on the one run that's supposed to recover it.
+3. Assign each migrated finding a fresh `P-{NNN}` ID (IDs are never reused), carrying the recovered
+   `First Seen` from step 2 — not today's date.
+4. Mark every legacy Performance row that was folded into a migrated finding as `closed`, so the
+   historical record stays intact and auditable rather than being deleted.
+5. Append a migration note to `audit-log.md` recording how many legacy rows were folded into how many
+   stable findings, and the oldest recovered `First Seen`, e.g.:
+   ```
+   - Performance finding migration: 319 legacy rows → {N} stable findings; oldest recovered First Seen {date}
+   ```
+
+Expect the first post-migration run to surface a burst of `⚠ STALE` P1s that were always genuinely
+stale but could never be reported as such. That burst is the bug being corrected, not a new outage —
+say so explicitly in the final report so it isn't misread as an overnight regression.
 
 ### Step A.2.5: Compute Staleness
 
@@ -507,9 +588,12 @@ If any P1 or P2 findings are stale (per Step A.2.5), list them in a separate blo
 
 ```
 🔴 STALE — Open {N}+ days with no fix applied:
-- [P-004] /contact — LCP poor: 11491ms (open 8 days)
+- [P-004] /contact — LCP above threshold (latest 11491ms, open 8 days)
 - [H-012] /services/gutters — servicesImage missing (open 35 days)
 ```
+
+For Performance findings, quote the current measurement from this run's `performance-report.md` in
+parentheses as shown — the reader needs the number, it just must not live in the finding's identity.
 
 ### Step A.7: Send Discord Alert
 
@@ -556,8 +640,8 @@ Construct this JSON payload, substituting all `{...}` placeholders with real val
   ```
 - One or more **stale** P1s → list stale findings first with a distinct marker and age, then remaining fresh P1s:
   ```
-  🔴 [P-004] /contact — LCP poor: 11491ms — OPEN 8 DAYS, UNRESOLVED
-  🔴 [P-005] /book-appointment — LCP poor: 10504ms — OPEN 8 DAYS, UNRESOLVED
+  🔴 [P-004] /contact — LCP above threshold (latest 11491ms) — OPEN 8 DAYS, UNRESOLVED
+  🔴 [P-005] /book-appointment — LCP above threshold (latest 10504ms) — OPEN 8 DAYS, UNRESOLVED
   ⚠ [H-003] /about — 404 Not Found
   ```
   A stale P1 has already been reported in a prior alert without action — repeating the identical plain `⚠` line every night trains the reader to ignore it. The escalated marker and explicit day count exist so a week-old regression reads as urgent even on the Nth consecutive alert.

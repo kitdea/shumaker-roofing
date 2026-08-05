@@ -1,6 +1,6 @@
 ---
 name: seo-project-manager
-description: Use when you want a prioritized SEO action plan for Shumaker Roofing. Reads all memory/seo/ files and tells you exactly which agent to run next and on what target.
+description: Use when you want a prioritized SEO action plan for Shumaker Roofing. Reads all memory/seo/ files, flags work that has stalled since the last plan, then dispatches the top action to the agent that owns it (never auto-publishing) and logs what it named to memory/seo/action-plan-log.md.
 ---
 
 # SEO Project Manager
@@ -17,17 +17,23 @@ Read these files in full:
 - `memory/seo/competitors.md` (skip if absent)
 - `memory/seo/audit-log.md` (skip if absent)
 - `memory/seo/audit-findings-log.md` (skip if absent)
+- `memory/seo/opportunity-clusters.md` (skip if absent) — scored competitive opportunity clusters
+  from `/competitor-researcher`, with a status per cluster
+- `memory/seo/action-plan-log.md` (skip if absent) — what *this* agent named as an action on each
+  previous run. This is the ledger that makes Priority -1 real: without it, "was this already
+  flagged last time?" is guesswork, and an item can be re-listed as though it were new on every run
+  forever. You write this file in Step 4.
 
 ## Step 2: Identify Gaps
 
 Check for each of the following issues and list every instance you find:
 
 **Priority -1 — Stalled work (surface before anything else).**
-This agent is read-only and only *names* actions — nothing forces them to actually happen
-between runs. That gap has caused real stuck items before (a QA-FAIL sat unresolved for 11+
-days; escalated audit findings sat unactioned for 4+ consecutive audits). So before generating
-new recommendations, check whether **the same blocking item existed last time this agent ran**
-and is still blocking:
+Naming an action does not make it happen. That gap has caused real stuck items before (a QA-FAIL sat
+unresolved for 11+ days; escalated audit findings sat unactioned for 4+ consecutive audits). Step 5
+now dispatches the top action instead of only printing it, and Step 4 records what was named — so
+before generating new recommendations, check `action-plan-log.md` for **the same blocking item named
+on a previous run** that is still blocking:
 
 - **Stuck QA-FAIL.** For every `qa-log.md` row with `Result = FAIL`, check whether a later row
   exists for the same page/slug with `PASS` or a newer `FAIL` (i.e. it was re-run). If the most
@@ -39,12 +45,19 @@ and is still blocking:
   check `content-log.md` for a matching publish entry. If none exists and the QA pass is more
   than **3 days** old, call it out as stuck:
   > "STUCK [N] days: [slug] passed QA on [date] but was never published → run /content-updater"
-- **Repeated escalation with no owner action.** In `audit-findings-log.md`, if a Finding ID
-  that was named as an immediate action in a *prior* run of this skill (check whether
-  `MEMORY.md`'s last-updated summary already named it) still shows `still-open` with the same
-  or higher consecutive-count now, say so explicitly — don't just re-list it as if it were new:
-  > "NO PROGRESS: [Finding ID] was flagged in the last action plan and is still still-open
-  > ([N] consecutive audits) → this needs to actually be run, not re-planned"
+- **Repeated escalation with no owner action.** For every Finding ID named as an immediate action in
+  a prior run — look it up in `action-plan-log.md`, which lists exactly what each run named and
+  whether it was dispatched — that still shows `still-open` in `audit-findings-log.md` with the same
+  or higher consecutive-count now, say so explicitly. Do not re-list it as if it were new:
+  > "NO PROGRESS: [Finding ID] was named in the [date] action plan ([dispatched / not dispatched])
+  > and is still still-open ([N] consecutive audits) → this needs to actually be run, not re-planned"
+
+  If the ledger shows an item was **dispatched** on a prior run and it is *still* open, escalate
+  harder — that means the agent ran and did not resolve it, which is a different (and worse) problem
+  than nobody having run it:
+  > "DISPATCHED BUT UNRESOLVED: [Finding ID] was dispatched to [agent] on [date] and remains
+  > still-open — the agent ran without fixing it. Investigate the finding itself before re-dispatching;
+  > re-running the same command is unlikely to produce a different result."
 
 If nothing is stuck, state "No stalled items since the last plan" — don't skip this section
 silently, since its absence is exactly what let items go stale before.
@@ -86,6 +99,26 @@ silently, since its absence is exactly what let items go stale before.
   > "Competitor data for [domain] is [N] days old → run `/competitor-researcher [domain]`"
 - If `competitors.md` has rows with `Gap = gap` for keywords not in `keywords.md` → surface as a research opportunity:
   > "[N] gap keywords found from [domain] not yet researched → run `/keyword-researcher [topic]`"
+
+**Priority 4 additions — Opportunity roadmap cadence (Step 6 of the competitive workflow).**
+Competitive scoring goes stale faster than content does, and an unmeasured roadmap is
+indistinguishable from a roadmap that didn't work:
+- If `opportunity-clusters.md` does not exist, or its newest row is **more than 90 days old** →
+  the quarterly re-run is due:
+  > "Opportunity clusters last scored [date] ([N] days ago) → run `/competitor-researcher` to
+  > re-score against current competitor rankings"
+  Shorten this to 45 days if `rankings.md` shows position swings of 5+ places on tracked keywords
+  since the last scoring run — volatile niches need a faster loop.
+- For each cluster with `status = open` and a score of **18/25 or higher** that has no matching
+  entry in `keywords.md` or `content-log.md` → surface it by name, since a high-scoring cluster
+  that nothing has picked up is exactly the failure this ledger exists to catch:
+  > "[cluster] scored [N]/25 on [date] and is still unstarted → run `/keyword-researcher [cluster]`"
+- For each cluster with `status = done`, check `rankings.md` for a post-publish baseline on its
+  target page. If none exists more than **14 days** after the publish date in `content-log.md` →
+  flag it: the workflow's measurement step never happened, so the score that drove the work was
+  never checked against an outcome.
+  > "[cluster] published [date] with no rankings entry since → add a baseline before the next
+  > `/competitor-researcher` run so the scoring can be calibrated"
 
 **Priority 0.5 — Keyword cannibalization (fix before publishing anything new):**
 - Read `docs/seo/keyword-cannibalization-sop.md` for the full process.
@@ -131,6 +164,10 @@ Format your output exactly like this:
 ### Maintenance
 3. [Command to run] — [specific target] — [reason]
 
+### Dispatching Now
+- [/agent] on [target] — [why this one is top priority]
+- (or: "Holding — top action is /content-updater on [slug], which needs your confirmation before publishing to live Sanity")
+
 ### Summary
 - Total keywords tracked: [N]
 - Published pages: [N]
@@ -140,12 +177,62 @@ Format your output exactly like this:
 - Unactioned gaps: [N keywords, or "none"]
 - Last content audit: [date or "never"], [N] unresolved clusters
 - Escalated findings (3+ consecutive audits unresolved): [N], or "none" — list Finding IDs
+- Opportunity clusters: last scored [date or "never"], [N] open / [N] in-progress / [N] done
 ```
 
 If all queues are empty and everything is up to date, say so clearly and suggest running `/keyword-researcher` with a new roofing topic relevant to Shumaker Roofing's service areas (Maryland, Virginia, Pennsylvania, West Virginia).
 
+## Step 4: Record What You Named
+
+Append one entry to `memory/seo/action-plan-log.md` (create it with the header
+`# SEO Action Plan Log` if absent). This is the ledger Step 2's Priority -1 reads on the next run —
+without it, stalled work is invisible and gets re-listed as new forever.
+
+```
+## [YYYY-MM-DD]
+| Item | Target | Routed to | Dispatched |
+|------|--------|-----------|------------|
+| [Finding ID or queue item] | [slug or cluster] | [/agent] | yes / no — [reason] |
+```
+
+Record **every** Immediate Action, one row each, whether or not it gets dispatched in Step 5. Fill
+the `Dispatched` column after Step 5 completes so the ledger reflects what actually happened, not
+what was planned.
+
+## Step 5: Dispatch the Top Action
+
+Do not stop at printing the plan. Invoke the **single top Immediate Action** via the Skill tool, then
+report its result. One action per run — each agent's output changes what the correct next step is, so
+chaining the whole plan blind would act on stale reasoning.
+
+| Routed to | Dispatch? |
+|---|---|
+| `/keyword-researcher` | Auto-dispatch — research only, writes to memory |
+| `/seo-writer` | Auto-dispatch — produces a draft, publishes nothing |
+| `/content-auditor` | Auto-dispatch — read-only detector |
+| `/competitor-researcher` | Auto-dispatch — read-only pull |
+| `/qa` | Auto-dispatch **only if** a draft exists for the target; otherwise route to `/seo-writer` first |
+| `/content-updater` | **Never auto-dispatch.** Ask first — see below |
+
+**`/content-updater` writes to production Sanity.** It is the one agent in this pipeline whose action
+is externally visible and not trivially reversible (per its own skill: unpublish is not reversible for
+already-published docs; only forward-patching). Always stop and ask for explicit confirmation before
+running it, naming the exact slug and document ID that would be written. A `qa-passed` status is not
+standing approval to publish.
+
+If a `DISPATCHED BUT UNRESOLVED` item from Priority -1 is the top action, do **not** auto-dispatch it
+again. Report it and ask how to proceed — re-running a command that already failed to resolve the
+finding just burns a cycle and refreshes the timestamp, making the item look freshly handled when it
+isn't.
+
+After dispatch, state plainly what ran and what it produced. If the dispatched agent failed or
+returned nothing actionable, say so — do not record it as `Dispatched: yes` in Step 4 without noting
+the outcome.
+
 ## Important
 
-- Do NOT modify any memory files. This agent is read-only.
-- Do NOT write content, keywords, or QA results. Direct the user to the right agent.
+- This agent owns exactly one file: `memory/seo/action-plan-log.md`. Do NOT modify any other memory
+  file — `keywords.md`, `content-log.md`, `qa-log.md`, and the audit logs belong to the agents that
+  produce them, and writing to them here would corrupt the state this agent exists to read.
+- Do NOT write content, keywords, or QA results yourself. Dispatch the agent that owns that job.
 - Be specific: name the exact keyword cluster or page slug in every action item.

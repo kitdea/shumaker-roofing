@@ -1,6 +1,6 @@
 ---
 name: content-updater
-description: Use after /qa PASS to publish approved content to Sanity. Reads credentials from .env.local, calls the Sanity mutation API, re-verifies the live document against the QA checklist (catching write-time defects QA on the draft can't see), and logs the result to memory/seo/content-log.md and memory/seo/publish-verification-log.md.
+description: Use after /qa PASS to publish approved content to Sanity. Reads credentials from .env.local, runs a prose clarity pass on the draft (specificity, one-idea sentences, no anthropomorphizing or redundant modifiers), calls the Sanity mutation API, re-verifies the live document against the QA checklist (catching write-time defects QA on the draft can't see), and logs the result to memory/seo/content-log.md and memory/seo/publish-verification-log.md.
 ---
 
 # Content Updater
@@ -77,15 +77,60 @@ Sanity looks documents up by slug. Query for the `_id`:
 ```powershell
 $type  = "blog"   # or "services"
 $slug  = "[target-slug]"
-$groq  = "*[_type==`"$type`" && slug.current==`"$slug`"][0]._id"
+# Resolve BOTH ids separately — an unfiltered slug lookup can return the draft id.
+$groq  = "{`"published`": *[_type==`"$type`" && slug.current==`"$slug`" && !(_id in path(`"drafts.**`"))][0]._id, `"draft`": *[_type==`"$type`" && slug.current==`"$slug`" && _id in path(`"drafts.**`")][0]._id}"
 $resp  = Invoke-RestMethod -Uri "$queryUrl?query=$([uri]::EscapeDataString($groq))" -Headers $headers -Method Get
-$docId = $resp.result
-Write-Output "Document ID: $docId"
+$pubId   = $resp.result.published
+$draftId = $resp.result.draft
+Write-Output "Published ID: $pubId   Draft ID: $draftId"
 ```
 
-If `$docId` is empty, the page does not exist yet — switch to a **create** (Step 4B).
+**These two ids are not interchangeable and must be tracked separately for the rest of this run.**
+The original slug lookup here had no `drafts.**` filter, so when only a draft existed it returned
+the draft id, every later step used it, and Step 5 then "verified" the draft against itself. Never
+collapse them back into a single `$docId`.
+
+Decide from the pair:
+
+| `$pubId` | `$draftId` | What it means | Do |
+|---|---|---|---|
+| set | — | Normal live page | Patch `$pubId` (Step 4A) |
+| set | set | Live page with unpublished edits | **Stop and report.** Diff the draft against the published doc and get the user's call before writing — publishing silently ships someone else's in-progress edits |
+| — | set | Written but never published (the 2026-07-16 gutters case) | **Stop and report.** This is a stalled publish, not a fresh write. Inspect the draft's `seo.noindex`/`seo.nofollow`/`publishedDate` before doing anything — a draft parked for review often has these set to keep it out of search, and publishing as-is ships a live-but-deindexed page |
+| — | — | Page does not exist | Switch to a **create** (Step 4B) |
 
 > Patching the published document ID (no `drafts.` prefix) publishes the change directly — there is no separate publish step in Sanity. If you instead want a draft for review, prefix the id with `drafts.`.
+
+## Step 3.5: Prose Clarity Pass (before writing)
+
+Run the approved draft body, title, excerpt, and meta description through the clarity ruleset
+below **before** it goes into a mutation. This is the last point where a fix costs nothing —
+after Step 4 the text is live.
+
+The target is **single-idea clarity, not sentence length**. Short sentences are a superficial
+proxy; a short sentence carrying two ideas still fails. The reason this matters for search:
+NLP models approximate human comprehension, so copy written to be clearly understood by a
+human reader is also better parsed by AI search systems.
+
+| # | Rule | What to do |
+|---|------|-----------|
+| C1 | General → specific | Replace vague nouns, verbs, quantifiers, and qualifiers with the measurable or concrete version wherever one exists. "Responds quickly" → the actual metric (response time, latency, time-to-first-byte). "Server errors" → the specific HTTP status codes. "Increase your budget" → "increase your crawl budget." |
+| C2 | Cut "why," keep "effect" | Strip justification clauses — "this is because…", "in order to…", "the reason for this is…" — unless the reasoning changes what the reader does. State the outcome only. |
+| C3 | One idea per sentence | Split compound sentences that carry unrelated clauses. Any clause that forces a mid-sentence context switch is a comprehension road bump. |
+| C4 | No anthropomorphizing | Remove verbs that ascribe decision-making, wanting, or intent to systems, algorithms, or crawlers. Describe what the system does, not what it "decides" or "wants." |
+| C5 | No redundant modifier pairs | Cut pairs where both words signal the same thing ("simultaneous parallel", "free gift", "advance planning"). Keep one. |
+| C6 | One definition per sentence | Never define two concepts in the same sentence. Give each its own sentence. |
+| C7 | Don't chase sentence length | Do not shorten or split purely to hit a word count. Split only where a sentence carries more than one idea; leave a long single-idea sentence alone. |
+| C8 | Jargon check | Flag terms an average reader of this page would not know (technical roofing or web terms alike). Either replace with plain language or define it in its own sentence (see C6). |
+
+Apply C1–C8 as **edits you propose, not edits you make silently.** The draft passed QA as
+written; changing it without saying so breaks the QA→publish chain. Show the user each change
+as `before → after` with the rule ID, get confirmation, then publish the revised text. If the
+draft is already clean, say so in one line and continue.
+
+If a fix would change the primary keyword, a heading targeted at the keyword cluster, or the
+meta description's keyword placement, do not apply it — flag it and route the user back to
+`/seo-writer`, since that text was chosen for ranking reasons this skill can't re-litigate.
 
 ## Step 4A: Update an Existing Document
 
@@ -171,12 +216,26 @@ QA (check 12-29) validated the **draft** — it never saw what actually got writ
 live document and check it, not the draft, against the checklist:
 
 ```powershell
-$live = "*[_id==`"$docId`"][0]{title, excerpt, slug, publishedDate, seo, content, servicesContent}"
+# Query the PUBLISHED id explicitly. Never reuse the id you patched without stripping any
+# "drafts." prefix first — verifying a draft against itself passes by construction.
+$verifyId = $pubId -replace '^drafts\.', ''
+$live = "*[_id==`"$verifyId`" && !(_id in path(`"drafts.**`"))][0]{title, excerpt, slug, publishedDate, seo, `"blocks`": count(content), `"svcBlocks`": count(servicesContent), `"faqs`": count(faqItems), content, servicesContent}"
 $doc  = Invoke-RestMethod -Uri "$queryUrl?query=$([uri]::EscapeDataString($live))" -Headers $headers -Method Get
 $doc  = $doc.result
+if (-not $doc) { Write-Output "VERIFICATION FAILED: no published document at $verifyId" }
 ```
 
+If this query returns nothing, the write did not publish — report it as a failure. Do **not**
+fall back to querying the draft id to get a result; an empty result here is the finding.
+
 Run these checks against `$doc` (not the draft you sent):
+
+> **Echo the observed value for every check.** Write `V2 body: PASS (19 blocks, 4 faqItems)`, not
+> `V2 body: PASS`. Each number must come from `$doc` in this run — never from the draft you sent,
+> the conversation, or a prior run's log. On 2026-07-16 this step logged "V2 body 15/15 blocks +
+> 3/3 faqItems, V6 noindex/nofollow both false" for a document that had 19 blocks, 4 faqItems, and
+> **both flags true** — values that matched neither the draft nor any published document. Pointing
+> this query at the right id does not fix that on its own; the verdicts must be reads.
 
 | # | Check | Rule |
 |---|-------|------|
@@ -185,9 +244,13 @@ Run these checks against `$doc` (not the draft you sent):
 | V3 | SEO title length | `$doc.seo.seoTitle` is 50–60 characters (QA check 13, re-run on live data) |
 | V4 | Meta description length | `$doc.seo.seoDescription` is 120–160 characters (QA check 14) |
 | V5 | Keyword still present | Primary keyword (looked up from `memory/seo/keywords.md`, same lookup as the cannibalization check) still appears in `$doc.seo.seoDescription` (QA check 15) |
-| V6 | noindex/nofollow | Neither is `true` unless explicitly intended (QA check 18 — hard-stop) |
+| V6 | noindex/nofollow | `$doc.seo.noindex` and `$doc.seo.nofollow` — echo both observed booleans. Neither may be `true` unless explicitly intended (QA check 18 — hard-stop). A live page with `noindex: true` ranks for nothing and passes no link equity, so this failing silently looks identical to the page never having been written |
 | V7 | Canonical matches path | If `$doc.seo.canonicalUrl` is set, it matches this page's own path (QA check 19 — hard-stop) |
 | V8 | No live duplicate | GROQ query for another document (`_id != $docId`) with an exact-match `seo.seoTitle` or `seo.seoDescription` across `blog`, `services`, `location` returns none (QA check 20) |
+| V9 | Clarity edits landed | Every `before → after` change confirmed in Step 3.5 is present in the live text, and no *un*confirmed rewrite slipped in — re-scan `$doc` body blocks for the C1–C8 violations you fixed; if one is back, the write used the pre-edit draft |
+| V10 | `publishedDate` set | `$doc.publishedDate` is a non-null datetime (QA check 23, re-run on live data — QA has passed this on a `null` field before, so do not trust the draft's verdict) |
+| V11 | Draft consumed | If this run published a draft, `count(*[_id == "drafts.<uuid>"])` is now `0`. A leftover draft alongside the published doc means the publish did not consume it and edits may still be pending |
+| V12 | URL resolves live | `curl -s -o /dev/null -w "%{http_code}" https://shumakerroofing.com<path>` returns `200`, and the returned HTML's `<meta name="robots">` is `index, follow` (or absent). This is the only check that leaves Sanity — it catches routing/build failures and robots defects that a correct GROQ read still cannot see |
 
 If **any** check fails: do not proceed to Step 6 as a normal publish. Report it immediately:
 
@@ -232,6 +295,10 @@ migration, so the header was corrected to match — don't reintroduce the old na
 
 Update keywords in `memory/seo/keywords.md`: change status from `qa-passed` to `published`.
 
+If `memory/seo/opportunity-clusters.md` exists and has a row for this cluster or target page, set
+its `status` to `done`. This closes the loop `/competitor-researcher` opened — a cluster left at
+`in-progress` after publish will be re-flagged as unstarted work by `/seo-project-manager`.
+
 Update `memory/seo/MEMORY.md`: set "Last content published" to today's date and page slug.
 
 ## Step 7: Report
@@ -241,7 +308,8 @@ Update `memory/seo/MEMORY.md`: set "Last content published" to today's date and 
   Document ID: [id]
   Page: [slug]
   Action: [created/updated]
-  Post-publish checks: [N]/8 passed
+  Post-publish checks: [N]/9 passed
+  Clarity pass: [no changes needed / N edits applied — rule IDs]
   Keywords marked as: published
 
 Note: production caches via CDN; the live page may take a moment to reflect the change

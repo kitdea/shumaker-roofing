@@ -45,7 +45,7 @@ This is a **Next.js 16 App Router** site for Shumaker Roofing, using TypeScript 
 - **`lib/sanity-image.ts`** — `urlFor()` builds image URLs from Sanity image refs.
 - **`lib/seo.ts`** — `fetchPageSeo()` / `resolveSeoMetadata()` / `buildNextMetadata()` resolve SEO metadata. Always call inside `generateMetadata()`.
 - **`lib/utils.ts`** — `cn()` for Tailwind class merging; `slugify()` for URL-safe slugs from titles.
-- **`sanity/schemaTypes/`** — document schemas: `blog`, `service`, `location`, `seoMetadata`, `splitSection`, `heroBanner`, `certificationBadge`, `projectSlide`, `jobPosting`, `teamMember`.
+- **`sanity/schemaTypes/`** — document schemas: `blog`, `services`, `location`, `seoMetadata`, `splitSection`, `heroBanner`, `certificationBadge`, `projectSlide`, `jobPosting`, `teamMember`. Note the service schema lives in `service.ts` (singular filename) but its `_type` is **`services`** (plural) — GROQ queries must use `*[_type == "services"]`.
 
 ### Slug Resolution
 

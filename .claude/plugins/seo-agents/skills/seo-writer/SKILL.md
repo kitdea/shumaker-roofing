@@ -15,6 +15,21 @@ The argument is either:
 
 If no argument was given, ask: "Which keyword cluster or page slug should I write for?"
 
+**Check for an opportunity brief.** Read `memory/seo/opportunity-clusters.md` (skip if absent) for
+a row matching the target. If one exists, it carries `/competitor-researcher`'s scoring, tag, and
+target page — use them:
+- **Quick win** → refresh the named existing page rather than writing a new post. The whole point
+  of the tag is that Shumaker already ranks 8–20 there; a new competing page splits that authority
+  and is a cannibalization risk (see `docs/seo/keyword-cannibalization-sop.md`).
+- **New content** → write the new post, attaching it to the pillar or service page named in the
+  brief's internal-linking note.
+- **Authority play** → write the piece as part of a cluster, not standalone. Say in Step 5 which
+  sibling pages still need to exist for the play to work.
+
+Set that row's `status` to `in-progress` when you start, in the same Step 6 memory write. If a row
+is already `in-progress` from an earlier run and no draft exists, say so rather than silently
+starting over.
+
 ## Step 2: Load Keywords
 
 Read `memory/seo/keywords.md`. Filter rows where:
@@ -464,6 +479,32 @@ What doesn't (cut on sight):
 **The test:** if a competent contractor wouldn't say it out loud to a customer standing in
 their driveway, it doesn't go in the post. When in doubt, leave it out.
 
+### Clarity & Comprehension (required — apply while drafting, then re-scan before Step 5)
+The target is **single-idea clarity, not sentence length**. Short sentences alone are a
+superficial fix; a short sentence carrying two ideas still fails. This matters for AI search
+specifically: NLP models approximate human comprehension, so copy written to be clearly
+understood by a homeowner is also better parsed by AI systems.
+
+| # | Rule | What to do |
+|---|------|-----------|
+| C1 | General → specific | No vague noun, verb, quantifier, or qualifier where a specific one exists. "Lasts a long time" → the actual warranty term or service life. "Weather damage" → hail, wind uplift, ice damming. "Costs more" → what drives the difference. This is the same instinct as Voice & Tone's "be specific over generic," applied at word level. |
+| C2 | Cut "why," keep effect | Strip justification clauses — "this is because…", "in order to…", "the reason for this is…" — unless the reasoning changes what the reader does. State what happens. (Roofing exception: *why it's pro work* per the No DIY rule is reader-actionable, so it stays.) |
+| C3 | One idea per sentence | Split compound sentences carrying unrelated clauses. Any clause forcing a mid-sentence context switch is a comprehension road bump. |
+| C4 | No anthropomorphizing | Don't give decision-making, wanting, or intent to systems and materials. Shingles don't "decide" to fail and an algorithm doesn't "want" anything. Describe what the thing does. |
+| C5 | No redundant modifier pairs | Cut pairs where both words signal the same thing ("simultaneous parallel", "advance planning", "completely eliminate", "free gift"). Keep one. |
+| C6 | One definition per sentence | Never define two concepts in the same sentence. Trade terms like drip edge, ice-and-water shield, or step flashing each get their own. |
+| C7 | Don't chase sentence length | Never split or shorten purely to hit a word count. Split only where a sentence carries more than one idea; a long single-idea sentence is fine and helps the rhythm variation Voice & Tone requires. |
+| C8 | Jargon gets defined or replaced | Trade vocabulary is an E-E-A-T signal (see Voice & Tone), so keep it — but a term the average homeowner won't know gets a plain-language gloss in its own sentence (C6), not a mid-sentence parenthetical that becomes a second road bump. |
+
+**Where this sits against the other rules.** C1–C8 govern *construction*; Voice & Tone governs
+*register*. They don't compete: varied sentence rhythm, dry understatement, and a callback all
+survive C3 as long as each sentence carries one idea. Where they genuinely collide, Voice &
+Tone wins for an intentional stylistic fragment, and C1–C8 win everywhere else. The banned-AI-
+words list in `docs/content-style/banned-ai-words.md` still outranks both.
+
+Before Step 5, re-scan the finished draft against C1–C8 — drafting with them in mind is not the
+same as checking. C1 and C3 are the two that reliably slip.
+
 ### Internal Links
 Include at least **3 internal links** using natural anchor text pointing to real pages on the site:
 - `/services/[slug]`
@@ -509,7 +550,11 @@ The rules above cover these; this is the pre-flight list so none is missed:
     `/contact` link.
 12. **No DIY** — no instructions, tool lists, or DIY-as-an-option framing. Every "what do I
     do about this?" routes to Shumaker's experts via `/contact` or a `/services/[slug]`.
-13. **Banned AI words/phrases/structures** — run the full self-check in
+13. **Clarity & comprehension** — the draft passes C1–C8: no vague term where a specific one
+    exists, no "why" clauses that don't change reader action, one idea per sentence, no
+    anthropomorphized systems or materials, no redundant modifier pairs, no double
+    definitions, jargon glossed in its own sentence, and nothing split merely to shorten it.
+14. **Banned AI words/phrases/structures** — run the full self-check in
     `docs/content-style/banned-ai-words.md` (ban-specific self-check section) against the
     complete draft: no HARD BAN words, no banned phrases or sentence structures, no em/en
     dashes, no model tics, sentence length and openers vary, and the draft passes the
@@ -537,6 +582,7 @@ Show the full draft to the user with:
 - A list of any `[VERIFY: …]` placeholders the user needs to confirm or fill before publishing
 - **Repetition check**: state how many times the service-area city list and the state footprint each appear (target: city list once, state footprint ≤ twice). If either exceeds the Anti-Template limits, fix the draft before presenting — don't present a template.
 - **Voice check**: confirm the draft doesn't open multiple sentences in a row with "Shumaker Roofing…", contains none of the banned content-mill tells, and (for eligible blog topics) note whether any light-touch humor per the Voice & Tone reference was used.
+- **Clarity check**: confirm the C1–C8 re-scan ran on the finished draft (not just while writing). Name any sentences you split or terms you made specific, and flag any jargon you kept with its gloss. If the scan surfaced nothing, say the scan ran and found nothing — don't omit the line.
 - **Banned AI words check**: confirm you ran the full self-check against `docs/content-style/banned-ai-words.md` — no HARD BAN words, no banned phrases/structures, no em/en dashes, no model tics. State any EARN IT words used and why they were literally accurate. If this check wasn't run, run it now before presenting — don't present a draft that hasn't been scanned.
 - **Recent-QA-history check**: re-check the finished draft against the systemic root-cause checklist built in Step 2.5 — don't rely on having avoided it while drafting. State explicitly which past FAIL root causes were checked and that none recurred (or name the fix made just now if one did).
 

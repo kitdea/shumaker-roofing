@@ -28,6 +28,32 @@ Read `memory/seo/keywords.md`. Find the keyword(s) with status `written` that ma
 
 Check every item below. Record PASS or FAIL for each.
 
+> **Read the document before checking it.** Checks 13–21 and 23 are about *stored field values*,
+> not about what the draft text appears to say or what `/seo-writer` reported it would write. A
+> conversational draft is not a document — fields the writer never set do not exist, and a check
+> evaluated against the conversation will pass on a field that is `null`.
+>
+> Before running the Meta Tags and Structured Data sections, query the actual document and work
+> from the result:
+>
+> ```
+> *[_id == $docId][0]{title, "slug": slug.current, publishedDate, excerpt, seo,
+>                     "blocks": count(content), "faqs": count(faqItems),
+>                     "author": authorRef->name, "legacyAuthor": author,
+>                     "img": featuredImage.asset._ref, "alt": featuredImage.alt}
+> ```
+>
+> Use `perspective: raw` and pass the **draft** id (`drafts.<uuid>`) when QA'ing a pre-publish
+> draft. If the draft does not exist in Sanity yet, say so and mark every stored-field check
+> `UNVERIFIABLE` — never `PASS`.
+>
+> **For each stored-field check, echo the observed value next to the verdict** — e.g.
+> `18 noindex/nofollow: PASS (noindex=false, nofollow=false)`, `23 datePublished: FAIL
+> (publishedDate=null)`. A verdict with no observed value beside it is not a completed check.
+> This is a hard requirement: a 2026-07-16 run logged 29/29 PASS on a draft that had
+> `seo.noindex: true`, `seo.nofollow: true`, and `publishedDate: null`, because every check was
+> evaluated against the conversation instead of the document.
+
 ### Content
 
 | # | Check | Rule |
@@ -56,7 +82,7 @@ Validate against the actual fields that will be written to the Sanity `seo` obje
 | 15 | Meta has keyword | Primary keyword appears in `seoDescription`, exactly once |
 | 16 | Featured image set | `featuredImage` is present — this becomes the `og:image`/Twitter card image via `urlFor()`. Flag missing as this will cause og:image/twitter:image to fall back to a generic site image |
 | 17 | Image alt text | Featured image and any in-body images have descriptive, non-empty alt text |
-| 18 | noindex/nofollow not set | Neither `noindex` nor `nofollow` is `true`, unless the user explicitly intended this page to be excluded from search — flag as a hard-stop if set without explicit confirmation |
+| 18 | noindex/nofollow not set | Read `seo.noindex` and `seo.nofollow` from the queried document and **echo both observed booleans** in the verdict. Neither may be `true` unless the user explicitly intended this page to be excluded from search — hard-stop if either is `true` without explicit confirmation. `lib/seo.ts:60-63` turns these into a real `robots` tag, so a `true` here ships a live page that ranks for nothing and passes no link equity. Note the sitewide convention: all published pages have both `false`. Absent/`null` is acceptable (`resolveSeoMetadata` coerces to `false`) but report it as absent, not as `false` |
 | 19 | Canonical URL correct | If `canonicalUrl` is set on the draft, it must exactly match the page's own path (`{SITE_URL}` + slug path). A canonical pointing elsewhere will deindex this page in favor of another — flag any mismatch as a fail, not a warning |
 | 20 | No duplicate title/description | `seoTitle` and `seoDescription` do not match another live page's values. Spot-check via a GROQ query for exact-match `seo.seoTitle` or `seo.seoDescription` across `blog`, `services`, and `location` documents (same Sanity Query API pattern used in `/seo-writer` Step 3) |
 | 21 | Slug is SEO-friendly | Lowercase, hyphenated, reasonably short, contains the primary keyword or a close variant. If QA'ing a rewrite, confirm the slug is unchanged from the live version (changing it breaks the existing URL and requires a redirect — flag if changed without a noted redirect plan) |
@@ -68,7 +94,7 @@ Confirm the draft supplies everything the page's schema block needs. Match requi
 | # | Check | Rule |
 |---|-------|------|
 | 22 | Schema type identified | Blog → `Article`; service page → `Service`; location page → `LocalBusiness`/`Service` per existing pattern in `app/(site)/services/[slug]/page.tsx` equivalent |
-| 23 | Article schema fields | For blog drafts: `headline` (from title), `author` (from Step 3 check 11 attribution), and `datePublished` (maps to Sanity `publishedDate` — confirm this field will be set, not left blank) are all resolvable from the draft |
+| 23 | Article schema fields | For blog drafts: `headline` (from `title`), `author` (`authorRef->name`, falling back to the legacy `author` string), and `datePublished` (Sanity `publishedDate`). **Read each from the queried document and echo the observed value.** `publishedDate` must be a non-null datetime *now* — "will be set before publish" is not a pass, and phrasing it that way is what let a `null` field log as PASS on 2026-07-16. If it is null, FAIL and name the fix: set `publishedDate` before publishing |
 | 24 | Service schema fields | For service/area drafts: `name` and `provider` (Shumaker Roofing / LocalBusiness) are resolvable |
 | 25 | FAQPage schema fields | If the draft includes an FAQ section (required by `/seo-writer` for blog posts): each Q&A pair maps to a valid `mainEntity` item with `Question`/`Answer` — at least 1 item present |
 
@@ -123,10 +149,40 @@ self-check" section) against the complete draft, not just the summary carried in
 | 38 | No formatting/punctuation tells | Zero em dashes or en dashes anywhere in the draft. No mid-sentence bold for emphasis, no emoji, no leaked markdown in CMS-bound fields |
 | 39 | Interchangeability test | For at least the intro and one body section, confirm no sentence is generic enough that a competitor roofing site could paste it verbatim — cite the specific local/numeric/named detail that makes it Shumaker's |
 
+### Clarity & Comprehension
+
+Mirrors the C1–C8 ruleset in `/seo-writer` Step 4 (same rule IDs — cite them by ID when
+reporting so the writer knows exactly which rule to re-apply). Distinct from check 12's
+quality score: that judges whether the draft is *good*, this judges whether each sentence is
+*parseable*. The target is single-idea clarity, **not** sentence length — a short sentence
+carrying two ideas fails check 42, and a long single-idea sentence passes it. This is not a
+style preference: NLP models approximate human comprehension, so a draft that reads clearly
+to a homeowner is also better understood by AI search systems.
+
+These are score-affecting failures, not hard-stops — but a draft failing three or more of
+them is a rewrite, not a line edit. Say so in the report.
+
+| # | Check | Rule |
+|---|-------|------|
+| 40 | Specific over general (C1) | No vague noun, verb, quantifier, or qualifier where a specific one exists. "Lasts a long time" should be the actual warranty term or service life; "weather damage" should name the mechanism (hail, wind uplift, ice damming); "costs more" should name what drives the difference. Quote each vague term found and give the specific replacement |
+| 41 | Effect over justification (C2) | No justification clause ("this is because…", "in order to…", "the reason for this is…") unless the reasoning changes what the reader does. State what happens. **Exempt:** the *why it's pro work* explanation the No DIY rule requires (check 30) — that reasoning is reader-actionable and must stay |
+| 42 | One idea per sentence (C3) | No sentence carries unrelated clauses forcing a mid-sentence context switch. Flag by quoting the sentence and naming the two ideas. Judge by idea count, never by word count |
+| 43 | No anthropomorphizing (C4) | No decision-making, wanting, or intent given to systems, algorithms, or materials — shingles don't "decide" to fail, an algorithm doesn't "want" anything. Describe what the thing does |
+| 44 | No redundant modifier pairs (C5) | No pairs where both words signal the same thing ("simultaneous parallel", "advance planning", "completely eliminate", "free gift", "past history"). One survives |
+| 45 | One definition per sentence (C6) | No sentence defines two concepts. Trade terms (drip edge, ice-and-water shield, step flashing) each get their own sentence |
+| 46 | Length not used as a proxy (C7) | No sentence split or shortened purely to hit a rhythm or word target. A long single-idea sentence is correct and supports the sentence-rhythm variation `/seo-writer` Voice & Tone requires — do not fail one for length alone, and do not pass a choppy draft just because its sentences are short |
+| 47 | Jargon glossed or replaced (C8) | Every trade term an average homeowner wouldn't know is either replaced with plain language or glossed **in its own sentence** — not in a mid-sentence parenthetical, which is itself a road bump (see check 42). Keeping the vocabulary is correct; leaving it unexplained is not |
+
+**Where this sits against the other checks.** Checks 40–47 govern sentence *construction*;
+checks 35–39 and the Step 3.5 voice criteria govern *register*. They rarely collide. Where
+they genuinely do, an intentional stylistic fragment from Voice & Tone survives, and 40–47
+win everywhere else. Checks 35–39 (banned AI words) outrank both — a clearer sentence built
+from a HARD BAN word still fails 35.
+
 ## Step 3.5: Score Quality (for check 12)
 
 Read the draft as a human would and assign a 1–10 quality score based on:
-- **Readability** — short sentences, smooth transitions, scannable structure
+- **Readability** — one idea per sentence, smooth transitions, scannable structure. Judge comprehension, not sentence length: a long single-idea sentence is fine, and a run of short choppy ones is not automatically good. Construction defects belong to checks 40–47; don't double-penalize them here
 - **Depth & value** — answers the search intent better than a thin/generic page; no filler
 - **No fluff or repetition** — no padded sentences, no repeated claims, no restated headings
 - **Lists used honestly** — any bulleted/numbered list is genuinely a set or a sequence, with parallel items (numbered only where order matters). Prose chopped into bullets to break up a long section is a defect. Zero lists is fine when nothing in the topic is enumerable; a list under every H2 is padding. Roughly 1–3 per blog post
@@ -138,7 +194,7 @@ Score < 7 is a FAIL on check 12. When it fails, state the score, the top 2–3 r
 
 ## Step 4: Determine Result
 
-- **PASS**: All 39 checks pass
+- **PASS**: All 47 checks pass
 - **FAIL**: Any check fails
 
 Checks 18 (noindex/nofollow), 19 (canonical mismatch), 29 (cannibalization), 30 (DIY
@@ -153,6 +209,10 @@ Checks 30–35 are **business rules and brand-voice rules, not SEO preferences o
 suggestions** — a draft that would rank well and scores 9/10 on quality still fails if it
 teaches DIY, prices without a disclaimer, or contains a single HARD BAN word. Do not trade
 these off against quality or let a strong draft argue its way past them.
+
+Checks 40–47 are not hard-stops, but three or more failures across them means the draft has a
+systemic construction problem — report it as "rewrite the affected sections", not as a list of
+individual line edits.
 
 ## Step 5: Log to Memory
 
@@ -169,18 +229,18 @@ Update the "Last QA run" line in `memory/seo/MEMORY.md`.
 
 ## Step 6: Report
 
-Show a table with every check and its result, grouped by section (Content / Meta Tags & SEO Object / Structured Data / Links / Brand Policy / Banned AI Words). Then:
+Show a table with every check and its result, grouped by section (Content / Meta Tags & SEO Object / Structured Data / Links / Brand Policy / Banned AI Words / Clarity & Comprehension). Then:
 
 **If PASS:**
 ```
-✓ QA PASSED — [N]/39 checks passed (quality [score]/10)
+✓ QA PASSED — [N]/47 checks passed (quality [score]/10)
 Keywords updated to status 'qa-passed'.
 Next step: /content-updater
 ```
 
 **If FAIL:**
 ```
-✗ QA FAILED — [N]/39 checks passed
+✗ QA FAILED — [N]/47 checks passed
 Failed checks: [list with specific fix instructions for each]
 Next step: Revise the draft and re-run /qa, or run /seo-writer to regenerate new content and refer to humor writing reference.
 ```
@@ -207,3 +267,11 @@ For each failed check, provide the specific fix. For example:
 - Check 37 fail: "Intro opens with 'When it comes to roof repairs in Frederick,' — a banned filler opener. Cut it and start with the specific situation (a leak, a sagging line) instead. Also flags a participial benefit-closer at the end of H2 3: '…, giving you peace of mind.' Rewrite as a direct sentence or cut."
 - Check 38 fail: "Three em dashes in the body (paragraph 4, FAQ answer 2, closer). Replace each with a comma, period, or parenthetical per the ban list — this is the single strongest AI tell and reads as a mechanical fail regardless of content quality."
 - Check 39 fail: "The local-angle H2 reads 'We proudly serve homeowners throughout the region with quality roofing services' — this sentence could be pasted onto any roofing site's page with a find-and-replace on the city name. Replace with the actual detail: which neighborhoods, what's specific about older housing stock there, a named recent job."
+- Check 40 fail: "Intro says the roof 'holds up well for a long time' (C1). Replace with the specific claim the E-E-A-T proof point already supports — the manufacturer's 30-year limited warranty term."
+- Check 41 fail: "H2 2 opens 'The reason contractors recommend ice-and-water shield is because the code requires it in valleys' (C2). The reasoning doesn't change what the homeowner does. Cut to: 'Code requires ice-and-water shield in the valleys.'"
+- Check 42 fail: "'Most leaks start at the flashing, and a hostname is the domain your site is served from' — two unrelated ideas in one sentence (C3). Split them, or cut the second if it isn't load-bearing for the section."
+- Check 43 fail: "'Google's crawler decides how much of your site it wants to visit' (C4). Crawlers don't want or decide. Rewrite as what happens: 'Google limits how many pages it requests from one site.'"
+- Check 44 fail: "'simultaneous parallel connections' (C5) — both words signal concurrency. Cut to 'parallel connections.'"
+- Check 45 fail: "The crawl-capacity sentence defines both the connection count and the time delay between requests (C6). Give each its own sentence."
+- Check 46 fail: "Paragraphs 3–5 were chopped into seven-word sentences with no idea boundary between them (C7). Sentence length is not the target — rejoin the fragments that belong to one idea and let the rhythm vary."
+- Check 47 fail: "'step flashing' appears three times with no gloss (C8), and 'pipe boot (the rubber collar around a vent pipe)' buries its definition mid-sentence. Give each term a plain-language sentence of its own the first time it appears."
