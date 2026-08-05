@@ -1,6 +1,6 @@
 ---
 name: content-auditor
-description: Use when you want a ground-truth audit of every page on the site — Sanity-backed content (blog posts, service pages, service-area pages) AND the static/hardcoded routes (homepage, about, faqs, careers, projects, testimonials, roofs-for-heroes, contact, and the /services, /service-areas, /blog listing pages). Pulls live data directly from Sanity plus greps route files for hardcoded metadata (not memory), clusters posts by duplicate search intent, flags keyword cannibalization across the whole site, checks SEO metadata completeness everywhere including pages Sanity doesn't cover, sweeps published body copy for clarity/comprehension defects that predate the writing rules, cross-references blog coverage against service/location pages, and checks sitewide internal-linking health (thin/zero-linked posts, orphaned posts, fragmented clusters, overloaded link targets). Diffs this run's findings against the last audit (per finding, not just aggregate counts) to catch stale/recurring/regressed issues, and writes results to memory/seo/audit-log.md and memory/seo/audit-findings-log.md. Pass nothing to audit everything, or a scope ("blog", "services", "locations", "static") to narrow it.
+description: Use when you want a ground-truth audit of every page on the site — Sanity-backed content (blog posts, service pages, service-area pages) AND the static/hardcoded routes (homepage, about, faqs, careers, projects, testimonials, roofs-for-heroes, contact, and the /services, /service-areas, /blog listing pages). Pulls live data directly from Sanity plus greps route files for hardcoded metadata (not memory), clusters posts by duplicate search intent, flags keyword cannibalization across the whole site, checks SEO metadata completeness everywhere including pages Sanity doesn't cover, sweeps published body copy for clarity/comprehension defects that predate the writing rules, runs a scripted banned-AI-words and glued-text scan over all published copy including location pages, cross-references blog coverage against service/location pages, and checks sitewide internal-linking health (thin/zero-linked posts, orphaned posts, fragmented clusters, overloaded link targets). Diffs this run's findings against the last audit (per finding, not just aggregate counts) to catch stale/recurring/regressed issues, and writes results to memory/seo/audit-log.md and memory/seo/audit-findings-log.md. Pass nothing to audit everything, or a scope ("blog", "services", "locations", "static") to narrow it.
 ---
 
 # Content Auditor
@@ -376,6 +376,63 @@ checks 40–47 (per `memory/seo/qa-log.md`), a clarity finding here means either
 the document was edited after QA. Say which in the finding's notes rather than silently
 re-reporting it.
 
+## Step 4c: Banned-Words Sweep (scripted — do not do this by eye)
+
+Run the scanner. Do not hand-scan, do not work from a remembered subset of the ban list, and do
+not skip this because Step 4b "already read the copy":
+
+```bash
+python3 scripts/ban-words-scan.py            # blog + services + location
+python3 scripts/ban-words-scan.py blog       # narrow to one type when scoped
+python3 scripts/ban-words-scan.py --json     # machine-readable, for building finding rows
+```
+
+Exit codes: `0` clean, `1` violations found, `2` could not run. **Treat `2` as a failed audit
+step, never as a pass** — it means the scanner could not reach Sanity or could not parse the ban
+doc, not that the copy is clean.
+
+**Why this is scripted and Step 4b is not.** C1–C8 are judgment calls that need a reader. This is
+exact string matching against a 228-word list, which is precisely what a model doing it by eye
+gets wrong. On 2026-08-05 this step did not exist; the banned-words finding was produced ad hoc
+and reported **31 instances across 12 pages**. The scripted scan of the same content found
+roughly **90**, across 17 blog posts rather than the 5 named, and surfaced violations on
+**location pages, which no manual pass had ever looked at**. The gap was not carelessness — it is
+what hand-matching against a long list does. Run the script.
+
+The script reports three kinds:
+
+| Kind | What it means |
+|---|---|
+| `word` | A HARD BAN word or one of its variants (tense, plural, -er, -ing, -ly, -ity, -ful) |
+| `phrase` | A banned phrase from the ban doc's "Banned phrases" section |
+| `glued` | A sentence ends and the next begins with no space — renders as run-together text |
+
+Two things the script deliberately does **not** decide for you:
+
+1. **Carve-outs.** It applies only the narrow, documented exemptions in its `CARVE_OUTS` list
+   (literal "seamless gutter", the phrasal "leading to", the verb "have trusted", descriptive
+   "rich, dark"). Anything else it flags is yours to judge against the ban doc's "How to apply
+   the bans" rules — quotes, brand and product names, and genuinely literal technical use are
+   exempt. **When you exempt something, say so in the finding's Notes with the reason.** A silent
+   exemption is indistinguishable from a miss on the next audit. If an exemption turns out to be
+   general rather than one-off, add it to `CARVE_OUTS` with a comment instead of re-judging it
+   every run.
+2. **Severity.** Report at document level using the same density rule as Step 4b (8+ High, 4–7
+   Medium, 1–3 Low), so one stray word in a 1,400-word post does not outrank a page built from
+   them.
+
+`glued` findings are a separate defect class from the words and should be logged separately —
+they have two distinct causes, and the fix differs:
+
+- Adjacent Portable Text spans inside one block where the first lacks trailing whitespace. This
+  is how FAQ question/answer pairs get authored, and it is the larger share. Fix by adding the
+  separator to the preceding span.
+- A missing space after a period inside a single span, from an earlier block-merge operation.
+
+**Do not report this as a clean sweep on the strength of Step 4b passing.** The two steps catch
+different things: a post can read clearly and still be built from banned vocabulary, and a post
+can be free of banned words and still be unreadable. Both run, always.
+
 ## Step 5: Cross-Reference Coverage Against Service & Location Pages
 
 Build two coverage tables:
@@ -476,6 +533,14 @@ produces the same ID across runs:
   post that drops from 9 violations to 2 reads as `still-open` rather than churning through eight
   separate IDs. Record the violation count and the rule IDs hit in the row's Notes column; a
   falling count on a `still-open` finding is partial progress worth naming in the report
+- Banned words (Step 4c): `banned-words:[doc-type]:[slug]` — one ID per document, same reasoning
+  as clarity. Put the counts by kind in Notes (`6 word, 1 phrase`) plus any exemption you made and
+  why. **Clearing a document's banned words does not resolve its `clarity:` finding, and vice
+  versa** — they are separate IDs because they are separate defects. A post whose vocabulary is
+  now clean can still need the rewrite its clarity finding calls for, and closing the wrong one
+  hides that
+- Glued text (Step 4c): `glued-text:[doc-type]:[slug]` — tracked apart from `banned-words:` even
+  though one script reports both, because the cause and the fix are unrelated to vocabulary
 - Internal-linking health (Step 5): `linking:thin:[blog-slug]` (density/zero-link), `linking:orphan:[blog-slug]`
   (no inbound links), `linking:cluster-fragmented:[cluster-name]` (sibling/pillar posts not
   cross-linking), `linking:overload:[target-slug]` (one destination absorbing a disproportionate
@@ -537,6 +602,12 @@ column — the existing rows are historical snapshots and adding a column retroa
 prior row misaligned. The per-finding detail lives in `audit-findings-log.md`, which is where Step
 8 reads from anyway.
 
+Step 4c goes in the same Notes column as `banned-words: N instances / N docs; glued: N`. Record
+the raw scanner totals, not a tidied-up number — the point of the script is that the count is
+reproducible, and a hand-adjusted figure cannot be diffed against the next run. If the scanner
+exited `2`, write `banned-words: SCAN FAILED (<reason>)` rather than omitting it, so the gap is
+visible in the history instead of reading as a clean run.
+
 ```
 ```
 
@@ -560,8 +631,12 @@ Present findings to the user in this order, most actionable first:
 6. **Clarity & comprehension** (Step 4b) — High-severity documents first, each with its violation
    count, the rule IDs hit, and the quoted lines. Group by document, not by rule: a rewrite is
    done per post, so a writer needs every line for one post together, not every C3 sitewide.
-7. **Memory drift** (Step 7).
-8. **Resolved since last audit** (Step 8) — a short "wins" list. Findings that disappeared are
+7. **Banned words & glued text** (Step 4c) — the scanner's own output, grouped by document, with
+   the totals stated as scanned rather than summarized. Name any instance you exempted and why.
+   If a document appears here *and* in item 6, say so explicitly: the vocabulary fix is cheap and
+   the rewrite is not, and they will otherwise be mistaken for the same job.
+8. **Memory drift** (Step 7).
+9. **Resolved since last audit** (Step 8) — a short "wins" list. Findings that disappeared are
    easy to lose track of; naming them confirms the fix actually landed and closes the loop for
    whoever acted on the prior report.
 
