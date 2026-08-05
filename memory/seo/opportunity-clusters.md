@@ -45,20 +45,36 @@ own the terms by default:
   owns the Hagerstown siding terms; politzenterprises has dedicated LP SmartSide and Hardie board
   pages plus `dutch lap vs clapboard siding` (390) at 15.
 
-**Status 2026-08-05: both service pages created as Sanity DRAFTS, not published.**
+**Status 2026-08-05 (updated): metal-roofing PUBLISHED, siding still a draft.**
 
-| Page | Draft document ID | Words | seoTitle | seoDescription |
-|---|---|---|---|---|
-| services/metal-roofing | `drafts.fdad6a22-f1ff-4bb7-b815-ca6083b233a6` | 304 | 53 chars | 152 chars |
-| services/siding | `drafts.68af8e47-b8c0-4def-8115-122d745ad93e` | 351 | 55 chars | 149 chars |
+| Page | Document ID | Words | seoTitle | seoDescription | Status |
+|---|---|---|---|---|---|
+| services/metal-roofing | `fdad6a22-f1ff-4bb7-b815-ca6083b233a6` | 339 | 53 chars | 152 chars | **live** — HTTP 200, `robots: index, follow` |
+| services/siding | `drafts.68af8e47-b8c0-4def-8115-122d745ad93e` | 351 | 55 chars | 149 chars | **draft — blocked on user input** |
 
-Each carries one `[VERIFY: …]` placeholder that must be resolved before publish — metal roof
-service-life figures, and which siding manufacturer lines Shumaker actually carries. Neither page
-has a `servicesImage` or `splitSection` references yet (the existing gutter-installation page has
-no hero image either, so this matches current convention rather than falling short of it).
+Metal roofing's `[VERIFY]` was resolved with the Metal Construction Association's service-life
+assessment (55% Al-Zn alloy-coated standing seam, >60 years), verified at the primary source. No
+year range was asserted for exposed-fastener systems — the widely-repeated 15–25y figure traces
+only to contractor blogs, below this site's citation standard — so the copy describes the
+fastener-washer wear mechanism instead.
 
-Publishing puts both into the nav dropdown and `/services` listing immediately, because
-`NavbarServer` fetches the service list server-side. Run `/qa` before publishing.
+Siding's `[VERIFY]` asks which manufacturer lines Shumaker carries. **This cannot be researched
+or inferred** — it is a factual claim about the business's offerings, and naming James Hardie or
+LP SmartSide unconfirmed would put a false product claim on a live commercial page. Asked the
+user 2026-08-05; they will confirm within a few days.
+
+**Lesson for the next service-page publish:** the metal-roofing draft was authored with 7
+absolute `https://shumakerroofing.com/...` internal links, the pre-2026-08-03 house style.
+Publishing as-is would have regressed `metadata:blog:absolute-internal-links` (resolved
+2026-08-03 at "0 sitewide"). Converted to relative before publishing. **The siding draft was
+authored in the same run — check and convert its links before publishing it.**
+
+Neither page has a `servicesImage` or `splitSection` reference (the existing gutter-installation
+page has no hero image either, so this matches convention rather than falling short of it).
+
+Publishing adds a page to the nav dropdown and `/services` listing, but **not instantly** —
+`app/(site)/services/page.tsx:1` sets `revalidate = 3600`, so ISR takes up to an hour. The page's
+own URL is live immediately.
 
 **Recommended sequence:** the two `services` documents now exist as drafts, so next run
 `/keyword-researcher` → `/seo-writer` against them. Writing blog content that links to a service
