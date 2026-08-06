@@ -13,7 +13,7 @@ import type { PortableTextComponents } from "@portabletext/react";
 import { fetchPageSeo } from "@/lib/seo";
 import { TwoColumnSection } from "@/components/shared/two-column-section";
 import { PortableTextTable } from "@/components/shared/portable-text-table";
-import { portableTextLinkMark } from "@/components/shared/portable-text-link";
+import { portableTextLinkMark, portableTextInternalLinkMark } from "@/components/shared/portable-text-link";
 import { SITE_URL, SITE_DOMAIN, FALLBACK_BLOG_IMAGE, formatLongDate } from "@/lib/utils";
 
 const MARKDOWN_LINK_REGEX = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
@@ -76,6 +76,7 @@ function getPortableTextComponents(fallbackAlt: string): PortableTextComponents 
   return {
     marks: {
       link: portableTextLinkMark,
+      internalLink: portableTextInternalLinkMark,
     },
     types: {
       image: ({ value }) => {

@@ -11,6 +11,16 @@ import { WhyChooseUs } from "@/components/shared/why-choose-us";
 import { slugify, SITE_URL, stateDisplayName } from "@/lib/utils";
 import { fetchPageSeo } from "@/lib/seo";
 import { urlFor } from "@/lib/sanity-image";
+import { PortableText } from "@portabletext/react";
+import type { PortableTextComponents } from "@portabletext/react";
+import { portableTextLinkMark, portableTextInternalLinkMark } from "@/components/shared/portable-text-link";
+
+const portableTextComponents: PortableTextComponents = {
+  marks: {
+    link: portableTextLinkMark,
+    internalLink: portableTextInternalLinkMark,
+  },
+};
 
 const OFFICES = {
   MD: {
@@ -196,6 +206,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
   );
 
   const cityDisplay = loc.fullLocationName || loc.cityName || "";
+  const hasIntroContent = Array.isArray(loc.introContent) && loc.introContent.length > 0;
   const servicesOffered = loc.servicesOffered ?? [];
   const faqItems = (loc.faqItems ?? []).filter(
     (f): f is { question: string; answer: string } => Boolean(f.question && f.answer)
@@ -247,12 +258,16 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Main Content */}
           <article className="lg:col-span-8 space-y-12">
-            {/* Intro text */}
-            {loc.introText && (
+            {/* Intro: rich text when present, otherwise the legacy plain-text field */}
+            {(hasIntroContent || loc.introText) && (
               <div className="prose prose-lg md:prose-xl dark:prose-invert max-w-none prose-p:text-foreground/90 [&_p]:mb-6 [&_p]:leading-relaxed">
-                {loc.introText.split("\n").filter(Boolean).map((para, idx) => (
-                  <p key={idx}>{para}</p>
-                ))}
+                {hasIntroContent ? (
+                  <PortableText value={loc.introContent as never} components={portableTextComponents} />
+                ) : (
+                  loc.introText!.split("\n").filter(Boolean).map((para, idx) => (
+                    <p key={idx}>{para}</p>
+                  ))
+                )}
               </div>
             )}
 

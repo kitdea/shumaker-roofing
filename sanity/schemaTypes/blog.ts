@@ -1,5 +1,6 @@
 import { defineType, defineField } from 'sanity'
 import { withTablePasteInput } from '../lib/table-paste'
+import { richTextBlock } from '../lib/rich-text-block'
 
 export const blog = defineType({
   name: 'blog',
@@ -26,7 +27,7 @@ export const blog = defineType({
       type: 'array',
       components: withTablePasteInput(),
       of: [
-        { type: 'block' },
+        richTextBlock,
         {
           type: 'image',
           options: { hotspot: true },

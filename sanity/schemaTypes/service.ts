@@ -1,5 +1,6 @@
 import { defineType, defineField } from 'sanity'
 import { withTablePasteInput } from '../lib/table-paste'
+import { richTextBlock } from '../lib/rich-text-block'
 
 export const service = defineType({
   name: 'services',
@@ -13,14 +14,14 @@ export const service = defineType({
       title: 'Main Content',
       type: 'array',
       components: withTablePasteInput(),
-      of: [{ type: 'block' }, { type: 'table' }],
+      of: [richTextBlock, { type: 'table' }],
     }),
     defineField({
       name: 'additionalContent',
       title: 'Additional Content',
       type: 'array',
       components: withTablePasteInput(),
-      of: [{ type: 'block' }, { type: 'table' }],
+      of: [richTextBlock, { type: 'table' }],
     }),
     defineField({ name: 'servicesImage', title: 'Hero Image', type: 'image', options: { hotspot: true } }),
     defineField({ name: 'splitSection', title: 'Two-Column Sections', type: 'array', of: [{ type: 'reference', to: [{ type: 'splitSection' }] }] }),

@@ -9,6 +9,20 @@ const splitSectionsProjection = `"splitSections": splitSection[]->{
       splitImage
     }`
 
+// Portable Text body projection that resolves `internalLink` annotations. The
+// annotation only stores a reference, so we attach the target's type and slug
+// here; portable-text-link.tsx turns those into a relative href.
+const bodyProjection = (field: string) => `${field}[]{
+      ...,
+      markDefs[]{
+        ...,
+        _type == "internalLink" => {
+          "refType": reference->_type,
+          "refSlug": reference->slug.current
+        }
+      }
+    }`
+
 export type SplitSectionItem = {
   id: string
   splitTitle: string
@@ -65,8 +79,8 @@ export const fetchServiceBySlug = cache(async function fetchServiceBySlug(slug: 
     _id,
     title,
     slug,
-    servicesContent,
-    additionalContent,
+    ${bodyProjection('servicesContent')},
+    ${bodyProjection('additionalContent')},
     servicesImage,
     ${splitSectionsProjection},
     seo
@@ -355,7 +369,7 @@ export const fetchBlogPostBySlug = cache(async function fetchBlogPostBySlug(slug
     ${authorRefProjection},
     author,
     excerpt,
-    content,
+    ${bodyProjection('content')},
     faqItems,
     ${splitSectionsProjection},
     seo
@@ -414,6 +428,7 @@ export type LocationDetail = {
   isActive?: boolean
   heroHeadline?: string
   introText?: string
+  introContent?: unknown[]
   servicesOffered?: string[]
   faqItems?: { question?: string; answer?: string }[]
   phoneNumber?: string
@@ -432,6 +447,7 @@ export const fetchLocationBySlug = cache(async function fetchLocationBySlug(slug
     isActive,
     heroHeadline,
     introText,
+    ${bodyProjection('introContent')},
     servicesOffered,
     faqItems,
     phoneNumber,
