@@ -34,8 +34,8 @@
 | types of gutters for homes | informational | gutter-install | published | 2026-07-14 | 70 | 21 |
 | signs you need new gutters | informational | gutter-install | published | 2026-07-14 | 30 | 0 |
 | how to choose gutter size | informational | gutter-install | published | 2026-07-14 | 20 | 0 |
-| skylight repair vs replacement | informational | skylight-repair | qa-passed | 2026-08-06 | unvalidated | unvalidated |
-| when to replace a skylight | informational | skylight-repair | qa-passed | 2026-08-06 | unvalidated | unvalidated |
-| skylight leaking around edges | informational | skylight-repair | qa-passed | 2026-08-06 | unvalidated | unvalidated |
-| how long do skylights last | informational | skylight-repair | qa-passed | 2026-08-06 | unvalidated | unvalidated |
-| skylight flashing leak | informational | skylight-repair | qa-passed | 2026-08-06 | unvalidated | unvalidated |
+| skylight repair vs replacement | informational | skylight-repair | published | 2026-08-06 | unvalidated | unvalidated |
+| when to replace a skylight | informational | skylight-repair | published | 2026-08-06 | unvalidated | unvalidated |
+| skylight leaking around edges | informational | skylight-repair | published | 2026-08-06 | unvalidated | unvalidated |
+| how long do skylights last | informational | skylight-repair | published | 2026-08-06 | unvalidated | unvalidated |
+| skylight flashing leak | informational | skylight-repair | published | 2026-08-06 | unvalidated | unvalidated |
