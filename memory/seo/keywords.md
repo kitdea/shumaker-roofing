@@ -39,8 +39,8 @@
 | skylight leaking around edges | informational | skylight-repair | published | 2026-08-06 | unvalidated | unvalidated |
 | how long do skylights last | informational | skylight-repair | published | 2026-08-06 | unvalidated | unvalidated |
 | skylight flashing leak | informational | skylight-repair | published | 2026-08-06 | unvalidated | unvalidated |
-| siding contractors frederick md | commercial | siding-frederick | written | 2026-08-07 | 110 | unvalidated |
-| siding contractor frederick md | commercial | siding-frederick | written | 2026-08-07 | 70 | unvalidated |
-| frederick md siding contractors | commercial | siding-frederick | written | 2026-08-07 | 70 | unvalidated |
-| hagerstown md siding contractors | local | siding-frederick | written | 2026-08-07 | 50 | unvalidated |
-| siding hagerstown md | local | siding-frederick | written | 2026-08-07 | 50 | unvalidated |
+| siding contractors frederick md | commercial | siding-frederick | qa-failed | 2026-08-07 | 110 | unvalidated |
+| siding contractor frederick md | commercial | siding-frederick | qa-failed | 2026-08-07 | 70 | unvalidated |
+| frederick md siding contractors | commercial | siding-frederick | qa-failed | 2026-08-07 | 70 | unvalidated |
+| hagerstown md siding contractors | local | siding-frederick | qa-failed | 2026-08-07 | 50 | unvalidated |
+| siding hagerstown md | local | siding-frederick | qa-failed | 2026-08-07 | 50 | unvalidated |
