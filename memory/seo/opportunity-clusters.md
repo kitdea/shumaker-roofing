@@ -50,7 +50,7 @@ own the terms by default:
 | Page | Document ID | Words | seoTitle | seoDescription | Status |
 |---|---|---|---|---|---|
 | services/metal-roofing | `fdad6a22-f1ff-4bb7-b815-ca6083b233a6` | 339 | 53 chars | 152 chars | **live** — HTTP 200, `robots: index, follow` |
-| services/siding | `drafts.68af8e47-b8c0-4def-8115-122d745ad93e` | 351 | 55 chars | 149 chars | **draft — blocked on user input** |
+| services/siding | none — Sanity draft `68af8e47-…` no longer exists; rewritten to `memory/seo/drafts/services-siding.md` 2026-08-07 | 459 | 54 chars | 157 chars | **draft — blocked on the manufacturer-lines [VERIFY]** |
 
 Metal roofing's `[VERIFY]` was resolved with the Metal Construction Association's service-life
 assessment (55% Al-Zn alloy-coated standing seam, >60 years), verified at the primary source. No
