@@ -47,6 +47,21 @@ Check every item below. Record PASS or FAIL for each.
 > draft. If the draft does not exist in Sanity yet, say so and mark every stored-field check
 > `UNVERIFIABLE` — never `PASS`.
 >
+> **Second source: the draft file's frontmatter.** `/seo-writer` Step 5 writes
+> `memory/seo/drafts/<slug>.md` with a YAML frontmatter block carrying the proposed `seoTitle`,
+> `seoDescription`, `excerpt`, `slug`, `publishedDate`, `noindex`/`nofollow`, and image fields.
+> When no Sanity draft exists, score checks 13/14/15/20 against **those values** and mark the
+> verdict `PASS (proposed)` with the observed value echoed — e.g.
+> `13 seoTitle: PASS (proposed, 56 chars — "Skylight Repair vs Replacement: How to Decide | Maryland")`.
+> This is a real read of a real artifact, so it is not `UNVERIFIABLE`; but it is a read of an
+> *intent*, not of stored state, so it is not a bare `PASS` either. `/content-updater` still
+> owns confirming these against the published document post-write.
+>
+> If the file has no frontmatter block, or a field's value is a character count rather than the
+> string itself (`seoTitle: 56 chars`), that field stays `UNVERIFIABLE` and you should tell the
+> user `/seo-writer` skipped its Step 5 — the draft needs re-persisting before it can be
+> published safely.
+>
 > **For each stored-field check, echo the observed value next to the verdict** — e.g.
 > `18 noindex/nofollow: PASS (noindex=false, nofollow=false)`, `23 datePublished: FAIL
 > (publishedDate=null)`. A verdict with no observed value beside it is not a completed check.

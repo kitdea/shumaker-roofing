@@ -239,7 +239,7 @@ Run these checks against `$doc` (not the draft you sent):
 
 | # | Check | Rule |
 |---|-------|------|
-| V1 | Field fidelity | `$doc.title`, `$doc.excerpt`, `$doc.seo.seoTitle`, `$doc.seo.seoDescription` match the approved draft **exactly** (trim whitespace, but no other normalization) — a mismatch means the write was truncated, mis-escaped, or hit the wrong path |
+| V1 | Field fidelity | `$doc.title`, `$doc.excerpt`, `$doc.seo.seoTitle`, `$doc.seo.seoDescription` match the approved draft **exactly** (trim whitespace, but no other normalization) — a mismatch means the write was truncated, mis-escaped, or hit the wrong path. **Diff against the frontmatter block in `memory/seo/drafts/<slug>.md`** (`/seo-writer` Step 5), which holds the approved strings verbatim — not against the conversation, and never against a character count. If that file is missing its frontmatter, V1 is `UNVERIFIABLE` for the affected fields: say so rather than passing it, and note that the draft predates the frontmatter requirement |
 | V2 | Body present | `$doc.content` (blog) or `$doc.servicesContent` (services) is non-empty and its block count roughly matches what you sent — a silent drop means Step 4B's `$blocks` array didn't serialize |
 | V3 | SEO title length | `$doc.seo.seoTitle` is 50–60 characters (QA check 13, re-run on live data) |
 | V4 | Meta description length | `$doc.seo.seoDescription` is 120–160 characters (QA check 14) |

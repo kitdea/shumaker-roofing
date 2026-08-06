@@ -563,7 +563,64 @@ The rules above cover these; this is the pre-flight list so none is missed:
 ### Content Type Tag
 State clearly at the top of the draft: `Content-Type: blog` or `Content-Type: services`
 
-## Step 5: Present Draft
+## Step 5: Persist the Draft to Disk (before presenting it)
+
+Write the draft to `memory/seo/drafts/<slug>.md` **now**, before Step 6 shows it to the user.
+A draft that exists only in the conversation is lost the moment the session ends.
+
+This has already cost real work twice. The 2026-07-16 gutters draft was never persisted, so
+when publishing failed it had to be regenerated from scratch against the same brief. And on
+2026-08-07 `/content-updater` could not run its V1 field-fidelity check on the skylight post
+because the draft file held **only the H1 and body** — `seoTitle`, `seoDescription`, and
+`excerpt` existed nowhere on disk, surviving only as character counts in `qa-log.md`. Had the
+document not already been live with correct values, those QA-approved strings would have had
+to be re-invented.
+
+The body alone is not the draft. Write the frontmatter block too:
+
+```markdown
+---
+slug: skylight-repair-vs-replacement-how-to-decide-save-money
+contentType: blog            # blog | services
+docId: af0c8534-cd9b-4868-986d-0f362ca491f8   # target Sanity _id, or "new" for a create
+targetKeyword: skylight repair vs replacement
+cluster: skylight-repair
+seoTitle: "Skylight Repair vs Replacement: How to Decide | Maryland"
+seoDescription: "Skylight repair vs replacement? Learn which leaks are flashing, when a cracked or fogged pane forces a new unit, and get a straight answer from our crew."
+excerpt: "Most skylight leaks are flashing, not glass. Here's how to tell whether yours needs a repair or a replacement, and what actually drives the price of each."
+featuredImage: image-fd7c732eba4c...-jpg    # asset ref, or "unchanged"
+featuredImageAlt: "..."                      # omit if featuredImage is "unchanged"
+publishedDate: 2026-06-23T00:00:00.000Z      # existing date on a rewrite; today's on a create
+author: Tyler Schisler
+categories: ["Skylights"]
+noindex: false
+nofollow: false
+canonicalUrl: null
+schemaType: Article          # Article | FAQPage | both
+---
+
+# H1 goes here
+
+Body follows.
+```
+
+Rules:
+- **Quote every string value.** A bare `seoTitle:` containing a colon (which most of them do —
+  `Title: Subtitle | Maryland`) is invalid YAML and will parse as a nested map.
+- **Write the values you actually chose**, character-for-character, including punctuation and
+  capitalization. Downstream skills diff against these; a paraphrase defeats the check.
+- **Never write a character count in place of a value.** `seoTitle: 56 chars` is the exact
+  defect this step exists to prevent.
+- On a **rewrite of an existing page**, carry forward the fields you are not changing
+  (`publishedDate`, `author`, `slug`, `featuredImage`) with their current live values, read from
+  Sanity — not guesses. `/content-updater` treats a field present in frontmatter as intentional.
+- Use the same `<slug>.md` filename on a re-run after QA line edits — **overwrite the file** so
+  the persisted draft always matches the version QA last scored. Two files for one page is how a
+  publisher ends up shipping the pre-edit text.
+
+State the file path in Step 6 so the user can see it landed.
+
+## Step 6: Present Draft
 
 Show the full draft to the user with:
 - Word count — for blog posts, confirm it falls within the standard **1000–1500 word** range. If it's under 1000 or over 1500, fix the draft before presenting.
@@ -586,7 +643,7 @@ Show the full draft to the user with:
 - **Banned AI words check**: confirm you ran the full self-check against `docs/content-style/banned-ai-words.md` — no HARD BAN words, no banned phrases/structures, no em/en dashes, no model tics. State any EARN IT words used and why they were literally accurate. If this check wasn't run, run it now before presenting — don't present a draft that hasn't been scanned.
 - **Recent-QA-history check**: re-check the finished draft against the systemic root-cause checklist built in Step 2.5 — don't rely on having avoided it while drafting. State explicitly which past FAIL root causes were checked and that none recurred (or name the fix made just now if one did).
 
-## Step 6: Update Memory
+## Step 7: Update Memory
 
 After presenting the draft, update `memory/seo/keywords.md`:
 - Change the status of all keywords used from `researched` to `written`
@@ -594,5 +651,6 @@ After presenting the draft, update `memory/seo/keywords.md`:
 Tell the user:
 ```
 Draft complete. [N] keywords updated to status 'written'.
+Saved to: memory/seo/drafts/[slug].md
 Next step: /qa
 ```

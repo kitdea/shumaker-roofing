@@ -1,3 +1,33 @@
+---
+slug: skylight-repair-vs-replacement-how-to-decide-save-money
+contentType: blog
+docId: af0c8534-cd9b-4868-986d-0f362ca491f8
+targetKeyword: skylight repair vs replacement
+cluster: skylight-repair
+seoTitle: "Skylight Repair vs Replacement: How to Decide | Maryland"
+seoDescription: "Skylight repair vs replacement? Learn which leaks are flashing, when a cracked or fogged pane forces a new unit, and get a straight answer from our crew."
+excerpt: "Most skylight leaks are flashing, not glass. Here's how to tell whether yours needs a repair or a replacement, and what actually drives the price of each."
+featuredImage: image-fd7c732eba4c47382b0fdddd25564ce27b7a3d16-4284x5712-jpg
+featuredImageAlt: null
+publishedDate: 2026-06-23T00:00:00.000Z
+author: Tyler Schisler
+categories: ["Roof Repair", "Roof Replacement"]
+noindex: false
+nofollow: false
+canonicalUrl: null
+schemaType: both
+status: published
+---
+
+<!--
+BACKFILLED 2026-08-07. This draft predates the /seo-writer Step 5 frontmatter
+requirement, so the values above were read back off the live document
+(af0c8534-…) rather than captured at authoring time. They are the published
+values, verified V1-V12 on 2026-08-07 — not proposals awaiting a publish.
+`featuredImageAlt` is null on the live document; that is a real gap, not a
+transcription miss.
+-->
+
 # Skylight Repair vs Replacement: Making the Right Call
 
 Skylight repair vs replacement usually turns on one thing you can't see from the living room floor: the flashing. A brown ring spreading across the drywall around a skylight almost never means the glass gave out. It means water found a path around the frame and ran down the inside of the ceiling. Getting that call right is the difference between a half-day service visit and a full curb-and-flashing rebuild. This guide covers what a stain, a crack, or a foggy pane actually tells you, how the unit's age changes the math, and when a roofer should talk you out of replacing a skylight that still works.
