@@ -9,6 +9,81 @@ const splitSectionsProjection = `"splitSections": splitSection[]->{
       splitImage
     }`
 
+// Portable Text body projection that resolves `internalLink` annotations. The
+// annotation only stores a reference, so we attach the target's type and slug
+// here; portable-text-link.tsx turns those into a relative href.
+const richTextFields = `...,
+      markDefs[]{
+        ...,
+        _type == "internalLink" => {
+          "refType": reference->_type,
+          "refSlug": reference->slug.current
+        }
+      }`
+
+const bodyProjection = (field: string) => `${field}[]{
+      ${richTextFields}
+    }`
+
+// FAQ answers are rich text (`answerContent`) with a legacy plain-text
+// `answer` fallback; both are projected so the render side can pick.
+const faqItemsProjection = `faqItems[]{
+      question,
+      answer,
+      answerContent[]{
+        ${richTextFields}
+      }
+    }`
+
+export type FaqItem = {
+  question?: string
+  /** Legacy plain-text answer. */
+  answer?: string
+  /** Rich-text answer; takes precedence over `answer` when it has blocks. */
+  answerContent?: unknown[]
+}
+
+/** An FAQ entry that has a question and at least one form of answer. */
+export type ResolvedFaqItem = {
+  question: string
+  answerContent: unknown[] | null
+  answer: string
+}
+
+type PortableTextBlockish = {
+  _type?: string
+  children?: { text?: string }[]
+}
+
+/**
+ * Flattens a Portable Text answer to plain text. Schema.org's
+ * `acceptedAnswer.text` must be plain, so JSON-LD uses this rather than the
+ * rendered markup.
+ */
+export function portableTextToPlain(blocks: unknown): string {
+  if (!Array.isArray(blocks)) return ''
+  return (blocks as PortableTextBlockish[])
+    .filter((b) => b?._type === 'block')
+    .map((b) => (b.children ?? []).map((c) => c.text ?? '').join(''))
+    .join('\n\n')
+    .trim()
+}
+
+/**
+ * Drops incomplete FAQ entries and resolves each answer to both its rich-text
+ * form (for rendering) and a plain-text form (for FAQPage JSON-LD).
+ */
+export function resolveFaqItems(items: FaqItem[] | undefined): ResolvedFaqItem[] {
+  return (items ?? []).flatMap((item) => {
+    const question = item.question?.trim()
+    if (!question) return []
+    const rich = Array.isArray(item.answerContent) && item.answerContent.length > 0 ? item.answerContent : null
+    const plain = rich ? portableTextToPlain(rich) : (item.answer ?? '').trim()
+    if (!plain) return []
+    return [{ question, answerContent: rich, answer: plain }]
+  })
+}
+
 export type SplitSectionItem = {
   id: string
   splitTitle: string
@@ -65,8 +140,8 @@ export const fetchServiceBySlug = cache(async function fetchServiceBySlug(slug: 
     _id,
     title,
     slug,
-    servicesContent,
-    additionalContent,
+    ${bodyProjection('servicesContent')},
+    ${bodyProjection('additionalContent')},
     servicesImage,
     ${splitSectionsProjection},
     seo
@@ -355,8 +430,8 @@ export const fetchBlogPostBySlug = cache(async function fetchBlogPostBySlug(slug
     ${authorRefProjection},
     author,
     excerpt,
-    content,
-    faqItems,
+    ${bodyProjection('content')},
+    ${faqItemsProjection},
     ${splitSectionsProjection},
     seo
   }`, { slug })
@@ -414,8 +489,9 @@ export type LocationDetail = {
   isActive?: boolean
   heroHeadline?: string
   introText?: string
+  introContent?: unknown[]
   servicesOffered?: string[]
-  faqItems?: { question?: string; answer?: string }[]
+  faqItems?: FaqItem[]
   phoneNumber?: string
   latitude?: number
   longitude?: number
@@ -432,8 +508,9 @@ export const fetchLocationBySlug = cache(async function fetchLocationBySlug(slug
     isActive,
     heroHeadline,
     introText,
+    ${bodyProjection('introContent')},
     servicesOffered,
-    faqItems,
+    ${faqItemsProjection},
     phoneNumber,
     latitude,
     longitude,

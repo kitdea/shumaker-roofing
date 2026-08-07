@@ -45,8 +45,17 @@ fill. If any exist:
   > [service/location name]. Researching keywords for it now."
 - Use that service/location name as the topic and continue to Step 3.
 
-Only ask the user "What roofing topic should I research keywords for?" if no coverage gaps are
-open (or the findings log doesn't exist yet).
+If no coverage gaps are open, check `memory/seo/opportunity-clusters.md` (skip if absent) for the
+highest-scoring row with `status = open`. `/competitor-researcher` scores these against competitor
+gaps plus Search Console and GA4 signals, so a high-scoring open cluster is a better-evidenced
+topic than one picked cold:
+> "No topic given and no open coverage gaps — targeting the top-scoring opportunity cluster:
+> [cluster] ([score]/25, tagged [tag]). Researching keywords for it now."
+
+Use that cluster name as the topic and continue to Step 3.
+
+Only ask the user "What roofing topic should I research keywords for?" if neither file has
+anything open (or neither exists yet).
 
 ## Step 3: Generate Candidate Keywords
 
@@ -92,6 +101,11 @@ Read `memory/seo/competitors.md`. If the file does not exist or has no data rows
 Find rows where:
 - `Gap` column = `gap`
 - The keyword text overlaps with the current topic (e.g. topic "metal roofing" → look for rows containing "metal" or "roof")
+
+If the table has a `Bucket` column, prioritize `weaker` rows over `missing` ones — `weaker` means
+Shumaker already ranks and is being outranked, which is cheaper to win than net-new ground. Skip
+`strength` rows entirely: those are keywords Shumaker already owns and the competitor doesn't, so
+there's nothing to research.
 
 Add all matching gap keywords to the candidate list. These proceed into Step 4 (Semrush validation) alongside the LLM-generated candidates.
 

@@ -6,11 +6,22 @@ import { MapPin, Phone, ChevronLeft, CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { fetchLocationBySlug, fetchAllLocations, fetchServiceSlugs, type LocationDetail } from "@/lib/sanity";
+import { fetchLocationBySlug, fetchAllLocations, fetchServiceSlugs, resolveFaqItems, type LocationDetail } from "@/lib/sanity";
+import { FaqAnswer } from "@/components/shared/faq-answer";
 import { WhyChooseUs } from "@/components/shared/why-choose-us";
 import { slugify, SITE_URL, stateDisplayName } from "@/lib/utils";
 import { fetchPageSeo } from "@/lib/seo";
 import { urlFor } from "@/lib/sanity-image";
+import { PortableText } from "@portabletext/react";
+import type { PortableTextComponents } from "@portabletext/react";
+import { portableTextLinkMark, portableTextInternalLinkMark } from "@/components/shared/portable-text-link";
+
+const portableTextComponents: PortableTextComponents = {
+  marks: {
+    link: portableTextLinkMark,
+    internalLink: portableTextInternalLinkMark,
+  },
+};
 
 const OFFICES = {
   MD: {
@@ -56,7 +67,7 @@ function buildLocationSchema(loc: LocationDetail, cityDisplay: string, slug: str
 
   const office = getOffice(loc.state ?? "MD", loc.cityName ?? "");
   const servicesOffered = loc.servicesOffered ?? [];
-  const faqItems = (loc.faqItems ?? []).filter((f) => f.question && f.answer);
+  const faqItems = resolveFaqItems(loc.faqItems);
 
   const localBusiness: Record<string, unknown> = {
     "@type": "LocalBusiness",
@@ -196,10 +207,9 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
   );
 
   const cityDisplay = loc.fullLocationName || loc.cityName || "";
+  const hasIntroContent = Array.isArray(loc.introContent) && loc.introContent.length > 0;
   const servicesOffered = loc.servicesOffered ?? [];
-  const faqItems = (loc.faqItems ?? []).filter(
-    (f): f is { question: string; answer: string } => Boolean(f.question && f.answer)
-  );
+  const faqItems = resolveFaqItems(loc.faqItems);
 
   const locationSchema = buildLocationSchema(loc, cityDisplay, slug, serviceSlugByTitle);
 
@@ -247,12 +257,16 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Main Content */}
           <article className="lg:col-span-8 space-y-12">
-            {/* Intro text */}
-            {loc.introText && (
+            {/* Intro: rich text when present, otherwise the legacy plain-text field */}
+            {(hasIntroContent || loc.introText) && (
               <div className="prose prose-lg md:prose-xl dark:prose-invert max-w-none prose-p:text-foreground/90 [&_p]:mb-6 [&_p]:leading-relaxed">
-                {loc.introText.split("\n").filter(Boolean).map((para, idx) => (
-                  <p key={idx}>{para}</p>
-                ))}
+                {hasIntroContent ? (
+                  <PortableText value={loc.introContent as never} components={portableTextComponents} />
+                ) : (
+                  loc.introText!.split("\n").filter(Boolean).map((para, idx) => (
+                    <p key={idx}>{para}</p>
+                  ))
+                )}
               </div>
             )}
 
@@ -290,7 +304,11 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
                       <h3 className="text-lg font-semibold text-foreground mb-2">
                         {faq.question}
                       </h3>
-                      <p className="text-foreground/70 leading-relaxed">{faq.answer}</p>
+                      <FaqAnswer
+                        answerContent={faq.answerContent}
+                        answer={faq.answer}
+                        className="text-foreground/70 leading-relaxed [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
+                      />
                     </div>
                   ))}
                 </div>
