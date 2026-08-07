@@ -1,6 +1,7 @@
 import { type SchemaTypeDefinition } from 'sanity'
 
 import { seoMetadata } from './seoMetadata'
+import { faqItem } from './faqItem'
 import { splitSection } from './splitSection'
 import { service } from './service'
 import { blog } from './blog'
@@ -15,6 +16,7 @@ import { author } from './author'
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     seoMetadata,
+    faqItem,
     splitSection,
     service,
     blog,

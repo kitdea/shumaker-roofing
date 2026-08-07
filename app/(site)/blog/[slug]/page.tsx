@@ -6,7 +6,8 @@ import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { Calendar, User, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { fetchAllBlogSlugs, fetchBlogPostBySlug, mapSplitSections, resolveAuthor, type SplitSectionItem } from "@/lib/sanity";
+import { fetchAllBlogSlugs, fetchBlogPostBySlug, mapSplitSections, resolveAuthor, resolveFaqItems, type SplitSectionItem } from "@/lib/sanity";
+import { FaqAnswer } from "@/components/shared/faq-answer";
 import { urlFor } from "@/lib/sanity-image";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextComponents } from "@portabletext/react";
@@ -14,63 +15,7 @@ import { fetchPageSeo } from "@/lib/seo";
 import { TwoColumnSection } from "@/components/shared/two-column-section";
 import { PortableTextTable } from "@/components/shared/portable-text-table";
 import { portableTextLinkMark, portableTextInternalLinkMark } from "@/components/shared/portable-text-link";
-import { SITE_URL, SITE_DOMAIN, FALLBACK_BLOG_IMAGE, formatLongDate } from "@/lib/utils";
-
-const MARKDOWN_LINK_REGEX = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
-const BARE_URL_REGEX = /(https?:\/\/[^\s]+)/g;
-
-function renderTextWithLinks(text: string) {
-  const result: React.ReactNode[] = [];
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
-
-  // First pass: parse markdown links [label](url)
-  MARKDOWN_LINK_REGEX.lastIndex = 0;
-  while ((match = MARKDOWN_LINK_REGEX.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      result.push(...renderBareUrls(text.slice(lastIndex, match.index), result.length));
-    }
-    const [, label, href] = match;
-    const isInternal = href.includes(SITE_DOMAIN);
-    result.push(
-      <a
-        key={match.index}
-        href={href}
-        target={isInternal ? "_self" : "_blank"}
-        rel={isInternal ? undefined : "noopener noreferrer"}
-        className="text-primary underline underline-offset-2 hover:opacity-80 transition-opacity"
-      >
-        {label}
-      </a>
-    );
-    lastIndex = match.index + match[0].length;
-  }
-  if (lastIndex < text.length) {
-    result.push(...renderBareUrls(text.slice(lastIndex), result.length));
-  }
-  return result;
-}
-
-function renderBareUrls(text: string, keyOffset: number): React.ReactNode[] {
-  const parts = text.split(BARE_URL_REGEX);
-  return parts.map((part, i) => {
-    if (/^https?:\/\//.test(part)) {
-      const isInternal = part.includes(SITE_DOMAIN);
-      return (
-        <a
-          key={keyOffset + i}
-          href={part}
-          target={isInternal ? "_self" : "_blank"}
-          rel={isInternal ? undefined : "noopener noreferrer"}
-          className="text-primary underline underline-offset-2 hover:opacity-80 transition-opacity"
-        >
-          {part}
-        </a>
-      );
-    }
-    return part;
-  });
-}
+import { SITE_URL, FALLBACK_BLOG_IMAGE, formatLongDate } from "@/lib/utils";
 
 function getPortableTextComponents(fallbackAlt: string): PortableTextComponents {
   return {
@@ -138,9 +83,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const authorName = author.name;
   const authorUrl = author.slug ? `${SITE_URL}/blog/author/${author.slug}` : undefined;
 
-  const faqItems: { question: string; answer: string }[] = (post.faqItems ?? []).filter(
-    (f: { question?: string; answer?: string }) => f.question && f.answer
-  );
+  const faqItems = resolveFaqItems(post.faqItems);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -299,9 +242,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </span>
                   </summary>
-                  <div className="px-6 pb-5 pt-1 text-foreground/80 leading-relaxed text-sm">
-                    {renderTextWithLinks(faq.answer)}
-                  </div>
+                  <FaqAnswer
+                    answerContent={faq.answerContent}
+                    answer={faq.answer}
+                    className="px-6 pb-5 pt-1 text-foreground/80 leading-relaxed text-sm [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
+                  />
                 </details>
               ))}
             </div>

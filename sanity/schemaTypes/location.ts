@@ -31,13 +31,7 @@ export const location = defineType({
       name: 'faqItems',
       title: 'FAQ Items',
       type: 'array',
-      of: [{
-        type: 'object',
-        fields: [
-          { name: 'question', type: 'string', title: 'Question' },
-          { name: 'answer', type: 'text', title: 'Answer' },
-        ],
-      }],
+      of: [{ type: 'faqItem' }],
     }),
     defineField({ name: 'phoneNumber', title: 'Phone Number', type: 'string' }),
     defineField({ name: 'latitude', title: 'Latitude', type: 'number' }),

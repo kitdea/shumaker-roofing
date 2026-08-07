@@ -6,7 +6,8 @@ import { MapPin, Phone, ChevronLeft, CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { fetchLocationBySlug, fetchAllLocations, fetchServiceSlugs, type LocationDetail } from "@/lib/sanity";
+import { fetchLocationBySlug, fetchAllLocations, fetchServiceSlugs, resolveFaqItems, type LocationDetail } from "@/lib/sanity";
+import { FaqAnswer } from "@/components/shared/faq-answer";
 import { WhyChooseUs } from "@/components/shared/why-choose-us";
 import { slugify, SITE_URL, stateDisplayName } from "@/lib/utils";
 import { fetchPageSeo } from "@/lib/seo";
@@ -66,7 +67,7 @@ function buildLocationSchema(loc: LocationDetail, cityDisplay: string, slug: str
 
   const office = getOffice(loc.state ?? "MD", loc.cityName ?? "");
   const servicesOffered = loc.servicesOffered ?? [];
-  const faqItems = (loc.faqItems ?? []).filter((f) => f.question && f.answer);
+  const faqItems = resolveFaqItems(loc.faqItems);
 
   const localBusiness: Record<string, unknown> = {
     "@type": "LocalBusiness",
@@ -208,9 +209,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
   const cityDisplay = loc.fullLocationName || loc.cityName || "";
   const hasIntroContent = Array.isArray(loc.introContent) && loc.introContent.length > 0;
   const servicesOffered = loc.servicesOffered ?? [];
-  const faqItems = (loc.faqItems ?? []).filter(
-    (f): f is { question: string; answer: string } => Boolean(f.question && f.answer)
-  );
+  const faqItems = resolveFaqItems(loc.faqItems);
 
   const locationSchema = buildLocationSchema(loc, cityDisplay, slug, serviceSlugByTitle);
 
@@ -305,7 +304,11 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
                       <h3 className="text-lg font-semibold text-foreground mb-2">
                         {faq.question}
                       </h3>
-                      <p className="text-foreground/70 leading-relaxed">{faq.answer}</p>
+                      <FaqAnswer
+                        answerContent={faq.answerContent}
+                        answer={faq.answer}
+                        className="text-foreground/70 leading-relaxed [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
+                      />
                     </div>
                   ))}
                 </div>

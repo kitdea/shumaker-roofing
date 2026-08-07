@@ -43,13 +43,7 @@ export const blog = defineType({
       name: 'faqItems',
       title: 'FAQ Items',
       type: 'array',
-      of: [{
-        type: 'object',
-        fields: [
-          { name: 'question', type: 'string', title: 'Question' },
-          { name: 'answer', type: 'text', title: 'Answer' },
-        ],
-      }],
+      of: [{ type: 'faqItem' }],
     }),
     defineField({ name: 'splitSection', title: 'Two-Column Sections', type: 'array', of: [{ type: 'reference', to: [{ type: 'splitSection' }] }] }),
     defineField({ name: 'seo', title: 'SEO', type: 'seoMetadata' }),
