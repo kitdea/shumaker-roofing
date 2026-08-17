@@ -9,6 +9,10 @@ import { fetchTeamMembers } from "@/lib/sanity";
 import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 import { TeamGrid } from "./team-grid";
 import { CertificationsSection } from "@/components/shared/certifications-section";
+import { urlFor } from "@/lib/sanity-image";
+
+const HERO_IMAGE_URL =
+  "https://cdn.sanity.io/images/rg9pahe7/production/cdecd0427930485b643b38441e8540458a58fc26-4000x2250.jpg";
 
 export const metadata: Metadata = {
   title: { absolute: "About Us | Shumaker Roofing Company" },
@@ -117,7 +121,7 @@ export default async function AboutPage() {
         <div className="absolute inset-0 z-0 bg-top">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://cdn.sanity.io/images/rg9pahe7/production/cdecd0427930485b643b38441e8540458a58fc26-4000x2250.jpg"
+            src={urlFor(HERO_IMAGE_URL) ?? HERO_IMAGE_URL}
             alt="Shumaker Roofing team"
             fill
             sizes="100vw"

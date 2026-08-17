@@ -13,8 +13,11 @@ import { fetchServicesForListing, fetchHeroBanner, fetchProjectSlides } from "@/
 import { CertificationsSection } from "@/components/shared/certifications-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { getServiceIcon, SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+import { urlFor } from "@/lib/sanity-image";
 
 const FALLBACK_HERO_IMAGE_URL = FALLBACK_BLOG_IMAGE;
+const ABOUT_IMAGE_URL =
+  "https://cdn.sanity.io/images/rg9pahe7/production/b9f43146aaeedf62d5e94e2b29f409f70492cf49-2052x1540.jpg";
 
 // Shared by the page metadata and the LocalBusiness schema below so the
 // description Google renders and the one it ingests can't drift apart.
@@ -247,7 +250,7 @@ export default async function Home() {
 
             <div className="relative h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                  src="https://cdn.sanity.io/images/rg9pahe7/production/b9f43146aaeedf62d5e94e2b29f409f70492cf49-2052x1540.jpg"
+                  src={urlFor(ABOUT_IMAGE_URL) ?? ABOUT_IMAGE_URL}
                 alt="Shumaker Roofing Company"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

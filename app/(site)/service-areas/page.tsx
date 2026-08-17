@@ -11,6 +11,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { fetchAllLocations, type LocationListItem } from "@/lib/sanity";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 import { SITE_URL, stateDisplayName, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+import { urlFor } from "@/lib/sanity-image";
+
+const HERO_IMAGE_URL =
+  "https://cdn.sanity.io/images/rg9pahe7/production/b9f43146aaeedf62d5e94e2b29f409f70492cf49-2052x1540.jpg";
 
 export const metadata: Metadata = {
   title: { absolute: "Licensed Roofing Service Areas | Shumaker Roofing Company" },
@@ -88,7 +92,7 @@ export default async function ServiceAreasPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70 absolute inset-0 z-10" />
           <Image
-              src="https://cdn.sanity.io/images/rg9pahe7/production/b9f43146aaeedf62d5e94e2b29f409f70492cf49-2052x1540.jpg"
+              src={urlFor(HERO_IMAGE_URL) ?? HERO_IMAGE_URL}
             alt="Aerial view of a neighborhood roof Shumaker Roofing serves"
             fill
             sizes="100vw"
