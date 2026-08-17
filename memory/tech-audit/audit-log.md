@@ -101,3 +101,31 @@
 - Open P1 issues: 7
 - Open P2 issues: 46
 - Note: The `/service-areas/*` 2-hop redirect chain regression flagged last run (H-016, H-030–H-033) is resolved — all 46 sitemap URLs return HTTP 200 with 0 redirect hops this run, consistent with the redirect-hop fix in commit 07361de. The three ISR-staleness INFO findings from last run (trailing-newline meta description artifacts on the two blog posts, "P" typo on `/services/gutter-installation`) are also resolved — live HTML now shows clean content on all three, confirming the 1-hour ISR cache caught up as predicted. SEO module is now fully clean: 0 open findings across meta tags, canonical, JSON-LD, noindex, duplicate titles, and orphaned pages. Health: the 9 `services` documents still missing `servicesImage` (H-017–H-025, now 41 days stale) and the 2 blog posts missing `publishedDate` (H-043, H-046, 1 day) are unchanged/recurring — no new Health findings this run. Performance IDs fully regenerated again this run (all 43 previous open IDs superseded or closed): `/privacy-policy` and `/blog/preparing-your-roof-for-summer-storms-in-frederick-md` newly regressed into the failing set (LCP needs-work range), while `/blog/roof-replacement-tax-credit-2026`, `/blog/summer-roof-inspection-checklist-frederick-md`, and `/service-areas/frederick-md` recovered to fully clean. Net P1 count dropped 11→7: `/service-areas/chambersburg-pa`, `/service-areas/reston-va`, and `/blog/what-is-roof-rejuvenation`'s prior neighbors held steady while `/services/skylight-installation` newly regressed into P1 and four other pages recovered out of P1 to P2 or clean. `/contact` (11005ms) and `/book-appointment` (9056ms) remain the two worst-performing pages on the site, both still P1 with LCP well over the 4000ms threshold. No stale P1 findings this run — H-017–H-025 (servicesImage, now 41 days) remain the only stale open findings, all P2.
+
+## 2026-08-09 20:30 UTC
+- URLs checked: 49
+- Health findings: 11 total (2 new, 0 resolved)
+- SEO findings: 2 total (2 new, 0 resolved)
+- Performance findings: 88 total (19 new, 8 resolved)
+- GSC findings: 0 total (0 new, 0 resolved)
+- Open P1 issues: 10
+- Open P2 issues: 89
+- Performance finding migration (Step A.2.4, one-time): 318 legacy rows → 77 stable findings; oldest recovered First Seen 2026-05-21. All 42 previously-open legacy Performance rows were split per-metric, rewritten to stable issue text, reissued as new P-IDs carrying their recovered First Seen, and marked closed in place. The resulting burst of ⚠ STALE P1s is the value-in-identity bug being corrected — these findings were always stale, but their IDs churned nightly so staleness could never be computed. Not an overnight regression. (One further Performance row, P-091 `PageSpeed API unreachable`, was correctly excluded: it is an API-availability finding, not a metric-threshold one, so it carries no metric to split.)
+
+## 2026-08-10 21:35 UTC
+- URLs checked: 49
+- Health findings: 11 (0 new, 0 resolved)
+- SEO findings: 2 (0 new, 0 resolved)
+- Performance findings: 84 (2 new, 11 resolved)
+- GSC findings: 0 (0 new, 0 resolved)
+- Open P1 issues: 7
+- Open P2 issues: 88
+
+## 2026-08-17 00:09 UTC
+- URLs checked: 49
+- Health findings: 11 total (0 new, 0 resolved)
+- SEO findings: 1 total (0 new, 1 resolved)
+- Performance findings: 83 total (12 new, 13 resolved)
+- GSC findings: 0 total (0 new, 0 resolved)
+- Open P1 issues: 14
+- Open P2 issues: 80

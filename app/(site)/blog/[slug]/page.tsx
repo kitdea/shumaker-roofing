@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { Calendar, User, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { fetchAllBlogSlugs, fetchBlogPostBySlug, mapSplitSections, resolveAuthor, resolveFaqItems, type SplitSectionItem } from "@/lib/sanity";
+import { faqQuestionEntities, fetchAllBlogSlugs, fetchBlogPostBySlug, mapSplitSections, resolveAuthor, resolveFaqItems, type SplitSectionItem } from "@/lib/sanity";
 import { FaqAnswer } from "@/components/shared/faq-answer";
 import { urlFor } from "@/lib/sanity-image";
 import { PortableText } from "@portabletext/react";
@@ -14,15 +14,12 @@ import type { PortableTextComponents } from "@portabletext/react";
 import { fetchPageSeo } from "@/lib/seo";
 import { TwoColumnSection } from "@/components/shared/two-column-section";
 import { PortableTextTable } from "@/components/shared/portable-text-table";
-import { portableTextLinkMark, portableTextInternalLinkMark } from "@/components/shared/portable-text-link";
+import { portableTextMarks } from "@/components/shared/portable-text-link";
 import { SITE_URL, FALLBACK_BLOG_IMAGE, formatLongDate } from "@/lib/utils";
 
 function getPortableTextComponents(fallbackAlt: string): PortableTextComponents {
   return {
-    marks: {
-      link: portableTextLinkMark,
-      internalLink: portableTextInternalLinkMark,
-    },
+    marks: portableTextMarks,
     types: {
       image: ({ value }) => {
         const url = urlFor(value);
@@ -145,14 +142,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {
               "@type": "FAQPage",
               "@id": `${SITE_URL}/blog/${slug}#faq`,
-              "mainEntity": faqItems.map((faq) => ({
-                "@type": "Question",
-                "name": faq.question,
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": faq.answer,
-                },
-              })),
+              "mainEntity": faqQuestionEntities(faqItems),
             },
           ]
         : []),
@@ -243,9 +233,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     </span>
                   </summary>
                   <FaqAnswer
-                    answerContent={faq.answerContent}
-                    answer={faq.answer}
-                    className="px-6 pb-5 pt-1 text-foreground/80 leading-relaxed text-sm [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
+                    item={faq}
+                    className="px-6 pb-5 pt-1 text-foreground/80 leading-relaxed text-sm"
                   />
                 </details>
               ))}
@@ -331,6 +320,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               key={section.id}
               splitTitle={section.splitTitle}
               splitDescription={section.splitDescription}
+              splitDescriptionContent={section.splitDescriptionContent}
               splitImageUrl={section.imageUrl}
               imageRight={idx % 2 !== 0}
             />

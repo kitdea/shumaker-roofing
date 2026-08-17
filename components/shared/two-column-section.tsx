@@ -1,9 +1,24 @@
 import Image from "next/image";
+import { PortableText, type PortableTextComponents } from "@portabletext/react";
+import type { PortableTextBlock } from "@portabletext/react";
 import { Container } from "@/components/shared/container";
+import { portableTextMarks } from "@/components/shared/portable-text-link";
+import { cn } from "@/lib/utils";
+
+const LINK_CLASSES =
+  "[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-opacity [&_a]:hover:opacity-80";
+
+const splitDescriptionComponents: PortableTextComponents = {
+  marks: portableTextMarks,
+  block: {
+    normal: ({ children }) => <p className="text-foreground/80 leading-relaxed">{children}</p>,
+  },
+};
 
 interface TwoColumnSectionProps {
   splitTitle: string;
   splitDescription: string | null;
+  splitDescriptionContent?: PortableTextBlock[] | null;
   splitImageUrl?: string | null;
   splitImageAlt?: string;
   imageRight?: boolean;
@@ -12,6 +27,7 @@ interface TwoColumnSectionProps {
 export function TwoColumnSection({
   splitTitle,
   splitDescription,
+  splitDescriptionContent,
   splitImageUrl,
   splitImageAlt,
   imageRight = false,
@@ -36,9 +52,13 @@ export function TwoColumnSection({
       <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-extrabold text-foreground leading-tight">
         {splitTitle}
       </h2>
-      {splitDescription && (
-        <div className="space-y-1 text-base md:text-[1.0rem]">
-          <p className="text-foreground/80 leading-relaxed">{splitDescription}</p>
+      {(splitDescriptionContent || splitDescription) && (
+        <div className={cn("space-y-1 text-base md:text-[1.0rem]", LINK_CLASSES)}>
+          {splitDescriptionContent ? (
+            <PortableText value={splitDescriptionContent} components={splitDescriptionComponents} />
+          ) : (
+            <p className="text-foreground/80 leading-relaxed">{splitDescription}</p>
+          )}
         </div>
       )}
     </div>

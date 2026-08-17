@@ -1,17 +1,19 @@
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
-import type { PortableTextBlock } from "@portabletext/types";
-import { portableTextLinkMark, portableTextInternalLinkMark } from "@/components/shared/portable-text-link";
-import { SITE_DOMAIN } from "@/lib/utils";
+import { portableTextMarks } from "@/components/shared/portable-text-link";
+import type { ResolvedFaqItem } from "@/lib/sanity";
+import { cn, isExternalLink } from "@/lib/utils";
 
-const MARKDOWN_LINK_REGEX = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
-const BARE_URL_REGEX = /(https?:\/\/[^\s]+)/g;
-const LINK_CLASS = "text-primary underline underline-offset-2 hover:opacity-80 transition-opacity";
+// A markdown link `[label](url)`, or a bare URL. `matchAll` clones the regex,
+// so the shared `lastIndex` is never observed across calls.
+const LEGACY_LINK_REGEX = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)|(https?:\/\/\S+)/g;
+
+// Both branches render anchors, so link styling lives here rather than at each
+// call site — the rich-text marks emit bare <a> elements by design.
+const LINK_CLASSES =
+  "[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-opacity [&_a]:hover:opacity-80";
 
 const faqComponents: PortableTextComponents = {
-  marks: {
-    link: portableTextLinkMark,
-    internalLink: portableTextInternalLinkMark,
-  },
+  marks: portableTextMarks,
   block: {
     normal: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
   },
@@ -24,53 +26,28 @@ const faqComponents: PortableTextComponents = {
 function renderTextWithLinks(text: string) {
   const result: React.ReactNode[] = [];
   let lastIndex = 0;
-  let match: RegExpExecArray | null;
 
-  MARKDOWN_LINK_REGEX.lastIndex = 0;
-  while ((match = MARKDOWN_LINK_REGEX.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      result.push(...renderBareUrls(text.slice(lastIndex, match.index), result.length));
-    }
-    const [, label, href] = match;
-    const isInternal = href.includes(SITE_DOMAIN);
+  for (const match of text.matchAll(LEGACY_LINK_REGEX)) {
+    const [full, label, markdownHref, bareUrl] = match;
+    const index = match.index ?? 0;
+    if (index > lastIndex) result.push(text.slice(lastIndex, index));
+    const href = bareUrl ?? markdownHref;
+    const isExternal = isExternalLink(href);
     result.push(
       <a
-        key={match.index}
+        key={index}
         href={href}
-        target={isInternal ? "_self" : "_blank"}
-        rel={isInternal ? undefined : "noopener noreferrer"}
-        className={LINK_CLASS}
+        target={isExternal ? "_blank" : "_self"}
+        rel={isExternal ? "noopener noreferrer" : undefined}
       >
-        {label}
+        {label ?? bareUrl}
       </a>
     );
-    lastIndex = match.index + match[0].length;
+    lastIndex = index + full.length;
   }
-  if (lastIndex < text.length) {
-    result.push(...renderBareUrls(text.slice(lastIndex), result.length));
-  }
-  return result;
-}
+  if (lastIndex < text.length) result.push(text.slice(lastIndex));
 
-function renderBareUrls(text: string, keyOffset: number): React.ReactNode[] {
-  const parts = text.split(BARE_URL_REGEX);
-  return parts.map((part, i) => {
-    if (/^https?:\/\//.test(part)) {
-      const isInternal = part.includes(SITE_DOMAIN);
-      return (
-        <a
-          key={keyOffset + i}
-          href={part}
-          target={isInternal ? "_self" : "_blank"}
-          rel={isInternal ? undefined : "noopener noreferrer"}
-          className={LINK_CLASS}
-        >
-          {part}
-        </a>
-      );
-    }
-    return part;
-  });
+  return result;
 }
 
 /**
@@ -78,21 +55,13 @@ function renderBareUrls(text: string, keyOffset: number): React.ReactNode[] {
  * add internal links in the Studio) and falls back to the legacy plain-text
  * answer, which is still scanned for markdown links and bare URLs.
  */
-export function FaqAnswer({
-  answerContent,
-  answer,
-  className,
-}: {
-  answerContent: unknown[] | null;
-  answer: string;
-  className?: string;
-}) {
+export function FaqAnswer({ item, className }: { item: ResolvedFaqItem; className?: string }) {
   return (
-    <div className={className}>
-      {answerContent ? (
-        <PortableText value={answerContent as PortableTextBlock[]} components={faqComponents} />
+    <div className={cn(LINK_CLASSES, className)}>
+      {item.answerContent ? (
+        <PortableText value={item.answerContent} components={faqComponents} />
       ) : (
-        renderTextWithLinks(answer)
+        <p>{renderTextWithLinks(item.answerPlain)}</p>
       )}
     </div>
   );
