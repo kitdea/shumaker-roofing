@@ -6,7 +6,7 @@ import { MapPin, Phone, ChevronLeft, CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { fetchLocationBySlug, fetchAllLocations, fetchServiceSlugs, resolveFaqItems, type LocationDetail } from "@/lib/sanity";
+import { faqQuestionEntities, fetchLocationBySlug, fetchAllLocations, fetchServiceSlugs, resolveFaqItems, type LocationDetail, type ResolvedFaqItem } from "@/lib/sanity";
 import { FaqAnswer } from "@/components/shared/faq-answer";
 import { WhyChooseUs } from "@/components/shared/why-choose-us";
 import { slugify, SITE_URL, stateDisplayName } from "@/lib/utils";
@@ -14,13 +14,10 @@ import { fetchPageSeo } from "@/lib/seo";
 import { urlFor } from "@/lib/sanity-image";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextComponents } from "@portabletext/react";
-import { portableTextLinkMark, portableTextInternalLinkMark } from "@/components/shared/portable-text-link";
+import { portableTextMarks } from "@/components/shared/portable-text-link";
 
 const portableTextComponents: PortableTextComponents = {
-  marks: {
-    link: portableTextLinkMark,
-    internalLink: portableTextInternalLinkMark,
-  },
+  marks: portableTextMarks,
 };
 
 const OFFICES = {
@@ -59,7 +56,13 @@ function getOffice(state: string, cityName: string) {
   return OFFICES.MD;
 }
 
-function buildLocationSchema(loc: LocationDetail, cityDisplay: string, slug: string, serviceSlugByTitle: Map<string, string>) {
+function buildLocationSchema(
+  loc: LocationDetail,
+  cityDisplay: string,
+  slug: string,
+  serviceSlugByTitle: Map<string, string>,
+  faqItems: ResolvedFaqItem[]
+) {
   const pageUrl = `${SITE_URL}/service-areas/${slug}`;
   const lbId = `${pageUrl}/#localbusiness`;
   const faqId = `${pageUrl}/#faq`;
@@ -67,7 +70,6 @@ function buildLocationSchema(loc: LocationDetail, cityDisplay: string, slug: str
 
   const office = getOffice(loc.state ?? "MD", loc.cityName ?? "");
   const servicesOffered = loc.servicesOffered ?? [];
-  const faqItems = resolveFaqItems(loc.faqItems);
 
   const localBusiness: Record<string, unknown> = {
     "@type": "LocalBusiness",
@@ -114,11 +116,7 @@ function buildLocationSchema(loc: LocationDetail, cityDisplay: string, slug: str
   }
 
   const faqMainEntity = faqItems.length
-    ? faqItems.map((faq) => ({
-        "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": { "@type": "Answer", "text": faq.answer },
-      }))
+    ? faqQuestionEntities(faqItems)
     : [
         {
           "@type": "Question",
@@ -211,7 +209,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
   const servicesOffered = loc.servicesOffered ?? [];
   const faqItems = resolveFaqItems(loc.faqItems);
 
-  const locationSchema = buildLocationSchema(loc, cityDisplay, slug, serviceSlugByTitle);
+  const locationSchema = buildLocationSchema(loc, cityDisplay, slug, serviceSlugByTitle, faqItems);
 
   return (
     <>
@@ -304,11 +302,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
                       <h3 className="text-lg font-semibold text-foreground mb-2">
                         {faq.question}
                       </h3>
-                      <FaqAnswer
-                        answerContent={faq.answerContent}
-                        answer={faq.answer}
-                        className="text-foreground/70 leading-relaxed [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
-                      />
+                      <FaqAnswer item={faq} className="text-foreground/70 leading-relaxed" />
                     </div>
                   ))}
                 </div>

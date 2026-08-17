@@ -1,13 +1,7 @@
 import { cache } from 'react'
+import { toPlainText, type PortableTextBlock } from '@portabletext/react'
 import { client as sanityClient } from '@/sanity/lib/client'
 import { urlFor } from '@/lib/sanity-image'
-
-const splitSectionsProjection = `"splitSections": splitSection[]->{
-      _id,
-      splitTitle,
-      splitDescription,
-      splitImage
-    }`
 
 // Portable Text body projection that resolves `internalLink` annotations. The
 // annotation only stores a reference, so we attach the target's type and slug
@@ -25,6 +19,13 @@ const bodyProjection = (field: string) => `${field}[]{
       ${richTextFields}
     }`
 
+const splitSectionsProjection = `"splitSections": splitSection[]->{
+      _id,
+      splitTitle,
+      splitDescription,
+      ${bodyProjection('splitDescriptionContent')}
+    }`
+
 // FAQ answers are rich text (`answerContent`) with a legacy plain-text
 // `answer` fallback; both are projected so the render side can pick.
 const faqItemsProjection = `faqItems[]{
@@ -40,33 +41,15 @@ export type FaqItem = {
   /** Legacy plain-text answer. */
   answer?: string
   /** Rich-text answer; takes precedence over `answer` when it has blocks. */
-  answerContent?: unknown[]
+  answerContent?: PortableTextBlock[]
 }
 
 /** An FAQ entry that has a question and at least one form of answer. */
 export type ResolvedFaqItem = {
   question: string
-  answerContent: unknown[] | null
-  answer: string
-}
-
-type PortableTextBlockish = {
-  _type?: string
-  children?: { text?: string }[]
-}
-
-/**
- * Flattens a Portable Text answer to plain text. Schema.org's
- * `acceptedAnswer.text` must be plain, so JSON-LD uses this rather than the
- * rendered markup.
- */
-export function portableTextToPlain(blocks: unknown): string {
-  if (!Array.isArray(blocks)) return ''
-  return (blocks as PortableTextBlockish[])
-    .filter((b) => b?._type === 'block')
-    .map((b) => (b.children ?? []).map((c) => c.text ?? '').join(''))
-    .join('\n\n')
-    .trim()
+  answerContent: PortableTextBlock[] | null
+  /** Plain text of whichever answer form won — schema.org needs it unmarked up. */
+  answerPlain: string
 }
 
 /**
@@ -78,28 +61,53 @@ export function resolveFaqItems(items: FaqItem[] | undefined): ResolvedFaqItem[]
     const question = item.question?.trim()
     if (!question) return []
     const rich = Array.isArray(item.answerContent) && item.answerContent.length > 0 ? item.answerContent : null
-    const plain = rich ? portableTextToPlain(rich) : (item.answer ?? '').trim()
-    if (!plain) return []
-    return [{ question, answerContent: rich, answer: plain }]
+    const answerPlain = (rich ? toPlainText(rich) : item.answer ?? '').trim()
+    if (!answerPlain) return []
+    return [{ question, answerContent: rich, answerPlain }]
   })
+}
+
+/** schema.org `Question` entities for a FAQPage node's `mainEntity`. */
+export function faqQuestionEntities(items: ResolvedFaqItem[]) {
+  return items.map((faq) => ({
+    '@type': 'Question',
+    'name': faq.question,
+    'acceptedAnswer': { '@type': 'Answer', 'text': faq.answerPlain },
+  }))
 }
 
 export type SplitSectionItem = {
   id: string
   splitTitle: string
   splitDescription: string | null
+  splitDescriptionContent: PortableTextBlock[] | null
   imageUrl: string | null
 }
 
 export function mapSplitSections(
-  sections: Array<{ _id: string; splitTitle?: string; splitDescription?: string | null; splitImage?: unknown }> | undefined
+  sections:
+    | Array<{
+        _id: string
+        splitTitle?: string
+        splitDescription?: string | null
+        splitDescriptionContent?: PortableTextBlock[] | null
+        splitImage?: unknown
+      }>
+    | undefined
 ): SplitSectionItem[] {
-  return (sections ?? []).map((item) => ({
-    id: item._id,
-    splitTitle: item.splitTitle ?? '',
-    splitDescription: item.splitDescription ?? null,
-    imageUrl: urlFor(item.splitImage) ?? null,
-  }))
+  return (sections ?? []).map((item) => {
+    const rich =
+      Array.isArray(item.splitDescriptionContent) && item.splitDescriptionContent.length > 0
+        ? item.splitDescriptionContent
+        : null
+    return {
+      id: item._id,
+      splitTitle: item.splitTitle ?? '',
+      splitDescription: item.splitDescription ?? null,
+      splitDescriptionContent: rich,
+      imageUrl: urlFor(item.splitImage) ?? null,
+    }
+  })
 }
 
 // ─── Services ─────────────────────────────────────────────────────────────────

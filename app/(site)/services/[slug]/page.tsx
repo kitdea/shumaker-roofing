@@ -16,13 +16,10 @@ import { WhyChooseUs } from "@/components/shared/why-choose-us";
 import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 import { VeluxWidget } from "@/components/shared/velux-widget";
 import { PortableTextTable } from "@/components/shared/portable-text-table";
-import { portableTextLinkMark, portableTextInternalLinkMark } from "@/components/shared/portable-text-link";
+import { portableTextMarks } from "@/components/shared/portable-text-link";
 
 const portableTextComponents: PortableTextComponents = {
-  marks: {
-    link: portableTextLinkMark,
-    internalLink: portableTextInternalLinkMark,
-  },
+  marks: portableTextMarks,
   types: {
     table: ({ value }) => <PortableTextTable rows={value?.rows} />,
   },
@@ -171,6 +168,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
               key={section.id}
               splitTitle={section.splitTitle}
               splitDescription={section.splitDescription}
+              splitDescriptionContent={section.splitDescriptionContent}
               splitImageUrl={section.imageUrl}
               imageRight={idx % 2 !== 0}
             />

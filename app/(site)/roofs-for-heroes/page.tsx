@@ -11,6 +11,10 @@ import { CertificationsSection } from "@/components/shared/certifications-sectio
 import { JsonLd } from "@/components/shared/json-ld";
 import { buildPageSchema } from "@/lib/seo";
 import { FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+import { urlFor } from "@/lib/sanity-image";
+
+const HERO_IMAGE_URL =
+  "https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg";
 
 const TITLE = "Roofs for Heroes | Shumaker Roofing Company";
 const DESCRIPTION =
@@ -101,8 +105,8 @@ export default async function RoofsForHeroesPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg"
-            alt="American flag waving"
+            src={urlFor(HERO_IMAGE_URL) ?? HERO_IMAGE_URL}
+            alt="Shumaker Roofing crew at work"
             fill
             sizes="100vw"
             className="object-cover opacity-50 mix-blend-overlay"
@@ -131,6 +135,7 @@ export default async function RoofsForHeroesPage() {
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
+              loading="lazy"
               allowFullScreen
             />
           </div>

@@ -6,6 +6,10 @@ import { Shield, Eye, Lock, Users, Cookie, Bell, Mail } from "lucide-react";
 import { JsonLd } from "@/components/shared/json-ld";
 import { buildPageSchema } from "@/lib/seo";
 import { FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+import { urlFor } from "@/lib/sanity-image";
+
+const HERO_IMAGE_URL =
+  "https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg";
 
 const TITLE = "Privacy Policy | Shumaker Roofing Company";
 const DESCRIPTION =
@@ -56,7 +60,7 @@ export default function PrivacyPolicyPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg"
+            src={urlFor(HERO_IMAGE_URL) ?? HERO_IMAGE_URL}
             alt="Privacy Policy"
             fill
             sizes="100vw"

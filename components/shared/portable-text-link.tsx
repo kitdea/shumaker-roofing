@@ -1,4 +1,4 @@
-import type { PortableTextMarkComponentProps } from "@portabletext/react";
+import type { PortableTextComponents, PortableTextMarkComponentProps } from "@portabletext/react";
 import { isExternalLink } from "@/lib/utils";
 
 export function portableTextLinkMark({ value, children }: PortableTextMarkComponentProps) {
@@ -26,3 +26,11 @@ export function portableTextInternalLinkMark({ value, children }: PortableTextMa
   if (!base || !slug) return <>{children}</>;
   return <a href={`${base}/${slug}`}>{children}</a>;
 }
+
+// Every rich-text field in the CMS uses the same `richTextBlock` annotations, so
+// every PortableText call site needs the same mark renderers. Keep this the one
+// place they are wired up — a new annotation only has to be added here.
+export const portableTextMarks: PortableTextComponents["marks"] = {
+  link: portableTextLinkMark,
+  internalLink: portableTextInternalLinkMark,
+};

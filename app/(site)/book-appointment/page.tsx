@@ -6,6 +6,10 @@ import { Container } from "@/components/shared/container";
 import { GhlCalendar } from "@/components/shared/ghl-calendar";
 import { Phone, Mail, Clock } from "lucide-react";
 import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+import { urlFor } from "@/lib/sanity-image";
+
+const HERO_IMAGE_URL =
+  "https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg";
 
 export const metadata: Metadata = {
   title: { absolute: "Book an Appointment | Shumaker Roofing Company" },
@@ -64,7 +68,7 @@ export default function BookPage() {
           <div className="absolute inset-0 z-0">
             <div className="w-full h-full bg-slate-900/70" />
             <Image
-              src="https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg"
+              src={urlFor(HERO_IMAGE_URL) ?? HERO_IMAGE_URL}
               alt="Book an appointment with Shumaker Roofing"
               fill
               sizes="100vw"

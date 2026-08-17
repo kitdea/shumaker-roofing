@@ -12,6 +12,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { fetchServicesForListing, type ServiceListItem } from "@/lib/sanity";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 import { getServiceIcon, SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+import { urlFor } from "@/lib/sanity-image";
+
+const HERO_IMAGE_URL =
+  "https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg";
 
 export const metadata: Metadata = {
   title: { absolute: "Professional Roofing Services | Shumaker Roofing Company" },
@@ -139,7 +143,7 @@ export default function ServicesPage() {
           <div className="absolute inset-0 z-0">
             <div className="w-full h-full bg-slate-900/70 absolute inset-0 z-10" />
             <Image
-              src="https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg"
+              src={urlFor(HERO_IMAGE_URL) ?? HERO_IMAGE_URL}
               alt="Professional roofing contractors at work on a residential roof"
               fill
               sizes="100vw"

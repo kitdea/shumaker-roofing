@@ -48,20 +48,25 @@ CARVE_OUTS = [
     ("rich", r"rich,?\s+(dark|deep|warm|earth)"),
 ]
 
+# FAQ answers are rich text (`answerContent`) with a legacy plain-text `answer`
+# fallback, so each item has to be projected individually — `faqItems[].answerContent`
+# cannot be flattened into one pt::text() call.
+FAQ_TEXT = ('array::join(coalesce(faqItems[].question, []), " ") + " " '
+            '+ array::join(coalesce(faqItems[]{"t": coalesce(pt::text(answerContent), answer, "")}.t, []), " ")')
+
 # Sanity _type -> a GROQ expression yielding that type's body copy as one string.
 #
 # These are expressions, not field names, because the three types do not store copy the
-# same way. blog/services use Portable Text (needs pt::text). location stores plain
-# strings plus a faqItems array, so pt::text() on it silently returns nothing — which
-# reads as "clean copy" instead of "wrong accessor". That is the exact false-clean this
-# scanner's guard exists to catch, so keep these expressions in sync with the schemas
-# in sanity/schemaTypes/.
+# same way, and several fields have both a rich-text and a legacy plain-text form. Reach
+# for the wrong accessor — pt::text() on a plain string, or a plain field on a doc that
+# has been migrated to rich text — and GROQ returns nothing, which reads as "clean copy"
+# rather than "wrong accessor". That is the exact false-clean this scanner's guard exists
+# to catch, so keep these expressions in sync with the schemas in sanity/schemaTypes/.
 TYPES = {
-    "blog": "pt::text(content)",
+    "blog": 'pt::text(content) + " " + ' + FAQ_TEXT,
     "services": "pt::text(servicesContent)",
-    "location": ('coalesce(introText, "") + " " + coalesce(heroHeadline, "") + " " '
-                 '+ array::join(coalesce(faqItems[].question, []), " ") + " " '
-                 '+ array::join(coalesce(faqItems[].answer, []), " ")'),
+    "location": ('coalesce(introText, "") + " " + coalesce(pt::text(introContent), "") + " " '
+                 '+ coalesce(heroHeadline, "") + " " + ' + FAQ_TEXT),
 }
 
 

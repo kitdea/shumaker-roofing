@@ -10,6 +10,10 @@ import { Button } from "@/components/ui/button";
 import { ProjectMap } from "./project-map";
 import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 import { CertificationsSection } from "@/components/shared/certifications-section";
+import { urlFor } from "@/lib/sanity-image";
+
+const HERO_IMAGE_URL =
+  "https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg";
 
 export const metadata: Metadata = {
   title: { absolute: "Our Projects | Shumaker Roofing Company" },
@@ -68,7 +72,7 @@ export default async function ProjectsPage() {
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-900/70" />
           <Image
-            src="https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg"
+            src={urlFor(HERO_IMAGE_URL) ?? HERO_IMAGE_URL}
             alt="Shumaker Roofing completed projects"
             fill
             sizes="100vw"
