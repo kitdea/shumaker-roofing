@@ -25,6 +25,12 @@ export const service = defineType({
     }),
     defineField({ name: 'servicesImage', title: 'Hero Image', type: 'image', options: { hotspot: true } }),
     defineField({ name: 'splitSection', title: 'Two-Column Sections', type: 'array', of: [{ type: 'reference', to: [{ type: 'splitSection' }] }] }),
+    defineField({
+      name: 'faqItems',
+      title: 'FAQ Items',
+      type: 'array',
+      of: [{ type: 'faqItem' }],
+    }),
     defineField({ name: 'seo', title: 'SEO', type: 'seoMetadata' }),
   ],
 })

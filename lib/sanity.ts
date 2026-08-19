@@ -152,6 +152,7 @@ export const fetchServiceBySlug = cache(async function fetchServiceBySlug(slug: 
     ${bodyProjection('additionalContent')},
     servicesImage,
     ${splitSectionsProjection},
+    ${faqItemsProjection},
     seo
   }`, { slug })
 })
