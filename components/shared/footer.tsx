@@ -2,16 +2,11 @@ import Link from "next/link";
 import Script from "next/script";
 import { Container } from "@/components/shared/container";
 import { Home, Phone, Mail, MapPin, Clock } from "lucide-react";
-import { fetchServiceSlugs } from "@/lib/sanity";
-import { shortenServiceName } from "@/lib/utils";
+import { fetchServiceMenuItems } from "@/lib/sanity";
 
 async function getServices() {
   try {
-    const items = await fetchServiceSlugs();
-    return items.map((item) => ({
-      title: shortenServiceName(item.title ?? ""),
-      slug: item.slug?.current ?? item._id,
-    }));
+    return await fetchServiceMenuItems();
   } catch {
     return [];
   }
@@ -117,9 +112,9 @@ export async function Footer() {
             <ul className="flex flex-col gap-3">
               {services.length > 0 ? (
                 services.map((service) => (
-                  <li key={service.slug}>
-                    <Link href={`/services/${service.slug}`} className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">
-                      {service.title}
+                  <li key={service.href}>
+                    <Link href={service.href} className="text-secondary-foreground/70 hover:text-primary text-sm transition-colors">
+                      {service.label}
                     </Link>
                   </li>
                 ))

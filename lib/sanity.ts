@@ -116,17 +116,41 @@ export type ServiceSlugItem = {
   _id: string
   _updatedAt?: string
   title?: string
+  menuTitle?: string
   slug?: { current?: string }
 }
 
-// Lean projection for nav/footer/sitemap/location lookups that only need the slug.
+// Nav/footer label: the editor-controlled short name, falling back to the H1 title.
+// Module-private on purpose - consumers go through fetchServiceMenuItems() so the
+// fallback and the label ordering can never be forgotten at a call site.
+function serviceMenuLabel(item: Pick<ServiceSlugItem, 'title' | 'menuTitle'>): string {
+  return (item.menuTitle ?? '').trim() || (item.title ?? '').trim()
+}
+
+// Lean projection for nav/footer/sitemap/location lookups that only need the slug
+// (plus menuTitle, so the nav/footer menu builds from this one cached query).
 export const fetchServiceSlugs = cache(async function fetchServiceSlugs(): Promise<ServiceSlugItem[]> {
   return sanityClient.fetch(`*[_type == "services"]{
     _id,
     _updatedAt,
     title,
+    menuTitle,
     slug
   } | order(title asc)`)
+})
+
+export type ServiceMenuItem = { label: string; href: string }
+
+// Single source of truth for the Services nav dropdown and the footer list:
+// editor label resolved, href built, sorted by the label actually rendered.
+export const fetchServiceMenuItems = cache(async function fetchServiceMenuItems(): Promise<ServiceMenuItem[]> {
+  const items = await fetchServiceSlugs()
+  return items
+    .map((item) => ({
+      label: serviceMenuLabel(item),
+      href: `/services/${item.slug?.current ?? ''}`,
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label))
 })
 
 export type ServiceListItem = ServiceSlugItem & {

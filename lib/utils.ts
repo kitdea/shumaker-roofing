@@ -23,10 +23,6 @@ export function formatLongDate(date: Date): string {
   });
 }
 
-export function shortenServiceName(title: string): string {
-  return title === "Commercial Flat & Low Slope Roofing Restoration" ? "Commercial" : title;
-}
-
 const STATE_NAMES: Record<string, string> = {
   MD: "Maryland",
   VA: "Virginia",
