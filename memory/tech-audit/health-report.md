@@ -1,4 +1,4 @@
-# Health Report — 2026-08-17 00:09 UTC
+# Health Report — 2026-08-17 06:35 UTC
 
 | URL | HTTP Status | Redirect Hops | Issue | Severity |
 |-----|-------------|---------------|-------|----------|
@@ -51,7 +51,3 @@
 | /service-areas/frederick-md | 200 | 0 | OK | — |
 | /service-areas/hagerstown-md | 200 | 0 | OK | — |
 | /service-areas/reston-va | 200 | 0 | OK | — |
-
-**Severity key:** P1 = critical (404, 500, missing required CMS field) · P2 = warning (redirect chain, missing image, dead internal link) · — = clean
-
-No dead internal links found (all `<a href>` targets resolve, including static asset paths verified via direct fetch). No orphaned pages — every sitemap URL has at least one inbound internal link.

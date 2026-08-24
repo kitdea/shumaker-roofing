@@ -129,3 +129,14 @@
 - GSC findings: 0 total (0 new, 0 resolved)
 - Open P1 issues: 14
 - Open P2 issues: 80
+
+## 2026-08-17 06:35 UTC
+- URLs checked: 49
+- Health findings: 11 total (0 new, 0 resolved)
+- SEO findings: 1 total (0 new, 0 resolved)
+- Performance findings: 77 total (1 new, 20 resolved)
+- GSC findings: 0 total (0 new, 0 resolved)
+- Open P1 issues: 5
+- Open P2 issues: 83
+- Note: rerun after deploying commit eaae14f (PR #70) — routed 12 static-route hero images through urlFor() for CDN format optimization (raw JPEG → auto-negotiated WebP/AVIF) and lazy-loaded a YouTube embed on /roofs-for-heroes. 20 Performance findings resolved this run, all on pages touched by that fix (/about, /contact, /careers, /services, /blog, /services/residential-roofing, /services/roof-installation, /services/solar-contractor, /services/gutter-installation, /service-areas/hagerstown-md, /service-areas/frederick-md, /service-areas/reston-va, /blog/why-attic-ventilation-matters-in-summer-frederick-md, /blog/roof-rejuvenation-vs-replacement-frederick-md, /blog/how-much-do-new-gutters-cost-maryland, /blog/roof-replacement-tax-credit-2026, /blog/how-long-do-gutters-last, /services/storm-damage-restoration). Open P1 count dropped 14 → 5; none of the remaining 5 P1s are on pages the fix touched.
+- Data-quality note: initial PageSpeed sweep produced 3 outlier readings (/contact 13085ms, /testimonials 8055ms, /service-areas 5647ms) inconsistent with their own lcp-breakdown-insight component sums — confirmed as lab-run flakiness via retest (1-2 extra runs each), not real regressions. Retest values used in performance-report.md and findings.md.

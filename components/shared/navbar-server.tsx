@@ -1,23 +1,17 @@
-import { fetchServiceSlugs, fetchAllLocations } from "@/lib/sanity";
+import { fetchServiceMenuItems, fetchAllLocations } from "@/lib/sanity";
 import { Navbar } from "@/components/shared/navbar";
-import { shortenServiceName } from "@/lib/utils";
 
 export async function NavbarServer() {
   let services: { name: string; href: string }[] = [];
   let locations: { name: string; href: string }[] = [];
 
   try {
-    const [servicesItems, locs] = await Promise.all([
-      fetchServiceSlugs(),
+    const [menuItems, locs] = await Promise.all([
+      fetchServiceMenuItems(),
       fetchAllLocations(),
     ]);
 
-    services = servicesItems
-      .map((item) => ({
-        name: shortenServiceName(item.title ?? ""),
-        href: `/services/${item.slug?.current ?? ""}`,
-      }))
-      .sort((a, b) => a.name.localeCompare(b.name));
+    services = menuItems.map(({ label, href }) => ({ name: label, href }));
 
     const STATE_ORDER: Record<string, number> = {
       "Maryland": 0,

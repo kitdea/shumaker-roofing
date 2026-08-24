@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { fetchServiceBySlug, fetchServiceSlugs, mapSplitSections } from "@/lib/sanity";
+import { fetchServiceBySlug, fetchServiceSlugs, mapSplitSections, resolveFaqItems, faqQuestionEntities } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanity-image";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextComponents } from "@portabletext/react";
@@ -17,6 +17,7 @@ import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 import { VeluxWidget } from "@/components/shared/velux-widget";
 import { PortableTextTable } from "@/components/shared/portable-text-table";
 import { portableTextMarks } from "@/components/shared/portable-text-link";
+import { FaqAnswer } from "@/components/shared/faq-answer";
 
 const portableTextComponents: PortableTextComponents = {
   marks: portableTextMarks,
@@ -67,6 +68,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
 
   const additionalContent = service.additionalContent ?? null;
   const imageUrl = urlFor(service.servicesImage) ?? null;
+  const faqItems = resolveFaqItems(service.faqItems);
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -104,12 +106,26 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
     },
   };
 
+  const faqPageSchema = faqItems.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqQuestionEntities(faqItems),
+      }
+    : null;
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
+      {faqPageSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
+        />
+      )}
     <div className="flex flex-col w-full pb-24">
       {/* Article Header */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex flex-col justify-end pb-16 bg-secondary">
@@ -174,6 +190,25 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
             />
           ))}
         </div>
+      )}
+
+      {/* FAQ */}
+      {faqItems.length > 0 && (
+        <Container className="mt-16">
+          <h2 className="text-2xl font-heading font-bold mb-6">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-6">
+            {faqItems.map((faq, idx) => (
+              <div key={idx} className="border-b border-border pb-6 last:border-0 last:pb-0">
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  {faq.question}
+                </h3>
+                <FaqAnswer item={faq} className="text-foreground/70 leading-relaxed" />
+              </div>
+            ))}
+          </div>
+        </Container>
       )}
 
       {/* CTA + Why Choose Us */}
