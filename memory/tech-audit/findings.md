@@ -1,96 +1,120 @@
-# Open Findings — updated 2026-08-17 06:35 UTC
+# Open Findings — updated 2026-08-28 11:15 UTC
 
 | ID | Module | URL | Issue | Severity | First Seen | Age (days) | Status |
 |----|--------|-----|-------|----------|------------|------------|--------|
-| P-327 | Performance | /services/skylight-installation | LCP above threshold | P1 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-341 | Performance | /service-areas | LCP above threshold | P1 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-365 | Performance | /services/roof-repair | LCP above threshold | P1 | 2026-06-08 | 70 ⚠ STALE | open |
-| P-377 | Performance | /blog/when-to-get-roof-rejuvenation-frederick-md | LCP above threshold | P1 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-391 | Performance | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | LCP above threshold | P1 | 2026-06-24 | 54 ⚠ STALE | open |
-| H-017 | Health | /services/commercial-flat-and-low-slope-roofing-restoration | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| H-018 | Health | /services/gutter-installation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| H-019 | Health | /services/residential-roofing | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| H-020 | Health | /services/roof-rejuvenation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| H-021 | Health | /services/roof-repair | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| H-022 | Health | /services/roof-replacement | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| H-023 | Health | /services/skylight-installation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| H-024 | Health | /services/solar-contractor | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| H-025 | Health | /services/storm-damage-restoration | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| H-047 | Health | /services/metal-roofing | Sanity field integrity: servicesImage missing | P2 | 2026-08-09 | 8 ⚠ STALE | open |
-| H-048 | Health | /blog/how-long-do-gutters-last | Sanity field integrity: featuredImage missing | P2 | 2026-08-09 | 8 ⚠ STALE | open |
-| P-321 | Performance | /blog | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-323 | Performance | /contact | Performance score below target | P2 | 2026-06-08 | 70 ⚠ STALE | open |
-| P-325 | Performance | /book-appointment | CLS above threshold | P2 | 2026-06-08 | 70 ⚠ STALE | open |
-| P-326 | Performance | /book-appointment | Performance score below target | P2 | 2026-06-08 | 70 ⚠ STALE | open |
-| P-329 | Performance | /blog/7-signs-roof-needs-rejuvenation-not-replacement | LCP above threshold | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-330 | Performance | /blog/7-signs-roof-needs-rejuvenation-not-replacement | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-335 | Performance | / | LCP above threshold | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-336 | Performance | / | Performance score below target | P2 | 2026-06-08 | 70 ⚠ STALE | open |
-| P-338 | Performance | /about | Performance score below target | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-340 | Performance | /services | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-342 | Performance | /service-areas | Performance score below target | P2 | 2026-06-28 | 50 ⚠ STALE | open |
-| P-343 | Performance | /careers | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-344 | Performance | /faqs | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-345 | Performance | /projects | Performance score below target | P2 | 2026-06-28 | 50 ⚠ STALE | open |
-| P-346 | Performance | /testimonials | LCP above threshold | P2 | 2026-06-28 | 50 ⚠ STALE | open |
-| P-347 | Performance | /testimonials | Performance score below target | P2 | 2026-06-28 | 50 ⚠ STALE | open |
-| P-348 | Performance | /roofs-for-heroes | LCP above threshold | P2 | 2026-06-28 | 50 ⚠ STALE | open |
-| P-350 | Performance | /roofs-for-heroes | Performance score below target | P2 | 2026-06-28 | 50 ⚠ STALE | open |
-| P-352 | Performance | /terms-and-conditions | LCP above threshold | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-353 | Performance | /terms-and-conditions | Performance score below target | P2 | 2026-08-04 | 13 ⚠ STALE | open |
-| P-354 | Performance | /services/chimney-maintenance | LCP above threshold | P2 | 2026-06-08 | 70 ⚠ STALE | open |
-| P-355 | Performance | /services/chimney-maintenance | Performance score below target | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-356 | Performance | /services/commercial-flat-and-low-slope-roofing-restoration | LCP above threshold | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-357 | Performance | /services/commercial-flat-and-low-slope-roofing-restoration | Performance score below target | P2 | 2026-08-04 | 13 ⚠ STALE | open |
-| P-358 | Performance | /services/gutter-installation | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-360 | Performance | /services/residential-roofing | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-362 | Performance | /services/roof-installation | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-363 | Performance | /services/roof-rejuvenation | LCP above threshold | P2 | 2026-06-08 | 70 ⚠ STALE | open |
-| P-364 | Performance | /services/roof-rejuvenation | Performance score below target | P2 | 2026-06-08 | 70 ⚠ STALE | open |
-| P-366 | Performance | /services/roof-repair | Performance score below target | P2 | 2026-06-08 | 70 ⚠ STALE | open |
-| P-367 | Performance | /services/roof-replacement | LCP above threshold | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-368 | Performance | /services/roof-replacement | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-369 | Performance | /services/solar-contractor | LCP above threshold | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-373 | Performance | /blog/best-roofing-contractors-in-frederick-md | LCP above threshold | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-374 | Performance | /blog/best-roofing-contractors-in-frederick-md | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-376 | Performance | /blog/roof-rejuvenation-vs-replacement-frederick-md | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-378 | Performance | /blog/when-to-get-roof-rejuvenation-frederick-md | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-379 | Performance | /blog/what-is-roof-rejuvenation | LCP above threshold | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-380 | Performance | /blog/what-is-roof-rejuvenation | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-382 | Performance | /blog/why-attic-ventilation-matters-in-summer-frederick-md | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-383 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | LCP above threshold | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-384 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-385 | Performance | /blog/roof-repair-frederick-md | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-386 | Performance | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | LCP above threshold | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-387 | Performance | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-388 | Performance | /blog/preparing-your-roof-for-summer-storms-in-frederick-md | LCP above threshold | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-389 | Performance | /blog/preparing-your-roof-for-summer-storms-in-frederick-md | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-390 | Performance | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | Performance score below target | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-392 | Performance | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | Performance score below target | P2 | 2026-07-21 | 27 ⚠ STALE | open |
-| P-393 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | Performance score below target | P2 | 2026-06-28 | 50 ⚠ STALE | open |
-| P-394 | Performance | /service-areas/chambersburg-pa | Performance score below target | P2 | 2026-06-08 | 70 ⚠ STALE | open |
-| P-396 | Performance | /service-areas/reston-va | Performance score below target | P2 | 2026-06-24 | 54 ⚠ STALE | open |
-| P-397 | Performance | /faqs | LCP above threshold | P2 | 2026-08-09 | 8 ⚠ STALE | open |
-| P-400 | Performance | /services/storm-damage-restoration | LCP above threshold | P2 | 2026-08-09 | 8 ⚠ STALE | open |
-| P-403 | Performance | /blog/how-much-do-new-gutters-cost-maryland | Performance score below target | P2 | 2026-08-09 | 8 ⚠ STALE | open |
-| P-408 | Performance | /blog/summer-roof-inspection-checklist-frederick-md | LCP above threshold | P2 | 2026-08-09 | 8 ⚠ STALE | open |
-| P-409 | Performance | /blog/summer-roof-inspection-checklist-frederick-md | Performance score below target | P2 | 2026-08-09 | 8 ⚠ STALE | open |
-| P-410 | Performance | /blog/roof-repair-frederick-md | LCP above threshold | P2 | 2026-08-09 | 8 ⚠ STALE | open |
-| P-411 | Performance | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | LCP above threshold | P2 | 2026-08-09 | 8 ⚠ STALE | open |
-| P-412 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | LCP above threshold | P2 | 2026-08-09 | 8 ⚠ STALE | open |
-| P-413 | Performance | /service-areas/chambersburg-pa | LCP above threshold | P2 | 2026-08-09 | 8 ⚠ STALE | open |
-| P-415 | Performance | /service-areas/frederick-md | Performance score below target | P2 | 2026-08-09 | 8 ⚠ STALE | open |
-| P-419 | Performance | /privacy-policy | LCP above threshold | P2 | 2026-08-17 | 0 | open |
-| P-420 | Performance | /privacy-policy | Performance score below target | P2 | 2026-08-17 | 0 | open |
-| P-421 | Performance | /services/metal-roofing | Performance score below target | P2 | 2026-08-17 | 0 | open |
-| P-422 | Performance | /services/skylight-installation | Performance score below target | P2 | 2026-08-17 | 0 | open |
-| P-424 | Performance | /blog/how-long-do-gutters-last | Performance score below target | P2 | 2026-08-17 | 0 | open |
-| P-425 | Performance | /blog/roof-rejuvenation-cost-frederick-md | LCP above threshold | P2 | 2026-08-17 | 0 | open |
-| P-426 | Performance | /blog/roof-rejuvenation-cost-frederick-md | Performance score below target | P2 | 2026-08-17 | 0 | open |
-| P-427 | Performance | /blog/author/tyler-schisler | LCP above threshold | P2 | 2026-08-17 | 0 | open |
-| P-428 | Performance | /blog/author/tyler-schisler | Performance score below target | P2 | 2026-08-17 | 0 | open |
-| P-430 | Performance | / | CLS above threshold | P2 | 2026-08-17 | 0 | open |
-| S-079 | SEO | /blog/how-much-do-new-gutters-cost-maryland | noindex detected — logged only, no action taken | INFO | 2026-08-09 | 8 | open |
+| P-373 | Performance | /blog/best-roofing-contractors-in-frederick-md | LCP above threshold | P1 | 2026-06-24 | 65 ⚠ STALE | open |
+| P-345 | Performance | /projects | Performance score below target | P1 | 2026-06-28 | 61 ⚠ STALE | open |
+| P-377 | Performance | /blog/when-to-get-roof-rejuvenation-frederick-md | LCP above threshold | P1 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-365 | Performance | /services/roof-repair | LCP above threshold | P2 | 2026-06-08 | 81 ⚠ STALE | open |
+| P-323 | Performance | /contact | Performance score below target | P2 | 2026-06-08 | 81 ⚠ STALE | open |
+| P-325 | Performance | /book-appointment | CLS above threshold | P2 | 2026-06-08 | 81 ⚠ STALE | open |
+| P-326 | Performance | /book-appointment | Performance score below target | P2 | 2026-06-08 | 81 ⚠ STALE | open |
+| P-336 | Performance | / | Performance score below target | P2 | 2026-06-08 | 81 ⚠ STALE | open |
+| P-363 | Performance | /services/roof-rejuvenation | LCP above threshold | P2 | 2026-06-08 | 81 ⚠ STALE | open |
+| P-364 | Performance | /services/roof-rejuvenation | Performance score below target | P2 | 2026-06-08 | 81 ⚠ STALE | open |
+| P-366 | Performance | /services/roof-repair | Performance score below target | P2 | 2026-06-08 | 81 ⚠ STALE | open |
+| P-394 | Performance | /service-areas/chambersburg-pa | Performance score below target | P2 | 2026-06-08 | 81 ⚠ STALE | open |
+| P-341 | Performance | /service-areas | LCP above threshold | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| H-017 | Health | /services/commercial-flat-and-low-slope-roofing-restoration | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| H-018 | Health | /services/gutter-installation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| H-019 | Health | /services/residential-roofing | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| H-020 | Health | /services/roof-rejuvenation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| H-021 | Health | /services/roof-repair | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| H-022 | Health | /services/roof-replacement | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| H-023 | Health | /services/skylight-installation | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| H-024 | Health | /services/solar-contractor | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| H-025 | Health | /services/storm-damage-restoration | Sanity field integrity: servicesImage missing | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| P-335 | Performance | / | LCP above threshold | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| P-338 | Performance | /about | Performance score below target | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| P-356 | Performance | /services/commercial-flat-and-low-slope-roofing-restoration | LCP above threshold | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| P-369 | Performance | /services/solar-contractor | LCP above threshold | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| P-383 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | LCP above threshold | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| P-388 | Performance | /blog/preparing-your-roof-for-summer-storms-in-frederick-md | LCP above threshold | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| P-390 | Performance | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | Performance score below target | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| P-396 | Performance | /service-areas/reston-va | Performance score below target | P2 | 2026-06-24 | 65 ⚠ STALE | open |
+| P-342 | Performance | /service-areas | Performance score below target | P2 | 2026-06-28 | 61 ⚠ STALE | open |
+| P-347 | Performance | /testimonials | Performance score below target | P2 | 2026-06-28 | 61 ⚠ STALE | open |
+| P-350 | Performance | /roofs-for-heroes | Performance score below target | P2 | 2026-06-28 | 61 ⚠ STALE | open |
+| P-393 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | Performance score below target | P2 | 2026-06-28 | 61 ⚠ STALE | open |
+| P-321 | Performance | /blog | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-329 | Performance | /blog/7-signs-roof-needs-rejuvenation-not-replacement | LCP above threshold | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-330 | Performance | /blog/7-signs-roof-needs-rejuvenation-not-replacement | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-340 | Performance | /services | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-343 | Performance | /careers | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-344 | Performance | /faqs | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-358 | Performance | /services/gutter-installation | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-360 | Performance | /services/residential-roofing | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-362 | Performance | /services/roof-installation | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-374 | Performance | /blog/best-roofing-contractors-in-frederick-md | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-376 | Performance | /blog/roof-rejuvenation-vs-replacement-frederick-md | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-378 | Performance | /blog/when-to-get-roof-rejuvenation-frederick-md | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-379 | Performance | /blog/what-is-roof-rejuvenation | LCP above threshold | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-380 | Performance | /blog/what-is-roof-rejuvenation | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-382 | Performance | /blog/why-attic-ventilation-matters-in-summer-frederick-md | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-384 | Performance | /blog/skylight-repair-vs-replacement-how-to-decide-save-money | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-385 | Performance | /blog/roof-repair-frederick-md | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-387 | Performance | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-389 | Performance | /blog/preparing-your-roof-for-summer-storms-in-frederick-md | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-392 | Performance | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | Performance score below target | P2 | 2026-07-21 | 38 ⚠ STALE | open |
+| P-357 | Performance | /services/commercial-flat-and-low-slope-roofing-restoration | Performance score below target | P2 | 2026-08-04 | 24 ⚠ STALE | open |
+| H-047 | Health | /services/metal-roofing | Sanity field integrity: servicesImage missing | P2 | 2026-08-09 | 19 ⚠ STALE | open |
+| H-048 | Health | /blog/how-long-do-gutters-last | Sanity field integrity: featuredImage missing | P2 | 2026-08-09 | 19 ⚠ STALE | open |
+| P-397 | Performance | /faqs | LCP above threshold | P2 | 2026-08-09 | 19 ⚠ STALE | open |
+| P-403 | Performance | /blog/how-much-do-new-gutters-cost-maryland | Performance score below target | P2 | 2026-08-09 | 19 ⚠ STALE | open |
+| P-410 | Performance | /blog/roof-repair-frederick-md | LCP above threshold | P2 | 2026-08-09 | 19 ⚠ STALE | open |
+| P-411 | Performance | /blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md | LCP above threshold | P2 | 2026-08-09 | 19 ⚠ STALE | open |
+| P-413 | Performance | /service-areas/chambersburg-pa | LCP above threshold | P2 | 2026-08-09 | 19 ⚠ STALE | open |
+| P-415 | Performance | /service-areas/frederick-md | Performance score below target | P2 | 2026-08-09 | 19 ⚠ STALE | open |
+| P-419 | Performance | /privacy-policy | LCP above threshold | P2 | 2026-08-17 | 11 ⚠ STALE | open |
+| P-420 | Performance | /privacy-policy | Performance score below target | P2 | 2026-08-17 | 11 ⚠ STALE | open |
+| P-421 | Performance | /services/metal-roofing | Performance score below target | P2 | 2026-08-17 | 11 ⚠ STALE | open |
+| P-422 | Performance | /services/skylight-installation | Performance score below target | P2 | 2026-08-17 | 11 ⚠ STALE | open |
+| P-424 | Performance | /blog/how-long-do-gutters-last | Performance score below target | P2 | 2026-08-17 | 11 ⚠ STALE | open |
+| P-426 | Performance | /blog/roof-rejuvenation-cost-frederick-md | Performance score below target | P2 | 2026-08-17 | 11 ⚠ STALE | open |
+| H-049 | Health | /blog/replacing-gutters-with-new-roof-frederick-md | Live page, not present in sitemap.xml | P2 | 2026-08-28 | 0 | open |
+| H-050 | Health | /blog/replacing-gutters-with-new-roof-frederick-md | Sanity field integrity: featuredImage missing | P2 | 2026-08-28 | 0 | open |
+| H-051 | Health | /blog/what-to-expect-roof-rejuvenation-frederick-md | Sanity field integrity: featuredImage missing | P2 | 2026-08-28 | 0 | open |
+| P-431 | Performance | /about | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-432 | Performance | /blog | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-433 | Performance | /blog/how-long-do-gutters-last | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-434 | Performance | /blog/how-much-do-new-gutters-cost-maryland | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-435 | Performance | /blog/roof-rejuvenation-vs-replacement-frederick-md | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-436 | Performance | /blog/roof-replacement-tax-credit-2026 | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-437 | Performance | /blog/what-to-expect-roof-rejuvenation-frederick-md | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-438 | Performance | /blog/what-to-expect-roof-rejuvenation-frederick-md | Performance score below target | P2 | 2026-08-28 | 0 | open |
+| P-439 | Performance | /blog/why-attic-ventilation-matters-in-summer-frederick-md | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-440 | Performance | /careers | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-441 | Performance | /projects | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-442 | Performance | /service-areas/frederick-md | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-443 | Performance | /service-areas/hagerstown-md | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-444 | Performance | /service-areas/hagerstown-md | Performance score below target | P2 | 2026-08-28 | 0 | open |
+| P-445 | Performance | /service-areas/reston-va | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-446 | Performance | /services | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-447 | Performance | /services/gutter-installation | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-448 | Performance | /services/metal-roofing | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-449 | Performance | /services/residential-roofing | LCP above threshold | P2 | 2026-08-28 | 0 | open |
+| P-450 | Performance | /services/solar-contractor | Performance score below target | P2 | 2026-08-28 | 0 | open |
+| P-451 | Performance | /services/storm-damage-restoration | Performance score below target | P2 | 2026-08-28 | 0 | open |
+| S-079 | SEO | /blog/how-much-do-new-gutters-cost-maryland | noindex detected — logged only, no action taken | INFO | 2026-08-09 | 19 | open |
+| P-354 | Performance | /services/chimney-maintenance | LCP above threshold | P2 | 2026-06-08 | 81 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-327 | Performance | /services/skylight-installation | LCP above threshold | P1 | 2026-06-24 | 65 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-391 | Performance | /blog/how-marylands-summer-heat-affects-roofs-in-frederick-md | LCP above threshold | P1 | 2026-06-24 | 65 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-352 | Performance | /terms-and-conditions | LCP above threshold | P2 | 2026-06-24 | 65 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-355 | Performance | /services/chimney-maintenance | Performance score below target | P2 | 2026-06-24 | 65 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-367 | Performance | /services/roof-replacement | LCP above threshold | P2 | 2026-06-24 | 65 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-386 | Performance | /blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland | LCP above threshold | P2 | 2026-06-24 | 65 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-346 | Performance | /testimonials | LCP above threshold | P2 | 2026-06-28 | 61 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-348 | Performance | /roofs-for-heroes | LCP above threshold | P2 | 2026-06-28 | 61 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-368 | Performance | /services/roof-replacement | Performance score below target | P2 | 2026-07-21 | 38 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-353 | Performance | /terms-and-conditions | Performance score below target | P2 | 2026-08-04 | 24 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-400 | Performance | /services/storm-damage-restoration | LCP above threshold | P2 | 2026-08-09 | 19 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-408 | Performance | /blog/summer-roof-inspection-checklist-frederick-md | LCP above threshold | P2 | 2026-08-09 | 19 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-409 | Performance | /blog/summer-roof-inspection-checklist-frederick-md | Performance score below target | P2 | 2026-08-09 | 19 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-412 | Performance | /blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them | LCP above threshold | P2 | 2026-08-09 | 19 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-425 | Performance | /blog/roof-rejuvenation-cost-frederick-md | LCP above threshold | P2 | 2026-08-17 | 11 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-427 | Performance | /blog/author/tyler-schisler | LCP above threshold | P2 | 2026-08-17 | 11 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-428 | Performance | /blog/author/tyler-schisler | Performance score below target | P2 | 2026-08-17 | 11 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
+| P-430 | Performance | / | CLS above threshold | P2 | 2026-08-17 | 11 | closed (2026-08-28: resolved — clean in this run's PageSpeed sweep) |
 | H-001 | Health | /about | 404 Not Found | P1 | 2026-05-21 | 81 | closed |
 | H-002 | Health | /service-areas | 404 Not Found | P1 | 2026-05-21 | 81 | closed |
 | H-003 | Health | /service-areas/adamstown-md | 404 Not Found | P1 | 2026-05-21 | 81 | closed |

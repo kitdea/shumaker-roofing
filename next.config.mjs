@@ -214,6 +214,16 @@ const nextConfig = {
         destination: '/services',
         permanent: true,
       },
+      {
+        source: '/services/commercial-flat-low-slope-roofing-restoration',
+        destination: '/services/commercial-flat-and-low-slope-roofing-restoration',
+        permanent: true,
+      },
+      {
+        source: '/commercial-roofers-frederick-md',
+        destination: '/service-areas/frederick-md', 
+        permanent: true,
+      },
       // Leftover WordPress upload paths — no live route lives under /wp-content
       {
         source: '/wp-content/:path*',
@@ -330,6 +340,16 @@ const nextConfig = {
       {
         source: '/blog/roof-repair-in-frederick-md-fast-reliable',
         destination: '/blog/roof-repair-frederick-md',
+        permanent: true,
+      },
+      {
+        source: '/blog/roof-replacement-tax-credit-2026-what-homeowners-need-to-know',
+        destination: '/blog/roof-replacement-tax-credit-2026',
+        permanent: true,
+      },
+      {
+        source: '/blog/three-common-winter-roof-damage-issues-how-to-prevent-them',
+        destination: '/blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them',
         permanent: true,
       },
       // Old service path
