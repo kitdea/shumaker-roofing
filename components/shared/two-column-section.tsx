@@ -12,6 +12,20 @@ const splitDescriptionComponents: PortableTextComponents = {
   marks: portableTextMarks,
   block: {
     normal: ({ children }) => <p className="text-foreground/80 leading-relaxed">{children}</p>,
+    h3: ({ children }) => (
+      <h3 className="text-[1.4rem] font-bold text-foreground mt-0 mb-0">{children}</h3>
+    ),
+    h4: ({ children }) => (
+      <h4 className="text-lg font-bold text-foreground mt-0 mb-0">{children}</h4>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => <ul className="list-disc pl-6 mb-6">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal pl-6 mb-6">{children}</ol>,
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="mb-2 text-foreground/80 leading-relaxed">{children}</li>,
+    number: ({ children }) => <li className="mb-2 text-foreground/80 leading-relaxed">{children}</li>,
   },
 };
 

@@ -85,6 +85,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/roofers-in-hagerstown-md',
+        destination: '/service-areas/hagerstown-md',
+        permanent: true,
+      },
+      {
         source: '/location/roofers-in-chambersburg-pa',
         destination: '/service-areas/chambersburg-pa',
         permanent: true,
@@ -350,12 +355,47 @@ const nextConfig = {
       {
         source: '/blog/three-common-winter-roof-damage-issues-how-to-prevent-them',
         destination: '/blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them',
+        permanent: true, 
+      },
+      {
+        source: '/category/uncategorized/page/16/',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/roofers-blog-frederick-md/page/20/',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-can-you-restore-your-roof-for-lasting-protection',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/what-happens-when-water-doesnt-drain-from-a-flat-roof',
+        destination: '/blog',
         permanent: true,
       },
       // Old service path
       {
+        source: 'https://shumakerroofing.com/durability-of-metal-roofing',
+        destination: '/services/metal-roofing',
+        permanent: true,
+      },
+      {
         source: '/residential-services/skylights-and-suntunnels',
         destination: '/services/skylight-installation',
+        permanent: true,
+      },
+      {
+        source: '/commercial-flat-roof-repair-in-frederick-md/',
+        destination: '/services/commercial-flat-and-low-slope-roofing-restoration',
+        permanent: true,
+      },
+      {
+        source: '/best-eco-friendly-flat-roof-repair-solutions/',
+        destination: '/services/roof-repair',
         permanent: true,
       },
     ];
