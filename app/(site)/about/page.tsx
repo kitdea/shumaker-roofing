@@ -143,7 +143,7 @@ export default async function AboutPage() {
           <h2 className="text-3xl md:text-4xl font-heading font-extrabold mb-8">Who Are We?</h2>
           <div className="flex flex-col gap-6 text-lg leading-relaxed">
             <p>
-              For over 75 years,{" "}
+              For over 80 years,{" "}
               <span>Shumaker Roofing Co.</span>{" "}
               has been the go-to{" "}
               <strong className="font-bold">roofing company in Frederick, MD</strong>

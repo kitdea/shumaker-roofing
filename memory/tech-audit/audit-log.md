@@ -140,3 +140,13 @@
 - Open P2 issues: 83
 - Note: rerun after deploying commit eaae14f (PR #70) — routed 12 static-route hero images through urlFor() for CDN format optimization (raw JPEG → auto-negotiated WebP/AVIF) and lazy-loaded a YouTube embed on /roofs-for-heroes. 20 Performance findings resolved this run, all on pages touched by that fix (/about, /contact, /careers, /services, /blog, /services/residential-roofing, /services/roof-installation, /services/solar-contractor, /services/gutter-installation, /service-areas/hagerstown-md, /service-areas/frederick-md, /service-areas/reston-va, /blog/why-attic-ventilation-matters-in-summer-frederick-md, /blog/roof-rejuvenation-vs-replacement-frederick-md, /blog/how-much-do-new-gutters-cost-maryland, /blog/roof-replacement-tax-credit-2026, /blog/how-long-do-gutters-last, /services/storm-damage-restoration). Open P1 count dropped 14 → 5; none of the remaining 5 P1s are on pages the fix touched.
 - Data-quality note: initial PageSpeed sweep produced 3 outlier readings (/contact 13085ms, /testimonials 8055ms, /service-areas 5647ms) inconsistent with their own lcp-breakdown-insight component sums — confirmed as lab-run flakiness via retest (1-2 extra runs each), not real regressions. Retest values used in performance-report.md and findings.md.
+
+## 2026-08-28 11:15 UTC
+- URLs checked: 50 (49 from sitemap.xml + 1 live page discovered via internal links but missing from sitemap)
+- Health findings: 14 total (3 new, 0 resolved)
+- SEO findings: 1 total (0 new, 0 resolved)
+- Performance findings: 94 total (24 new, 19 resolved)
+- GSC findings: 0 total (0 new, 0 resolved)
+- Open P1 issues: 3
+- Open P2 issues: 90
+- Note: initial PageSpeed sweep (49/50 URLs failing, several P1s with LCP 8-12s on pages fixed in commit eaae14f) was discarded as a bad lab run — breakdown-insight subtotals summed to ~10-15% of reported LCP on spot-checked pages (e.g. /contact: 1496ms sum vs 12095ms reported), consistent with the flakiness pattern noted 2026-08-17. Ran a full second sweep of all 50 URLs; spot-checked P1 candidates against breakdown-insight this time (ratio ~55-60%, i.e. moderate/typical lab overhead, not the 8-10x mismatch seen in the discarded run) and used the second sweep as the basis for this run's findings.

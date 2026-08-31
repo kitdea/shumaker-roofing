@@ -1,4 +1,4 @@
-# Health Report — 2026-08-17 06:35 UTC
+# Health Report — 2026-08-28 11:15 UTC
 
 | URL | HTTP Status | Redirect Hops | Issue | Severity |
 |-----|-------------|---------------|-------|----------|
@@ -28,6 +28,7 @@
 | /services/skylight-installation | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
 | /services/solar-contractor | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
 | /services/storm-damage-restoration | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
+| /blog/what-to-expect-roof-rejuvenation-frederick-md | 200 | 0 | Sanity field integrity: featuredImage missing | P2 |
 | /blog/how-much-do-new-gutters-cost-maryland | 200 | 0 | OK | — |
 | /blog/how-long-do-gutters-last | 200 | 0 | Sanity field integrity: featuredImage missing | P2 |
 | /blog/roof-rejuvenation-cost-frederick-md | 200 | 0 | OK | — |
@@ -51,3 +52,5 @@
 | /service-areas/frederick-md | 200 | 0 | OK | — |
 | /service-areas/hagerstown-md | 200 | 0 | OK | — |
 | /service-areas/reston-va | 200 | 0 | OK | — |
+| /blog/replacing-gutters-with-new-roof-frederick-md | 200 | 0 | Live page, not present in sitemap.xml | P2 |
+| /blog/replacing-gutters-with-new-roof-frederick-md | 200 | 0 | Sanity field integrity: featuredImage missing | P2 |
