@@ -377,11 +377,6 @@ const nextConfig = {
         destination: '/blog',
         permanent: true,
       },
-      {
-        source: 'https://shumakerroofing.com/durability-of-metal-roofing',
-        destination: '/services/metal-roofing',
-        permanent: true,
-      },
       // Old service path
       {
         source: 'https://shumakerroofing.com/durability-of-metal-roofing',
