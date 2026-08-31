@@ -8,6 +8,10 @@ import { cn } from "@/lib/utils";
 const LINK_CLASSES =
   "[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-opacity [&_a]:hover:opacity-80";
 
+const SplitListItem = ({ children }: { children?: React.ReactNode }) => (
+  <li className="mb-2 text-foreground/80 leading-relaxed">{children}</li>
+);
+
 const splitDescriptionComponents: PortableTextComponents = {
   marks: portableTextMarks,
   block: {
@@ -24,8 +28,8 @@ const splitDescriptionComponents: PortableTextComponents = {
     number: ({ children }) => <ol className="list-decimal pl-6 mb-6">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => <li className="mb-2 text-foreground/80 leading-relaxed">{children}</li>,
-    number: ({ children }) => <li className="mb-2 text-foreground/80 leading-relaxed">{children}</li>,
+    bullet: SplitListItem,
+    number: SplitListItem,
   },
 };
 
