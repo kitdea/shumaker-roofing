@@ -8,24 +8,28 @@ import { cn } from "@/lib/utils";
 const LINK_CLASSES =
   "[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-opacity [&_a]:hover:opacity-80";
 
+const SplitListItem = ({ children }: { children?: React.ReactNode }) => (
+  <li className="mb-2 text-foreground/80 leading-relaxed">{children}</li>
+);
+
 const splitDescriptionComponents: PortableTextComponents = {
   marks: portableTextMarks,
   block: {
-    normal: ({ children }) => <p className="text-foreground/80 leading-relaxed">{children}</p>,
+    normal: ({ children }) => <p className="text-foreground/80 leading-relaxed mb-4 last:mb-0">{children}</p>,
     h3: ({ children }) => (
-      <h3 className="text-[1.4rem] font-bold text-foreground mt-0 mb-0">{children}</h3>
+      <h3 className="text-[1.4rem] font-bold text-foreground mt-2 mb-2">{children}</h3>
     ),
     h4: ({ children }) => (
-      <h4 className="text-lg font-bold text-foreground mt-0 mb-0">{children}</h4>
+      <h4 className="text-lg font-bold text-foreground mt-2 mb-2">{children}</h4>
     ),
   },
   list: {
-    bullet: ({ children }) => <ul className="list-disc pl-6 mb-6">{children}</ul>,
-    number: ({ children }) => <ol className="list-decimal pl-6 mb-6">{children}</ol>,
+    bullet: ({ children }) => <ul className="list-disc pl-6 mb-4 last:mb-0">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal pl-6 mb-4 last:mb-0">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => <li className="mb-2 text-foreground/80 leading-relaxed">{children}</li>,
-    number: ({ children }) => <li className="mb-2 text-foreground/80 leading-relaxed">{children}</li>,
+    bullet: SplitListItem,
+    number: SplitListItem,
   },
 };
 
@@ -67,7 +71,7 @@ export function TwoColumnSection({
         {splitTitle}
       </h2>
       {(splitDescriptionContent || splitDescription) && (
-        <div className={cn("space-y-1 text-base md:text-[1.0rem]", LINK_CLASSES)}>
+        <div className={cn("text-base md:text-[1.0rem]", LINK_CLASSES)}>
           {splitDescriptionContent ? (
             <PortableText value={splitDescriptionContent} components={splitDescriptionComponents} />
           ) : (

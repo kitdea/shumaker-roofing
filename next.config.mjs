@@ -185,11 +185,6 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/commercial-roofers-frederick-md',
-        destination: '/services/commercial-flat-low-slope-roofing-restoration',
-        permanent: true,
-      },
-      {
         source: '/roofers-blog-frederick-md',
         destination: '/blog',
         permanent: true,
@@ -379,7 +374,7 @@ const nextConfig = {
       },
       // Old service path
       {
-        source: 'https://shumakerroofing.com/durability-of-metal-roofing',
+        source: '/durability-of-metal-roofing',
         destination: '/services/metal-roofing',
         permanent: true,
       },
