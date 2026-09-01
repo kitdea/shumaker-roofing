@@ -23,6 +23,7 @@ const splitSectionsProjection = `"splitSections": splitSection[]->{
       _id,
       splitTitle,
       splitDescription,
+      splitImage,
       ${bodyProjection('splitDescriptionContent')}
     }`
 

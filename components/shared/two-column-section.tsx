@@ -15,17 +15,17 @@ const SplitListItem = ({ children }: { children?: React.ReactNode }) => (
 const splitDescriptionComponents: PortableTextComponents = {
   marks: portableTextMarks,
   block: {
-    normal: ({ children }) => <p className="text-foreground/80 leading-relaxed">{children}</p>,
+    normal: ({ children }) => <p className="text-foreground/80 leading-relaxed mb-4 last:mb-0">{children}</p>,
     h3: ({ children }) => (
-      <h3 className="text-[1.4rem] font-bold text-foreground mt-0 mb-0">{children}</h3>
+      <h3 className="text-[1.4rem] font-bold text-foreground mt-2 mb-2">{children}</h3>
     ),
     h4: ({ children }) => (
-      <h4 className="text-lg font-bold text-foreground mt-0 mb-0">{children}</h4>
+      <h4 className="text-lg font-bold text-foreground mt-2 mb-2">{children}</h4>
     ),
   },
   list: {
-    bullet: ({ children }) => <ul className="list-disc pl-6 mb-6">{children}</ul>,
-    number: ({ children }) => <ol className="list-decimal pl-6 mb-6">{children}</ol>,
+    bullet: ({ children }) => <ul className="list-disc pl-6 mb-4 last:mb-0">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal pl-6 mb-4 last:mb-0">{children}</ol>,
   },
   listItem: {
     bullet: SplitListItem,
@@ -71,7 +71,7 @@ export function TwoColumnSection({
         {splitTitle}
       </h2>
       {(splitDescriptionContent || splitDescription) && (
-        <div className={cn("space-y-1 text-base md:text-[1.0rem]", LINK_CLASSES)}>
+        <div className={cn("text-base md:text-[1.0rem]", LINK_CLASSES)}>
           {splitDescriptionContent ? (
             <PortableText value={splitDescriptionContent} components={splitDescriptionComponents} />
           ) : (
