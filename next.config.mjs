@@ -358,7 +358,7 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/roofers-blog-frederick-md/page/20/',
+        source: '/roofers-blog-frederick-md/page/20',
         destination: '/blog',
         permanent: true,
       },
@@ -369,6 +369,181 @@ const nextConfig = {
       },
       {
         source: '/what-happens-when-water-doesnt-drain-from-a-flat-roof',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/flat-roof-damage-prevention-expert-tips-for-a-lasting-roof',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/why-roof-maintenance-is-important-for-home-longevity',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/uncover-how-flat-roofs-drain-essential-tips-and-secrets',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/flat-roof-mold-prevention-essential-tips-for-protection',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/what-is-roof-restoration-process',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-long-does-a-roof-inspection-take',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/is-metal-shingle-roofing-the-best-choice-for-your-home',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/why-flat-roof-flashing-causes-most-flat-roof-leaks',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/roofers-blog-frederick-md/page/37',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/shingle-roofing-vs-flat-roofing-key-differences',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/5-reasons-your-roof-shingles-are-turning-black',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/flat-roof-problems-common-signs-how-to-prevent-them',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/the-4-reasons-roofing-contractors-keep-knocking-on-your-door',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-to-tarp-your-roof-after-a-storm-diy-or-pro-help',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/flat-roof-myths-debunked-what-you-really-need-to-know',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/energy-saving-benefits-of-installing-a-new-roof',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/can-i-repair-the-roof-myself',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/what-type-of-roof-is-easiest-to-maintain',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/8-common-problems-of-metal-roofs',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-to-clean-a-painted-metal-roof',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/what-time-of-year-is-best-to-replace-a-roof',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/the-brilliant-benefits-of-adding-a-skylight-or-sun-tunnel-to-your-roof',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/13-proven-tips-to-choose-the-right-siding-contractor',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/category/uncategorized/page/38',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/the-most-common-problems-caused-by-poor-attic-ventilation',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/category/uncategorized/page/33',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-do-you-document-roof-storm-damage-for-insurance-claims',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/need-pro-shingle-replacement-contractors-quick-guide',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/certainteed-solar-panels-the-complete-review',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/what-is-roof-replacement',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/top-benefits-of-installing-a-skylight-in-your-home',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-to-fix-loose-siding',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/is-it-time-to-replace-your-homes-siding',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/permit-guide-for-roof-replacement-what-you-need-to-know',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/flat-roof-maintenance-keep-leaks-and-repairs-away',
         destination: '/blog',
         permanent: true,
       },
@@ -384,12 +559,12 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/commercial-flat-roof-repair-in-frederick-md/',
+        source: '/commercial-flat-roof-repair-in-frederick-md',
         destination: '/services/commercial-flat-and-low-slope-roofing-restoration',
         permanent: true,
       },
       {
-        source: '/best-eco-friendly-flat-roof-repair-solutions/',
+        source: '/best-eco-friendly-flat-roof-repair-solutions',
         destination: '/services/roof-repair',
         permanent: true,
       },
