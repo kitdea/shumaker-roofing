@@ -547,6 +547,176 @@ const nextConfig = {
         destination: '/blog',
         permanent: true,
       },
+      {
+        source: '/what-is-the-meaning-of-roof-restoration',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/your-expert-guide-to-roof-restoration',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-can-you-accurately-measure-your-home-siding',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/does-homeowners-insurance-cover-roof-replacement',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/roofers-blog-frederick-md/page/3',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-commercial-metal-coatings-protect-your-roof',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/are-small-roof-leaks-common',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/roof-shingles-frederick-md-durable-stylish-affordable',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/re-roofing-vs-complete-roof-replacement',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-to-repair-granular-loss-on-roof',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/does-a-house-need-gutters-to-pass-inspection',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/what-to-do-when-missing-shingles-on-your-roof',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/top-roofing-problems-solutions-fix-your-roof-today',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/should-i-let-a-roofing-company-pay-my-deductible',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/are-gutters-a-good-investment-for-a-homeowner',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-much-do-skylights-cost-get-your-moneys-worth',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/best-roofing-options-for-energy-efficiency-top-choices',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/what-are-the-steps-of-installing-a-new-roof',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-long-do-certainteed-landmark-shingles-last',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/faq-items/how-is-a-roof-replaced',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-your-roof-affects-your-home-insurance',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-much-attic-ventilation-do-i-need',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/category/uncategorized/page/22',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/siding-installation-mistakes-that-can-ruin-your-homes-look',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-do-i-know-if-my-roof-is-installed-correctly',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/what-is-proper-roof-maintenance',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/roofers-blog-frederick-md/page/38',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/5-reasons-specialist-roofers-surpass-general-contractors',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/should-you-install-a-new-roof-before-solar-panels',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/is-it-bad-to-have-too-much-attic-ventilation',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-to-know-when-to-replace-your-roof-in-2025',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-often-should-you-replace-a-metal-roof',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/how-much-does-it-cost-to-repair-siding',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/what-is-the-best-siding-to-use-on-a-house',
+        destination: '/blog',
+        permanent: true,
+      },
       // Old service path
       {
         source: '/durability-of-metal-roofing',
