@@ -363,6 +363,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/asphalt-shingles-vs-metal-roofing-which-is-better-for-you',
+        destination: '/services/metal-roofing',
+        permanent: true,
+      },
+      {
         source: '/how-can-you-restore-your-roof-for-lasting-protection',
         destination: '/blog',
         permanent: true,
