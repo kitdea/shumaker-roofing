@@ -150,3 +150,13 @@
 - Open P1 issues: 3
 - Open P2 issues: 90
 - Note: initial PageSpeed sweep (49/50 URLs failing, several P1s with LCP 8-12s on pages fixed in commit eaae14f) was discarded as a bad lab run — breakdown-insight subtotals summed to ~10-15% of reported LCP on spot-checked pages (e.g. /contact: 1496ms sum vs 12095ms reported), consistent with the flakiness pattern noted 2026-08-17. Ran a full second sweep of all 50 URLs; spot-checked P1 candidates against breakdown-insight this time (ratio ~55-60%, i.e. moderate/typical lab overhead, not the 8-10x mismatch seen in the discarded run) and used the second sweep as the basis for this run's findings.
+
+## 2026-09-09 21:34 UTC
+- URLs checked: 52
+- Health findings: 12 total (1 new, 3 resolved)
+- SEO findings: 6 total (5 new, 0 resolved)
+- Performance findings: 56 total (15 new, 38 resolved)
+- GSC findings: 0 total (0 new, 0 resolved) — fully clean
+- Open P1 issues: 12
+- Open P2 issues: 61
+- Data quality note: PageSpeed Insights lab measurements were severely flaky this run — 4 full 52-URL sweeps and 8+ `lcp-breakdown-insight` spot-checks were needed. See `performance-report.md` header for full detail. 6 P1 Performance findings (P-432, P-446, P-447, P-456, P-462, P-464, P-466) and 3 P2s tied to the same 7 affected URLs are flagged "⚠ PSI lab flakiness — inconclusive" in `findings.md` and should be manually re-verified via the PageSpeed Insights UI rather than treated as confirmed regressions.

@@ -1,4 +1,4 @@
-# Health Report — 2026-08-28 11:15 UTC
+# Health Report — 2026-09-09 21:34 UTC
 
 | URL | HTTP Status | Redirect Hops | Issue | Severity |
 |-----|-------------|---------------|-------|----------|
@@ -17,17 +17,19 @@
 | /privacy-policy | 200 | 0 | OK | — |
 | /terms-and-conditions | 200 | 0 | OK | — |
 | /services/chimney-maintenance | 200 | 0 | OK | — |
-| /services/commercial-flat-and-low-slope-roofing-restoration | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
+| /services/commercial-flat-and-low-slope-roofing-restoration | 200 | 0 | OK | — |
 | /services/gutter-installation | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
 | /services/metal-roofing | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
 | /services/residential-roofing | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
 | /services/roof-installation | 200 | 0 | OK | — |
 | /services/roof-rejuvenation | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
-| /services/roof-repair | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
+| /services/roof-repair | 200 | 0 | OK | — |
 | /services/roof-replacement | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
+| /services/siding | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
 | /services/skylight-installation | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
 | /services/solar-contractor | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
 | /services/storm-damage-restoration | 200 | 0 | Sanity field integrity: servicesImage missing | P2 |
+| /blog/replacing-gutters-with-new-roof-frederick-md | 200 | 0 | Sanity field integrity: featuredImage missing | P2 |
 | /blog/what-to-expect-roof-rejuvenation-frederick-md | 200 | 0 | Sanity field integrity: featuredImage missing | P2 |
 | /blog/how-much-do-new-gutters-cost-maryland | 200 | 0 | OK | — |
 | /blog/how-long-do-gutters-last | 200 | 0 | Sanity field integrity: featuredImage missing | P2 |
@@ -52,5 +54,7 @@
 | /service-areas/frederick-md | 200 | 0 | OK | — |
 | /service-areas/hagerstown-md | 200 | 0 | OK | — |
 | /service-areas/reston-va | 200 | 0 | OK | — |
-| /blog/replacing-gutters-with-new-roof-frederick-md | 200 | 0 | Live page, not present in sitemap.xml | P2 |
-| /blog/replacing-gutters-with-new-roof-frederick-md | 200 | 0 | Sanity field integrity: featuredImage missing | P2 |
+
+**Severity key:** P1 = critical (404, 500, missing required CMS field) · P2 = warning (redirect chain, missing image, dead internal link) · — = clean
+
+**Summary:** 52/52 URLs return 200 with 0 redirect hops. No dead internal links, no orphaned pages. 9 `services` docs missing `servicesImage` (new: `siding`; resolved since last run: `commercial-flat-and-low-slope-roofing-restoration`, `roof-repair`). 3 `blog` docs missing `featuredImage` (unchanged from last run).
