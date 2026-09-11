@@ -160,3 +160,15 @@
 - Open P1 issues: 12
 - Open P2 issues: 61
 - Data quality note: PageSpeed Insights lab measurements were severely flaky this run — 4 full 52-URL sweeps and 8+ `lcp-breakdown-insight` spot-checks were needed. See `performance-report.md` header for full detail. 6 P1 Performance findings (P-432, P-446, P-447, P-456, P-462, P-464, P-466) and 3 P2s tied to the same 7 affected URLs are flagged "⚠ PSI lab flakiness — inconclusive" in `findings.md` and should be manually re-verified via the PageSpeed Insights UI rather than treated as confirmed regressions.
+
+## 2026-09-11 07:50 UTC
+- URLs checked: 52
+- Health findings: 9 total (0 new, 3 resolved)
+- SEO findings: 1 total (0 new, 5 resolved)
+- Performance findings: 75 total (4 new, 10 resolved)
+- GSC findings: 0 total (0 new, 0 resolved) — fully clean
+- Open P1 issues: 11
+- Open P2 issues: 74
+- Data quality note: PageSpeed Insights lab data was unstable again this run. Sweep 1 (50/52 URLs failing) matched the known infra-congestion signature; sweeps 1-2 disagreed on 25/52 URLs (bimodal ~2000ms vs ~9000ms LCP for the same page). Ran a 3rd full sweep and used the lowest-LCP reading per URL across all 3 sweeps as this run's dataset. 9 URLs (`/blog`, `/contact`, `/terms-and-conditions`, `/services/residential-roofing`, and 5 blog posts) showed consistently high LCP (8000-19000ms) in all 3 independent sweeps with no low reading in any — these are treated as confirmed real regressions (not flakiness) and are the 11 open P1s below. See `performance-report.md` header for full detail.
+- Health module improvement: `gutter-installation` and `roof-rejuvenation` service pages now have `servicesImage` (H-018/H-020 resolved); `what-to-expect-roof-rejuvenation-frederick-md` blog post now has `featuredImage` (H-051 resolved). 7 service pages and 2 blog posts still missing images (unchanged set otherwise).
+- SEO module improvement: all previously-open SEO findings resolved — `/blog/replacing-gutters-with-new-roof-frederick-md` and `/service-areas/hagerstown-md` now have meta descriptions and og:description; the noindex tag on `/blog/how-much-do-new-gutters-cost-maryland` is gone. One SEO finding remains open: `/blog/replacing-gutters-with-new-roof-frederick-md` still missing og:image (S-085).

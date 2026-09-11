@@ -326,7 +326,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
               </p>
               {loc.phoneNumber && (
                 <a
-                  href={`tel:${loc.phoneNumber.replace(/\D/g, "")}`}
+                  href={`tel:+1${loc.phoneNumber.replace(/\D/g, "").replace(/^1/, "")}`}
                   className="flex items-center gap-2 text-white font-semibold mb-6 relative z-10 hover:text-white/80 transition-colors"
                 >
                   <Phone className="h-4 w-4" />
