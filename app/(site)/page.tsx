@@ -22,14 +22,14 @@ const ABOUT_IMAGE_URL =
 // Shared by the page metadata and the LocalBusiness schema below so the
 // description Google renders and the one it ingests can't drift apart.
 const HOME_DESCRIPTION =
-  "Top-rated roofing company in Frederick, MD. Residential & commercial installation, replacement, and repair — licensed, insured. Get your free estimate today.";
+  "Expert roofing contractor in Frederick, MD. Shumaker Roofing handles residential and commercial installation, replacement, and repair. Get a free estimate.";
 
 export async function generateMetadata() {
   const hero = await fetchHeroBanner().catch(() => null);
   const heroImageUrl = hero?.backgroundImageUrl ?? FALLBACK_HERO_IMAGE_URL;
 
   return fetchPageSeo({
-    fallbackTitle: "Roofing Company in Frederick, MD | Shumaker Roofing",
+    fallbackTitle: "Roofing Contractor in Frederick MD | Shumaker Roofing",
     fallbackDesc: HOME_DESCRIPTION,
     fallbackImage: heroImageUrl,
     canonicalPath: "/",
