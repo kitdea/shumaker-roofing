@@ -144,7 +144,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
           )}
         </div>
         <Container className="relative z-20">
-          <Link href="/services" className="inline-flex items-center text-primary/90 hover:text-primary transition-colors mb-6 font-medium text-sm">
+          <Link href="/services" className="inline-flex items-center text-white hover:text-primary transition-colors mb-6 font-medium text-sm">
             <ChevronLeft className="h-4 w-4 mr-1" /> Back to Services
           </Link>
           <div className="flex gap-2 flex-wrap mb-4">
