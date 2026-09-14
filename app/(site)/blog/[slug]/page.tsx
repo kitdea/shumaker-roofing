@@ -167,6 +167,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             sizes="100vw"
             className="object-cover opacity-60 mix-blend-overlay z-0"
             priority
+            quality={50}
           />
         </div>
         <Container className="relative z-20">

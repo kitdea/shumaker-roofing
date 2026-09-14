@@ -66,6 +66,7 @@ export default function PrivacyPolicyPage() {
             sizes="100vw"
             className="object-cover opacity-50 mix-blend-overlay"
             priority
+            quality={50}
           />
         </div>
         <Container className="relative z-10 text-center">

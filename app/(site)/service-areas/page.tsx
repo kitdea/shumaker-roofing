@@ -96,7 +96,7 @@ export default async function ServiceAreasPage() {
             alt="Aerial view of a neighborhood roof Shumaker Roofing serves"
             fill
             sizes="100vw"
-            quality={85}
+            quality={50}
             className="object-cover opacity-50 mix-blend-overlay z-0"
             priority
           />
