@@ -137,7 +137,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
               alt={`${service.title || "Shumaker Roofing Service"} - Banner Image`}
               fill
               sizes="100vw"
-              quality={85}
+              quality={50}
               className="object-cover opacity-60 mix-blend-overlay z-0"
               priority
             />

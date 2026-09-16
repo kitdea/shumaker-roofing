@@ -57,7 +57,7 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
               className="flex items-center gap-2 font-medium hover:text-secondary transition-colors"
             >
               <Phone className="h-4 w-4 shrink-0" />
-              <span>+1 301-662-0533</span>
+              <span className="inline-block min-w-[110px] tabular-nums">+1 301-662-0533</span>
             </a>
             <a
               href="mailto:info@shumakerroofing.com"

@@ -147,7 +147,7 @@ export default function ServicesPage() {
               alt="Professional roofing contractors at work on a residential roof"
               fill
               sizes="100vw"
-              quality={75}
+              quality={50}
               className="object-cover opacity-50 mix-blend-overlay z-0"
               priority
             />

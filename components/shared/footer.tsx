@@ -136,7 +136,7 @@ export async function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-primary shrink-0" />
-                <span className="text-secondary-foreground/70 text-sm"><a href="tel:+13016620533">+1 301-662-0533</a></span>
+                <span className="text-secondary-foreground/70 text-sm"><a href="tel:+13016620533" className="inline-block min-w-[130px] tabular-nums">+1 301-662-0533</a></span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary shrink-0" />

@@ -127,6 +127,7 @@ export default async function AboutPage() {
             sizes="100vw"
             className="object-cover object-[center_20%] opacity-50 mix-blend-overlay"
             priority
+            quality={50}
           />
         </div>
         <Container className="relative z-10 text-center">

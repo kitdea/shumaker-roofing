@@ -124,6 +124,7 @@ export default async function BlogPage() {
             sizes="100vw"
             className="object-cover opacity-40 mix-blend-overlay"
             priority
+            quality={50}
           />
         </div>
         <Container className="relative z-10 text-center">
