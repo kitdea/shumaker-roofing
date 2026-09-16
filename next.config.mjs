@@ -722,6 +722,21 @@ const nextConfig = {
         destination: '/blog',
         permanent: true,
       },
+      {
+        source: '/what-is-the-purpose-of-roof-installation',
+        destination: '/services/roof-installation',
+        permanent: true,
+      },
+      {
+        source: '/the-best-type-of-gutters-for-no-clean-convenience',
+        destination: '/services/gutter-installation',
+        permanent: true,
+      },
+      {
+        source: '/what-is-roofing-installation-and-why-does-it-matter',
+        destination: '/services/roof-installation',
+        permanent: true,
+      },
       // Old service path
       {
         source: '/durability-of-metal-roofing',

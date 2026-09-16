@@ -172,3 +172,13 @@
 - Data quality note: PageSpeed Insights lab data was unstable again this run. Sweep 1 (50/52 URLs failing) matched the known infra-congestion signature; sweeps 1-2 disagreed on 25/52 URLs (bimodal ~2000ms vs ~9000ms LCP for the same page). Ran a 3rd full sweep and used the lowest-LCP reading per URL across all 3 sweeps as this run's dataset. 9 URLs (`/blog`, `/contact`, `/terms-and-conditions`, `/services/residential-roofing`, and 5 blog posts) showed consistently high LCP (8000-19000ms) in all 3 independent sweeps with no low reading in any — these are treated as confirmed real regressions (not flakiness) and are the 11 open P1s below. See `performance-report.md` header for full detail.
 - Health module improvement: `gutter-installation` and `roof-rejuvenation` service pages now have `servicesImage` (H-018/H-020 resolved); `what-to-expect-roof-rejuvenation-frederick-md` blog post now has `featuredImage` (H-051 resolved). 7 service pages and 2 blog posts still missing images (unchanged set otherwise).
 - SEO module improvement: all previously-open SEO findings resolved — `/blog/replacing-gutters-with-new-roof-frederick-md` and `/service-areas/hagerstown-md` now have meta descriptions and og:description; the noindex tag on `/blog/how-much-do-new-gutters-cost-maryland` is gone. One SEO finding remains open: `/blog/replacing-gutters-with-new-roof-frederick-md` still missing og:image (S-085).
+
+## 2026-09-14 09:00 UTC
+- URLs checked: 52
+- Health findings: 9 total (0 new, 0 resolved)
+- SEO findings: 2 total (1 new, 0 resolved)
+- Performance findings: 77 total (3 new, 14 resolved)
+- GSC findings: 0 total (0 new, 0 resolved)
+- Open P1 issues: 7
+- Open P2 issues: 81
+- Note: PSI lab data again showed the recurring bimodal-LCP infra-congestion signature (sweep 1: 51/52 URLs failing). Ran the full 3-sweep protocol; 6 URLs confirmed consistently high LCP across all 3 sweeps with no low reading (privacy-policy, terms-and-conditions, services/siding, blog/what-to-expect-roof-rejuvenation-frederick-md, blog/when-to-get-roof-rejuvenation-frederick-md, blog/best-roofing-contractors-in-frederick-md) — see performance-report.md. `/contact`, flagged in prior runs for severe 11-19s LCP, did NOT confirm this run (lowest-of-3 was 3151ms, only 1/3 sweeps hit the congested band) — downgraded P1→P2; worth a manual spot-check given its history rather than treating as fully resolved.

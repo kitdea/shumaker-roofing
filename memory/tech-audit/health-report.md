@@ -1,4 +1,4 @@
-# Health Report — 2026-09-11 07:10 UTC
+# Health Report — 2026-09-14 09:00 UTC
 
 | URL | HTTP Status | Redirect Hops | Issue | Severity |
 |-----|-------------|----------------|-------|----------|
@@ -57,4 +57,4 @@
 
 **Severity key:** P1 = critical (404, 500, missing required CMS field) · P2 = warning (redirect chain, missing image, dead internal link) · — = clean
 
-**Summary:** 52/52 URLs return HTTP 200 with 0 redirect hops. No 404s, no 5xx errors, no redirect chains, no dead internal links. 9 Sanity field-integrity warnings (P2): 7 service pages missing `servicesImage` (`metal-roofing`, `residential-roofing`, `roof-replacement`, `siding`, `skylight-installation`, `solar-contractor`, `storm-damage-restoration`) and 2 blog posts missing `featuredImage` (`replacing-gutters-with-new-roof-frederick-md`, `how-long-do-gutters-last`).
+**Summary:** 52/52 URLs return HTTP 200 with 0 redirect hops. No 404s, no 5xx errors, no redirect chains, no dead internal links, no orphaned pages. 9 Sanity field-integrity warnings (P2), unchanged from the prior run: 7 service pages missing `servicesImage` (`metal-roofing`, `residential-roofing`, `roof-replacement`, `siding`, `skylight-installation`, `solar-contractor`, `storm-damage-restoration`) and 2 blog posts missing `featuredImage` (`replacing-gutters-with-new-roof-frederick-md`, `how-long-do-gutters-last`).
