@@ -74,7 +74,7 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
     "@context": "https://schema.org",
     "@type": "Service",
     "name": service.title as string,
-    "description": `Expert ${((service.title as string) ?? "roofing").toLowerCase()} services provided by Shumaker Roofing Company. Professional, licensed roofing contractors serving Maryland, Virginia, Pennsylvania, and West Virginia.`,
+    "description": `Expert ${((service.title as string) ?? "roofing").toLowerCase()} services provided by Shumaker Roofing Company. Professional, licensed roofing contractors serving Maryland, Virginia, and Pennsylvania.`,
     "image": imageUrl,
     "url": `${SITE_URL}/services/${slug}`,
     "serviceType": service.title as string,
@@ -97,7 +97,6 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
       { "@type": "State", "name": "Maryland" },
       { "@type": "State", "name": "Virginia" },
       { "@type": "State", "name": "Pennsylvania" },
-      { "@type": "State", "name": "West Virginia" },
     ],
     "offers": {
       "@type": "Offer",

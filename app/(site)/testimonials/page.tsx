@@ -19,7 +19,7 @@ const HERO_IMAGE_URL =
 
 const TITLE = "Customer Testimonials | Shumaker Roofing Company";
 const DESCRIPTION =
-  "Read real reviews from satisfied Shumaker Roofing customers across Maryland, Virginia, West Virginia, and Pennsylvania. See why homeowners trust us for over 70 years.";
+  "Read real reviews from satisfied Shumaker Roofing customers across Maryland, Virginia, and Pennsylvania. See why homeowners trust us for over 70 years.";
 
 const testimonialsPageSchema = buildPageSchema({
   path: "/testimonials",

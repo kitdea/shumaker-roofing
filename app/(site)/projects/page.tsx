@@ -18,12 +18,12 @@ const HERO_IMAGE_URL =
 export const metadata: Metadata = {
   title: { absolute: "Our Projects | Shumaker Roofing Company" },
   description:
-    "Explore Shumaker Roofing's completed projects across Maryland, Virginia, West Virginia, and Pennsylvania. See our roofing work on an interactive map.",
+    "Explore Shumaker Roofing's completed projects across Maryland, Virginia, and Pennsylvania. See our roofing work on an interactive map.",
   alternates: { canonical: "/projects" },
   openGraph: {
     title: "Our Projects | Shumaker Roofing Company",
     description:
-      "Explore Shumaker Roofing's completed projects across Maryland, Virginia, West Virginia, and Pennsylvania. See our roofing work on an interactive map.",
+      "Explore Shumaker Roofing's completed projects across Maryland, Virginia, and Pennsylvania. See our roofing work on an interactive map.",
     url: "/projects",
     type: "website",
     images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Our Projects | Shumaker Roofing Company",
     description:
-      "Explore Shumaker Roofing's completed projects across Maryland, Virginia, West Virginia, and Pennsylvania. See our roofing work on an interactive map.",
+      "Explore Shumaker Roofing's completed projects across Maryland, Virginia, and Pennsylvania. See our roofing work on an interactive map.",
     images: [FALLBACK_BLOG_IMAGE],
   },
 };
@@ -86,7 +86,7 @@ export default async function ProjectsPage() {
             Our Projects
           </h1>
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
-            Browse our completed roofing projects across Maryland, Virginia, West Virginia,
+            Browse our completed roofing projects across Maryland, Virginia,
             and Pennsylvania on an interactive map.
           </p>
         </Container>

@@ -45,17 +45,17 @@ const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "How long has Shumaker Roofing been in business?",
         answer:
-          "Shumaker Roofing has been serving Maryland, Virginia, West Virginia, and Pennsylvania for over 20 years. We have built a reputation for quality craftsmanship, honest pricing, and exceptional customer service across the region.",
+          "Shumaker Roofing has been serving Maryland, Virginia, and Pennsylvania for over 20 years. We have built a reputation for quality craftsmanship, honest pricing, and exceptional customer service across the region.",
       },
       {
         question: "What areas do you serve?",
         answer:
-          "We serve the greater Mid-Atlantic region, including Frederick, MD, Hagerstown, MD, Reston, VA, and surrounding communities in Maryland, Virginia, West Virginia, and Pennsylvania. Contact us to confirm service availability in your specific area.",
+          "We serve the greater Mid-Atlantic region, including Frederick, MD, Hagerstown, MD, Reston, VA, and surrounding communities in Maryland, Virginia, and Pennsylvania. Contact us to confirm service availability in your specific area.",
       },
       {
         question: "Are you licensed and insured?",
         answer:
-          "Yes. Shumaker Roofing is fully licensed and insured in every state we operate in. Our license numbers are: MHIC #4503 (Maryland), PA #160849 (Pennsylvania), WV #062924 (West Virginia), and VA #2705191905 (Virginia). We carry comprehensive general liability and workers' compensation insurance to protect both our crew and your property.",
+          "Yes. Shumaker Roofing is fully licensed and insured in every state we operate in. Our license numbers are: MHIC #4503 (Maryland), PA #160849 (Pennsylvania), and VA #2705191905 (Virginia). We carry comprehensive general liability and workers' compensation insurance to protect both our crew and your property.",
       },
       {
         question: "Do you offer free estimates?",

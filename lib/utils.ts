@@ -27,7 +27,6 @@ const STATE_NAMES: Record<string, string> = {
   MD: "Maryland",
   VA: "Virginia",
   PA: "Pennsylvania",
-  WV: "West Virginia",
 };
 
 export function stateDisplayName(state: string): string {

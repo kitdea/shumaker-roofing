@@ -29,12 +29,12 @@ const HERO_IMAGE_URL =
 export const metadata: Metadata = {
   title: { absolute: "Careers | Join the Shumaker Roofing Team" },
   description:
-    "Explore career opportunities at Shumaker Roofing Co. Inc. We're hiring experienced roofing professionals in Maryland, Virginia, West Virginia, and Pennsylvania. Apply today.",
+    "Explore career opportunities at Shumaker Roofing Co. Inc. We're hiring experienced roofing professionals in Maryland, Virginia, and Pennsylvania. Apply today.",
   alternates: { canonical: "/careers" },
   openGraph: {
     title: "Careers | Join the Shumaker Roofing Team",
     description:
-      "Explore career opportunities at Shumaker Roofing Co. Inc. We're hiring experienced roofing professionals in Maryland, Virginia, West Virginia, and Pennsylvania. Apply today.",
+      "Explore career opportunities at Shumaker Roofing Co. Inc. We're hiring experienced roofing professionals in Maryland, Virginia, and Pennsylvania. Apply today.",
     url: "/careers",
     type: "website",
     images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Careers | Join the Shumaker Roofing Team",
     description:
-      "Explore career opportunities at Shumaker Roofing Co. Inc. We're hiring experienced roofing professionals in Maryland, Virginia, West Virginia, and Pennsylvania. Apply today.",
+      "Explore career opportunities at Shumaker Roofing Co. Inc. We're hiring experienced roofing professionals in Maryland, Virginia, and Pennsylvania. Apply today.",
     images: [FALLBACK_BLOG_IMAGE],
   },
 };

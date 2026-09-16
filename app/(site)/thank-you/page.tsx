@@ -170,7 +170,7 @@ export default function ThankYouPage() {
                 <p className="text-muted-foreground text-lg mb-10">
                   If your roof is leaking or storm damage needs attention today, call us instead of
                   waiting for a callback. We handle emergency repairs across Maryland, Virginia,
-                  Pennsylvania, and West Virginia.
+                  and Pennsylvania.
                 </p>
 
                 <div className="flex flex-col gap-8">

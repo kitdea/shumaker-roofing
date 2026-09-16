@@ -77,7 +77,6 @@ const organizationSchema = {
     { "@type": "State", "name": "Maryland" },
     { "@type": "State", "name": "Virginia" },
     { "@type": "State", "name": "Pennsylvania" },
-    { "@type": "State", "name": "West Virginia" },
   ],
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
