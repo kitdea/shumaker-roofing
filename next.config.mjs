@@ -35,6 +35,21 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/best-flat-roof-coating-in-frederick-md',
+        destination: '/services/commercial-flat-and-low-slope-roofing-restoration',
+        permanent: true,
+      },
+      {
+        source: '/author/tyler/page/:page',
+        destination: '/blog/author/tyler-schisler',
+        permanent: true,
+      },
+      {
+        source: '/author/tyler',
+        destination: '/blog/author/tyler-schisler',
+        permanent: true,
+      },
+      {
         source: '/blog/maryland-roof-rejuvenation-contractor-frederick-md',
         destination: '/blog/what-is-roof-rejuvenation',
         permanent: true,
