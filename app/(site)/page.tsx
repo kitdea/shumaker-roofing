@@ -12,6 +12,7 @@ import { ProjectSlider } from "@/components/home/project-slider";
 import { fetchServicesForListing, fetchHeroBanner, fetchProjectSlides } from "@/lib/sanity";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
+import { BlogPreviewSection } from "@/components/home/blog-preview-section";
 import { getServiceIcon, SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 import { urlFor } from "@/lib/sanity-image";
 
@@ -282,6 +283,25 @@ export default async function Home() {
             <Button size="lg" asChild>
               <Link href="/testimonials" className="uppercase font-bold">
                 Read More Testimonials
+              </Link>
+            </Button>
+          </div>
+        </Container>
+      </section>
+
+      {/* Blog Preview — contextual in-body links to /blog, see blog-preview-section.tsx */}
+      <section className="py-24">
+        <Container>
+          <SectionHeader
+            title="Latest From Our Blog"
+            subtitle="Roofing Insights"
+            align="center"
+          />
+          <BlogPreviewSection />
+          <div className="flex justify-center mt-10">
+            <Button size="lg" asChild>
+              <Link href="/blog" className="uppercase font-bold">
+                Read More Articles
               </Link>
             </Button>
           </div>
