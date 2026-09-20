@@ -1,8 +1,9 @@
 "use client";
 
 import Script from "next/script";
+import { LazyMount } from "@/components/shared/lazy-mount";
 
-export function GhlCalendar() {
+function GhlCalendarEmbed() {
   return (
     <>
       <iframe
@@ -18,5 +19,16 @@ export function GhlCalendar() {
         strategy="afterInteractive"
       />
     </>
+  );
+}
+
+export function GhlCalendar() {
+  // Same deferred-mount treatment as GhlForm (see ghl-form.tsx) — the
+  // booking iframe + form_embed.js were loading unconditionally on every
+  // /book-appointment visit.
+  return (
+    <LazyMount placeholderHeight={800}>
+      <GhlCalendarEmbed />
+    </LazyMount>
   );
 }
