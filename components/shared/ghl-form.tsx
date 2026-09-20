@@ -1,8 +1,9 @@
 "use client";
 
 import Script from "next/script";
+import { LazyMount } from "@/components/shared/lazy-mount";
 
-export function GhlForm() {
+function GhlFormEmbed() {
   return (
     <>
       <iframe
@@ -29,5 +30,17 @@ export function GhlForm() {
         strategy="afterInteractive"
       />
     </>
+  );
+}
+
+export function GhlForm() {
+  // Deferred until scrolled near — this pulls in ~600KB+ of third-party JS
+  // (form_embed.js + the Maps Places API it triggers) that was previously
+  // loading on every /contact visit regardless of scroll position,
+  // directly inflating LCP/TBT (measured 10.2s LCP / 1265ms TBT).
+  return (
+    <LazyMount placeholderHeight={1315}>
+      <GhlFormEmbed />
+    </LazyMount>
   );
 }
