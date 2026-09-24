@@ -773,6 +773,37 @@ const nextConfig = {
         destination: '/services/roof-repair',
         permanent: true,
       },
+      // Legacy pre-Sanity-migration URLs still pulling GA4 traffic (P-030)
+      {
+        source: '/13-tips-to-find-the-right-siding-contractor',
+        destination: '/services/siding',
+        permanent: true,
+      },
+      {
+        source: '/best-ways-to-insulate-a-flat-roof-for-energy-efficiency',
+        destination: '/services/commercial-flat-and-low-slope-roofing-restoration',
+        permanent: true,
+      },
+      {
+        source: '/best-types-of-roof-vents-understanding-attic-ventilation',
+        destination: '/blog/why-attic-ventilation-matters-in-summer-frederick-md',
+        permanent: true,
+      },
+      {
+        source: '/11-simple-steps-to-install-a-solar-tube',
+        destination: '/services/skylight-installation',
+        permanent: true,
+      },
+      {
+        source: '/3-tab-shingles-guide-essential-information-for-homeowners',
+        destination: '/services/residential-roofing',
+        permanent: true,
+      },
+      {
+        source: '/understanding-soft-wash-roof-cleaning-process-and-benefits',
+        destination: '/services/residential-roofing',
+        permanent: true,
+      },
     ];
   },
   async headers() {
