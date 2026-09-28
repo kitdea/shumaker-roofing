@@ -804,6 +804,22 @@ const nextConfig = {
         destination: '/services/residential-roofing',
         permanent: true,
       },
+      // Legacy pre-Sanity-migration URLs, second batch (AUD-0928-01)
+      {
+        source: '/learn-about-roof-sealant-is-it-right-for-your-roof',
+        destination: '/services/roof-rejuvenation',
+        permanent: true,
+      },
+      {
+        source: '/solar-tubes-do-you-know-the-real-facts-about-it',
+        destination: '/services/skylight-installation',
+        permanent: true,
+      },
+      {
+        source: '/sun-tunnel-installation-in-big-pool-md',
+        destination: '/services/skylight-installation',
+        permanent: true,
+      },
     ];
   },
   async headers() {
