@@ -165,6 +165,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/services/storm-damage',
+        destination: '/services/storm-damage-restoration',
+        permanent: true,
+      },
+      {
         source: '/local-roofers-in-hagerstown-md',
         destination: '/service-areas/hagerstown-md',
         permanent: true,
