@@ -8,6 +8,19 @@ export function cn(...inputs: ClassValue[]) {
 
 export const SITE_URL = "https://shumakerroofing.com";
 export const SITE_DOMAIN = "shumakerroofing.com";
+
+// ─── Company founding facts ──────────────────────────────────────────────────
+// Single source of truth for the founding year. Every "X years in business"
+// claim on the site derives from here via yearsInBusiness() so the figure can
+// never drift page-to-page again (it had drifted to 20/70/75/78 across pages).
+// Also emitted as `foundingDate` in the Organization/LocalBusiness JSON-LD.
+export const FOUNDING_YEAR = 1946;
+export const FOUNDING_DATE = String(FOUNDING_YEAR);
+
+/** Completed years in business as of `now` (default: today). */
+export function yearsInBusiness(now: Date = new Date()): number {
+  return now.getFullYear() - FOUNDING_YEAR;
+}
 export const FALLBACK_BLOG_IMAGE =
   "https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg";
 

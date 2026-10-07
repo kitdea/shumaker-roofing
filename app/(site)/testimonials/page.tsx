@@ -11,7 +11,7 @@ import { ReviewWidget } from "@/components/shared/review-widget";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 import { JsonLd } from "@/components/shared/json-ld";
 import { buildPageSchema } from "@/lib/seo";
-import { FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+import { FALLBACK_BLOG_IMAGE, yearsInBusiness } from "@/lib/utils";
 import { urlFor } from "@/lib/sanity-image";
 
 const HERO_IMAGE_URL =
@@ -19,7 +19,7 @@ const HERO_IMAGE_URL =
 
 const TITLE = "Customer Testimonials | Shumaker Roofing Company";
 const DESCRIPTION =
-  "Read real reviews from satisfied Shumaker Roofing customers across Maryland, Virginia, and Pennsylvania. See why homeowners trust us for over 70 years.";
+  `Read real reviews from satisfied Shumaker Roofing customers across Maryland, Virginia, and Pennsylvania. See why homeowners trust us for over ${yearsInBusiness()} years.`;
 
 const testimonialsPageSchema = buildPageSchema({
   path: "/testimonials",
@@ -161,7 +161,7 @@ export default async function TestimonialsPage() {
             Join Thousands of Satisfied Customers
           </h2>
           <p className="text-white/70 text-lg max-w-xl mx-auto mb-10">
-            Contact us today for a free, no-obligation estimate. See for yourself why Shumaker Roofing has earned the trust of homeowners for over 70 years.
+            {`Contact us today for a free, no-obligation estimate. See for yourself why Shumaker Roofing has earned the trust of homeowners for over ${yearsInBusiness()} years.`}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="rounded-full gap-2 px-8" asChild>

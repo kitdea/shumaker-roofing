@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "./faq-accordion";
 import type { FaqCategory } from "./faq-accordion";
 import { CertificationsSection } from "@/components/shared/certifications-section";
-import { FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+import { FALLBACK_BLOG_IMAGE, yearsInBusiness } from "@/lib/utils";
 import { urlFor } from "@/lib/sanity-image";
 
 const HERO_IMAGE_URL =
@@ -45,7 +45,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "How long has Shumaker Roofing been in business?",
         answer:
-          "Shumaker Roofing has been serving Maryland, Virginia, and Pennsylvania for over 20 years. We have built a reputation for quality craftsmanship, honest pricing, and exceptional customer service across the region.",
+          `Shumaker Roofing has been serving Maryland, Virginia, and Pennsylvania for over ${yearsInBusiness()} years. We have built a reputation for quality craftsmanship, honest pricing, and exceptional customer service across the region.`,
       },
       {
         question: "What areas do you serve?",
