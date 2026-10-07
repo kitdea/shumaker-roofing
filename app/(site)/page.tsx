@@ -13,7 +13,7 @@ import { fetchServicesForListing, fetchHeroBanner, fetchProjectSlides } from "@/
 import { CertificationsSection } from "@/components/shared/certifications-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { BlogPreviewSection } from "@/components/home/blog-preview-section";
-import { getServiceIcon, SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+import { getServiceIcon, SITE_URL, FALLBACK_BLOG_IMAGE, FOUNDING_DATE } from "@/lib/utils";
 import { urlFor } from "@/lib/sanity-image";
 
 const FALLBACK_HERO_IMAGE_URL = FALLBACK_BLOG_IMAGE;
@@ -46,6 +46,7 @@ const organizationSchema = {
   "logo": `${SITE_URL}/logo.png`,
   "image": FALLBACK_BLOG_IMAGE,
   "description": HOME_DESCRIPTION,
+  "foundingDate": FOUNDING_DATE,
   "telephone": "+1-301-662-0533",
   "email": "info@shumakerroofing.com",
   "address": [

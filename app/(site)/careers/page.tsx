@@ -19,7 +19,7 @@ import { Container } from "@/components/shared/container";
 import { SectionHeader } from "@/components/shared/section-header";
 import { Button } from "@/components/ui/button";
 import { fetchJobPostings } from "@/lib/sanity";
-import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+import { SITE_URL, FALLBACK_BLOG_IMAGE, yearsInBusiness } from "@/lib/utils";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 import { urlFor } from "@/lib/sanity-image";
 
@@ -108,7 +108,7 @@ export default async function CareersPage() {
             Join Our Team
           </h1>
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
-            Build a career with one of the Mid-Atlantic&apos;s most trusted roofing companies - over 75+ years strong and still growing.
+            {`Build a career with one of the Mid-Atlantic's most trusted roofing companies - over ${yearsInBusiness()} years strong and still growing.`}
           </p>
         </Container>
       </section>
@@ -128,7 +128,7 @@ export default async function CareersPage() {
               {
                 icon: ShieldCheck,
                 title: "Stable, Year-Round Work",
-                desc: "With 70+ years in business and a growing customer base across four states, our crews stay busy all year.",
+                desc: `With ${yearsInBusiness()} years in business and a growing customer base across four states, our crews stay busy all year.`,
               },
               {
                 icon: Users,
@@ -318,7 +318,7 @@ export default async function CareersPage() {
             Build Your Career with Shumaker Roofing
           </h2>
           <p className="text-white/70 text-lg max-w-xl mx-auto mb-10">
-            Join a team that has protected homes and built careers across the Mid-Atlantic for over 70 years. We&apos;re growing - and we&apos;d love to grow with you.
+            {`Join a team that has protected homes and built careers across the Mid-Atlantic for over ${yearsInBusiness()} years. We're growing - and we'd love to grow with you.`}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="rounded-full gap-2 px-8" asChild>
