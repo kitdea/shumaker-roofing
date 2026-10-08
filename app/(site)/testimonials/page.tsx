@@ -81,7 +81,7 @@ export default async function TestimonialsPage() {
         <Container>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { value: "75+", label: "Years in Business" },
+              { value: String(yearsInBusiness()), label: "Years in Business" },
               { value: "4.9", label: "Average Rating" },
               { value: "5,000+", label: "Roofs Installed" },
               { value: "4 States", label: "Service Area" },

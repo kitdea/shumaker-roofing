@@ -10,7 +10,7 @@ import Link from "next/link";
 import { CertificationsSection } from "@/components/shared/certifications-section";
 import { JsonLd } from "@/components/shared/json-ld";
 import { buildPageSchema } from "@/lib/seo";
-import { FALLBACK_BLOG_IMAGE } from "@/lib/utils";
+import { FALLBACK_BLOG_IMAGE, yearsInBusiness } from "@/lib/utils";
 import { urlFor } from "@/lib/sanity-image";
 
 const HERO_IMAGE_URL =
@@ -233,7 +233,7 @@ export default async function RoofsForHeroesPage() {
               </p>
               <div className="grid grid-cols-2 gap-6 mt-4">
                 <div className="text-center">
-                  <p className="text-primary text-4xl font-heading font-extrabold">75+</p>
+                  <p className="text-primary text-4xl font-heading font-extrabold">{yearsInBusiness()}</p>
                   <p className="text-white/70 text-sm mt-1">Years in Business</p>
                 </div>
                 <div className="text-center">
