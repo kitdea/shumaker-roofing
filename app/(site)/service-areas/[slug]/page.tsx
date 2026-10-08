@@ -20,6 +20,14 @@ const portableTextComponents: PortableTextComponents = {
   marks: portableTextMarks,
 };
 
+const SERVICE_AREA_TRUST_SIGNALS = [
+  "Veteran-Owned Since 1946",
+  "Licensed & Insured",
+  "CertainTeed 5-Star Certified Roofer",
+  "Local Team Serving MD, VA & PA",
+  "Free Written Estimates",
+] as const;
+
 const OFFICES = {
   MD: {
     streetAddress: "26 Water St",
@@ -318,11 +326,11 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
                 <div className="w-40 h-40 bg-white rounded-full" />
               </div>
               <h3 className="text-xl font-heading font-bold mb-4 text-white relative z-10">
-                Serving {cityDisplay}
+                Ready to Get Started?
               </h3>
               <p className="text-white/90 mb-8 text-sm relative z-10 leading-relaxed">
-                Our team is ready to help with all your roofing needs in{" "}
-                {cityDisplay}, {stateDisplayName(loc.state ?? "")}. Get your free estimate today.
+                Want to learn more about our services? Our team is ready to help and
+                give you a free estimate.
               </p>
               {loc.phoneNumber && (
                 <a
@@ -343,7 +351,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
               </Button>
             </div>
 
-            <WhyChooseUs />
+            <WhyChooseUs items={SERVICE_AREA_TRUST_SIGNALS} />
 
             {/* Location info */}
             <div className="bg-muted/50 p-8 rounded-2xl border border-border shadow-sm">
