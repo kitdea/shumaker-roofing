@@ -170,6 +170,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/services/siding-installation',
+        destination: '/services/siding',
+        permanent: true,
+      },
+      {
         source: '/local-roofers-in-hagerstown-md',
         destination: '/service-areas/hagerstown-md',
         permanent: true,
