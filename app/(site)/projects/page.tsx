@@ -48,6 +48,7 @@ const projectsSchema = {
     "@type": "LocalBusiness",
     name: "Shumaker Roofing Company",
     url: SITE_URL,
+    telephone: "+1-301-662-0533",
     address: {
       "@type": "PostalAddress",
       streetAddress: "26 Water St.",
