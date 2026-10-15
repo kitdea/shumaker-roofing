@@ -830,6 +830,40 @@ const nextConfig = {
         destination: '/services/skylight-installation',
         permanent: true,
       },
+      // Legacy 404 cleanup, "Window A" batch (AUD-1005-01).
+      // The two URLs with no matching content (/the-ideal-roof-color-for-tropical-climates,
+      // /roofing-nails-a-complete-guide-to-types) are intentionally NOT redirected —
+      // they return HTTP 410 Gone from proxy.ts instead.
+      {
+        source: '/roofing-contractor-in-boyds-md',
+        destination: '/service-areas/frederick-md',
+        permanent: true,
+      },
+      {
+        source: '/roof-repair-in-boyds-md',
+        destination: '/service-areas/frederick-md',
+        permanent: true,
+      },
+      {
+        source: '/guide-to-solar-tube-installation',
+        destination: '/services/skylight-installation',
+        permanent: true,
+      },
+      {
+        source: '/how-much-do-solar-tubes-cost',
+        destination: '/services/skylight-installation',
+        permanent: true,
+      },
+      {
+        source: '/key-signs-that-the-wind-damaged-your-roof',
+        destination: '/services/roof-repair',
+        permanent: true,
+      },
+      {
+        source: '/metal-roof-flashing-installation',
+        destination: '/services/metal-roofing',
+        permanent: true,
+      },
     ];
   },
   async headers() {
