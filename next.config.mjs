@@ -864,6 +864,65 @@ const nextConfig = {
         destination: '/services/metal-roofing',
         permanent: true,
       },
+      // Legacy 404 cleanup, "Window B" batch (AUD-1012-01).
+      // The one URL with no matching content (/how-do-you-repair-a-concrete-roof —
+      // Shumaker offers no concrete-roofing service) is intentionally NOT redirected;
+      // it returns HTTP 410 Gone from proxy.ts instead.
+      {
+        source: '/what-is-the-procedure-for-installing-a-roof',
+        destination: '/services/roof-installation',
+        permanent: true,
+      },
+      {
+        source: '/are-metal-roofs-noisy-when-it-rains',
+        destination: '/services/metal-roofing',
+        permanent: true,
+      },
+      {
+        source: '/roofing-quotes-in-jefferson-md',
+        destination: '/service-areas/frederick-md',
+        permanent: true,
+      },
+      {
+        source: '/asphalt-shingle-installation-in-germantown-md',
+        destination: '/service-areas/frederick-md',
+        permanent: true,
+      },
+      {
+        source: '/discovering-sun-tunnels-solar-tubes-and-tubular-skylights',
+        destination: '/services/skylight-installation',
+        permanent: true,
+      },
+      {
+        source: '/how-are-gutters-made-seamlessly',
+        destination: '/services/gutter-installation',
+        permanent: true,
+      },
+      {
+        source: '/how-to-fix-a-roof-drip-edge',
+        destination: '/services/roof-repair',
+        permanent: true,
+      },
+      {
+        source: '/meet-shumaker-roofing-team-frederick-md',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/quality-gutters-in-jefferson-md',
+        destination: '/service-areas/frederick-md',
+        permanent: true,
+      },
+      {
+        source: '/roof-inspection-in-damascus-md',
+        destination: '/service-areas/frederick-md',
+        permanent: true,
+      },
+      {
+        source: '/roof-installation-in-knoxville-md',
+        destination: '/service-areas/frederick-md',
+        permanent: true,
+      },
     ];
   },
   async headers() {

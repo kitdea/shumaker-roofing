@@ -2,14 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 /**
  * Legacy URLs whose content is permanently gone with no equivalent page to
- * redirect to (AUD-1005-01, "Window A"). These must answer 410 Gone — not 404,
- * not a redirect — so search engines drop them promptly instead of re-crawling
- * a soft 404 for months. URLs that DO have a sensible destination belong in the
- * `redirects()` list in next.config.mjs instead.
+ * redirect to (AUD-1005-01 "Window A", AUD-1012-01 "Window B"). These must
+ * answer 410 Gone — not 404, not a redirect — so search engines drop them
+ * promptly instead of re-crawling a soft 404 for months. URLs that DO have a
+ * sensible destination belong in the `redirects()` list in next.config.mjs
+ * instead.
  */
 const GONE_PATHS = new Set([
+  // Window A (AUD-1005-01)
   "/the-ideal-roof-color-for-tropical-climates",
   "/roofing-nails-a-complete-guide-to-types",
+  // Window B (AUD-1012-01) — Shumaker offers no concrete-roofing service,
+  // so there is no honest redirect target for this one.
+  "/how-do-you-repair-a-concrete-roof",
 ]);
 
 function normalizePath(pathname: string): string {
