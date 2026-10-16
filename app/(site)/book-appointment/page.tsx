@@ -2,33 +2,35 @@ export const revalidate = 3600;
 
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/shared/container";
 import { GhlCalendar } from "@/components/shared/ghl-calendar";
-import { Phone, Mail, Clock } from "lucide-react";
+import { Phone, Mail, Clock, CheckCircle2, ArrowRight } from "lucide-react";
 import { SITE_URL, FALLBACK_BLOG_IMAGE } from "@/lib/utils";
 import { urlFor } from "@/lib/sanity-image";
 
 const HERO_IMAGE_URL =
   "https://cdn.sanity.io/images/rg9pahe7/production/6f190d658c389af55504e6ff5498d4f83bb923d4-2052x1540.jpg";
 
+const TITLE = "Free Roof Inspection in Frederick, MD | Shumaker Roofing";
+const DESCRIPTION =
+  "Book a free roof inspection and estimate with Shumaker Roofing in Frederick, MD. Veteran-owned since 1946. Pick a time online or call 301-662-0533 today.";
+
 export const metadata: Metadata = {
-  title: { absolute: "Book an Appointment | Shumaker Roofing Company" },
-  description:
-    "Schedule a free roofing estimate with Shumaker Roofing Company. Pick a date and time that works for you — our team will come to you.",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: { canonical: "/book-appointment" },
   openGraph: {
-    title: "Book an Appointment | Shumaker Roofing Company",
-    description:
-      "Schedule a free roofing estimate with Shumaker Roofing Company. Pick a date and time that works for you — our team will come to you.",
+    title: TITLE,
+    description: DESCRIPTION,
     url: "/book-appointment",
     type: "website",
     images: [{ url: FALLBACK_BLOG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Book an Appointment | Shumaker Roofing Company",
-    description:
-      "Schedule a free roofing estimate with Shumaker Roofing Company. Pick a date and time that works for you — our team will come to you.",
+    title: TITLE,
+    description: DESCRIPTION,
     images: [FALLBACK_BLOG_IMAGE],
   },
 };
@@ -48,12 +50,64 @@ const bookPageSchema = {
       "@type": "WebPage",
       "@id": SITE_URL + "/book-appointment#webpage",
       "url": SITE_URL + "/book-appointment",
-      "name": "Book an Appointment — Shumaker Roofing Company",
-      "description": "Schedule a free roofing estimate online with Shumaker Roofing Company.",
+      "name": "Free Roof Inspection in Frederick, MD — Shumaker Roofing Company",
+      "description": DESCRIPTION,
       "breadcrumb": { "@id": SITE_URL + "/book-appointment#breadcrumb" },
     },
   ],
 };
+
+// Matches the in-body link treatment used by rich-text copy elsewhere
+// (components/shared/faq-answer.tsx, components/shared/two-column-section.tsx).
+const INLINE_LINK_CLASS =
+  "text-primary underline underline-offset-2 transition-opacity hover:opacity-80";
+
+const WHEN_TO_BOOK: { key: string; content: React.ReactNode }[] = [
+  {
+    key: "leaking",
+    content: "Your roof is leaking or you see water stains on the ceiling",
+  },
+  {
+    key: "storm",
+    content: (
+      <>
+        A storm just came through and you&apos;re worried about{" "}
+        <Link href="/services/storm-damage-restoration" className={INLINE_LINK_CLASS}>
+          storm damage
+        </Link>{" "}
+        from high wind, hail, or falling branches
+      </>
+    ),
+  },
+  {
+    key: "shingles",
+    content: "Shingles are missing, curling, or you're finding granules in the gutters",
+  },
+  {
+    key: "older",
+    content: (
+      <>
+        Your roof is getting older and you want to plan ahead. In Frederick, we can also check if
+        your roof is a good fit for{" "}
+        <Link href="/services/roof-rejuvenation" className={INLINE_LINK_CLASS}>
+          roof rejuvenation
+        </Link>{" "}
+        instead of replacement.
+      </>
+    ),
+  },
+  {
+    key: "buying-selling",
+    content: "You're buying or selling a home",
+  },
+];
+
+const WHY_BOOK_WITH_US = [
+  "Veteran-Owned since 1946",
+  "CertainTeed 5-Star Contractor",
+  "Licensed & Insured",
+  "Local Team Serving MD, VA & PA",
+];
 
 export default function BookPage() {
   return (
@@ -79,10 +133,10 @@ export default function BookPage() {
           </div>
           <Container className="relative z-10 text-center">
             <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4">
-              Book an Appointment
+              Book Your Free Roof Inspection in Frederick, MD
             </h1>
             <p className="text-white/80 text-lg max-w-2xl mx-auto">
-              Pick a date and time that works for you. Our roofing experts will come to you for a free estimate.
+              Pick a time that works for you. We&apos;ll come to your home for a free roof inspection and give you a free estimate. No pressure and no obligation.
             </p>
           </Container>
         </section>
@@ -91,6 +145,74 @@ export default function BookPage() {
         <section className="py-24">
           <Container>
             <GhlCalendar />
+          </Container>
+        </section>
+
+        {/* When to book / Why book with us */}
+        <section className="pb-24 border-b border-border">
+          <Container>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-6">
+                  When To Book A Roof Inspection
+                </h2>
+                <ul className="flex flex-col gap-4">
+                  {WHEN_TO_BOOK.map((item) => (
+                    <li key={item.key} className="flex items-start gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-foreground/80 leading-relaxed">{item.content}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-6">
+                  Why Homeowners Book With Shumaker
+                </h2>
+                <ul className="flex flex-col gap-4">
+                  {WHY_BOOK_WITH_US.map((item) => (
+                    <li key={item} className="flex items-center gap-3">
+                      <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0" />
+                      <span className="text-foreground font-medium">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* Where we work */}
+        <section className="py-16">
+          <Container>
+            <div className="max-w-2xl">
+              <h2 className="text-2xl font-heading font-bold text-foreground mb-4">Where We Work</h2>
+              <p className="text-foreground/80 leading-relaxed mb-6">
+                We inspect roofs in{" "}
+                <Link href="/service-areas/frederick-md" className={INLINE_LINK_CLASS}>
+                  Frederick, MD
+                </Link>
+                ,{" "}
+                <Link href="/service-areas/hagerstown-md" className={INLINE_LINK_CLASS}>
+                  Hagerstown, MD
+                </Link>
+                ,{" "}
+                <Link href="/service-areas/reston-va" className={INLINE_LINK_CLASS}>
+                  Reston, VA
+                </Link>
+                , and{" "}
+                <Link href="/service-areas/chambersburg-pa" className={INLINE_LINK_CLASS}>
+                  Chambersburg, PA
+                </Link>
+                .
+              </p>
+              <Link
+                href="/service-areas"
+                className="inline-flex items-center font-medium text-primary hover:text-primary/80 transition-colors"
+              >
+                See all service areas <ArrowRight className="h-4 w-4 ml-1" />
+              </Link>
+            </div>
           </Container>
         </section>
 
