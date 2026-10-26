@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     entryFields: post,
     fallbackTitle,
     fallbackDesc,
-    fallbackImage: urlFor(post.featuredImage),
+    fallbackImage: urlFor(post.featuredImage) ?? FALLBACK_BLOG_IMAGE,
     ogType: "article",
     canonicalPath: `/blog/${slug}`,
   });
