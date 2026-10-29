@@ -39,3 +39,7 @@ next-env.d.ts
 # python
 __pycache__/
 *.pyc
+
+# local audit scratch output (contains API responses/keys; never commit)
+/.audit_tmp/
+/.tmp-audit/
