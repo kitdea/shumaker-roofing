@@ -1,5 +1,6 @@
 export const revalidate = 3600;
 
+import { JsonLd } from "@/components/shared/json-ld";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -149,10 +150,7 @@ const FAQ_SCHEMA = {
 export default async function FaqsPage() {
   return (
     <div className="flex flex-col w-full">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }}
-      />
+      <JsonLd schema={FAQ_SCHEMA} />
 
       {/* Page Header */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">

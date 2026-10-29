@@ -1,5 +1,6 @@
 export const revalidate = 3600;
 
+import { JsonLd } from "@/components/shared/json-ld";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -134,10 +135,7 @@ function ServicesGridSkeleton() {
 export default function ServicesPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesPageSchema) }}
-      />
+      <JsonLd schema={servicesPageSchema} />
       <div className="flex flex-col w-full">
         <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">
           <div className="absolute inset-0 z-0">

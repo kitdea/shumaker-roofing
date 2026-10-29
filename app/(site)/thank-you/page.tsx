@@ -1,5 +1,6 @@
 export const revalidate = 3600;
 
+import { JsonLd } from "@/components/shared/json-ld";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -100,10 +101,7 @@ const NEXT_LINKS = [
 export default function ThankYouPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(thankYouPageSchema) }}
-      />
+      <JsonLd schema={thankYouPageSchema} />
       <div className="flex flex-col w-full">
         {/* Page Header */}
         <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">

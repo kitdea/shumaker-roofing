@@ -1,5 +1,6 @@
 export const revalidate = 3600;
 
+import { JsonLd } from "@/components/shared/json-ld";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/shared/container";
@@ -106,10 +107,7 @@ export default async function Home() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
+      <JsonLd schema={organizationSchema} />
     <div className="flex flex-col w-full">
       {/* Hero Section */}
       <section className="relative w-full h-[80vh] min-h-[600px] flex items-center bg-secondary">

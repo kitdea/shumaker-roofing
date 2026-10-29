@@ -1,5 +1,6 @@
 export const revalidate = 3600;
 
+import { JsonLd } from "@/components/shared/json-ld";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -88,10 +89,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-      />
+      <JsonLd schema={personSchema} />
       <div className="flex flex-col w-full pb-24">
         {/* Header */}
         <section className="bg-secondary/40 border-b border-border">

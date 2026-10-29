@@ -1,5 +1,6 @@
 export const revalidate = 3600;
 
+import { JsonLd } from "@/components/shared/json-ld";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -82,10 +83,7 @@ export default async function ServiceAreasPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceAreasPageSchema) }}
-      />
+      <JsonLd schema={serviceAreasPageSchema} />
     <div className="flex flex-col w-full">
       {/* Hero */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex items-center bg-secondary">

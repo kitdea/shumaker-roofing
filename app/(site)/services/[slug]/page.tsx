@@ -1,5 +1,6 @@
 export const revalidate = 3600;
 
+import { JsonLd } from "@/components/shared/json-ld";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -115,15 +116,9 @@ export default async function ServiceDetailsPage({ params }: { params: Promise<{
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
+      <JsonLd schema={serviceSchema} />
       {faqPageSchema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
-        />
+        <JsonLd schema={faqPageSchema} />
       )}
     <div className="flex flex-col w-full pb-24">
       {/* Article Header */}

@@ -1,5 +1,6 @@
 export const revalidate = 3600;
 
+import { JsonLd } from "@/components/shared/json-ld";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MapPin, Phone, ChevronLeft, CheckCircle2 } from "lucide-react";
@@ -213,10 +214,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(locationSchema) }}
-      />
+      <JsonLd schema={locationSchema} />
     <div className="flex flex-col w-full pb-24">
       {/* Hero */}
       <section className="relative w-full h-[40vh] min-h-[300px] flex flex-col justify-end pb-16 bg-secondary">
