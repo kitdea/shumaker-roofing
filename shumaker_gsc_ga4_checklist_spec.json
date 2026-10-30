@@ -1,0 +1,98 @@
+{
+  "sheets": [
+    {
+      "name": "Summary",
+      "column_widths": {"A": 28, "B": 90},
+      "rows": [
+        [{"value": "Shumaker Roofing — GSC + GA4 + Technical Audit Insights", "bold": true, "font_size": 14}],
+        [""],
+        [{"value": "Prepared", "bold": true}, "2026-09-14"],
+        [{"value": "GSC window", "bold": true}, "Current 28d: 2026-08-15 to 2026-09-11  |  Prior 28d: 2026-07-18 to 2026-08-14"],
+        [{"value": "GA4 window", "bold": true}, "Current 28d: 2026-08-17 to 2026-09-13  |  Prior 28d: 2026-07-20 to 2026-08-16 (property 428572245)"],
+        [""],
+        [{"value": "Key numbers", "bold": true, "font_size": 12}],
+        ["GSC Clicks", "~116 (prior 28d) -> ~98 (current 28d)   -15.5%"],
+        ["GSC Impressions", "~46,023 -> ~43,839   -4.7%"],
+        ["GSC Avg CTR", "0.25% -> 0.22% (worse)"],
+        ["GA4 Organic Search sessions", "334 -> 280   -16%"],
+        ["GA4 'Unassigned' channel", "80 sessions, 1.25% engagement rate, but 49 reported conversions (likely a tracking defect)"],
+        ["Open tech-audit findings", "~57 open (of which ~50 are Performance/LCP items, most 60-81 days stale)"],
+        [""],
+        [{"value": "How to use this workbook", "bold": true, "font_size": 12}],
+        ["Sheet: GSC-GA4 Insights", "New findings from this analysis, one row per issue. Priority / Finding / Action / Status columns, sorted Critical > High > Medium > Low > Info."],
+        ["Sheet: Tech-Audit Backlog (Open)", "Live pull of the currently-open items from the recurring PageSpeed/Health/SEO crawl (memory/tech-audit/findings.md) as of 2026-08-28, for cross-reference."],
+        ["Status column", "Update to 'In Progress' / 'Done' as items are worked; defaults to 'Not Started'."]
+      ]
+    },
+    {
+      "name": "GSC-GA4 Insights",
+      "freeze_panes": "A2",
+      "autofilter": "A1:F1",
+      "column_widths": {"A": 10, "B": 18, "C": 34, "D": 55, "E": 60, "F": 14},
+      "conditional_formats": [
+        {"range": "A2:A200", "type": "cell_is", "operator": "equal", "formula": ["\"Critical\""], "fill": "FF9999"},
+        {"range": "A2:A200", "type": "cell_is", "operator": "equal", "formula": ["\"High\""], "fill": "FFCC99"},
+        {"range": "A2:A200", "type": "cell_is", "operator": "equal", "formula": ["\"Medium\""], "fill": "FFF299"},
+        {"range": "A2:A200", "type": "cell_is", "operator": "equal", "formula": ["\"Low\""], "fill": "E2EFDA"},
+        {"range": "A2:A200", "type": "cell_is", "operator": "equal", "formula": ["\"Info\""], "fill": "D9D9D9"}
+      ],
+      "rows": [
+        [{"value": "Priority", "bold": true}, {"value": "Area", "bold": true}, {"value": "Finding", "bold": true}, {"value": "Detail / Evidence", "bold": true}, {"value": "Recommended Action", "bold": true}, {"value": "Status", "bold": true}],
+        ["Critical", "Technical/Redirects", "http:// and https:// homepage indexed as two separate URLs", "GSC: https://shumakerroofing.com/ = 23,786 impr / pos 5.6; http://shumakerroofing.com/ = 4,766 impr / pos 1.6 (outranking the https version). Signals a broken/inconsistent http->https redirect.", "Verify next.config.mjs / hosting-level redirect forces a single 301/308 hop from http-> canonical https (and www/non-www per prior S-002). Confirm via curl -I on all 4 scheme/host variants. Request re-indexing of the canonical URL once fixed.", "Not Started"],
+        ["Critical", "GA4/Tracking", "'Unassigned' channel reports 49 conversions with 1.25% engagement rate", "Current 28d: Unassigned = 80 sessions, engagementRate 0.0125, conversions 49 — the single largest conversion count of any channel despite near-zero real engagement. Likely server-side/webhook events (GHL form, RoofQuotePro) firing without session context.", "Audit GA4 Admin > Events > Key events: confirm which events are marked conversions. Add proper client_id/UTM context to server-side webhook calls so they attribute to the correct channel instead of 'Unassigned'. Re-baseline true lead count using roofquotepro_lead_submitted (2) + ghl_form (11) + phone_click (3), not the raw 'conversions' total.", "Not Started"],
+        ["Critical", "Performance", "book-appointment and contact (highest-value conversion pages) have chronic worst-in-site LCP", "Tech-audit log shows /book-appointment and /contact recorded LCP up to 9,000-16,000ms and performance scores in the 20s-40s repeatedly between June-August; still open findings P-325/P-326 (book-appointment CLS/score) as of 2026-08-28.", "Prioritize LCP fix on these two templates first — profile hero/image loading and any synchronous RoofQuotePro/GHL widget script blocking render. Re-test with PageSpeed after fix.", "Not Started"],
+        ["High", "Performance", "~50 open Performance findings (LCP/score) spanning nearly every template, most 60-81 days stale", "findings.md: homepage, all /services/*, all /service-areas/*, most /blog/* posts flagged 'LCP above threshold' or 'Performance score below target', many first-seen 2026-06-08/06-24/07-21 and still open.", "Root-cause once at the template level rather than per-page: check next/image priority/sizes usage for cdn.sanity.io hero images, and defer/lazy-load third-party scripts (RoofQuotePro, GHL, chat) below the fold. Re-run the audit sweep after the fix to confirm the whole backlog clears together.", "Not Started"],
+        ["High", "SEO/Content", "Non-brand commercial queries rank but essentially don't convert to clicks", "'roof repair frederick md': 600 impr, pos 15.1, 2 clicks (0.33% CTR). 'roofing companies frederick md': 230 impr, pos 22.8, 2 clicks. Brand queries ('shumaker roofing') carry the click volume (20 of ~98 clicks) instead.", "Rewrite title tags/meta descriptions for these commercial-intent pages to be more compelling at their current position; add schema/rich-result eligibility where missing; track CTR weekly post-change.", "Not Started"],
+        ["High", "SEO/Content", "/blog listing page nearly invisible in search", "3,941 impressions, avg position 37.9, only 1 click over 28 days — underperforming for what should be a strong internal hub page.", "Add stronger internal linking into /blog from high-authority pages (homepage, service pages), ensure it has unique optimized title/meta, and confirm it isn't excluded by a noindex or thin-content issue.", "Not Started"],
+        ["High", "SEO/Content", "Ranking-but-zero-click pages need snippet fixes", "/blog/when-to-get-roof-rejuvenation-frederick-md: pos 6.3, 35 impr, 0 clicks. /blog/how-much-do-new-gutters-cost-maryland: pos 9.8, 141 impr, 0 clicks. Good rank, snippet isn't earning the click.", "Rewrite title + meta description to include price/benefit hooks and a clear CTA; add FAQ schema where applicable to win more SERP real estate.", "Not Started"],
+        ["High", "SEO/Content", "'what-is-roof-rejuvenation' has high demand but very poor rank", "1,720 impressions but average position 54.9 — likely cannibalized by sibling 'rejuvenation' posts (historically flagged S-063/064/065 in the tech-audit log).", "Consolidate or differentiate the rejuvenation content cluster: pick one primary target page for the head term, cross-link supporting posts to it, and de-duplicate overlapping title/meta targeting.", "Not Started"],
+        ["Medium", "Technical", "Legacy WordPress URLs still receiving impressions post-Sanity-migration", "/asphalt-shingles-vs-metal-roofing-which-is-better-for-you/, /best-flat-roof-coating-in-frederick-md/, /author/tyler/page/3/ and /6/, /blog//what-is-roof-rejuvenation (double slash) all show impressions with no clean redirect to current content.", "301-redirect each legacy URL to its current Sanity-CMS equivalent; fix the double-slash URL generation bug if reproducible in lib/utils.ts or blog link construction.", "Not Started"],
+        ["Medium", "Technical", "Live blog page missing from sitemap.xml (H-049)", "/blog/replacing-gutters-with-new-roof-frederick-md is live but absent from sitemap.xml as of 2026-08-28 — reduces crawl priority for a published page.", "Confirm app/sitemap.ts includes all published Sanity blog documents; add the missing entry and verify revalidate is still set (root cause of a prior identical bug, H-039).", "Not Started"],
+        ["Medium", "Technical", "Desktop CTR underperforms mobile despite far more impressions", "Desktop: 37,525 impressions, 0.19% CTR. Mobile: 6,268 impressions, 0.45% CTR (2.4x higher) despite worse average position (28.5 vs 16.4).", "Investigate desktop-specific rendering/speed issues (heavier hero assets, no responsive srcset) that may be suppressing desktop SERP appeal; confirm desktop LCP separately from mobile in PageSpeed sweep.", "Not Started"],
+        ["Medium", "CMS/SEO", "12 open Sanity field-integrity findings (missing servicesImage/featuredImage)", "H-047, H-048, H-050, H-051 and others: services and blog documents missing hero/og images, degrading social-share previews and og:image-based rich results.", "Backfill missing images in Sanity for the affected service/blog documents; add a required-field validation in the schema to prevent future publishes without a featured image.", "Not Started"],
+        ["Info", "GA4/Tracking", "Real lead-intent event volume is much lower than the 'conversions' metric suggests", "Current 28d event counts: book_appointment=34 (click, not necessarily completion), ghl_form=11, roofquotepro_lead_submitted=2, phone_click=3 — versus ~93 summed 'conversions' across channels.", "Use this table as the honest lead baseline until the Key Events audit (see Critical row above) is completed; report actual submitted-lead count, not raw GA4 conversions, to stakeholders in the interim.", "Not Started"]
+      ]
+    },
+    {
+      "name": "Tech-Audit Backlog (Open)",
+      "freeze_panes": "A2",
+      "autofilter": "A1:F1",
+      "column_widths": {"A": 10, "B": 14, "C": 45, "D": 45, "E": 10, "F": 12},
+      "rows": [
+        [{"value": "ID", "bold": true}, {"value": "Module", "bold": true}, {"value": "URL", "bold": true}, {"value": "Issue", "bold": true}, {"value": "Severity", "bold": true}, {"value": "Age (days)", "bold": true}],
+        ["P-373", "Performance", "/blog/best-roofing-contractors-in-frederick-md", "LCP above threshold", "P1", 65],
+        ["P-345", "Performance", "/projects", "Performance score below target", "P1", 61],
+        ["P-377", "Performance", "/blog/when-to-get-roof-rejuvenation-frederick-md", "LCP above threshold", "P1", 38],
+        ["P-365", "Performance", "/services/roof-repair", "LCP above threshold", "P2", 81],
+        ["P-323", "Performance", "/contact", "Performance score below target", "P2", 81],
+        ["P-325", "Performance", "/book-appointment", "CLS above threshold", "P2", 81],
+        ["P-326", "Performance", "/book-appointment", "Performance score below target", "P2", 81],
+        ["P-336", "Performance", "/", "Performance score below target", "P2", 81],
+        ["P-363", "Performance", "/services/roof-rejuvenation", "LCP above threshold", "P2", 81],
+        ["P-364", "Performance", "/services/roof-rejuvenation", "Performance score below target", "P2", 81],
+        ["P-366", "Performance", "/services/roof-repair", "Performance score below target", "P2", 81],
+        ["P-394", "Performance", "/service-areas/chambersburg-pa", "Performance score below target", "P2", 81],
+        ["P-341", "Performance", "/service-areas", "LCP above threshold", "P2", 65],
+        ["H-017..H-025", "Health", "9x /services/* pages", "Sanity field integrity: servicesImage missing", "P2", 65],
+        ["P-335", "Performance", "/", "LCP above threshold", "P2", 65],
+        ["P-338", "Performance", "/about", "Performance score below target", "P2", 65],
+        ["P-356", "Performance", "/services/commercial-flat-and-low-slope-roofing-restoration", "LCP above threshold", "P2", 65],
+        ["P-369", "Performance", "/services/solar-contractor", "LCP above threshold", "P2", 65],
+        ["P-383", "Performance", "/blog/skylight-repair-vs-replacement-how-to-decide-save-money", "LCP above threshold", "P2", 65],
+        ["P-388", "Performance", "/blog/preparing-your-roof-for-summer-storms-in-frederick-md", "LCP above threshold", "P2", 65],
+        ["P-390", "Performance", "/blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md", "Performance score below target", "P2", 65],
+        ["P-396", "Performance", "/service-areas/reston-va", "Performance score below target", "P2", 65],
+        ["P-342/P-347/P-350/P-393", "Performance", "/service-areas, /testimonials, /roofs-for-heroes, blog winter-damage post", "Performance score below target", "P2", 61],
+        ["P-321,P-329,P-330,P-340,P-343,P-344,P-358,P-360,P-362,P-374,P-376,P-378,P-379,P-380,P-382,P-384,P-385,P-387,P-389,P-392", "Performance", "20 pages (blog, services, careers, faqs)", "LCP above threshold / Performance score below target", "P2", 38],
+        ["P-357", "Performance", "/services/commercial-flat-and-low-slope-roofing-restoration", "Performance score below target", "P2", 24],
+        ["H-047,H-048", "Health", "/services/metal-roofing, /blog/how-long-do-gutters-last", "Sanity field integrity: image missing", "P2", 19],
+        ["P-397,P-403,P-410,P-411,P-413,P-415", "Performance", "6 pages (faqs, blog x3, service-areas x2)", "LCP above threshold / Performance score below target", "P2", 19],
+        ["P-419,P-420,P-421,P-422,P-424,P-426", "Performance", "6 pages (privacy-policy, services x2, blog x2)", "LCP above threshold / Performance score below target", "P2", 11],
+        ["H-049", "Health", "/blog/replacing-gutters-with-new-roof-frederick-md", "Live page, not present in sitemap.xml", "P2", 0],
+        ["H-050,H-051", "Health", "2 blog posts", "Sanity field integrity: featuredImage missing", "P2", 0],
+        ["P-431 through P-451", "Performance", "21 pages (about, blog x7, careers, projects, service-areas x3, services x7)", "LCP above threshold / Performance score below target (fresh regressions, 2026-08-28 run)", "P2", 0],
+        ["S-079", "SEO", "/blog/how-much-do-new-gutters-cost-maryland", "noindex detected — logged only, no action taken", "Info", 19]
+      ]
+    }
+  ]
+}

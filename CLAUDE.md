@@ -73,3 +73,13 @@ Remote image domains allowed in `next.config.mjs`: `images.unsplash.com` (fallba
 
 - Contentful was fully removed from the app in June 2026 (`lib/contentful.ts`, `types/contentful.ts`, the `contentful` and `@contentful/rich-text-react-renderer` packages were deleted). The remaining hardcoded `images.ctfassets.net` fallback image URLs were swapped for the Sanity-hosted `FALLBACK_BLOG_IMAGE` and the domain removed from `next.config.mjs`.
 - The `/seo-writer` and `/content-updater` slash-command skills were updated to target Sanity (June 2026). `/content-updater` now publishes via the Sanity mutation API and requires a write-scoped `SANITY_API_WRITE_TOKEN` in `.env.local` (the shipped `SANITY_API_READ_TOKEN` is read-only and cannot publish).
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
