@@ -154,7 +154,7 @@ export async function Footer() {
               {[
                 { number: "#4503", state: "MHIC" },
                 { number: "#160849", state: "PA" },
-                { number: "#062924", state: "WV" },
+                // { number: "#062924", state: "WV" },
                 { number: "#2705191905", state: "VA" },
               ].map(({ number, state }) => (
                 <li key={state} className="text-secondary-foreground/70 text-sm">
