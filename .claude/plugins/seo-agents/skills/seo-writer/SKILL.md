@@ -23,10 +23,10 @@ target page — use them:
   and is a cannibalization risk (see `docs/seo/keyword-cannibalization-sop.md`).
 - **New content** → write the new post, attaching it to the pillar or service page named in the
   brief's internal-linking note.
-- **Authority play** → write the piece as part of a cluster, not standalone. Say in Step 5 which
+- **Authority play** → write the piece as part of a cluster, not standalone. Say in Step 6 which
   sibling pages still need to exist for the play to work.
 
-Set that row's `status` to `in-progress` when you start, in the same Step 6 memory write. If a row
+Set that row's `status` to `in-progress` when you start, in the same Step 7 memory write. If a row
 is already `in-progress` from an earlier run and no draft exists, say so rather than silently
 starting over.
 
@@ -86,7 +86,7 @@ would have caught both real incidents and is not optional:
    reference `memory/seo/content-log.md`).
 2. Grep live title/H1 text for the core term across page types:
    ```bash
-   grep -rn "<core term>" "app/(site)"/**/page.tsx
+   grep -rn --include=page.tsx -i "<core term>" "app/(site)"
    ```
    and check Sanity `seo.seoTitle` for existing docs in the same cluster if rewriting.
 3. If step 0, 1, or 2 surfaces a match on a **different** page than the one you're about to
@@ -107,7 +107,7 @@ would have caught both real incidents and is not optional:
    cluster/keyword, no guard needed — service/area pages are the correct canonical owner
    of commercial and local terms.
 
-State in the draft presentation (Step 5) which cluster/keyword you checked, **how many live
+State in the draft presentation (Step 6) which cluster/keyword you checked, **how many live
 blog documents step 0's Sanity query returned and compared against**, and confirm no conflict
 was found (or note how the conflict was resolved). "I checked keywords.md" is not sufficient —
 state explicitly that the live-Sanity title/seoTitle/excerpt comparison (step 0) ran.
@@ -134,8 +134,8 @@ is never blocking, only informative.
 found in this pass (e.g. "H1 breaks exact keyword match by inserting a modifier word") as a
 short checklist. This step has previously been read and then not applied — the same H1 defect
 recurred on a second, unrelated post 3 days after it first failed QA, because noting the past
-FAIL didn't translate into checking the new draft against it. Before Step 5 presents the draft,
-re-check the draft against every item on this list one more time, the same way Step 5 checks
+FAIL didn't translate into checking the new draft against it. Before Step 6 presents the draft,
+re-check the draft against every item on this list one more time, the same way Step 6 checks
 word count or heading hierarchy — not as a one-time read at draft-start that can be forgotten
 by the time the draft is finished.
 
@@ -158,14 +158,14 @@ Produce the following elements. Follow every rule exactly.
 - 50–60 characters
 - Primary keyword near the front
 - Include "Shumaker Roofing" or a location signal (MD, Maryland, Hagerstown)
-- Flag any over 60 characters, under 50 characters, missing the primary keyword, or with weak click-through intent. Rewrite every weak one. Keep each under 60 characters."
+- Rewrite it if it reads as weak click-through intent (a label rather than a reason to click).
 
 ### Meta Description
 - 120–160 characters (count them)
 - Primary keyword included once
 - Clear value proposition + call to action
 - No keyword stuffing
-- Audit these meta descriptions. Flag any that are: over 160 characters, missing a call to action, too vague, or duplicated. Rewrite each flagged one with the keyword included and a clear CTA.
+- Not vague and not duplicated against another live page (QA check 20 queries for exact matches).
 
 ### H1
 - Same topic as title but different phrasing
@@ -195,7 +195,7 @@ explicitly. Omitting them is a defect, not a "fill in later":
   `Service` for locations. State it in the draft header.
 
 ### Body Structure (for blog posts — 1000–1500 words, standard)
-Every blog post must land in the **1000–1500 word** range — this is the standard, not a minimum. Under 1000 or over 1500 is a defect: pad a thin draft with genuine substance (don't stuff), and tighten an over-long one (don't cut proof points). Count the words before presenting and state the total in Step 5; if it's outside the range, fix it before showing the draft. The section targets below sum into that range — add or drop a body H2 to stay inside it, never by inflating with filler.
+Every blog post must land in the **1000–1500 word** range — this is the standard, not a minimum. Under 1000 or over 1500 is a defect: pad a thin draft with genuine substance (don't stuff), and tighten an over-long one (don't cut proof points). Count the words before presenting and state the total in Step 6; if it's outside the range, fix it before showing the draft. The section targets below sum into that range — add or drop a body H2 to stay inside it, never by inflating with filler.
 ```
 [H1]
 
@@ -240,7 +240,7 @@ screen readers use them to navigate. Rules:
 - **Don't bury the keyword.** Supporting keywords belong in H2s where they fit naturally —
   but a heading that reads like a keyword slot ("Roof Repair Frederick MD Cost") is worse
   than one that reads like a human wrote it.
-- Before presenting, **print the heading outline** (H1/H2/H3 indented) in Step 5 so the
+- Before presenting, **print the heading outline** (H1/H2/H3 indented) in Step 6 so the
   hierarchy is visually verifiable at a glance.
 
 ### List Rules (use when the content is genuinely a list — not to break up walls of text)
@@ -268,10 +268,10 @@ featured snippets and read well on mobile, where most homeowners find you.
 The most common failure mode of past drafts is reciting the same service-area footprint over and over so the piece reads like a mail-merge template. Enforce these hard limits:
 
 - **Service-area cities appear exactly once.** Pick the local-angle H2 section as the single home for the full city list (e.g. "Frederick and Hagerstown, Chambersburg, and Reston"). Do **not** repeat that list — or any subset of it — in the intro, another H2 heading, the FAQ, or the closing CTA.
-- **State footprint ("Maryland, Pennsylvania & Virginia" / "MD/VA/PA/WV") appears at most twice total**, and never in a heading *and* the adjacent body paragraph (that's the same fact twice in two lines). Once as an E-E-A-T signal in the local section is usually enough.
+- **State footprint ("Maryland, Pennsylvania & Virginia" / "MD/VA/PA") appears at most twice total**, and never in a heading *and* the adjacent body paragraph (that's the same fact twice in two lines). Once as an E-E-A-T signal in the local section is usually enough.
 - **No city/state names in H2 headings** unless the post's primary keyword is itself a `city + service` local term. Headings should describe the *idea* of the section ("Why the Install Matters as Much as the Material"), not roll-call geography.
 - **Vary how you refer to the company.** Don't open three consecutive sentences with "Shumaker Roofing installs…". Alternate with "our crews", "we", "the team".
-- Before presenting the draft, **grep your own copy**: if any city name or the state list appears more than the limits above, cut the extras. Note in the Step 5 presentation how many times the service-area list appears (should be 1).
+- Before presenting the draft, **grep your own copy**: if any city name or the state list appears more than the limits above, cut the extras. Note in the Step 6 presentation how many times the service-area list appears (should be 1).
 
 ### Body Structure (for service/area pages — min 300 words)
 ```
@@ -293,7 +293,7 @@ The Anti-Template / Anti-Repetition Rule below applies to service/area pages too
 Roofing is a trust-sensitive, YMYL-adjacent topic, so Google weighs Experience, Expertise, Authoritativeness, and Trustworthiness heavily. Every draft must include all three signals below, woven naturally into the body (not bolted on):
 
 - **Proof point** — at least one concrete statistic, spec, or factual claim with a citable source (e.g. a manufacturer warranty term, a GAF/CertainTeed certification standard, a dated industry figure). State the source inline in natural language ("According to [source]…").
-- **Experience signal** — a first-hand authority cue specific to Shumaker Roofing: years in business, number of roofs completed, the MD/VA/PA/WV service footprint, or a real certification. Pull from `certificationBadge` content in Sanity where available rather than inventing figures.
+- **Experience signal** — a first-hand authority cue specific to Shumaker Roofing: years in business, number of roofs completed, the MD/VA/PA service footprint, or a real certification. Pull from `certificationBadge` content in Sanity where available rather than inventing figures.
 - **Author / reviewer attribution** — name the author or expert reviewer and their role (e.g. "Reviewed by the Shumaker Roofing install team"). If no named individual is provided, use a team/role attribution. Never fabricate a named person.
 
 **Do not invent** statistics, certifications, credentials, or review counts. If a needed fact isn't available, insert a `[VERIFY: …]` placeholder in the draft instead of guessing, and list these placeholders for the user when you present the draft.
@@ -317,7 +317,7 @@ and for trust. So:
      (e.g. "2026 industry ranges of $6–15/ft for aluminum"). Never a Shumaker-specific
      figure unless the user supplies it explicitly.
    - **Never invent a price.** No available figure means `[VERIFY: pricing for — <item>]`,
-     surfaced in Step 5. This has already caused two QA failures — don't guess to clear it.
+     surfaced in Step 6. This has already caused two QA failures — don't guess to clear it.
    - **A disclaimer is mandatory.** See below.
 
 **The disclaimer rule (required whenever any price, range, or dollar figure appears):**
@@ -335,7 +335,7 @@ quotes you a firm price without seeing yours is guessing"). **Keep humor out of 
 entirely** — per Voice & Tone, humor never touches a price. A disclaimer that reads as a
 joke isn't a disclaimer.
 
-If a post contains pricing, state in Step 5: the figures used, their source, and that the
+If a post contains pricing, state in Step 6: the figures used, their source, and that the
 disclaimer is present and adjacent to the first figure.
 
 ### No DIY (required — never instruct the reader to do the work themselves)
@@ -382,7 +382,7 @@ needs height, it needs the crew.
 
 Before presenting, **scan the draft for DIY leakage** — any imperative telling the reader
 to climb, patch, seal, nail, caulk, or replace something themselves. State the result in
-Step 5.
+Step 6.
 
 ### Voice & Tone
 Write like a knowledgeable human contractor, not a content mill. Every blog draft should have a **distinct voice** — plain-spoken, specific, and confident. This is not optional; the flat, interchangeable "template" tone is a defect, not a safe default. Concretely:
@@ -479,7 +479,7 @@ What doesn't (cut on sight):
 **The test:** if a competent contractor wouldn't say it out loud to a customer standing in
 their driveway, it doesn't go in the post. When in doubt, leave it out.
 
-### Clarity & Comprehension (required — apply while drafting, then re-scan before Step 5)
+### Clarity & Comprehension (required — apply while drafting, then re-scan before Step 6)
 The target is **single-idea clarity, not sentence length**. Short sentences alone are a
 superficial fix; a short sentence carrying two ideas still fails. This matters for AI search
 specifically: NLP models approximate human comprehension, so copy written to be clearly
@@ -502,7 +502,7 @@ survive C3 as long as each sentence carries one idea. Where they genuinely colli
 Tone wins for an intentional stylistic fragment, and C1–C8 win everywhere else. The banned-AI-
 words list in `docs/content-style/banned-ai-words.md` still outranks both.
 
-Before Step 5, re-scan the finished draft against C1–C8 — drafting with them in mind is not the
+Before Step 6, re-scan the finished draft against C1–C8 — drafting with them in mind is not the
 same as checking. C1 and C3 are the two that reliably slip.
 
 ### Internal Links
@@ -521,7 +521,7 @@ Rules:
 - Must be **relevant** to the specific claim being made — don't bolt on a generic link just to hit the count. Each link should support a proof point, statistic, or factual claim made in the body.
 - Use natural anchor text woven into the sentence, not a bare URL or a "Sources:" list dump.
 - Prefer linking to the specific page/document with the cited fact, not just a homepage.
-- If you cannot find 3 genuinely relevant high-authority sources for the topic, insert a `[VERIFY: need external source for — <claim>]` placeholder instead of forcing an irrelevant link, and list it with the other placeholders in Step 5.
+- If you cannot find 3 genuinely relevant high-authority sources for the topic, insert a `[VERIFY: need external source for — <claim>]` placeholder instead of forcing an irrelevant link, and list it with the other placeholders in Step 6.
 
 ### SEO Fundamentals Checklist (verify each before presenting)
 The rules above cover these; this is the pre-flight list so none is missed:
@@ -614,6 +614,22 @@ Rules:
 - On a **rewrite of an existing page**, carry forward the fields you are not changing
   (`publishedDate`, `author`, `slug`, `featuredImage`) with their current live values, read from
   Sanity — not guesses. `/content-updater` treats a field present in frontmatter as intentional.
+- **The file is what gets published.** `/content-updater` runs `scripts/sanity-publish.py`, which
+  converts this file directly: `# H1` → `title`; the `## Frequently Asked Questions` section →
+  `faqItems` (one `### question` per item, answer = the paragraph(s) under it); everything else →
+  body blocks. So:
+  - Write internal and external links as markdown `[anchor](/services/roof-repair)`. Use relative
+    paths for internal links. They become real link annotations.
+  - Put a line containing only `---` after the last FAQ answer, before the closing CTA paragraph,
+    so the closer lands in the body and not inside the last FAQ answer.
+  - No markdown tables (the publisher rejects them), and no `[VERIFY: …]` left at publish time.
+  - `contentType` is `blog`, `services`, or `location`. `slug` is the bare slug
+    (`metal-roofing`), not a path. `featuredImage` is an existing asset ref (`image-<hash>-WxH-ext`)
+    or `unchanged`. For a metadata-only change to an existing page, add `body: unchanged`.
+  - `author` is the display name of an `author` document (e.g. `Tyler Schisler`).
+  - Run `python3 scripts/sanity-publish.py plan memory/seo/drafts/<slug>.md` before presenting.
+    It's read-only, and it catches unresolved links, length violations, and conversion problems
+    now instead of at publish time. (A "no qa-log.md entry" blocker is expected before `/qa` runs.)
 - Use the same `<slug>.md` filename on a re-run after QA line edits — **overwrite the file** so
   the persisted draft always matches the version QA last scored. Two files for one page is how a
   publisher ends up shipping the pre-edit text.

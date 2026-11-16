@@ -1,6 +1,6 @@
 ---
 name: content-auditor
-description: Use when you want a ground-truth audit of every page on the site — Sanity-backed content (blog posts, service pages, service-area pages) AND the static/hardcoded routes (homepage, about, faqs, careers, projects, testimonials, roofs-for-heroes, contact, and the /services, /service-areas, /blog listing pages). Pulls live data directly from Sanity plus greps route files for hardcoded metadata (not memory), clusters posts by duplicate search intent, flags keyword cannibalization across the whole site, checks SEO metadata completeness everywhere including pages Sanity doesn't cover, sweeps published body copy for clarity/comprehension defects that predate the writing rules, runs a scripted banned-AI-words and glued-text scan over all published copy including location pages, cross-references blog coverage against service/location pages, and checks sitewide internal-linking health (thin/zero-linked posts, orphaned posts, fragmented clusters, overloaded link targets). Diffs this run's findings against the last audit (per finding, not just aggregate counts) to catch stale/recurring/regressed issues, and writes results to memory/seo/audit-log.md and memory/seo/audit-findings-log.md. Pass nothing to audit everything, or a scope ("blog", "services", "locations", "static") to narrow it.
+description: Use for a ground-truth SEO audit of every page on the site, both Sanity content (blog, services, service areas) and static routes (homepage, about, listings, etc.). Pulls live from Sanity and the route files, never from memory. Finds duplicate-intent clusters, keyword cannibalization, metadata gaps, coverage gaps, internal-linking problems, clarity defects, and banned AI words (scripted scan). Diffs each finding against the last audit to flag stale or regressed issues, and logs to memory/seo/audit-log.md and audit-findings-log.md. Pass a scope (blog, services, locations, static) to narrow it.
 ---
 
 # Content Auditor
@@ -18,7 +18,11 @@ should act on each finding.
 ## Context
 
 Shumaker Roofing serves: Frederick MD, Hagerstown MD, Chambersburg PA, Reston VA.
-11 service pages under `/services/[slug]`. Blog posts under `/blog/[slug]`.
+Service pages under `/services/[slug]`, blog posts under `/blog/[slug]`, location pages under
+`/service-areas/[slug]`. **Don't hard-code document counts.** Take them from the Step 2 queries on
+every run. Counts written into this skill went stale (it said 11 services and 17 posts while the
+site had grown to 13 and 21). For reference, as of 2026-11-16: 21 blog, 13 services, 4 active
+locations.
 Canonical ownership model (full detail in `docs/seo/keyword-cannibalization-sop.md`):
 
 | Intent | Owner |
@@ -161,10 +165,8 @@ Before deriving findings, run these two checks:
 If a check fails, fix the query and re-run Step 2. Do not report a finding derived from a field
 that failed either check.
 
-> Document types are **`services`** (plural), `blog`, `location`, `author`. Note `CLAUDE.md`
-> currently lists this as `service` (singular) in its schema list — that is a doc error;
-> `lib/sanity.ts` correctly queries `services`. Querying `_type=="service"` returns zero
-> documents, silently.
+> Document types are **`services`** (plural), `blog`, `location`, `author`. The schema file is
+> `service.ts` (singular), but querying `_type=="service"` returns zero documents, silently.
 
 ## Step 2b: Pull Static Route Inventory
 
@@ -184,22 +186,30 @@ STATIC_ROUTES=(
   "app/(site)/service-areas/page.tsx"   # /service-areas (listing page, not individual location pages)
   "app/(site)/blog/page.tsx"            # /blog (listing page, not individual posts)
   "app/(site)/book-appointment/page.tsx" # /book-appointment
-  "app/(site)/book/page.tsx"            # /book — separate route from /book-appointment, found 2026-07-14
-                                         # to be a near-duplicate; both must stay in this list
+  "app/(site)/thank-you/page.tsx"       # /thank-you — post-form confirmation; should be noindex
+  "app/(site)/privacy-policy/page.tsx"  # presence check only (see below)
+  "app/(site)/terms-and-conditions/page.tsx" # presence check only
 )
+
+# Diff the list against the real route tree. Anything printed here is a route this audit would
+# otherwise miss (or a listed route that no longer exists). Fix the list before continuing.
+diff <(printf '%s\n' "${STATIC_ROUTES[@]}" | sort) \
+     <(find "app/(site)" -name page.tsx -not -path "*\[*" | sort) \
+  && echo "route list matches app/(site)"
 
 for f in "${STATIC_ROUTES[@]}"; do
   echo "=== $f ==="
-  grep -n "title:\|description:\|generateMetadata" "$f"
+  [ -f "$f" ] || { echo "MISSING — route removed; drop it from STATIC_ROUTES"; continue; }
+  grep -n "title:\|description:\|generateMetadata\|robots" "$f"
 done
 ```
 
-Re-verify this route list against the current `app/(site)/` tree before trusting it — routes get
-added/removed over time and this list will go stale:
+The list drifts as routes come and go. `/book` was removed after a 2026-07-14 audit found it
+near-duplicated `/book-appointment`, and `/thank-you` was added later without being listed. The
+`diff` above makes that drift visible on every run instead of silently skipping a route.
 
-```bash
-find "app/(site)" -maxdepth 2 -name "page.tsx" | sort
-```
+`/thank-you` should carry `robots: { index: false }`. A post-conversion page in the index is a thin
+page competing for nothing. Flag it if it doesn't.
 
 For each static route, extract: the literal `title` string, the literal `description` string, and
 whether `generateMetadata()` is `async` and calls a fetch function (a hybrid case — partially
@@ -269,9 +279,9 @@ For every blog post, service page, and location page pulled in Step 2, flag:
 resolve against the live route tree. Build the valid path set first, from data already pulled in
 Step 2 plus the real route files:
 
-- `/services/<slug>` for every slug in the Step 2 services query (11 as of 2026-07-18)
-- `/service-areas/<slug>` for every active location slug (4)
-- `/blog/<slug>` for every blog slug (17)
+- `/services/<slug>` for every slug in the Step 2 services query
+- `/service-areas/<slug>` for every active location slug
+- `/blog/<slug>` for every blog slug
 - every static route in Step 2b's list, plus `/` and any `source` in `next.config.mjs` `redirects()`
   (a link to a redirect source is alive — it 301s, it does not 404)
 
@@ -437,13 +447,13 @@ can be free of banned words and still be unreadable. Both run, always.
 
 Build two coverage tables:
 
-1. **Service coverage** — for each of the 11 service slugs, count blog posts whose content or
+1. **Service coverage** — for each service slug from Step 2, count blog posts whose content or
    internal links point at it. Zero-coverage services are a gap; 3+ posts on one service while
    others have zero is an imbalance worth flagging even if none of those posts are cannibalizing
    each other.
 2. **Location coverage** — for each active location, count blog posts linking to it. Because
-   `servicesOffered` is identical across all 4 locations (confirmed in this codebase — every
-   location offers all 11 services), a lopsided link distribution across locations is a signal
+   `servicesOffered` is identical across all active locations (re-confirmed 2026-11-16: all 4 list
+   all 13 services), a lopsided link distribution across locations is a signal
    worth surfacing, not an artifact of differing service menus.
 
 **Site-wide internal-linking health (distinct from coverage above and dead-link validation in
@@ -607,9 +617,6 @@ the raw scanner totals, not a tidied-up number — the point of the script is th
 reproducible, and a hand-adjusted figure cannot be diffed against the next run. If the scanner
 exited `2`, write `banned-words: SCAN FAILED (<reason>)` rather than omitting it, so the gap is
 visible in the history instead of reading as a clean run.
-
-```
-```
 
 Do NOT delete old rows in either log — they are historical snapshots, and `audit-findings-log.md`
 specifically is what Step 8 reads on the next run to compute status transitions.

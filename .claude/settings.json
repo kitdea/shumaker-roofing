@@ -2,20 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(gh pr *)",
-      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\franc\\\\Documents\\\\shumaker-roofing\" -Force)",
-      "Bash(Select-Object Name)",
-      "mcp__claude_ai_MCP_Contentful_Model__get_initial_context",
-      "mcp__claude_ai_MCP_Contentful_Model__get_content_type",
-      "mcp__claude_ai_MCP_Contentful_Model__list_content_types",
-      "mcp__claude_ai_MCP_Contentful_Model__search_entries",
-      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\franc\\\\Documents\\\\shumaker-roofing\\\\app\" -Filter \"*faq*\" -Recurse)",
       "Bash(npx next *)",
       "Bash(npx eslint *)",
-      "Bash(timeout 20 npm run dev)"
-    ],
-    "additionalDirectories": [
-      "c:\\Users\\franc\\.claude\\projects\\c--Users-franc-Documents-shumaker-roofing\\memory",
-      "c:\\Users\\franc\\Documents\\shumaker-roofing\\public"
+      "Bash(timeout 20 npm run dev)",
+      "Bash(python3 scripts/ban-words-scan.py)",
+      "Bash(python3 scripts/ban-words-scan.py *)",
+      "Bash(python3 scripts/sanity-publish.py plan *)",
+      "Bash(python3 scripts/sanity-publish.py verify *)"
     ]
   },
   "enabledPlugins": {

@@ -29,7 +29,7 @@ they aren't.
 
 ## Context
 
-Shumaker Roofing serves: Maryland, Virginia, Pennsylvania, West Virginia.
+Shumaker Roofing serves: Maryland, Virginia, Pennsylvania (West Virginia dropped from the footer license list, Nov 2026).
 Own domain for all self-comparisons: `shumakerroofing.com`.
 Target customers: homeowners and property managers searching locally.
 
@@ -73,28 +73,44 @@ say so if a passed domain fails them.
 If no argument was given, **do not ask the user first**. Pull Semrush's organic competitors for
 Shumaker and propose a set.
 
-**Semrush call pattern.** `organic_research` is a *discovery* tool taking no arguments — it lists
-available reports. Every actual data pull goes through `execute_report`:
+**Semrush call pattern.** `organic_research`, `competitors_research`, and `keyword_research` are
+*discovery* tools. They take no arguments and only list report names. Every data pull goes through
+`execute_report`, with the domain passed as **`target`** (not `domain`). Column names are words
+(`keyword`, `position`), not the legacy `Ph`/`Po` codes. Results come back as semicolon-separated
+CSV in `data`, with `api_units_left` in the metadata.
 
 ```
 mcp__claude_ai_Semrush_MCP_server__execute_report({
-  report: "domain_organic_organic",           // top organic competitors, 40 units/line
-  params: { domain: "shumakerroofing.com", database: "us", display_limit: 30 }
+  report: "domain_organic_organic",           // organic competitors, 40 units/line
+  params: {
+    target: "shumakerroofing.com",
+    database: "us",
+    display_limit: 30,
+    display_sort: "competition_level_desc",
+    export_columns: ["domain", "competition_level", "common_keywords", "organic_keywords", "organic_traffic"]
+  }
 })
 ```
 
-Reports this skill uses:
-- `domain_organic_organic` — organic competitors for a domain (Step 2)
-- `domain_organic` — keywords a domain ranks for (Step 3). Pass
-  `export_columns: ["Ph","Po","Nq","Ur","Kd"]` and `display_sort: "tr_desc"` to get keyword,
-  position, volume, URL, and difficulty sorted by traffic. 10 units/line — `display_limit` is
-  real spend, so keep it at 50–100 per domain.
-- `domain_domains` — Semrush's Keyword Gap tool, for a direct 2–5 domain comparison. Use it when
-  you want the gap computed server-side rather than by diffing two `domain_organic` pulls;
-  `domains` format is `'*|or|domain1|*|or|domain2'`. 80 units/line, so prefer diffing for routine
-  runs.
+Sort by `competition_level_desc` (Semrush's relevance score). Sorting by `common_keywords_desc`
+puts yelp.com and facebook.com at the top with relevance 0.00 (seen 2026-11-16), which wastes rows
+on domains the exclusion list below throws out anyway.
 
-Call `get_report_schema(report)` before any report whose params you're unsure of.
+Reports this skill uses (verified against the live API 2026-11-16):
+
+| Report | Use | Cost |
+|---|---|---|
+| `domain_organic_organic` | Organic competitors for a domain (Step 2). Param `target` takes a root domain only | 40 units/line |
+| `resource_organic` | Keywords a domain ranks for (Step 3) | 10 units/line |
+| `domain_domains` | Server-side keyword gap across 2-5 domains (optional, Step 5) | 80 units/line |
+| `phrase_these` | Batch volume/KD/intent for up to 100 keywords (only if a keyword lacks data) | 10 units/line |
+
+There's no report called `domain_organic`. An earlier version of this skill used that name, and
+the call fails with `unknown report`. If any call errors on a parameter, run
+`get_report_schema(report)` and correct it. Don't guess.
+
+`display_limit` is real spend. A standard run (30 competitors + 6 domains × 100 keywords) costs
+about 7,200 units. State the units spent in the Step 10 report.
 
 Narrow to **3–5 domains that actually compete for Shumaker's audience**. Exclude:
 - Marketplaces, aggregators, and directories — Amazon, Home Depot, Lowe's, Angi, Thumbtack,
@@ -102,7 +118,7 @@ Narrow to **3–5 domains that actually compete for Shumaker's audience**. Exclu
 - User-generated and reference sites — Reddit, Quora, Wikipedia, Pinterest, YouTube
 - Manufacturers and national brands that sell materials rather than roofing services
   (GAF, Owens Corning, CertainTeed) unless the task is explicitly about material-comparison content
-- National lead-gen and franchise content farms with no service presence in MD/VA/PA/WV
+- National lead-gen and franchise content farms with no service presence in MD/VA/PA
 
 Prefer regional roofing contractors with an overlapping service footprint. Semrush's competition
 metric ranks by keyword overlap, which is not the same as competing for the same customer — a
@@ -119,18 +135,53 @@ For each competitor domain, and **for `shumakerroofing.com` itself** (you need S
 positions to bucket gaps in Step 5 — `keywords.md` records intent, not live rank), call:
 
 ```
-mcp__claude_ai_Semrush_MCP_server__organic_research({
-  domain: "[domain]",
-  database: "us",
-  display_limit: 100
+mcp__claude_ai_Semrush_MCP_server__execute_report({
+  report: "resource_organic",
+  params: {
+    target: "[domain]",
+    database: "us",
+    display_limit: 100,
+    display_sort: "traffic_desc",
+    export_columns: ["keyword", "position", "volume", "url", "keyword_difficulty", "intent"],
+    display_filter: [
+      { field: "position", operation: "less_than", value: 21, sign: "+" },
+      { field: "branded", operation: "", value: "", sign: "-" }
+    ]
+  }
 })
 ```
+
+The position filter applies Step 5's "competitor position > 20" drop server-side, so you don't
+pay for rows you'd throw away. **Don't apply it to the `shumakerroofing.com` pull.** Shumaker's
+positions 21-100 are what separate `missing` from `weaker` in Step 5. The `branded` filter only
+removes what Semrush tags as branded. On 2026-11-16 "frederick roof repair" still came through for
+frederickroofrepair.com (intent `2`, navigational), so still drop brand and navigational keywords in
+Step 5.
 
 Extract for each keyword returned:
 - **Keyword**: the search phrase
 - **Position**: organic rank (integer)
 - **Volume**: monthly US search volume
 - **URL**: the ranking page URL
+- **KD** and **intent** (`0` commercial, `1` informational, `2` navigational, `3` transactional,
+  blank = unclassified)
+
+**Optional server-side gap.** To get Shumaker's missing keywords directly instead of diffing two
+pulls, use `domain_domains`. The `domains` param is an array of objects. This example means
+"keywords the competitor ranks for and Shumaker doesn't":
+
+```
+params: {
+  database: "us", display_limit: 100, display_sort: "volume_desc",
+  domains: [
+    { sign: "+", type: "organic", domain: "competitor.com" },
+    { sign: "-", type: "organic", domain: "shumakerroofing.com" }
+  ]
+}
+```
+
+At 80 units/line it costs 8× a `resource_organic` pull, so diffing remains the default for routine
+runs.
 
 ## Step 4: Layer in Search Console and GA4
 
@@ -199,7 +250,7 @@ Do **not** group keywords by string similarity. That produces a sorted list, not
 Organize the retained keywords into topic clusters using all of the following at once:
 - **Search intent** — informational / commercial / transactional / local
 - **Funnel stage** — problem-aware, solution-aware, ready-to-hire
-- **Business relevance** — does this map to a service Shumaker actually sells in MD/VA/PA/WV?
+- **Business relevance** — does this map to a service Shumaker actually sells in MD/VA/PA?
 - **Existing authority** — the GSC position 8–20 signals from Step 4
 - **Business signal** — GA4 engagement and conversions on related pages
 - **Content format** — service page, location page, comparison post, diagnostic post, cost explainer

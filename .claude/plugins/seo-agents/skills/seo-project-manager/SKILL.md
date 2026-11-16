@@ -180,7 +180,7 @@ Format your output exactly like this:
 - Opportunity clusters: last scored [date or "never"], [N] open / [N] in-progress / [N] done
 ```
 
-If all queues are empty and everything is up to date, say so clearly and suggest running `/keyword-researcher` with a new roofing topic relevant to Shumaker Roofing's service areas (Maryland, Virginia, Pennsylvania, West Virginia).
+If all queues are empty and everything is up to date, say so clearly and suggest running `/keyword-researcher` with a new roofing topic relevant to Shumaker Roofing's service areas (Maryland, Virginia, Pennsylvania).
 
 ## Step 4: Record What You Named
 
