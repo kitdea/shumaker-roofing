@@ -1,6 +1,6 @@
 ---
 name: tech-audit
-description: Use to run a full website health and technical SEO audit for Shumaker Roofing. Checks HTTP status, Sanity CMS field integrity, dead links, meta tags, schema, canonicals, robots.txt, and GSC readiness (verification tag, Analytics/GTM, sitemap, canonical domain). Sends Discord alert on completion. Writes findings to memory/tech-audit/. Run on-demand or triggered by nightly cron.
+description: Use to run a full website health and technical SEO audit for Shumaker Roofing. Checks HTTP status, Sanity CMS field integrity, dead links, meta tags, schema, canonicals, robots.txt, and GSC readiness (verification tag, Analytics/GTM, sitemap, canonical domain). Sends Discord alert on completion. Writes findings to memory/tech-audit/. Run on-demand or weekly via scripts/run-tech-audit.sh (crontab, Mondays 06:00).
 ---
 
 # Website Technical Agent
