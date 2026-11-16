@@ -9,8 +9,12 @@ You are the Keyword Researcher for Shumaker Roofing. Your job is to generate a t
 
 ## Context
 
-Shumaker Roofing serves: Maryland, Virginia, Pennsylvania, West Virginia.
-Services: residential roofing, commercial roofing, metal roofing, roof replacement, roof repair, storm damage, gutters, siding.
+Shumaker Roofing serves: Maryland, Virginia, Pennsylvania. Service-area pages exist for Frederick MD,
+Hagerstown MD, Chambersburg PA, and Reston VA (query `*[_type=="location" && isActive==true].cityName`
+for the current list).
+Services sold (confirmed with the user 2026-08-05): residential roofing, commercial roofing, metal
+roofing, roof replacement, roof repair, storm damage, gutters, siding, solar, roof rejuvenation,
+skylights, and chimney maintenance. Published service pages: `*[_type=="services"]{title, "slug": slug.current}`.
 Target customers: homeowners and property managers searching locally.
 
 ## Step 1: Read Existing Keywords
@@ -120,41 +124,86 @@ oversight.
 
 ## Step 4: Semrush Validation
 
-Use the Semrush MCP to enrich each candidate keyword with real search data.
+Use the Semrush MCP to enrich candidates with real search data.
 
-Call `mcp__claude_ai_Semrush_MCP_server__keyword_research` for the topic seed phrase, database `us`, applying this standard filter set:
+**How the Semrush tools work.** `keyword_research` is a *discovery* tool. It takes no arguments and
+only lists report names. Every data pull goes through `execute_report`. Passing `keyword`,
+`volume_min`, `kd`, etc. to `keyword_research` does nothing. Results come back as semicolon-separated
+CSV in `data`. If a call errors on a parameter, run `get_report_schema(report)` and correct it.
+Don't guess.
 
-- **Match type**: All > Broad Match
-- **Intent**: Commercial and Transactional
-- **KD**: Easy
-- **Volume**: 500 to 50,000
+### 4a. Broad-match expansion (one call)
+
+Find real queries around the seed that Step 3 didn't think of:
 
 ```
-mcp__claude_ai_Semrush_MCP_server__keyword_research({
-  keyword: "[topic seed]",
-  database: "us",
-  match_type: "broad",
-  intent: ["commercial", "transactional"],
-  kd: "easy",
-  volume_min: 500,
-  volume_max: 50000
+mcp__claude_ai_Semrush_MCP_server__execute_report({
+  report: "phrase_fullsearch",
+  params: {
+    phrase: "[topic seed]",              // e.g. "gutter installation"
+    database: "us",
+    display_limit: 50,
+    display_sort: "volume_desc",
+    export_columns: ["keyword", "volume", "keyword_difficulty", "intent", "cpc"],
+    display_filter: [
+      { field: "keyword_difficulty", operation: "less_than", value: 50, sign: "+" }
+    ]
+  }
 })
 ```
 
-Check `get_report_schema` for this tool's exact filter parameter names/values before calling if they differ from above — the filters (match type, intent, KD, volume range) are the fixed requirement regardless of exact param naming.
+There's deliberately **no volume floor** on this call. A server-side `volume > 500` filter removes
+nearly every "[service] frederick md" keyword before the local exemption below can keep it. Volume
+filtering happens after enrichment, where the exemptions apply.
 
-For any high-priority candidates not returned by the seed lookup, call individually with the same filters. Extract for each keyword:
-- **Volume**: monthly US search volume (use 0 if not found)
-- **KD**: keyword difficulty score 0–100 (use `—` if not found)
-- **CPC**: cost-per-click in USD (informational only)
+Optionally run it a second time with `phrase: "[topic seed] frederick"` (or another service-area
+city) to surface local variants the national expansion misses. Use `phrase_questions` (same params)
+when the informational quota from Step 3 is hard to fill.
 
-**Filtering rules** (apply after enrichment):
-- Enforce the standard filter set above: Broad Match, Commercial/Transactional intent, Easy KD, Volume 500–50,000
-- Drop any keyword with Volume = 0 AND no local modifier — these are speculative
-- Keep all local-modifier keywords regardless of volume (local search data is underreported in national databases) — local keywords are exempt from the 500–50,000 volume band since local search is underreported
-- Informational-intent keywords (Step 3's required minimum of 4) are also exempt from the Commercial/Transactional filter — the intent/KD/volume filters apply to the broader candidate pool, not to the mandatory informational keywords
-- Sort retained keywords: highest Volume first within each intent group
-- Final list: 12–16 keywords (top performers from candidates)
+Add the useful expansion results to the candidate pool, after applying the Step 3 brand-policy
+filters to them too.
+
+### 4b. Validate the whole candidate pool (one call)
+
+`phrase_these` returns volume, CPC, intent, **and** KD for up to 100 keywords in one call. Don't call
+`phrase_kdi` separately. It costs 50 units per keyword and returns the same KD.
+
+```
+mcp__claude_ai_Semrush_MCP_server__execute_report({
+  report: "phrase_these",
+  params: {
+    phrase: "keyword one;keyword two;keyword three",   // semicolons, no spaces around them, ≤100
+    database: "us",
+    export_columns: ["keyword", "volume", "cpc", "intent", "keyword_difficulty"]
+  }
+})
+```
+
+Keywords missing from the response have no Semrush data: record Volume `0` and KD `—`.
+
+**Intent comes back as numeric codes:** `0` commercial, `1` informational, `2` navigational,
+`3` transactional. Comma-separated codes (e.g. `0,3`) mean mixed intent, and a blank means Semrush
+hasn't classified it (classify it yourself). "Local" isn't a Semrush
+intent. It's your label for any keyword with a city/state modifier.
+
+**Cost.** Each call bills per returned line (`phrase_fullsearch` 20 units/line, `phrase_these` 10
+units/line), and the response reports `api_units_left`. A normal run (50-line expansion + 40-keyword
+validation) costs about 1,400 units. State the units spent in the Step 6 report.
+
+### 4c. Filtering rules (apply after enrichment)
+
+Treat these as preferences in priority order, not one server-side filter:
+
+- **Drop** Volume = 0 with no local modifier (speculative), unless it's a Step 3.5 competitor gap.
+- **Drop** navigational keywords (intent `2`) and any keyword containing a competitor's brand.
+- **KD:** prefer Easy (KD ≤ 29). Keep 30-49 when the keyword is local or directly matches a core
+  service. Drop ≥ 50 unless it's a local-modifier keyword (national KD overstates local difficulty).
+- **Volume:** for national (non-local) commercial/transactional keywords, prefer 500-50,000. Local
+  keywords are exempt from the band because national databases underreport local search.
+- **Intent:** the commercial/transactional preference applies to the general pool. The mandatory
+  informational keywords from Step 3 (at least 4) are exempt.
+- Sort retained keywords by Volume, highest first, within each intent group.
+- Final list: 12-16 keywords.
 
 ## Step 5: Write to Memory
 
@@ -191,5 +240,6 @@ End with:
 ```
 ✓ Added [N] keywords to memory/seo/keywords.md (Semrush-validated)
   [M] dropped by brand policy (DIY / cost cap) — listed above
+  Semrush units spent: [N] ([N] left)
 Next step: /seo-writer [cluster-name]
 ```

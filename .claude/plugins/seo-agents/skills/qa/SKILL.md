@@ -80,7 +80,7 @@ Check every item below. Record PASS or FAIL for each.
 | 5 | H2s present | At least 2 H2 headings in the body |
 | 6 | Heading hierarchy valid | Exactly one H1; no heading level is skipped (e.g. H2 → H4 with no H3); every H3 sits under an H2 (never opens a section); no lone H3 — a section either has two or more H3s or none, per `/seo-writer` Heading Hierarchy. Print the outline indented to verify |
 | 7 | Word count | Blog posts **1000–1500 words** — this is a range, not a floor: under 1000 or over 1500 fails (per `/seo-writer` Body Structure). Service/area pages ≥ 300 words (per Content-Type from Step 0) |
-| 8 | Local signal | At least one mention of a state (Maryland, Virginia, Pennsylvania, West Virginia) or city |
+| 8 | Local signal | At least one mention of a state (Maryland, Virginia, Pennsylvania) or city |
 | 9 | CTA present | Last paragraph includes a call to action (contact, call, get a quote) |
 | 10 | Credibility signal | At least one proof point (cited stat/spec/source) AND one experience signal (years in business, roofs completed, certification, or service footprint) |
 | 11 | Author / expertise attribution | An author or expert reviewer is named with a role (individual or team) |

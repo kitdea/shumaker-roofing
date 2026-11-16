@@ -46,6 +46,10 @@ CARVE_OUTS = [
     # "rich, dark tones" describes colour. The ban targets "rich" as an intensifier
     # ("rich heritage", "rich tapestry").
     ("rich", r"rich,?\s+(dark|deep|warm|earth)"),
+    # A wall/roof intersection is a physical joint that gets flashed. The ban doc
+    # lists only "intersection (figurative)" ("the intersection of style and value").
+    ("intersection", r"(wall|roof|sidewall|dormer|chimney|valley|plane|slope)s?(-to-wall)?\s+intersection"),
+    ("intersection", r"intersections?\s+(of|where|between)\s+(two\s+|the\s+)?(roof|wall|plane|slope|dormer)"),
 ]
 
 # FAQ answers are rich text (`answerContent`) with a legacy plain-text `answer`

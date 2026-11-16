@@ -117,7 +117,7 @@ indistinguishable from a roadmap that didn't work:
   target page. If none exists more than **14 days** after the publish date in `content-log.md` →
   flag it: the workflow's measurement step never happened, so the score that drove the work was
   never checked against an outcome.
-  > "[cluster] published [date] with no rankings entry since → add a baseline before the next
+  > "[cluster] published [date] with no rankings entry since → run `/rank-tracker` before the next
   > `/competitor-researcher` run so the scoring can be calibrated"
 
 **Priority 0.5 — Keyword cannibalization (fix before publishing anything new):**
@@ -143,7 +143,11 @@ indistinguishable from a roadmap that didn't work:
 
 **Priority 4 — Maintenance:**
 - Entries in `content-log.md` older than 90 days from today (use current date) → suggest content refresh
-- Pages in `content-log.md` with no entry in `rankings.md` → suggest adding a rankings baseline
+- Pages in `content-log.md` with no entry in `rankings.md`, `pending` baseline rows whose due date has
+  passed, or no `rankings.md` snapshot in the last 30 days → `/rank-tracker`
+- `cluster:` rows in `rankings.md` from the latest snapshot marked `WRONG URL` → route like a
+  `linking:` finding (`/seo-writer` + `/content-updater` to fix internal links/intent), and to
+  `/content-auditor` if two of the site's own pages are competing
 
 ## Step 3: Output the Action Plan
 
@@ -180,7 +184,7 @@ Format your output exactly like this:
 - Opportunity clusters: last scored [date or "never"], [N] open / [N] in-progress / [N] done
 ```
 
-If all queues are empty and everything is up to date, say so clearly and suggest running `/keyword-researcher` with a new roofing topic relevant to Shumaker Roofing's service areas (Maryland, Virginia, Pennsylvania, West Virginia).
+If all queues are empty and everything is up to date, say so clearly and suggest running `/keyword-researcher` with a new roofing topic relevant to Shumaker Roofing's service areas (Maryland, Virginia, Pennsylvania).
 
 ## Step 4: Record What You Named
 
@@ -211,6 +215,7 @@ chaining the whole plan blind would act on stale reasoning.
 | `/seo-writer` | Auto-dispatch — produces a draft, publishes nothing |
 | `/content-auditor` | Auto-dispatch — read-only detector |
 | `/competitor-researcher` | Auto-dispatch — read-only pull |
+| `/rank-tracker` | Auto-dispatch — read-only pull, capped at 5,000 Semrush units per run |
 | `/qa` | Auto-dispatch **only if** a draft exists for the target; otherwise route to `/seo-writer` first |
 | `/content-updater` | **Never auto-dispatch.** Ask first — see below |
 
