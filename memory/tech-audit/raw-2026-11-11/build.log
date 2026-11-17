@@ -1,0 +1,98 @@
+
+> shumaker-roofing@0.1.0 build
+> next build
+
+▲ Next.js 16.3.4 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.mjs took 10ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 840ms
+  Running TypeScript ...
+  Finished TypeScript in 1488ms ...
+  Collecting page data using 19 workers ...
+(node:41594) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41621) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41679) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41588) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41635) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41642) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41677) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41586) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41626) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41561) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41607) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41649) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41615) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41670) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41656) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41663) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  Generating static pages using 19 workers (0/61) ...
+  Generating static pages using 19 workers (15/61) 
+  Generating static pages using 19 workers (30/61) 
+  Generating static pages using 19 workers (45/61) 
+✓ Generating static pages using 19 workers (61/61) in 2.2s
+  Finalizing page optimization ...
+
+Route (app)                                                        Revalidate  Expire
+┌ ○ /                                                                      1h      1y
+├ ○ /_not-found
+├ ○ /about                                                                 1h      1y
+├ ○ /blog                                                                  1h      1y
+├   /blog/[slug]
+│ ├ ● /blog/why-attic-ventilation-matters-in-summer-frederick-md           1h      1y
+│ ├ ● /blog/roof-rejuvenation-vs-replacement-frederick-md                  1h      1y
+│ ├ ● /blog/roof-rejuvenation-cost-frederick-md                            1h      1y
+│ └ ● [+18 more paths]
+├   /blog/author/[slug]
+│ └ ● /blog/author/tyler-schisler                                          1h      1y
+├ ○ /book-appointment                                                      1h      1y
+├ ○ /careers                                                               1h      1y
+├ ○ /contact                                                               1h      1y
+├ ○ /faqs                                                                  1h      1y
+├ ○ /icon.svg
+├ ○ /manifest.webmanifest
+├ ○ /privacy-policy
+├ ○ /projects                                                              1h      1y
+├ ○ /robots.txt
+├ ○ /roofs-for-heroes                                                      1h      1y
+├ ○ /service-areas                                                         1h      1y
+├   /service-areas/[slug]
+│ ├ ● /service-areas/chambersburg-pa                                       1h      1y
+│ ├ ● /service-areas/frederick-md                                          1h      1y
+│ ├ ● /service-areas/hagerstown-md                                         1h      1y
+│ └ ● /service-areas/reston-va                                             1h      1y
+├ ○ /services                                                              1h      1y
+├   /services/[slug]
+│ ├ ● /services/chimney-maintenance                                        1h      1y
+│ ├ ● /services/commercial-flat-and-low-slope-roofing-restoration          1h      1y
+│ ├ ● /services/gutter-installation                                        1h      1y
+│ └ ● [+10 more paths]
+├ ○ /sitemap.xml                                                           1h      1y
+├ ○ /studio/[[...tool]]
+├ ○ /terms-and-conditions
+├ ○ /testimonials                                                          1h      1y
+└ ○ /thank-you                                                             1h      1y
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
