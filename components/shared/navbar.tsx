@@ -205,13 +205,6 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
               {openDropdown === "locations" && (
                 <div className="absolute left-0 top-full pt-2 w-56 z-50">
                   <div className="bg-background border border-border/60 rounded-lg shadow-lg py-1 overflow-y-auto max-h-80">
-                    <Link
-                      href="/service-areas"
-                      onClick={() => setOpenDropdown(null)}
-                      className="block px-4 py-2.5 text-sm font-semibold text-primary hover:bg-muted transition-colors border-b border-border/40"
-                    >
-                      View All Areas
-                    </Link>
                     {locations.map((loc) => (
                       <Link
                         key={loc.href}
@@ -263,7 +256,7 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
       </Container>
 
       {isOpen && (
-        <div className="md:hidden border-t border-border">
+        <div className="md:hidden border-t border-border max-h-[calc(100dvh-7.5rem)] overflow-y-auto overscroll-contain">
           <Container className="py-4 flex flex-col gap-1">
             <Link
               href="/"
@@ -274,11 +267,11 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
             </Link>
 
             <div>
-              <div className="flex items-center justify-between w-full text-base font-medium text-foreground p-2">
+              <div className="flex items-stretch w-full text-base font-medium text-foreground">
                 <Link
                   href="/about"
                   onClick={closeAll}
-                  className="hover:text-primary transition-colors"
+                  className="flex flex-1 items-center hover:text-primary transition-colors p-2"
                 >
                   About Us
                 </Link>
@@ -286,7 +279,7 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
                   onClick={() => toggleMobileSection("about")}
                   aria-label="Toggle about menu"
                   aria-expanded={openMobileSection === "about"}
-                  className="hover:text-primary transition-colors p-1"
+                  className="flex shrink-0 items-center justify-center min-h-11 min-w-11 hover:text-primary transition-colors"
                 >
                   <ChevronDown
                     className={`h-4 w-4 transition-transform duration-200 ${openMobileSection === "about" ? "rotate-180" : ""}`}
@@ -335,11 +328,11 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
             </div>
 
             <div>
-              <div className="flex items-center justify-between w-full text-base font-medium text-foreground p-2">
+              <div className="flex items-stretch w-full text-base font-medium text-foreground">
                 <Link
                   href="/services"
                   onClick={closeAll}
-                  className="hover:text-primary transition-colors"
+                  className="flex flex-1 items-center hover:text-primary transition-colors p-2"
                 >
                   Services
                 </Link>
@@ -347,14 +340,14 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
                   onClick={() => toggleMobileSection("services")}
                   aria-label="Toggle services menu"
                   aria-expanded={openMobileSection === "services"}
-                  className="hover:text-primary transition-colors p-1"
+                  className="flex shrink-0 items-center justify-center min-h-11 min-w-11 hover:text-primary transition-colors"
                 >
                   <ChevronDown
                     className={`h-4 w-4 transition-transform duration-200 ${openMobileSection === "services" ? "rotate-180" : ""}`}
                   />
                 </button>
               </div>
-              {openMobileSection === "services" && services.length > 0 && (
+              {openMobileSection === "services" && (
                 <div className="pl-4 flex flex-col gap-1 pb-1">
                   {services.map((service) => (
                     <Link
@@ -371,11 +364,11 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
             </div>
 
             <div>
-              <div className="flex items-center justify-between w-full text-base font-medium text-foreground p-2">
+              <div className="flex items-stretch w-full text-base font-medium text-foreground">
                 <Link
                   href="/service-areas"
                   onClick={closeAll}
-                  className="hover:text-primary transition-colors"
+                  className="flex flex-1 items-center hover:text-primary transition-colors p-2"
                 >
                   Service Areas
                 </Link>
@@ -383,7 +376,7 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
                   onClick={() => toggleMobileSection("locations")}
                   aria-label="Toggle service areas menu"
                   aria-expanded={openMobileSection === "locations"}
-                  className="hover:text-primary transition-colors p-1"
+                  className="flex shrink-0 items-center justify-center min-h-11 min-w-11 hover:text-primary transition-colors"
                 >
                   <ChevronDown
                     className={`h-4 w-4 transition-transform duration-200 ${openMobileSection === "locations" ? "rotate-180" : ""}`}
@@ -392,13 +385,6 @@ export function Navbar({ services = [], locations = [] }: NavbarProps) {
               </div>
               {openMobileSection === "locations" && (
                 <div className="pl-4 flex flex-col gap-1 pb-1">
-                  <Link
-                    href="/service-areas"
-                    onClick={closeAll}
-                    className="block text-sm font-semibold text-primary p-2"
-                  >
-                    View All Areas
-                  </Link>
                   {locations.map((loc) => (
                     <Link
                       key={loc.href}

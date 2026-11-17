@@ -2,6 +2,8 @@ import path from 'path';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Dev only: lets a phone on the LAN load /_next/* dev assets so the page hydrates.
+  allowedDevOrigins: ['192.168.1.6'],
   turbopack: {
     root: path.resolve('.'),
   },
