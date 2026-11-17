@@ -1,0 +1,428 @@
+{
+  "status_summary": {
+    "200": 53
+  },
+  "non200_pages": [],
+  "redirects": [],
+  "orphan_pages_in_sitemap_not_linked": [],
+  "linked_but_not_in_sitemap": [],
+  "uncrawled_internal_links_discovered": [],
+  "duplicate_titles": {},
+  "duplicate_meta_descriptions": {},
+  "h1_issues": [
+    {
+      "url": "https://shumakerroofing.com/blog/roof-rejuvenation-cost-frederick-md",
+      "h1_count": 2,
+      "h1_texts": [
+        "How Much Does Roof Rejuvenation Cost in Frederick, MD?",
+        "How Much Does Roof Rejuvenation Cost in Frederick, MD?"
+      ]
+    }
+  ],
+  "thin_content_pages": [
+    {
+      "url": "https://shumakerroofing.com/service-areas",
+      "word_count": 203
+    },
+    {
+      "url": "https://shumakerroofing.com/projects",
+      "word_count": 221
+    },
+    {
+      "url": "https://shumakerroofing.com/contact",
+      "word_count": 245
+    },
+    {
+      "url": "https://shumakerroofing.com/testimonials",
+      "word_count": 287
+    },
+    {
+      "url": "https://shumakerroofing.com/faqs",
+      "word_count": 298
+    }
+  ],
+  "missing_title": [],
+  "missing_meta_description": [],
+  "missing_canonical": [],
+  "noindex_pages": [],
+  "title_length_issues": [],
+  "desc_length_issues": [],
+  "alt_coverage_by_page": [
+    {
+      "url": "https://shumakerroofing.com/",
+      "total_images": 32,
+      "images_with_alt": 32,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/about",
+      "total_images": 28,
+      "images_with_alt": 28,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services",
+      "total_images": 22,
+      "images_with_alt": 22,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog",
+      "total_images": 16,
+      "images_with_alt": 16,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/contact",
+      "total_images": 22,
+      "images_with_alt": 22,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/book-appointment",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/service-areas",
+      "total_images": 22,
+      "images_with_alt": 22,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/careers",
+      "total_images": 22,
+      "images_with_alt": 22,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/faqs",
+      "total_images": 22,
+      "images_with_alt": 22,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/projects",
+      "total_images": 22,
+      "images_with_alt": 22,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/testimonials",
+      "total_images": 22,
+      "images_with_alt": 22,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/roofs-for-heroes",
+      "total_images": 22,
+      "images_with_alt": 22,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/privacy-policy",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/terms-and-conditions",
+      "total_images": 3,
+      "images_with_alt": 3,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/chimney-maintenance",
+      "total_images": 7,
+      "images_with_alt": 7,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/commercial-flat-and-low-slope-roofing-restoration",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/gutter-installation",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/metal-roofing",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/residential-roofing",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/roof-installation",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/roof-rejuvenation",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/roof-repair",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/roof-replacement",
+      "total_images": 7,
+      "images_with_alt": 7,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/skylight-installation",
+      "total_images": 3,
+      "images_with_alt": 3,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/solar-contractor",
+      "total_images": 3,
+      "images_with_alt": 3,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/storm-damage-restoration",
+      "total_images": 3,
+      "images_with_alt": 3,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/services/siding",
+      "total_images": 7,
+      "images_with_alt": 7,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/gutter-repair-vs-replacement",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/replacing-gutters-with-new-roof-frederick-md",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/what-to-expect-roof-rejuvenation-frederick-md",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/how-much-do-new-gutters-cost-maryland",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/how-long-do-gutters-last",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/roof-rejuvenation-cost-frederick-md",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/7-signs-roof-needs-rejuvenation-not-replacement",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/roof-rejuvenation-vs-replacement-frederick-md",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/when-to-get-roof-rejuvenation-frederick-md",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/what-is-roof-rejuvenation",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/roof-replacement-tax-credit-2026",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/summer-roof-inspection-checklist-frederick-md",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/why-attic-ventilation-matters-in-summer-frederick-md",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/best-roofing-contractors-in-frederick-md",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/skylight-repair-vs-replacement-how-to-decide-save-money",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/roof-repair-frederick-md",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/preparing-your-roof-for-summer-storms-in-frederick-md",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/how-marylands-summer-heat-affects-roofs-in-frederick-md",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them",
+      "total_images": 5,
+      "images_with_alt": 5,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/blog/author/tyler-schisler",
+      "total_images": 25,
+      "images_with_alt": 25,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/service-areas/chambersburg-pa",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/service-areas/frederick-md",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/service-areas/hagerstown-md",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    },
+    {
+      "url": "https://shumakerroofing.com/service-areas/reston-va",
+      "total_images": 4,
+      "images_with_alt": 4,
+      "alt_coverage_pct": 100.0
+    }
+  ],
+  "broken_images": [],
+  "internal_link_counts": {
+    "https://shumakerroofing.com/": 30,
+    "https://shumakerroofing.com/about": 27,
+    "https://shumakerroofing.com/services": 27,
+    "https://shumakerroofing.com/blog": 40,
+    "https://shumakerroofing.com/contact": 27,
+    "https://shumakerroofing.com/book-appointment": 31,
+    "https://shumakerroofing.com/service-areas": 31,
+    "https://shumakerroofing.com/careers": 27,
+    "https://shumakerroofing.com/faqs": 27,
+    "https://shumakerroofing.com/projects": 27,
+    "https://shumakerroofing.com/testimonials": 27,
+    "https://shumakerroofing.com/roofs-for-heroes": 27,
+    "https://shumakerroofing.com/privacy-policy": 27,
+    "https://shumakerroofing.com/terms-and-conditions": 27,
+    "https://shumakerroofing.com/services/chimney-maintenance": 31,
+    "https://shumakerroofing.com/services/commercial-flat-and-low-slope-roofing-restoration": 27,
+    "https://shumakerroofing.com/services/gutter-installation": 35,
+    "https://shumakerroofing.com/services/metal-roofing": 30,
+    "https://shumakerroofing.com/services/residential-roofing": 31,
+    "https://shumakerroofing.com/services/roof-installation": 31,
+    "https://shumakerroofing.com/services/roof-rejuvenation": 36,
+    "https://shumakerroofing.com/services/roof-repair": 28,
+    "https://shumakerroofing.com/services/roof-replacement": 32,
+    "https://shumakerroofing.com/services/skylight-installation": 27,
+    "https://shumakerroofing.com/services/solar-contractor": 28,
+    "https://shumakerroofing.com/services/storm-damage-restoration": 31,
+    "https://shumakerroofing.com/services/siding": 30,
+    "https://shumakerroofing.com/blog/gutter-repair-vs-replacement": 31,
+    "https://shumakerroofing.com/blog/replacing-gutters-with-new-roof-frederick-md": 28,
+    "https://shumakerroofing.com/blog/what-to-expect-roof-rejuvenation-frederick-md": 33,
+    "https://shumakerroofing.com/blog/how-much-do-new-gutters-cost-maryland": 31,
+    "https://shumakerroofing.com/blog/how-long-do-gutters-last": 29,
+    "https://shumakerroofing.com/blog/roof-rejuvenation-cost-frederick-md": 31,
+    "https://shumakerroofing.com/blog/7-signs-roof-needs-rejuvenation-not-replacement": 32,
+    "https://shumakerroofing.com/blog/roof-rejuvenation-vs-replacement-frederick-md": 31,
+    "https://shumakerroofing.com/blog/when-to-get-roof-rejuvenation-frederick-md": 34,
+    "https://shumakerroofing.com/blog/what-is-roof-rejuvenation": 34,
+    "https://shumakerroofing.com/blog/roof-replacement-tax-credit-2026": 30,
+    "https://shumakerroofing.com/blog/summer-roof-inspection-checklist-frederick-md": 32,
+    "https://shumakerroofing.com/blog/why-attic-ventilation-matters-in-summer-frederick-md": 32,
+    "https://shumakerroofing.com/blog/best-roofing-contractors-in-frederick-md": 31,
+    "https://shumakerroofing.com/blog/skylight-repair-vs-replacement-how-to-decide-save-money": 30,
+    "https://shumakerroofing.com/blog/roof-repair-frederick-md": 29,
+    "https://shumakerroofing.com/blog/how-summer-heat-slowly-damages-asphalt-shingles-in-maryland": 31,
+    "https://shumakerroofing.com/blog/preparing-your-roof-for-summer-storms-in-frederick-md": 31,
+    "https://shumakerroofing.com/blog/signs-of-summer-heat-damage-on-your-roof-in-frederick-md": 33,
+    "https://shumakerroofing.com/blog/how-marylands-summer-heat-affects-roofs-in-frederick-md": 33,
+    "https://shumakerroofing.com/blog/three-common-winter-roof-damage-issues-and-how-to-prevent-them": 29,
+    "https://shumakerroofing.com/blog/author/tyler-schisler": 48,
+    "https://shumakerroofing.com/service-areas/chambersburg-pa": 30,
+    "https://shumakerroofing.com/service-areas/frederick-md": 30,
+    "https://shumakerroofing.com/service-areas/hagerstown-md": 30,
+    "https://shumakerroofing.com/service-areas/reston-va": 30
+  },
+  "sitemap_count": 53,
+  "crawled_count": 53
+}

@@ -1,11 +1,12 @@
 # Competitor Tracker
 
 ## Last Snapshots
-- frederickroofrepair.com: 2026-08-03 (229 keywords, 223 gaps)
-- pjsroofing.com: 2026-07-14 (108 keywords, 106 gaps)
-- topperconstruction.com: 2026-08-05 (18 keywords, 17 gaps)
-- politzenterprises.com: 2026-08-05 (50 keywords, 47 gaps)
+- frederickroofrepair.com: 2026-11-17 (325 keywords, 319 gaps)
+- pjsroofing.com: 2026-11-17 (159 keywords, 156 gaps)
+- politzenterprises.com: 2026-11-16 (102 keywords, 98 gaps)
+- topperconstruction.com: 2026-11-16 (56 keywords, 52 gaps)
 - frederickroofers.com: 2026-08-05 (34 keywords, 30 gaps)
+- teoroofing.com: 2026-11-16 (13 keywords, 12 gaps)
 
 | Domain | Keyword | Position | Volume | URL | Gap | Bucket | Date |
 |--------|---------|----------|--------|-----|-----|--------|------|
@@ -448,3 +449,253 @@
 | frederickroofers.com | frederick roofing company | 10 | 260 | https://www.frederickroofers.com/ | gap | missing | 2026-08-05 |
 | frederickroofers.com | roof repair frederick md | 11 | 320 | https://www.frederickroofers.com/ | targeted | strength | 2026-08-05 |
 | frederickroofers.com | roofing company frederick | 11 | 90 | https://www.frederickroofers.com/ | targeted | strength | 2026-08-05 |
+| frederickroofrepair.com | roofing roof repairs | 1 | 27100 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roof pitch | 11 | 6600 | https://www.frederickroofrepair.com/understanding-roof-pitch | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing and roof repairs | 7 | 3600 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing repair services | 6 | 2400 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing repairs company | 1 | 1600 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing repairs co | 3 | 720 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing frederick md | 1 | 480 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | frederick county roofing company | 5 | 480 | https://www.frederickroofrepair.com/contact | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | common roof pitches | 5 | 480 | https://www.frederickroofrepair.com/understanding-roof-pitch | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | frederick county roofing contractor | 1 | 390 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | frederick county roof repair | 1 | 390 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | 10/12 roof pitch | 8 | 390 | https://www.frederickroofrepair.com/understanding-roof-pitch | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing contractors frederick md | 1 | 320 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | what is a pitch of a roof | 5 | 320 | https://www.frederickroofrepair.com/understanding-roof-pitch | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roof replacement frederick | 1 | 260 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roof replacement frederick md | 4 | 260 | https://www.frederickroofrepair.com/contact | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roofing companies frederick md | 3 | 260 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | frederick roofing company | 3 | 260 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | residential roofing repairs | 4 | 260 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roof maintenance frederick md | 1 | 210 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roof frederick md | 1 | 210 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roof installation frederick md | 1 | 210 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roofing installation frederick md | 1 | 210 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roofers in frederick md | 3 | 210 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roof repair company frederick md | 3 | 170 | https://www.frederickroofrepair.com/contact | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | residential roofing frederick md | 3 | 170 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roofer repair | 3 | 170 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roof and gutter repairs | 6 | 170 | https://www.frederickroofrepair.com/gutters | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | 9/12 roof pitch | 8 | 170 | https://www.frederickroofrepair.com/understanding-roof-pitch | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | frederick roof repair | 1 | 140 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | new residential roof frederick md | 1 | 140 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roofer frederick md | 2 | 140 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | can you replace roof in winter | 4 | 140 | https://www.frederickroofrepair.com/can-roofing-be-done-in-the-winter | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing contractor in frederick md | 3 | 140 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roofing service frederick md | 1 | 110 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roofing contractor frederick | 1 | 110 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | local roofing repairs | 1 | 110 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofer frederick | 1 | 110 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roof repair damascus | 1 | 110 | https://www.frederickroofrepair.com/Roofing-in-Damascus-Maryland | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing and repairs | 1 | 110 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing companies frederick maryland | 3 | 110 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | repair roofers | 1 | 90 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roof repair in winter | 1 | 90 | https://www.frederickroofrepair.com/can-roofing-be-done-in-the-winter | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roof repair shop | 1 | 90 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing in frederick | 1 | 90 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | can you do roofing in the winter | 2 | 90 | https://www.frederickroofrepair.com/can-roofing-be-done-in-the-winter | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing services in frederick md | 1 | 90 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | can roofers work in winter | 2 | 90 | https://www.frederickroofrepair.com/can-roofing-be-done-in-the-winter | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | do roofers work in winter | 2 | 90 | https://www.frederickroofrepair.com/can-roofing-be-done-in-the-winter | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing companies frederick | 1 | 90 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | md roof repair | 1 | 90 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | free roofing estimate frederick md | 1 | 90 | https://www.frederickroofrepair.com/contact | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | emergency roof repairs frederick md | 1 | 90 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | gutter services thurmont md | 3 | 90 | https://www.frederickroofrepair.com/gutter-installation-contractor | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | 6 inch gutter service thurmont md | 3 | 90 | https://www.frederickroofrepair.com/gutter-installation-contractor | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roof fixer | 2 | 90 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roof repair service frederick md | 1 | 90 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | can roofs be replaced in winter | 2 | 90 | https://www.frederickroofrepair.com/can-roofing-be-done-in-the-winter | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | repair roof frederick md | 1 | 70 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | home roofing contractors frederick md | 1 | 70 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roof inspections frederick md | 1 | 70 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roof replacement urbana | 1 | 70 | https://www.frederickroofrepair.com/roofing-Villages-of-Urbana | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing repairers | 1 | 70 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | replacing roof in winter | 2 | 70 | https://www.frederickroofrepair.com/can-roofing-be-done-in-the-winter | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing contractor damascus | 2 | 70 | https://www.frederickroofrepair.com/Roofing-in-Damascus-Maryland | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roof inspection in frederick | 1 | 50 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | frederick flat roof replacement | 1 | 50 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roof rejuvenation frederick md | 1 | 50 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | frederick rubber roof repair | 1 | 50 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofer damascus | 1 | 50 | https://www.frederickroofrepair.com/Roofing-in-Damascus-Maryland | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | new shingle roof frederick | 1 | 50 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roof replacement companies frederick | 1 | 50 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roof replacement company frederick | 1 | 50 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | local roofer damascus | 1 | 50 | https://www.frederickroofrepair.com/Roofing-in-Damascus-Maryland | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | frederick flat roof repair | 1 | 50 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | local roofer frederick | 1 | 50 | https://www.frederickroofrepair.com/roofing-in-jefferson-md | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | can roofing be done in winter | 2 | 50 | https://www.frederickroofrepair.com/can-roofing-be-done-in-the-winter | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | winter roof damage repair | 1 | 40 | https://www.frederickroofrepair.com/can-roofing-be-done-in-the-winter | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | flashing repair frederick | 1 | 40 | https://www.frederickroofrepair.com/copper-roof-flashing | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roofers in frederick maryland | 1 | 40 | https://www.frederickroofrepair.com/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roofing frederick co | 1 | 40 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roofing contractors frederick | 1 | 40 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| frederickroofrepair.com | roof restoration frederick md | 1 | 40 | https://www.frederickroofrepair.com/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | synthetic slate roof | 8 | 2400 | https://pjsroofing.com/the-pros-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | synthetic slate roofing | 3 | 1600 | https://pjsroofing.com/the-pros-and-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | roofing maintenance for high-wind areas | 10 | 1300 | https://pjsroofing.com/preventative-measures-to-protect-against-roof-wind-damage/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | composite slate roof | 3 | 590 | https://pjsroofing.com/the-pros-and-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | synthetic slate roof tiles | 3 | 480 | https://pjsroofing.com/the-pros-and-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | roofing frederick md | 1 | 480 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | imitation slate roofing | 3 | 480 | https://pjsroofing.com/the-pros-and-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | roofing frederick | 1 | 390 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | roofing company frederick md | 1 | 390 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | synthetic slate roof shingles | 2 | 390 | https://pjsroofing.com/the-pros-and-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | roof repair frederick md | 1 | 390 | https://pjsroofing.com/ | targeted | weaker | 2026-11-16 |
+| pjsroofing.com | frederick county roof repair | 2 | 390 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | frederick county roofing contractor | 3 | 390 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | artificial roof slates | 5 | 390 | https://pjsroofing.com/the-pros-and-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | synthetic slate | 1 | 320 | https://pjsroofing.com/the-pros-and-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | synthetic slate shingles | 1 | 320 | https://pjsroofing.com/the-pros-and-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | roofing contractor frederick md | 1 | 320 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | composite slate roofing | 2 | 320 | https://pjsroofing.com/the-pros-and-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | metal roofing frederick county | 1 | 320 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | roofing frederick county | 1 | 260 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | roof replacement frederick md | 1 | 260 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | synthetic slate roofs | 3 | 260 | https://pjsroofing.com/the-pros-and-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | roof replacement frederick | 4 | 260 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | roofing companies frederick md | 2 | 260 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | best roof underlayment for asphalt shingles | 2 | 210 | https://pjsroofing.com/choosing-the-right-roof-underlayment-for-asphalt-shingles/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | roof frederick md | 2 | 210 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | roofers in frederick md | 1 | 210 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | commercial roofing frederick md | 2 | 210 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | roof maintenance frederick md | 2 | 210 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | roofing installation frederick md | 2 | 210 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | roof installation frederick md | 3 | 210 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | copper roofs on houses | 4 | 210 | https://pjsroofing.com/the-long-term-benefits-of-a-copper-roof/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | roof repair company frederick md | 1 | 170 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | residential roofing frederick md | 1 | 170 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | composite slate roof shingles | 3 | 170 | https://pjsroofing.com/the-pros-and-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | roofing contractors in frederick md | 1 | 140 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | roofing contractor in frederick | 1 | 140 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | roofing companies frederick maryland | 1 | 110 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | underlayment for asphalt shingles | 1 | 90 | https://pjsroofing.com/choosing-the-right-roof-underlayment-for-asphalt-shingles/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | roofing company frederick | 1 | 90 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | commercial roof repair frederick md | 1 | 70 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | best metal roofing for high wind areas | 1 | 70 | https://pjsroofing.com/best-home-roofing-materials-for-high-wind-areas/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | composite slate roofing shingles | 1 | 70 | https://pjsroofing.com/the-pros-and-cons-of-synthetic-slate-roofing/ | gap | missing | 2026-11-16 |
+| pjsroofing.com | roofer in frederick md | 2 | 70 | https://pjsroofing.com/ | gap | weaker | 2026-11-16 |
+| pjsroofing.com | roof inspection in frederick | 2 | 50 | https://pjsroofing.com/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | roofing frederick md | 12 | 480 | https://politzenterprises.com/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | dutch lap vs clapboard | 14 | 480 | https://politzenterprises.com/choosing-dutch-lap-or-clapboard-siding/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | dutch lap vs clapboard siding | 18 | 390 | https://politzenterprises.com/choosing-dutch-lap-or-clapboard-siding/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | roofing contractors frederick md | 3 | 320 | https://politzenterprises.com/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | roofing companies frederick md | 4 | 260 | https://politzenterprises.com/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | roof replacement frederick | 10 | 260 | https://politzenterprises.com/roof-repair-services-frederick-md/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | roofers in frederick md | 5 | 210 | https://politzenterprises.com/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | roof maintenance frederick md | 7 | 210 | https://politzenterprises.com/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | roof frederick md | 9 | 210 | https://politzenterprises.com/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | roof installation frederick md | 20 | 210 | https://politzenterprises.com/roof-repair-services-frederick-md/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | residential roofing frederick md | 8 | 170 | https://politzenterprises.com/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | roof repair company frederick md | 15 | 170 | https://politzenterprises.com/roof-repair-services-frederick-md/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | roofing contractor in frederick md | 5 | 140 | https://politzenterprises.com/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | roofing contractor in frederick | 5 | 140 | https://politzenterprises.com/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | new residential roof frederick md | 7 | 140 | https://politzenterprises.com/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | best roofing material for maryland | 10 | 140 | https://politzenterprises.com/eight-most-durable-long-lasting-roof-materials-maryland/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | frederick roof repair | 15 | 140 | https://politzenterprises.com/roof-repair-services-frederick-md/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | roofing companies frederick maryland | 5 | 110 | https://politzenterprises.com/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | roofing service frederick md | 5 | 110 | https://politzenterprises.com/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | residential roof repair frederick md | 16 | 110 | https://politzenterprises.com/roof-repair-services-frederick-md/ | targeted | strength | 2026-11-16 |
+| politzenterprises.com | roofing company frederick | 3 | 90 | https://politzenterprises.com/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | roofing services in frederick md | 4 | 90 | https://politzenterprises.com/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | maintenance free siding frederick md | 3 | 90 | https://politzenterprises.com/everything-you-need-to-know-about-siding-installations-in-frederick-md/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | new siding frederick md | 5 | 90 | https://politzenterprises.com/everything-you-need-to-know-about-siding-installations-in-frederick-md/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | roofing companies frederick | 5 | 90 | https://politzenterprises.com/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | residential siding frederick md | 9 | 90 | https://politzenterprises.com/everything-you-need-to-know-about-siding-installations-in-frederick-md/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | frederick synthetic shingles | 2 | 70 | https://politzenterprises.com/composite-roofing/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | frederick md roofing company | 3 | 70 | https://politzenterprises.com/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | best vinyl siding brands frederick md | 5 | 70 | https://politzenterprises.com/everything-you-need-to-know-about-siding-installations-in-frederick-md/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | roofer in frederick md | 5 | 70 | https://politzenterprises.com/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | home roofing contractors frederick md | 7 | 70 | https://politzenterprises.com/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | frederick siding | 10 | 70 | https://politzenterprises.com/everything-you-need-to-know-about-siding-installations-in-frederick-md/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | commercial roof replacement frederick | 12 | 70 | https://politzenterprises.com/roofing-services/commercial-roofing-contractors/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | townhouse roof repair | 5 | 70 | https://politzenterprises.com/7-frequently-asked-questions-about-townhouse-roof-replacement/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | roofing ellicott city md | 20 | 70 | https://politzenterprises.com/service-area/roofing-ellicott-city-md/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | repair roof frederick md | 14 | 70 | https://politzenterprises.com/roof-repair-services-frederick-md/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | storm damage roofing in frederick | 5 | 50 | https://politzenterprises.com/storm-damage-roof-repair-frederick-md/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | frederick flat roof replacement | 3 | 50 | https://politzenterprises.com/flat-roofing/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | frederick rubber roof replacement | 3 | 50 | https://politzenterprises.com/flat-roofing/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | lp siding frederick | 2 | 50 | https://politzenterprises.com/lp-smartside-siding/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | roof inspection in frederick | 19 | 50 | https://politzenterprises.com/roof-repair-services-frederick-md/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | frederick flat roof repair | 6 | 50 | https://politzenterprises.com/flat-roofing/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | roof replacement companies frederick | 19 | 50 | https://politzenterprises.com/roof-repair-services-frederick-md/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | hardie board siding maryland | 13 | 50 | https://politzenterprises.com/hardie-board-siding/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | siding replacement frederick md | 12 | 50 | https://politzenterprises.com/everything-you-need-to-know-about-siding-installations-in-frederick-md/ | gap | weaker | 2026-11-16 |
+| politzenterprises.com | roof rejuvenation frederick md | 11 | 50 | https://politzenterprises.com/roof-repair-services-frederick-md/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | frederick roofing repair | 16 | 50 | https://politzenterprises.com/roof-repair-services-frederick-md/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | frederick rubber roof repair | 6 | 50 | https://politzenterprises.com/flat-roofing/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | roofing contractor ellicott city md | 15 | 50 | https://politzenterprises.com/service-area/roofing-ellicott-city-md/ | gap | missing | 2026-11-16 |
+| politzenterprises.com | flashing repair frederick | 10 | 40 | https://politzenterprises.com/roof-repair-services-frederick-md/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | roofers in frederick maryland | 6 | 40 | https://politzenterprises.com/ | gap | strength | 2026-11-16 |
+| politzenterprises.com | slate roofing ellicott city md | 7 | 40 | https://politzenterprises.com/service-area/roofing-ellicott-city-md/ | gap | missing | 2026-11-16 |
+| teoroofing.com | roofing contractor frederick md | 19 | 320 | https://teoroofing.com/ | gap | strength | 2026-11-16 |
+| teoroofing.com | roof installation frederick md | 10 | 210 | https://www.teoroofing.com/ | gap | strength | 2026-11-16 |
+| teoroofing.com | roofing installation frederick md | 17 | 210 | https://www.teoroofing.com/ | gap | strength | 2026-11-16 |
+| teoroofing.com | residential roof repair frederick md | 14 | 110 | https://www.teoroofing.com/ | targeted | strength | 2026-11-16 |
+| teoroofing.com | frederick md roofing | 20 | 110 | https://www.teoroofing.com/ | gap | strength | 2026-11-16 |
+| teoroofing.com | roof repair in frederick md | 17 | 90 | https://teoroofing.com/ | gap | strength | 2026-11-16 |
+| teoroofing.com | home roofing contractors frederick md | 20 | 70 | https://www.teoroofing.com/ | gap | strength | 2026-11-16 |
+| teoroofing.com | roofing services frederick md | 16 | 70 | https://www.teoroofing.com/ | gap | strength | 2026-11-16 |
+| teoroofing.com | roofing services charles town wv | 20 | 50 | https://www.teoroofing.com/locations/west-virginia/charles-town | gap | missing | 2026-11-16 |
+| teoroofing.com | frederick md roofing contractors | 16 | 50 | https://www.teoroofing.com/ | gap | strength | 2026-11-16 |
+| teoroofing.com | roof replacement company frederick md | 18 | 50 | https://www.teoroofing.com/ | gap | strength | 2026-11-16 |
+| teoroofing.com | roofers near me frederick | 19 | 40 | https://teoroofing.com/ | gap | missing | 2026-11-16 |
+| teoroofing.com | roof repairs charles town wv | 16 | 40 | https://www.teoroofing.com/locations/west-virginia/charles-town | gap | missing | 2026-11-16 |
+| topperconstruction.com | frederick county roofing company | 10 | 480 | https://www.topperconstruction.com/frederick-county-roofer/ | gap | weaker | 2026-11-16 |
+| topperconstruction.com | what is a roof gable | 8 | 480 | https://www.topperconstruction.com/roofing/what-are-roof-gables/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | roof gables | 8 | 390 | https://www.topperconstruction.com/roofing/what-are-roof-gables/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | frederick county roof repair | 12 | 390 | https://www.topperconstruction.com/frederick-county-roofer/ | gap | strength | 2026-11-16 |
+| topperconstruction.com | roofing contractor frederick md | 11 | 320 | https://www.topperconstruction.com/frederick-county-roofer/ | gap | strength | 2026-11-16 |
+| topperconstruction.com | metal roofing frederick county | 12 | 320 | https://www.topperconstruction.com/roofing/frederick-metal-roofing/ | gap | strength | 2026-11-16 |
+| topperconstruction.com | roof repair hagerstown md | 13 | 210 | https://www.topperconstruction.com/hagerstown-md-roofer/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | what are gables on a roof | 5 | 170 | https://www.topperconstruction.com/roofing/what-are-roof-gables/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | roof repair company frederick md | 17 | 170 | https://www.topperconstruction.com/roofing/leading-frederick-roofing-contractor/ | gap | weaker | 2026-11-16 |
+| topperconstruction.com | roofing companies in carroll county maryland | 9 | 110 | https://www.topperconstruction.com/carroll-county-roofer/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | residential roof repair frederick md | 17 | 110 | https://www.topperconstruction.com/frederick-county-roofer/ | targeted | strength | 2026-11-16 |
+| topperconstruction.com | frederick roof replacement | 20 | 110 | https://www.topperconstruction.com/roofing/leading-frederick-roofing-contractor/ | gap | strength | 2026-11-16 |
+| topperconstruction.com | roofer frederick | 15 | 110 | https://www.topperconstruction.com/frederick-county-roofer/ | gap | strength | 2026-11-16 |
+| topperconstruction.com | roof coating shrinking | 6 | 90 | https://www.topperconstruction.com/roofing/do-you-need-to-worry-about-your-roof-shrinking/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | roof inspections and maintenance frederick md | 7 | 90 | https://www.topperconstruction.com/roofing/inspections-roofing-company-frederick-md/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | free roofing estimate frederick md | 9 | 90 | https://www.topperconstruction.com/tag/frederick-maryland/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | commercial roof repair hagerstown md | 11 | 90 | https://www.topperconstruction.com/roofing/commercial-roofing-lifecycles-hagerstown-frederick/ | gap | weaker | 2026-11-16 |
+| topperconstruction.com | hagerstown roof repair | 17 | 90 | https://www.topperconstruction.com/hagerstown-md-roofer/ | gap | weaker | 2026-11-16 |
+| topperconstruction.com | fall gutters | 3 | 70 | https://www.topperconstruction.com/gutters/get-your-gutters-and-downspouts-ready-for-fall/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | commercial roofing hagerstown md | 4 | 70 | https://www.topperconstruction.com/tag/commercial-roofing-hagerstown-md/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | best vinyl siding brands frederick md | 9 | 70 | https://www.topperconstruction.com/siding/3-fantastic-choices-for-vinyl-siding/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | hagerstown siding repair | 7 | 70 | https://www.topperconstruction.com/hagerstown-md-roofer/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | commercial roof replacement frederick | 8 | 70 | https://www.topperconstruction.com/tag/commercial-roofing-frederick-county-md/ | gap | weaker | 2026-11-16 |
+| topperconstruction.com | frederick md roofing company | 18 | 70 | https://www.topperconstruction.com/frederick-county-roofer/ | gap | weaker | 2026-11-16 |
+| topperconstruction.com | roofing montgomery county md | 6 | 50 | https://www.topperconstruction.com/montgomery-county-roofer/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | hagerstown md siding contractors | 4 | 50 | https://www.topperconstruction.com/hagerstown-md-roofer/ | targeted | missing | 2026-11-16 |
+| topperconstruction.com | siding hagerstown md | 13 | 50 | https://www.topperconstruction.com/hagerstown-md-roofer/ | targeted | weaker | 2026-11-16 |
+| topperconstruction.com | lp siding frederick | 17 | 50 | https://www.topperconstruction.com/general-contractors/lp-smartside/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | roof inspection in frederick | 13 | 50 | https://www.topperconstruction.com/roofing/inspections-roofing-company-frederick-md/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | roof replacement companies frederick | 20 | 50 | https://www.topperconstruction.com/roofing/leading-frederick-roofing-contractor/ | gap | strength | 2026-11-16 |
+| topperconstruction.com | frederick roofing repair | 14 | 50 | https://www.topperconstruction.com/roofing/leading-frederick-roofing-contractor/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | roofing company federalsburg md | 4 | 40 | https://www.topperconstruction.com/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | roof tile freeze thaw cycle | 9 | 40 | https://www.topperconstruction.com/roofing/freeze-thaw-cycles-in-maryland-the-silent-roof-damage-you-dont-see/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | flashing repair frederick | 11 | 40 | https://www.topperconstruction.com/roofing/flashing-roofing-company-frederick-maryland/ | gap | strength | 2026-11-16 |
+| topperconstruction.com | residential roofers frederick md | 19 | 40 | https://www.topperconstruction.com/frederick-county-roofer/ | gap | strength | 2026-11-16 |
+| topperconstruction.com | roofing companies montgomery | 16 | 40 | https://www.topperconstruction.com/montgomery-county-roofer/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | commercial roofing maintenance plans hagerstown md | 3 | 30 | https://www.topperconstruction.com/roofing/commercial-roofing-lifecycles-hagerstown-frederick/ | gap | missing | 2026-11-16 |
+| topperconstruction.com | hagerstown roofing contractor | 14 | 30 | https://www.topperconstruction.com/roofing/hagerstown-roofing-companies/ | gap | weaker | 2026-11-16 |
+| frederickroofrepair.com | roof fixing company | 1 | 30 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| frederickroofrepair.com | roof repair winter | 1 | 40 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| frederickroofrepair.com | roofer myersville | 1 | 40 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| frederickroofrepair.com | winter roof repair | 1 | 110 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| frederickroofrepair.com | can you do a roof in the winter | 2 | 70 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| frederickroofrepair.com | do roofers work in the winter | 2 | 140 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| frederickroofrepair.com | frederick roofing contractors | 2 | 50 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| frederickroofrepair.com | frederick rubber roof replacement | 2 | 50 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| frederickroofrepair.com | roof repair in md | 2 | 50 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| frederickroofrepair.com | roofing in the winter | 2 | 90 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| frederickroofrepair.com | roofing repair and installation | 2 | 70 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| frederickroofrepair.com | 9-12 pitch roof | 3 | 50 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| frederickroofrepair.com | can you get a new roof in the winter | 3 | 50 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| pjsroofing.com | best roof shape for high winds | 1 | 50 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| pjsroofing.com | plastic slate roof tiles | 1 | 30 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| pjsroofing.com | synthetic slate roofing shingles | 1 | 110 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| pjsroofing.com | artificial slate roof | 2 | 110 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| pjsroofing.com | asphalt shingle underlayment | 2 | 50 | — (gap report, no URL) | gap | missing | 2026-11-17 |
+| pjsroofing.com | energy efficient roofing solutions | 2 | 50 | — (gap report, no URL) | gap | missing | 2026-11-17 |

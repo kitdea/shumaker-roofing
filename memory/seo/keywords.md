@@ -44,3 +44,19 @@
 | frederick md siding contractors | commercial | siding-frederick | qa-failed | 2026-08-07 | 70 | unvalidated |
 | hagerstown md siding contractors | local | siding-frederick | qa-failed | 2026-08-07 | 50 | unvalidated |
 | siding hagerstown md | local | siding-frederick | qa-failed | 2026-08-07 | 50 | unvalidated |
+| commercial roofing frederick md | local | commercial-flat | researched | 2026-11-17 | 210 | 13 |
+| commercial roofing contractors maryland | local | commercial-flat | researched | 2026-11-17 | 170 | 18 |
+| commercial roofing maryland | local | commercial-flat | researched | 2026-11-17 | 140 | 11 |
+| commercial roof repair frederick md | local | commercial-flat | researched | 2026-11-17 | 70 | 9 |
+| commercial roof replacement frederick | local | commercial-flat | researched | 2026-11-17 | 70 | 6 |
+| frederick flat roof replacement | local | commercial-flat | researched | 2026-11-17 | 50 | 4 |
+| frederick flat roof repair | local | commercial-flat | researched | 2026-11-17 | 50 | 2 |
+| frederick rubber roof repair | local | commercial-flat | researched | 2026-11-17 | 50 | 2 |
+| commercial roof coating | commercial | commercial-flat | researched | 2026-11-17 | 2900 | 11 |
+| commercial roof restoration | commercial | commercial-flat | researched | 2026-11-17 | 2400 | 9 |
+| commercial flat roof repair | commercial | commercial-flat | researched | 2026-11-17 | 1900 | 2 |
+| commercial flat roof replacement | commercial | commercial-flat | researched | 2026-11-17 | 1300 | 13 |
+| commercial roof maintenance | informational | commercial-flat-blog | researched | 2026-11-17 | 5400 | 18 |
+| flat roof maintenance | informational | commercial-flat-blog | researched | 2026-11-17 | 1900 | 8 |
+| roof restoration vs replacement | informational | commercial-flat-blog | researched | 2026-11-17 | 320 | 10 |
+| how long does a flat roof last | informational | commercial-flat-blog | researched | 2026-11-17 | 260 | 1 |
